@@ -1,0 +1,28 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+[keybindings]
+  broadcast_all = <Super>a
+  broadcast_group = <Super>g
+  broadcast_off = <Super>b
+  cycle_next = <Super>Tab
+  edit_window_title = <Super>t
+  full_screen = <Super>f
+  go_down = <Super>j
+  go_left = <Super>h
+  go_right = <Super>l
+  go_up = <Super>k
+  layout_launcher = <Shift><Super>l
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    scroll_on_output = False
+    scrollback_lines = 10000

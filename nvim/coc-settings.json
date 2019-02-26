@@ -1,0 +1,14 @@
+{
+    "java.home": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/",
+    "coc.preferences.echodocSupport": true,
+    "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+         "cacheDirectory": "/tmp/ccls"
+       }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/ryan/.local/bin'
+let g:netrw_dirhist_2='/home/ryan/Documents/cs_143/cs_143_homework/proj_3/training_logs'
+let g:netrw_dirhist_3='/home/ryan/Documents/cs_143/cs_143_homework/proj_3/training_logs/full_run_1_aug'
+let g:netrw_dirhist_4='/home/ryan/Documents/cs_143/cs_143_homework/proj_3/training_logs/full_run_3_aug'
+let g:netrw_dirhist_5='/home/ryan/Documents/cs_18/javaproject/gen_test'
+let g:netrw_dirhist_6='/home/ryan/Documents/apma_350/apma_350_hw/hw_3/results'
+let g:netrw_dirhist_7='/home/ryan/Documents/apma_1160'
+let g:netrw_dirhist_8='/home/ryan/Documents/apma_2822b/lectures/l_5/build'
+let g:netrw_dirhist_9='/home/ryan/Documents/apma_2822b/lectures/l_5/src'
