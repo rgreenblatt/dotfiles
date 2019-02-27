@@ -112,12 +112,14 @@ noremap <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
 noremap <silent> <A-m>t :tabe term://bash<CR>
 noremap <silent> <A-,>t :sp term://bash<CR>
 noremap <silent> <A-.>t :vs term://bash<CR>
+noremap <silent> <A-/>t :te<CR>
 
 noremap <silent> <A-m>s :tabe<CR>:Startify<CR>
 noremap <silent> <A-,>s :sp<CR>:Startify<CR>
 noremap <silent> <A-.>s :vs<CR>:Startify<CR>
+noremap <silent> <A-/>s :Startify<CR>
 
-noremap <silent> <A-/> :cd %:p:h<CR>
+noremap <silent> <A-t> :cd %:p:h<CR>
 
 noremap <silent> <A-z> :noh<CR>
 
@@ -129,12 +131,14 @@ noremap! <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
 noremap! <silent> <A-m>t <esc>:tabe term://bash<CR>
 noremap! <silent> <A-,>t <esc>:sp term://bash<CR>
 noremap! <silent> <A-.>t <esc>:vs term://bash<CR>
+noremap! <silent> <A-/>t <esc>:te<CR>
 
 noremap! <silent> <A-m>s <esc>:tabe<CR>:Startify<CR>
 noremap! <silent> <A-,>s <esc>:sp<CR>:Startify<CR>
 noremap! <silent> <A-.>s <esc>:vs<CR>:Startify<CR>
+noremap! <silent> <A-/>s <esc>:Startify<CR>
 
-noremap! <silent> <A-/> <esc>:cd %:p:h<CR>i
+noremap! <silent> <A-t> <esc>:cd %:p:h<CR>i
 
 noremap! <silent> <A-z> <esc>:noh<CR>i
 
@@ -147,12 +151,14 @@ tnoremap <silent> <A-j> <C-\><C-n>:call Focus('down', 'j')<CR>
 tnoremap <silent> <A-m>t <C-\><C-n>:tabe term://bash<CR>
 tnoremap <silent> <A-,>t <C-\><C-n>:sp term://bash<CR>
 tnoremap <silent> <A-.>t <C-\><C-n>:vs term://bash<CR>
+tnoremap <silent> <A-/>t <C-\><C-n>:te<CR>
 
 tnoremap <silent> <A-m>s <C-\><C-n>:tabe<CR>:Startify<CR>
 tnoremap <silent> <A-,>s <C-\><C-n>:sp<CR>:Startify<CR>
 tnoremap <silent> <A-.>s <C-\><C-n>:vs<CR>:Startify<CR>
+tnoremap <silent> <A-/>s <C-\><C-n>:Startify<CR>
 
-tnoremap <silent> <A-/> <C-\><C-n>:cd %:p:h<CR>i
+tnoremap <silent> <A-t> <C-\><C-n>:cd %:p:h<CR>i
 
 tnoremap <silent> <A-z> <C-\><C-n>:noh<CR>i
 
@@ -198,9 +204,12 @@ nmap <leader>i <Plug>(coc-implementation)
 nmap <leader>u <Plug>(coc-references)
 
 "java doc commenting
-noremap <silent> <leader>c <esc>:JavaDocComment<CR>
+noremap <silent> <leader>j <esc>:JavaDocComment<CR>
 
 noremap <silent> <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
+
+noremap <leader>c "+
+noremap! <leader>c "+
 
 "show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -244,7 +253,7 @@ let g:insert_char_no_default_mapping = 1
 nmap ; <Plug>InsertChar
     
 let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
-      \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}]
+      \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'}]
 let g:startify_custom_header = []
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
@@ -253,3 +262,5 @@ let g:startify_lists = [
       \ { 'type': 'files',     'header': ['   Recent']            },
       \ { 'type': 'dir',       'header': ['   Recent: '. getcwd()] },
       \ ]
+
+let g:wordmotion_prefix = ','

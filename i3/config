@@ -50,9 +50,9 @@ bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master unmute -q && amix
 bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle -q"
 
 bindsym XF86MonBrightnessUp exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose |grep Brightness |grep -o '[0-9].*')+0.1" | bc)
+  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')+0.1" | bc)
 bindsym XF86MonBrightnessDown exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose |grep Brightness |grep -o '[0-9].*')-0.1" | bc)
+  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')-0.1" | bc)
 
 bindsym $mod+grave exec "toggle-touchpad"
 
@@ -66,6 +66,8 @@ bindsym $mod+y exec "arrowkey left"
 bindsym $mod+u exec "arrowkey down"
 bindsym $mod+i exec "arrowkey up"
 bindsym $mod+o exec "arrowkey right"
+
+bindsym $mod+Shift+f exec ranger_new_window
 
 ## alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
