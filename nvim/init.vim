@@ -208,9 +208,6 @@ noremap <silent> <leader>j <esc>:JavaDocComment<CR>
 
 noremap <silent> <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
 
-noremap <leader>c "+
-noremap! <leader>c "+
-
 "show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -250,8 +247,12 @@ let g:clever_f_fix_key_direction = 1
 let g:clever_f_timeout_ms = 3000
 
 let g:insert_char_no_default_mapping = 1
-nmap ; <Plug>InsertChar
-    
+nmap <leader>s <Plug>InsertChar
+
+noremap ;j "+
+
+nmap ; "
+
 let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
       \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'}]
 let g:startify_custom_header = []
