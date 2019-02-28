@@ -1,2 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/ryan/Documents/scaling-darts/logs'
+let g:netrw_dirhist_2='/home/ryan/Documents/scaling-darts/data'
+let g:netrw_dirhist_3='/home/ryan/Documents/scaling-darts/augments'
+let g:netrw_dirhist_4='/home/ryan/Documents/scaling-darts/assets'

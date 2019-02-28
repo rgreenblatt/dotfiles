@@ -1,13 +1,5 @@
 "TODO:
-"marks (also vim-mark) - nice af
-"folds - nice af
-"vim fugitive - nice af
-"coc - great, but sometimes buggy
-"surround - learning
-"vim lion - still working on it, but good
-"ex type commands - ***
 "fzf - not sold yet
-"so much....
 
 set nocompatible
 filetype off
@@ -43,8 +35,10 @@ Plug 'TaDaa/vimade'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'rhysd/clever-f.vim'
 Plug 'chaoren/vim-wordmotion'
-Plug 'rjayatilleka/vim-insert-char'
+Plug 'rgreenblatt/vim-insert-char'
 Plug 'mhinz/vim-startify'
+Plug 'wesQ3/vim-windowswap'
+Plug 'vim-scripts/restore_view.vim'
 call plug#end()
 filetype plugin indent on
 
@@ -52,6 +46,7 @@ filetype plugin indent on
 set relativenumber
 set number
 set undofile
+set viewoptions=cursor,folds,slash,unix
 
 "large registers
 set viminfo='19,<1000,s1000
@@ -85,8 +80,6 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
-au FocusLost * :wa
-
 "java specific tab settings
 autocmd Filetype java setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
 
@@ -102,6 +95,9 @@ inoremap jk <esc>
 
 "term esc
 tnoremap <A-n> <C-\><C-n>
+
+"command mode navigation
+cnoremap <C-A> <Home>
 
 "general alt key maps
 noremap <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
@@ -119,7 +115,17 @@ noremap <silent> <A-,>s :sp<CR>:Startify<CR>
 noremap <silent> <A-.>s :vs<CR>:Startify<CR>
 noremap <silent> <A-/>s :Startify<CR>
 
+noremap <silent> <A-m>f :tabe %<CR>
+noremap <silent> <A-,>f :sp<CR>
+noremap <silent> <A-.>f :vs<CR>
+
 noremap <silent> <A-t> :cd %:p:h<CR>
+
+noremap <silent> <A-g>m <C-w>_<C-w><bar>
+noremap <silent> <A-g>e <C-w>=
+
+noremap <silent> <A-g>n :set number<CR>:set norelativenumber<CR>
+noremap <silent> <A-g>r :set number<CR>:set relativenumber<CR>
 
 noremap <silent> <A-z> :noh<CR>
 
@@ -133,15 +139,24 @@ noremap! <silent> <A-,>t <esc>:sp term://bash<CR>
 noremap! <silent> <A-.>t <esc>:vs term://bash<CR>
 noremap! <silent> <A-/>t <esc>:te<CR>
 
+noremap! <silent> <A-m>f <esc>:tabe %<CR>
+noremap! <silent> <A-,>f <esc>:sp <CR>
+noremap! <silent> <A-.>f <esc>:vs <CR>
+
 noremap! <silent> <A-m>s <esc>:tabe<CR>:Startify<CR>
 noremap! <silent> <A-,>s <esc>:sp<CR>:Startify<CR>
 noremap! <silent> <A-.>s <esc>:vs<CR>:Startify<CR>
 noremap! <silent> <A-/>s <esc>:Startify<CR>
 
-noremap! <silent> <A-t> <esc>:cd %:p:h<CR>i
+noremap! <silent> <A-t> <esc>:cd %:p:h<CR>a
 
-noremap! <silent> <A-z> <esc>:noh<CR>i
+noremap! <silent> <A-z> <esc>:noh<CR>a
 
+noremap! <silent> <A-g>m  <esc><C-w>_<C-w><bar>
+noremap! <silent> <A-g>e  <esc><C-w>=
+
+noremap! <silent> <A-g>n <esc>:set number<CR>:set norelativenumber<CR>a
+noremap! <silent> <A-g>r <esc>:set number<CR>:set relativenumber<CR>a
 
 tnoremap <silent> <A-l> <C-\><C-n>:call Focus('right', 'l')<CR>
 tnoremap <silent> <A-h> <C-\><C-n>:call Focus('left', 'h')<CR>
@@ -158,23 +173,28 @@ tnoremap <silent> <A-,>s <C-\><C-n>:sp<CR>:Startify<CR>
 tnoremap <silent> <A-.>s <C-\><C-n>:vs<CR>:Startify<CR>
 tnoremap <silent> <A-/>s <C-\><C-n>:Startify<CR>
 
+tnoremap <silent> <A-m>f <C-\><C-n>:tabe %<CR>
+tnoremap <silent> <A-,>f <C-\><C-n>:sp<CR>
+tnoremap <silent> <A-.>f <C-\><C-n>:vs<CR>
+
 tnoremap <silent> <A-t> <C-\><C-n>:cd %:p:h<CR>i
+
+tnoremap <silent> <A-g>m <C-\><C-n><C-w>_<C-w><bar>
+tnoremap <silent> <A-g>e <C-\><C-n><C-w>=
+
+tnoremap <silent> <A-g>n <C-\><C-n>:set number<CR>:set norelativenumber<CR>i
+tnoremap <silent> <A-g>r <C-\><C-n>:set number<CR>:set relativenumber<CR>i
 
 tnoremap <silent> <A-z> <C-\><C-n>:noh<CR>i
 
-
 "completion
 inoremap <A-p> <C-x><C-u>
-
-"remap f keys
-noremap <F4> <C-w>_
-noremap <F5> <C-w><bar>
-noremap <F6> <C-w>=
 
 " Go to last active tab
 if !exists('g:lasttab')
   let g:lasttab = 1
 endif
+
 nmap <silent> <A-Tab> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
@@ -190,9 +210,9 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Use `[c` and `]c` for navigate diagnostics
-"nmap <silent> [c <Plug>(coc-diagnostic-prev)
-"nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Use `[g` and `]g` for navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 "change leader
 map <space> \
@@ -248,10 +268,12 @@ let g:clever_f_timeout_ms = 3000
 
 let g:insert_char_no_default_mapping = 1
 nmap <leader>s <Plug>InsertChar
+nmap <leader>S <Plug>InsertCharAfter
 
 noremap ;j "+
+vnoremap ;j "+
 
-nmap ; "
+map ; "
 
 let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
       \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'}]
@@ -261,7 +283,12 @@ let g:startify_lists = [
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ { 'type': 'files',     'header': ['   Recent']            },
-      \ { 'type': 'dir',       'header': ['   Recent: '. getcwd()] },
       \ ]
 
-let g:wordmotion_prefix = ','
+"possible additonal entry
+"      \ { 'type': 'dir',       'header': ['   Recent: '. getcwd()] },
+
+let g:wordmotion_prefix = '"'
+let g:windowswap_map_keys = 0
+
+nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
