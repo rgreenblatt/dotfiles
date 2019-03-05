@@ -1,16 +1,35 @@
 "TODO:
-"fzf - not sold yet
+"fzf - not sold yet 
 
+"serious changes or remaps:
+map Y y$
+
+"map <leader>j ]
+"map <leader>k [
+
+"clever-f
+
+inoremap kj <esc>
+inoremap jk <esc>
+
+noremap ,m "_
+vnoremap ,m "_
+
+noremap ,j "+
+vnoremap ,j "+
+
+map , "
+
+"plugins
 set nocompatible
 filetype off
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'dansomething/vim-eclim'
+" Plug 'dansomething/vim-eclim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'rust-lang/rust.vim'
 Plug 'wikitopian/hardmode'
 Plug 'inkarkat/vim-CountJump'
 Plug 'wellle/targets.vim'
-Plug 'wellle/line-targets.vim'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-mark'
 Plug 'itchyny/lightline.vim'
@@ -39,12 +58,19 @@ Plug 'rgreenblatt/vim-insert-char'
 Plug 'mhinz/vim-startify'
 Plug 'wesQ3/vim-windowswap'
 Plug 'vim-scripts/restore_view.vim'
+Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'rgreenblatt/scratch.vim'
+Plug 'rgreenblatt/vim-ninja-feet'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-fold'
 call plug#end()
 filetype plugin indent on
 
-"---basic quality of life---
+"number settings
 set relativenumber
 set number
+
+"view settings
 set undofile
 set viewoptions=cursor,folds,slash,unix
 
@@ -57,8 +83,10 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 
+"red terminal cursor
 highlight TermCursor ctermfg=red guifg=red
 
+"better menu tab completion
 set wildmode=longest,list,full
 set wildmenu
 
@@ -66,7 +94,7 @@ set wildmenu
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 
-"https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+"mkdir as needed https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
 function s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -80,26 +108,17 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
-"java specific tab settings
 autocmd Filetype java setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
 
 "auto indent for tex is garbage
 autocmd Filetype tex setlocal indentexpr=
-"autocmd Filetype tex call CountJump#TextObject#MakeWithCountSearch('<buffer>', '$', 'ai', 'v', '\$', '\$')
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
-
-"---remaps---
-inoremap kj <esc>
-inoremap jk <esc>
-
-"term esc
-tnoremap <A-n> <C-\><C-n>
 
 "command mode navigation
 cnoremap <C-A> <Home>
 
-"general alt key maps
+"alt key maps
 noremap <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
 noremap <silent> <A-h> <esc>:call Focus('left', 'h')<CR>
 noremap <silent> <A-k> <esc>:call Focus('up', 'k')<CR>
@@ -188,7 +207,17 @@ tnoremap <silent> <A-g>r <C-\><C-n>:set number<CR>:set relativenumber<CR>i
 tnoremap <silent> <A-z> <C-\><C-n>:noh<CR>i
 
 "completion
-inoremap <A-p> <C-x><C-u>
+inoremap <A-p> <C-x><C-U>
+
+"term esc
+tnoremap <A-n> <C-\><C-n>
+
+"open git locally
+let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+autocmd FileType gitcommit set bufhidden=delete
+
+"do I need this
+set guicursor=
 
 " Go to last active tab
 if !exists('g:lasttab')
@@ -198,6 +227,7 @@ endif
 nmap <silent> <A-Tab> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+"coc options
 " use <tab> for trigger completion and navigate to next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -211,11 +241,11 @@ inoremap <silent><expr> <TAB>
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use `[g` and `]g` for navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap [g <Plug>(coc-diagnostic-prev)
+nmap ]g <Plug>(coc-diagnostic-next)
 
 "change leader
-map <space> \
+map <space> <leader>
 
 " Remap keys for gotos
 nmap <leader>d <Plug>(coc-definition)
@@ -223,10 +253,20 @@ nmap <leader>t <Plug>(coc-type-definition)
 nmap <leader>i <Plug>(coc-implementation)
 nmap <leader>u <Plug>(coc-references)
 
-"java doc commenting
-noremap <silent> <leader>j <esc>:JavaDocComment<CR>
+" format
+nmap <leader>f <Plug>(coc-format-selected)
+vmap <leader>f <Plug>(coc-format-selected)
 
-noremap <silent> <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
+nmap <leader>F <Plug>(coc-format)
+
+nmap <leader>e <Plug>(coc-rename)
+
+nmap <leader>t <Plug>(coc-fix-current)
+
+"java doc commenting (requires eclim/eclipse workspace)
+"noremap <silent> <leader>c <esc>:JavaDocComment<CR>
+
+noremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
 
 "show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -239,8 +279,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-"---misc---
-"lightline config
+"lightline options
 let g:lightline = {
       \ 'colorscheme': 'srcery_drk',
       \ 'active': {
@@ -253,31 +292,25 @@ let g:lightline = {
       \ }
       \ }
 
-"open git locally
-let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-autocmd FileType gitcommit set bufhidden=delete
-
-"do I need this
-set guicursor=
-
 let b:lion_squeeze_spaces = 1
 
+"cleverf options
 let g:clever_f_across_no_line = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_timeout_ms = 3000
 
+"insertchar options
 let g:insert_char_no_default_mapping = 1
 nmap <leader>s <Plug>InsertChar
 nmap <leader>S <Plug>InsertCharAfter
 
-noremap ;j "+
-vnoremap ;j "+
+let g:wordmotion_prefix = ';'
 
-map ; "
-
+"startify options
 let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
-      \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'}]
-let g:startify_custom_header = []
+      \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'},
+      \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, {'s': '~/.config/i3status/config'}]
+
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -288,7 +321,24 @@ let g:startify_lists = [
 "possible additonal entry
 "      \ { 'type': 'dir',       'header': ['   Recent: '. getcwd()] },
 
-let g:wordmotion_prefix = '"'
-let g:windowswap_map_keys = 0
+let g:startify_skiplist = [
+       \ 'init.vim',
+       \ 'config',
+       \ 'config.py'
+       \ ]
 
+let g:startify_custom_header =
+      \ map(split(system('cat /home/ryan/Documents/efficiency/TODO/TODO_LIST.txt'), '\n'), '"   ". v:val')
+
+"windowswap options 
+let g:windowswap_map_keys = 0
 nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
+
+"scratch options:
+let g:scratch_no_mappings = 1
+
+nmap gs <plug>(scratch-reuse)
+nmap gS <plug>(scratch-clear)
+
+xmap gs <plug>(scratch-selection-reuse)
+xmap gS <plug>(scratch-selection-clear)

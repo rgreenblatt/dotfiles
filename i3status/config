@@ -14,6 +14,7 @@ general {
     color_good = '#002b36'
     color_degraded = '#ccdc90'
     color_bad = '#e89393'
+    output_format = i3bar
 }
 
 order += "volume master"
