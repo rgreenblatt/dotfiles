@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/ryan/Documents/scaling-darts/logs'
 let g:netrw_dirhist_2='/home/ryan/Documents/scaling-darts/data'
 let g:netrw_dirhist_3='/home/ryan/Documents/scaling-darts/augments'
@@ -7,3 +7,4 @@ let g:netrw_dirhist_4='/home/ryan/Documents/scaling-darts/assets'
 let g:netrw_dirhist_5='/home/ryan/.local/share/nvim/plugged/vim-ninja-feet'
 let g:netrw_dirhist_6='/home/ryan/Documents/cs_18/javaproject/sol/hw04'
 let g:netrw_dirhist_7='/'
+let g:netrw_dirhist_8='/home/ryan/Documents/apma_2822b/lectures/l_5/src'

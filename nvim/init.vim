@@ -1,11 +1,8 @@
-"TODO:
-"fzf - not sold yet 
-
 "serious changes or remaps:
 map Y y$
 
-"map <leader>j ]
-"map <leader>k [
+map <leader>j ]
+map <leader>k [
 
 "clever-f
 
@@ -19,6 +16,8 @@ noremap ,j "+
 vnoremap ,j "+
 
 map , "
+
+map <space> <leader>
 
 "plugins
 set nocompatible
@@ -63,6 +62,7 @@ Plug 'rgreenblatt/scratch.vim'
 Plug 'rgreenblatt/vim-ninja-feet'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-fold'
+Plug 'flazz/vim-colorschemes'
 call plug#end()
 filetype plugin indent on
 
@@ -227,6 +227,29 @@ endif
 nmap <silent> <A-Tab> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+"fzf maps
+noremap <silent> <leader>gf <esc>:Files<CR>
+noremap <silent> <leader>gg <esc>:GFiles<CR>
+noremap <silent> <leader>gs <esc>:GFiles?<CR>
+noremap <silent> <leader>gb <esc>:Buffers<CR>
+noremap <silent> <leader>gr <esc>:Rg<CR>
+noremap <silent> <leader>gl <esc>:BLines<CR>
+noremap <silent> <leader>gal <esc>:Lines<CR>
+noremap <silent> <leader>gt <esc>:BTags<CR>
+noremap <silent> <leader>gat <esc>:Tags<CR>
+noremap <silent> <leader>gm <esc>:Marks<CR>
+noremap <silent> <leader>gw <esc>:Windows<CR>
+noremap <silent> <leader>gh <esc>:History<CR>
+noremap <silent> <leader>g: <esc>:History:<CR>
+noremap <silent> <leader>g/ <esc>:History/<CR>
+noremap <silent> <leader>gp <esc>:Snippets<CR>
+noremap <silent> <leader>gc <esc>:BCommits<CR>
+noremap <silent> <leader>gac <esc>:Commits<CR>
+noremap <silent> <leader>go <esc>:Commands<CR>
+noremap <silent> <leader>gn <esc>:Maps<CR>
+noremap <silent> <leader>gk <esc>:Helptags<CR>
+noremap <silent> <leader>gF <esc>:FileTypes<CR>
+
 "coc options
 " use <tab> for trigger completion and navigate to next complete item
 function! s:check_back_space() abort
@@ -244,9 +267,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nmap [g <Plug>(coc-diagnostic-prev)
 nmap ]g <Plug>(coc-diagnostic-next)
 
-"change leader
-map <space> <leader>
-
 " Remap keys for gotos
 nmap <leader>d <Plug>(coc-definition)
 nmap <leader>t <Plug>(coc-type-definition)
@@ -261,7 +281,7 @@ nmap <leader>F <Plug>(coc-format)
 
 nmap <leader>e <Plug>(coc-rename)
 
-nmap <leader>t <Plug>(coc-fix-current)
+nmap <leader>c <Plug>(coc-fix-current)
 
 "java doc commenting (requires eclim/eclipse workspace)
 "noremap <silent> <leader>c <esc>:JavaDocComment<CR>
@@ -342,3 +362,8 @@ nmap gS <plug>(scratch-clear)
 
 xmap gs <plug>(scratch-selection-reuse)
 xmap gS <plug>(scratch-selection-clear)
+
+noremap <silent> <leader>zf :VimadeFadeLevel 0.7<cr>
+noremap <silent> <leader>zF :VimadeFadeLevel 0.4<cr>
+
+colorscheme gruvbox
