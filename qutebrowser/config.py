@@ -1520,7 +1520,7 @@ c.window.title_format = '{perc}{title}{title_sep}qutebrowser'
 
 ## Default zoom level.
 ## Type: Perc
-c.zoom.default = '100%'
+c.zoom.default = '67%'
 
 ## Available zoom levels.
 ## Type: List of Perc
@@ -1710,6 +1710,7 @@ config.bind('yt', 'yank title')
 config.bind('yy', 'yank')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
+config.bind(' d', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/solarized-dark-all-sites.css ""')
 
 ## Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')

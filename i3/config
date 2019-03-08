@@ -50,11 +50,9 @@ bindsym $mod+Shift+v exec vnc
 
 bindsym $super+2 exec 2_screen.sh
 bindsym $super+4 exec 4_screen.sh
-bindsym $super+6 exec 6_screen.sh
-bindsym $super+8 exec 8_screen.sh
-bindsym $super+f exec flanked.sh
 bindsym $super+l exec just_laptop.sh
-bindsym $super+s exec single_large.sh
+bindsym $super+Shift+s exec single_large.sh
+bindsym $super+s exec single_small.sh
 
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1+"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1-"

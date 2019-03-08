@@ -1,8 +1,12 @@
 "serious changes or remaps:
 map Y y$
 
-map <leader>j ]
-map <leader>k [
+map <space>j ]
+map <space>k [
+map z<space>j z]
+map z<space>k z[
+map g<space>j g]
+map g<space>k g[
 
 "clever-f
 
@@ -18,6 +22,7 @@ vnoremap ,j "+
 map , "
 
 map <space> <leader>
+map <space><space> <leader><leader>
 
 "plugins
 set nocompatible
@@ -63,8 +68,26 @@ Plug 'rgreenblatt/vim-ninja-feet'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-fold'
 Plug 'flazz/vim-colorschemes'
+Plug 'Carpetsmoker/xdg_open.vim'
+Plug 'junegunn/limelight.vim'
+" Plug 'vim-scripts/YankRing.vim'
+Plug 'bfredl/nvim-miniyank'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+Plug 'ehamberg/vim-cute-python'
+Plug 'rgreenblatt/c-conceal'
 call plug#end()
 filetype plugin indent on
+ 
+"macros
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+noremap Q @@
+set lazyredraw
 
 "number settings
 set relativenumber
@@ -89,6 +112,11 @@ highlight TermCursor ctermfg=red guifg=red
 "better menu tab completion
 set wildmode=longest,list,full
 set wildmenu
+
+"conceal
+set conceallevel=2
+let g:tex_conceal="abdgm"
+noremap <leader><leader>c :<c-u>set <C-R>=&conceallevel ? 'conceallevel=0' : 'conceallevel=1'<CR><CR>
 
 "highlight column 110 to avoid going to long
 set colorcolumn=110
@@ -118,93 +146,54 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 "command mode navigation
 cnoremap <C-A> <Home>
 
-"alt key maps
+"general leader maps
+noremap <silent> <leader>lt :<c-u>sp term://bash<CR>
+noremap <silent> <leader>;t :<c-u>vs term://bash<CR>
+noremap <silent> <leader>,t :<c-u>tabe term://bash<CR>
+noremap <silent> <leader>.t :<c-u>te<CR>
+
+noremap <silent> <leader>ls :<c-u>sp<CR>:Startify<CR>
+noremap <silent> <leader>;s :<c-u>vs<CR>:Startify<CR>
+noremap <silent> <leader>,s :<c-u>tabe<CR>:Startify<CR>
+noremap <silent> <leader>.s :<c-u>Startify<CR>
+
+noremap <silent> <leader>lf :<c-u>sp<CR>
+noremap <silent> <leader>;f :<c-u>vs<CR>
+noremap <silent> <leader>,f :<c-u>tabe %<CR>
+
+noremap <silent> <leader>p :<c-u>cd %:p:h<CR>
+noremap <silent> <leader><leader>n :<c-u>set invrelativenumber<CR>
+noremap <silent> <leader><leader>w :<c-u>%s/\s\+$//<CR>:let @/=''<CR>
+noremap <silent> <leader>z :<c-u>noh<CR>
+
+noremap <silent> <leader>x :<c-u>x<CR>
+noremap <silent> <leader>q :<c-u>q<CR>
+noremap <silent> <leader>a :<c-u>qa<CR>
+
+map <leader>wj <C-w>-
+map <leader>wk <C-w>+
+map <leader>wl <C-w>>
+map <leader>wh <C-w><
+map <leader>ww <C-w><bar>
+map <leader>wt <C-w>_
+map <leader>we <C-w>=
+map <leader>wm <C-w><bar><C-w>_
+
+"alt window navigation
 noremap <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
 noremap <silent> <A-h> <esc>:call Focus('left', 'h')<CR>
 noremap <silent> <A-k> <esc>:call Focus('up', 'k')<CR>
 noremap <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
-
-noremap <silent> <A-m>t :tabe term://bash<CR>
-noremap <silent> <A-,>t :sp term://bash<CR>
-noremap <silent> <A-.>t :vs term://bash<CR>
-noremap <silent> <A-/>t :te<CR>
-
-noremap <silent> <A-m>s :tabe<CR>:Startify<CR>
-noremap <silent> <A-,>s :sp<CR>:Startify<CR>
-noremap <silent> <A-.>s :vs<CR>:Startify<CR>
-noremap <silent> <A-/>s :Startify<CR>
-
-noremap <silent> <A-m>f :tabe %<CR>
-noremap <silent> <A-,>f :sp<CR>
-noremap <silent> <A-.>f :vs<CR>
-
-noremap <silent> <A-t> :cd %:p:h<CR>
-
-noremap <silent> <A-g>m <C-w>_<C-w><bar>
-noremap <silent> <A-g>e <C-w>=
-
-noremap <silent> <A-g>n :set number<CR>:set norelativenumber<CR>
-noremap <silent> <A-g>r :set number<CR>:set relativenumber<CR>
-
-noremap <silent> <A-z> :noh<CR>
 
 noremap! <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
 noremap! <silent> <A-h> <esc>:call Focus('left', 'h')<CR>
 noremap! <silent> <A-k> <esc>:call Focus('up', 'k')<CR>
 noremap! <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
 
-noremap! <silent> <A-m>t <esc>:tabe term://bash<CR>
-noremap! <silent> <A-,>t <esc>:sp term://bash<CR>
-noremap! <silent> <A-.>t <esc>:vs term://bash<CR>
-noremap! <silent> <A-/>t <esc>:te<CR>
-
-noremap! <silent> <A-m>f <esc>:tabe %<CR>
-noremap! <silent> <A-,>f <esc>:sp <CR>
-noremap! <silent> <A-.>f <esc>:vs <CR>
-
-noremap! <silent> <A-m>s <esc>:tabe<CR>:Startify<CR>
-noremap! <silent> <A-,>s <esc>:sp<CR>:Startify<CR>
-noremap! <silent> <A-.>s <esc>:vs<CR>:Startify<CR>
-noremap! <silent> <A-/>s <esc>:Startify<CR>
-
-noremap! <silent> <A-t> <esc>:cd %:p:h<CR>a
-
-noremap! <silent> <A-z> <esc>:noh<CR>a
-
-noremap! <silent> <A-g>m  <esc><C-w>_<C-w><bar>
-noremap! <silent> <A-g>e  <esc><C-w>=
-
-noremap! <silent> <A-g>n <esc>:set number<CR>:set norelativenumber<CR>a
-noremap! <silent> <A-g>r <esc>:set number<CR>:set relativenumber<CR>a
-
 tnoremap <silent> <A-l> <C-\><C-n>:call Focus('right', 'l')<CR>
 tnoremap <silent> <A-h> <C-\><C-n>:call Focus('left', 'h')<CR>
 tnoremap <silent> <A-k> <C-\><C-n>:call Focus('up', 'k')<CR>
 tnoremap <silent> <A-j> <C-\><C-n>:call Focus('down', 'j')<CR>
-
-tnoremap <silent> <A-m>t <C-\><C-n>:tabe term://bash<CR>
-tnoremap <silent> <A-,>t <C-\><C-n>:sp term://bash<CR>
-tnoremap <silent> <A-.>t <C-\><C-n>:vs term://bash<CR>
-tnoremap <silent> <A-/>t <C-\><C-n>:te<CR>
-
-tnoremap <silent> <A-m>s <C-\><C-n>:tabe<CR>:Startify<CR>
-tnoremap <silent> <A-,>s <C-\><C-n>:sp<CR>:Startify<CR>
-tnoremap <silent> <A-.>s <C-\><C-n>:vs<CR>:Startify<CR>
-tnoremap <silent> <A-/>s <C-\><C-n>:Startify<CR>
-
-tnoremap <silent> <A-m>f <C-\><C-n>:tabe %<CR>
-tnoremap <silent> <A-,>f <C-\><C-n>:sp<CR>
-tnoremap <silent> <A-.>f <C-\><C-n>:vs<CR>
-
-tnoremap <silent> <A-t> <C-\><C-n>:cd %:p:h<CR>i
-
-tnoremap <silent> <A-g>m <C-\><C-n><C-w>_<C-w><bar>
-tnoremap <silent> <A-g>e <C-\><C-n><C-w>=
-
-tnoremap <silent> <A-g>n <C-\><C-n>:set number<CR>:set norelativenumber<CR>i
-tnoremap <silent> <A-g>r <C-\><C-n>:set number<CR>:set relativenumber<CR>i
-
-tnoremap <silent> <A-z> <C-\><C-n>:noh<CR>i
 
 "completion
 inoremap <A-p> <C-x><C-U>
@@ -224,31 +213,36 @@ if !exists('g:lasttab')
   let g:lasttab = 1
 endif
 
-nmap <silent> <A-Tab> :exe "tabn ".g:lasttab<CR>
+nmap <silent> <A-Tab> :<c-u>exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 "fzf maps
-noremap <silent> <leader>gf <esc>:Files<CR>
-noremap <silent> <leader>gg <esc>:GFiles<CR>
-noremap <silent> <leader>gs <esc>:GFiles?<CR>
-noremap <silent> <leader>gb <esc>:Buffers<CR>
-noremap <silent> <leader>gr <esc>:Rg<CR>
-noremap <silent> <leader>gl <esc>:BLines<CR>
-noremap <silent> <leader>gal <esc>:Lines<CR>
-noremap <silent> <leader>gt <esc>:BTags<CR>
-noremap <silent> <leader>gat <esc>:Tags<CR>
-noremap <silent> <leader>gm <esc>:Marks<CR>
-noremap <silent> <leader>gw <esc>:Windows<CR>
-noremap <silent> <leader>gh <esc>:History<CR>
-noremap <silent> <leader>g: <esc>:History:<CR>
-noremap <silent> <leader>g/ <esc>:History/<CR>
-noremap <silent> <leader>gp <esc>:Snippets<CR>
-noremap <silent> <leader>gc <esc>:BCommits<CR>
-noremap <silent> <leader>gac <esc>:Commits<CR>
-noremap <silent> <leader>go <esc>:Commands<CR>
-noremap <silent> <leader>gn <esc>:Maps<CR>
-noremap <silent> <leader>gk <esc>:Helptags<CR>
-noremap <silent> <leader>gF <esc>:FileTypes<CR>
+noremap <leader>gf <esc>:<c-u>File 
+noremap <leader>gg <esc>:<c-u>GFiles 
+noremap <leader>gs <esc>:<c-u>GFiles? 
+noremap <leader>gb <esc>:<c-u>Buffers<cr>
+noremap <leader>gr <esc>:<c-u>Rg 
+noremap <leader>gl <esc>:<c-u>BLines<cr> 
+noremap <leader>gal <esc>:<c-u>Lines<cr> 
+noremap <leader>gt <esc>:<c-u>BTags<cr> 
+noremap <leader>gat <esc>:<c-u>Tags<cr> 
+noremap <leader>gm <esc>:<c-u>Marks<cr> 
+noremap <leader>gw <esc>:<c-u>Windows<cr> 
+noremap <leader>gh <esc>:<c-u>History<cr>
+noremap <leader>g: <esc>:<c-u>History:<cr>
+noremap <leader>g/ <esc>:<c-u>History/<cr>
+noremap <leader>gp <esc>:<c-u>Snippets<cr>
+noremap <leader>gc <esc>:<c-u>BCommits<cr>
+noremap <leader>gac <esc>:<c-u>Commits<cr>
+noremap <leader>go <esc>:<c-u>Commands<cr>
+noremap <leader>gn <esc>:<c-u>Maps<cr>
+noremap <leader>gk <esc>:<c-u>Helptags<cr>
+noremap <leader>gF <esc>:<c-u>FileTypes<cr>
+
+noremap <leader>Gf <esc>:<c-u>File<cr>
+noremap <leader>Gg <esc>:<c-u>GFiles<cr>
+noremap <leader>Gs <esc>:<c-u>GFiles?<cr>
+noremap <leader>Gr <esc>:<c-u>Rg<cr>
 
 "coc options
 " use <tab> for trigger completion and navigate to next complete item
@@ -283,11 +277,6 @@ nmap <leader>e <Plug>(coc-rename)
 
 nmap <leader>c <Plug>(coc-fix-current)
 
-"java doc commenting (requires eclim/eclipse workspace)
-"noremap <silent> <leader>c <esc>:JavaDocComment<CR>
-
-noremap <leader>w :%s/\s\+$//<cr>:let @/=''<CR>
-
 "show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -298,6 +287,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+"java doc commenting (requires eclim/eclipse workspace)
+"noremap <silent> <leader><leader>j <esc>:<c-u>JavaDocComment<CR>
 
 "lightline options
 let g:lightline = {
@@ -324,7 +316,9 @@ let g:insert_char_no_default_mapping = 1
 nmap <leader>s <Plug>InsertChar
 nmap <leader>S <Plug>InsertCharAfter
 
+"changes to wordmotion
 let g:wordmotion_prefix = ';'
+set iskeyword+=-
 
 "startify options
 let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
@@ -350,7 +344,7 @@ let g:startify_skiplist = [
 let g:startify_custom_header =
       \ map(split(system('cat /home/ryan/Documents/efficiency/TODO/TODO_LIST.txt'), '\n'), '"   ". v:val')
 
-"windowswap options 
+"windowswap options
 let g:windowswap_map_keys = 0
 nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
 
@@ -363,7 +357,52 @@ nmap gS <plug>(scratch-clear)
 xmap gs <plug>(scratch-selection-reuse)
 xmap gS <plug>(scratch-selection-clear)
 
-noremap <silent> <leader>zf :VimadeFadeLevel 0.7<cr>
-noremap <silent> <leader>zF :VimadeFadeLevel 0.4<cr>
-
 colorscheme gruvbox
+
+"limelight
+let g:limelight_conceal_ctermfg = 'gray'
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+noremap <silent> <leader><leader>l :Limelight!!<cr>
+
+let g:mwAutoLoadMarks = 1
+
+"yankring
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+
+map ;o p;n
+map ;O P;n
+
+"total hack:
+map ;p0 p
+map ;p1 p;n
+map ;p2 p;n;n
+map ;p3 p;n;n;n
+map ;p4 p;n;n;n;n
+map ;p5 p;n;n;n;n;n
+map ;p6 p;n;n;n;n;n;n
+map ;p7 p;n;n;n;n;n;n;n
+map ;p8 p;n;n;n;n;n;n;n;n
+map ;p9 p;n;n;n;n;n;n;n;n;n
+
+map ;P0 P
+map ;P1 P;n
+map ;P2 P;n;n
+map ;P3 P;n;n;n
+map ;P4 P;n;n;n;n
+map ;P5 P;n;n;n;n;n
+map ;P6 P;n;n;n;n;n;n
+map ;P7 P;n;n;n;n;n;n;n
+map ;P8 P;n;n;n;n;n;n;n;n
+map ;P9 P;n;n;n;n;n;n;n;n;n
+
+map ;n <Plug>(miniyank-cycle)
+map ;N <Plug>(miniyank-cycleback)
+
+noremap <silent> <leader><leader>f :VimadeToggle<cr>
