@@ -74,9 +74,9 @@ prompt_ryan_main() {
     (( UID == 0 )) && segment+=' %F{yellow}⚡'
     (( $(jobs -l | wc -l) )) && segment+=' %F{cyan}⚙'
     (( RANGER_LEVEL )) && segment+=' %F{cyan}r'
-    # if [[ ${USER} != ${DEFAULT_USER} || -n ${SSH_CLIENT} ]]; then
-    #    segment+=" %F{%(!.yellow.default)}${USER}@%m"
-    # fi
+    if [[ ${USER} != ${DEFAULT_USER} || -n ${SSH_CLIENT} ]]; then
+       segment+=" %F{%(!.yellow.default)}${USER}@%m"
+    fi
     if [[ -n ${segment} ]]; then
       prompt_ryan_segment ${prompt_ryan_color1} "${segment} "
     fi
@@ -96,7 +96,7 @@ prompt_ryan_main() {
     fi
   }
 
-  prompt_ryan_status
+  #prompt_ryan_status
   prompt_ryan_pwd
   prompt_ryan_git
   prompt_ryan_end
