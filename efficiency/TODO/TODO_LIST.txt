@@ -1,0 +1,10 @@
+1. apma 1160 - when released 
+2. cs 1430 - turn in when gradescope assignment created
+3. cs 18 homework - scala section, change vim settings?
+4. cs 18 project misc
+5. apma 350 - when released 
+6. apma 2822b - when released 
+7. simple arch changes
+8. climbing - :(
+9. coc c/c++ integration - lost cause?
+10. look into coc tex and pair
