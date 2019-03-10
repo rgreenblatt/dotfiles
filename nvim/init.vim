@@ -23,14 +23,17 @@ filetype off
 call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'dansomething/vim-eclim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'rust-lang/rust.vim'
 Plug 'wikitopian/hardmode'
 Plug 'inkarkat/vim-CountJump'
-Plug 'wellle/targets.vim'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-mark'
+Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'rgreenblatt/i3-vim-focus'
+Plug 'rgreenblatt/vim-insert-char'
+Plug 'rgreenblatt/scratch.vim'
+Plug 'rgreenblatt/vim-ninja-feet'
+Plug 'rgreenblatt/c-conceal'
 Plug 'markonm/traces.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-surround'
@@ -43,38 +46,35 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-eunuch'
 Plug 'makerj/vim-pdf'
-Plug 'vim-scripts/repeatable-motions.vim'
+Plug 'vim-scripts/restore_view.vim'
 Plug 'unblevable/quick-scope'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/vim-slash'
 Plug 'TaDaa/vimade'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'rhysd/clever-f.vim'
 Plug 'chaoren/vim-wordmotion'
-Plug 'rgreenblatt/vim-insert-char'
 Plug 'mhinz/vim-startify'
 Plug 'wesQ3/vim-windowswap'
-Plug 'vim-scripts/restore_view.vim'
 Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'rgreenblatt/scratch.vim'
-Plug 'rgreenblatt/vim-ninja-feet'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-fold'
 Plug 'flazz/vim-colorschemes'
 Plug 'Carpetsmoker/xdg_open.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'bfredl/nvim-miniyank'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 Plug 'ehamberg/vim-cute-python'
-Plug 'rgreenblatt/c-conceal'
-Plug 'junegunn/goyo.vim'
 Plug 'metakirby5/codi.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chrisbra/color_highlight'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'simnalamburt/vim-mundo'
+Plug 'itchyny/calendar.vim'
 call plug#end()
 filetype plugin indent on
  
@@ -156,6 +156,11 @@ noremap <silent> <leader>ls :<c-u>sp<CR>:Startify<CR>
 noremap <silent> <leader>;s :<c-u>vs<CR>:Startify<CR>
 noremap <silent> <leader>,s :<c-u>tabe<CR>:Startify<CR>
 noremap <silent> <leader>.s :<c-u>Startify<CR>
+
+noremap <silent> <leader>lc :<c-u>Calendar -split=horizontal<CR>
+noremap <silent> <leader>;c :<c-u>Calendar -split=vertical<CR>
+noremap <silent> <leader>,c :<c-u>Calendar<CR>
+noremap <silent> <leader>.c :<c-u>Calendar -position=here<CR>
 
 noremap <silent> <leader>lf :<c-u>sp<CR>
 noremap <silent> <leader>;f :<c-u>vs<CR>
@@ -325,7 +330,9 @@ set iskeyword+=-
 "startify
 let g:startify_bookmarks = [{'z': '~/.zshrc'}, {'v': '~/.config/nvim/init.vim'},
       \ {'w': '~/.config/i3/config'}, {'t': 'term://zsh'}, {'b': '~/.config/qutebrowser/config.py'},
-      \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, {'s': '~/.config/i3status/config'}]
+      \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, {'s': '~/.config/i3status/config'}] 
+
+let g:startify_commands = [{'c': 'Calendar -position=here'}]
 
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
@@ -431,3 +438,24 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 noremap <silent> <leader><leader>u :<c-u>MundoToggle<cr>
+
+"NarrowRegion
+let g:nrrw_rgn_nomap_nr = 1
+let g:nrrw_rgn_nomap_Nr = 1
+
+map ;r <Plug>NrrwrgnDo 
+xmap ;R <Plug>NrrwrgnBangDo 
+
+"vim-slash
+noremap <plug>(slash-after) zz
+
+"calender.vim
+let g:calendar_google_task = 1
+let g:calendar_google_calendar = 1
+let g:calendar_view = 'week'
+let g:calendar_cyclic_view = 1
+
+augroup calendar-mappings
+  autocmd!
+  autocmd FileType calendar nunmap <buffer> <space>
+augroup END

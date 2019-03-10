@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### PATH
 # mnemonic: [F]ind [P]ath
 # list directories in $PATH, press [enter] on an entry to list the executables inside.
