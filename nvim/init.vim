@@ -1,13 +1,6 @@
 "serious changes or remaps:
 map Y y$
 
-map <space>j ]
-map <space>k [
-map z<space>j z]
-map z<space>k z[
-map g<space>j g]
-map g<space>k g[
-
 "clever-f
 
 inoremap kj <esc>
@@ -48,6 +41,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-eunuch'
 Plug 'makerj/vim-pdf'
 Plug 'vim-scripts/repeatable-motions.vim'
 Plug 'unblevable/quick-scope'
@@ -70,11 +64,17 @@ Plug 'kana/vim-textobj-fold'
 Plug 'flazz/vim-colorschemes'
 Plug 'Carpetsmoker/xdg_open.vim'
 Plug 'junegunn/limelight.vim'
-" Plug 'vim-scripts/YankRing.vim'
 Plug 'bfredl/nvim-miniyank'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 Plug 'ehamberg/vim-cute-python'
 Plug 'rgreenblatt/c-conceal'
+Plug 'junegunn/goyo.vim'
+Plug 'metakirby5/codi.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'chrisbra/NrrwRgn'
+Plug 'chrisbra/color_highlight'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'simnalamburt/vim-mundo'
 call plug#end()
 filetype plugin indent on
  
@@ -147,9 +147,9 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 cnoremap <C-A> <Home>
 
 "general leader maps
-noremap <silent> <leader>lt :<c-u>sp term://bash<CR>
-noremap <silent> <leader>;t :<c-u>vs term://bash<CR>
-noremap <silent> <leader>,t :<c-u>tabe term://bash<CR>
+noremap <silent> <leader>lt :<c-u>sp term://zsh<CR>
+noremap <silent> <leader>;t :<c-u>vs term://zsh<CR>
+noremap <silent> <leader>,t :<c-u>tabe term://zsh<CR>
 noremap <silent> <leader>.t :<c-u>te<CR>
 
 noremap <silent> <leader>ls :<c-u>sp<CR>:Startify<CR>
@@ -170,14 +170,16 @@ noremap <silent> <leader>x :<c-u>x<CR>
 noremap <silent> <leader>q :<c-u>q<CR>
 noremap <silent> <leader>a :<c-u>qa<CR>
 
-map <leader>wj <C-w>-
-map <leader>wk <C-w>+
-map <leader>wl <C-w>>
-map <leader>wh <C-w><
-map <leader>ww <C-w><bar>
-map <leader>wt <C-w>_
-map <leader>we <C-w>=
-map <leader>wm <C-w><bar><C-w>_
+noremap <leader>wj <C-w>-
+noremap <leader>wk <C-w>+
+noremap <leader>wl <C-w>>
+noremap <leader>wh <C-w><
+noremap <leader>ww <C-w><bar>
+noremap <leader>wt <C-w>_
+noremap <leader>we <C-w>=
+noremap <leader>wm <C-w><bar><C-w>_
+
+noremap <leader>T <C-]>
 
 "alt window navigation
 noremap <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
@@ -217,11 +219,11 @@ nmap <silent> <A-Tab> :<c-u>exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 "fzf maps
-noremap <leader>gf <esc>:<c-u>File 
-noremap <leader>gg <esc>:<c-u>GFiles 
-noremap <leader>gs <esc>:<c-u>GFiles? 
+noremap <leader>gf <esc>:<c-u>Files<space>
+noremap <leader>gg <esc>:<c-u>GFiles<space>
+noremap <leader>gs <esc>:<c-u>GFiles?<space>
 noremap <leader>gb <esc>:<c-u>Buffers<cr>
-noremap <leader>gr <esc>:<c-u>Rg 
+noremap <leader>gr <esc>:<c-u>Rg<space>
 noremap <leader>gl <esc>:<c-u>BLines<cr> 
 noremap <leader>gal <esc>:<c-u>Lines<cr> 
 noremap <leader>gt <esc>:<c-u>BTags<cr> 
@@ -239,7 +241,7 @@ noremap <leader>gn <esc>:<c-u>Maps<cr>
 noremap <leader>gk <esc>:<c-u>Helptags<cr>
 noremap <leader>gF <esc>:<c-u>FileTypes<cr>
 
-noremap <leader>Gf <esc>:<c-u>File<cr>
+noremap <leader>Gf <esc>:<c-u>Files<cr>
 noremap <leader>Gg <esc>:<c-u>GFiles<cr>
 noremap <leader>Gs <esc>:<c-u>GFiles?<cr>
 noremap <leader>Gr <esc>:<c-u>Rg<cr>
@@ -320,9 +322,9 @@ nmap <leader>S <Plug>InsertCharAfter
 let g:wordmotion_prefix = ';'
 set iskeyword+=-
 
-"startify options
-let g:startify_bookmarks = [{'B': '~/.bashrc'}, {'v': '~/.config/nvim/init.vim'},
-      \ {'w': '~/.config/i3/config'}, {'t': 'term://bash'}, {'b': '~/.config/qutebrowser/config.py'},
+"startify
+let g:startify_bookmarks = [{'z': '~/.zshrc'}, {'v': '~/.config/nvim/init.vim'},
+      \ {'w': '~/.config/i3/config'}, {'t': 'term://zsh'}, {'b': '~/.config/qutebrowser/config.py'},
       \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, {'s': '~/.config/i3status/config'}]
 
 let g:startify_lists = [
@@ -344,11 +346,11 @@ let g:startify_skiplist = [
 let g:startify_custom_header =
       \ map(split(system('cat /home/ryan/Documents/efficiency/TODO/TODO_LIST.txt'), '\n'), '"   ". v:val')
 
-"windowswap options
+"windowswap
 let g:windowswap_map_keys = 0
 nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
 
-"scratch options:
+"scratch
 let g:scratch_no_mappings = 1
 
 nmap gs <plug>(scratch-reuse)
@@ -359,8 +361,8 @@ xmap gS <plug>(scratch-selection-clear)
 
 colorscheme gruvbox
 
-"limelight
-let g:limelight_conceal_ctermfg = 'gray'
+"limelight/goyo
+let g:limelight_conceal_ctermfg = 'DarkGray'
 
 " Color name (:help gui-colors) or RGB color
 let g:limelight_conceal_guifg = 'DarkGray'
@@ -368,7 +370,20 @@ let g:limelight_conceal_guifg = 'DarkGray'
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
-noremap <silent> <leader><leader>l :Limelight!!<cr>
+noremap <silent> <leader><leader>g :Goyo<cr>
+
+function SetupGoyo() 
+  Limelight
+  noremap <silent> <leader><leader>g :Goyo!<cr>
+endfunction
+
+function SetupNoGoyo() 
+  Limelight!
+  noremap <silent> <leader><leader>g :Goyo<cr>
+endfunction
+
+autocmd! User GoyoEnter call SetupGoyo()
+autocmd! User GoyoLeave call SetupNoGoyo()
 
 let g:mwAutoLoadMarks = 1
 
@@ -405,4 +420,14 @@ map ;P9 P;n;n;n;n;n;n;n;n;n
 map ;n <Plug>(miniyank-cycle)
 map ;N <Plug>(miniyank-cycleback)
 
-noremap <silent> <leader><leader>f :VimadeToggle<cr>
+noremap <silent> <leader><leader>f :<c-u>VimadeToggle<cr>
+
+set shell=/bin/zsh
+
+"rainbow parens
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+noremap <silent> <leader><leader>u :<c-u>MundoToggle<cr>
