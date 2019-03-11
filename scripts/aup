@@ -1,9 +1,11 @@
 #!/bin/bash
 
-### APT + FZF
+ ## APT + FZF
 # upgrade multiple packages at once
 # mnemonic [A]pt [U]pgrade [P]ackage
 
 inst=$(parse_packages $(apt list --installed | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[apt:remove]'"))
 
-sudo apt install --only-upgrade $inst
+if [[ -n $inst ]]; then
+  sudo apt install --only-upgrade $inst
+fi

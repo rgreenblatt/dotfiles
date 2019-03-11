@@ -6,4 +6,6 @@
 
 inst=$(parse_packages $(apt list | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[apt:install]'"))
 
-sudo apt install $inst
+if [[ -n $inst ]]; then
+  sudo apt install $inst
+fi
