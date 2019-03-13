@@ -3,8 +3,8 @@ map Y y$
 
 "clever-f
 
-inoremap kj <esc>
-inoremap jk <esc>
+" inoremap kj <esc>
+" inoremap jk <esc>
 
 noremap ,m "_
 vnoremap ,m "_
@@ -36,6 +36,7 @@ Plug 'rgreenblatt/vim-ninja-feet'
 Plug 'rgreenblatt/c-conceal'
 Plug 'markonm/traces.vim'
 Plug 'tommcdo/vim-lion'
+Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
@@ -53,7 +54,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'junegunn/vim-slash'
 Plug 'TaDaa/vimade'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'rhysd/clever-f.vim'
@@ -63,6 +63,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-fold'
+Plug 'kana/vim-operator-user'
 Plug 'flazz/vim-colorschemes'
 Plug 'Carpetsmoker/xdg_open.vim'
 Plug 'bfredl/nvim-miniyank'
@@ -71,10 +72,12 @@ Plug 'ehamberg/vim-cute-python'
 Plug 'metakirby5/codi.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/NrrwRgn'
-Plug 'chrisbra/color_highlight'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'itchyny/calendar.vim'
+Plug 'derekwyatt/vim-scala'
+Plug 'lervag/vimtex'
+Plug 'neomutt/neomutt.vim'
 call plug#end()
 filetype plugin indent on
  
@@ -122,7 +125,8 @@ noremap <leader><leader>c :<c-u>set <C-R>=&conceallevel ? 'conceallevel=0' : 'co
 set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 
-"mkdir as needed https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+"mkdir
+"as needed https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
 function s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -136,34 +140,39 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
+"cs 18 specific
 autocmd Filetype java setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
+autocmd Filetype scala setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
 
 "auto indent for tex is garbage
-autocmd Filetype tex setlocal indentexpr=
+" autocmd Filetype tex setlocal indentexpr=
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+au BufRead,BufNewFile *.sbt set filetype=scala
 
 "command mode navigation
 cnoremap <C-A> <Home>
 
-"general leader maps
-noremap <silent> <leader>lt :<c-u>sp term://zsh<CR>
-noremap <silent> <leader>;t :<c-u>vs term://zsh<CR>
-noremap <silent> <leader>,t :<c-u>tabe term://zsh<CR>
-noremap <silent> <leader>.t :<c-u>te<CR>
+"terminal wrapper so numbers aren't shown
+function! TerminalProgram(prog)
+  execute ":te ".a:prog
+  execute ":setlocal nonumber | setlocal norelativenumber"
+endfunction
 
-noremap <silent> <leader>ls :<c-u>sp<CR>:Startify<CR>
-noremap <silent> <leader>;s :<c-u>vs<CR>:Startify<CR>
+"general leader maps
+noremap <silent> <leader>kt :<c-u>sp <bar> call TerminalProgram('zsh')<CR>
+noremap <silent> <leader>lt :<c-u>vs <bar> call TerminalProgram('zsh')<CR>
+noremap <silent> <leader>,t :<c-u>tabe <bar> call TerminalProgram('zsh')<CR>
+noremap <silent> <leader>.t :<c-u>call TerminalProgram('zsh')<CR>
+
+noremap <silent> <leader>ks :<c-u>sp<CR>:Startify<CR>
+noremap <silent> <leader>ls :<c-u>vs<CR>:Startify<CR>
 noremap <silent> <leader>,s :<c-u>tabe<CR>:Startify<CR>
 noremap <silent> <leader>.s :<c-u>Startify<CR>
 
-noremap <silent> <leader>lc :<c-u>Calendar -split=horizontal<CR>
-noremap <silent> <leader>;c :<c-u>Calendar -split=vertical<CR>
-noremap <silent> <leader>,c :<c-u>Calendar<CR>
-noremap <silent> <leader>.c :<c-u>Calendar -position=here<CR>
-
-noremap <silent> <leader>lf :<c-u>sp<CR>
-noremap <silent> <leader>;f :<c-u>vs<CR>
+noremap <silent> <leader>kf :<c-u>sp<CR>
+noremap <silent> <leader>lf :<c-u>vs<CR>
 noremap <silent> <leader>,f :<c-u>tabe %<CR>
 
 noremap <silent> <leader>p :<c-u>cd %:p:h<CR>
@@ -171,14 +180,25 @@ noremap <silent> <leader><leader>n :<c-u>set invrelativenumber<CR>
 noremap <silent> <leader><leader>w :<c-u>%s/\s\+$//<CR>:let @/=''<CR>
 noremap <silent> <leader>z :<c-u>noh<CR>
 
-noremap <silent> <leader>x :<c-u>x<CR>
 noremap <silent> <leader>q :<c-u>q<CR>
 noremap <silent> <leader>a :<c-u>qa<CR>
+noremap <silent> <leader>W :<c-u>w<CR>
 
-noremap <leader>wj <C-w>-
-noremap <leader>wk <C-w>+
-noremap <leader>wl <C-w>>
-noremap <leader>wh <C-w><
+noremap <leader>wh <C-w>h
+noremap <leader>wj <C-w>j
+noremap <leader>wk <C-w>k
+noremap <leader>wl <C-w>l
+
+noremap <leader>wH <C-w>H
+noremap <leader>wJ <C-w>J
+noremap <leader>wK <C-w>K
+noremap <leader>wL <C-w>L
+
+noremap <leader>w< <C-w><
+noremap <leader>w> <C-w>>
+noremap <leader>w+ <C-w>+
+noremap <leader>w- <C-w>-
+
 noremap <leader>ww <C-w><bar>
 noremap <leader>wt <C-w>_
 noremap <leader>we <C-w>=
@@ -187,20 +207,10 @@ noremap <leader>wm <C-w><bar><C-w>_
 noremap <leader>T <C-]>
 
 "alt window navigation
-noremap <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
-noremap <silent> <A-h> <esc>:call Focus('left', 'h')<CR>
-noremap <silent> <A-k> <esc>:call Focus('up', 'k')<CR>
-noremap <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
-
-noremap! <silent> <A-l> <esc>:call Focus('right', 'l')<CR>
-noremap! <silent> <A-h> <esc>:call Focus('left', 'h')<CR>
-noremap! <silent> <A-k> <esc>:call Focus('up', 'k')<CR>
-noremap! <silent> <A-j> <esc>:call Focus('down', 'j')<CR>
-
-tnoremap <silent> <A-l> <C-\><C-n>:call Focus('right', 'l')<CR>
-tnoremap <silent> <A-h> <C-\><C-n>:call Focus('left', 'h')<CR>
-tnoremap <silent> <A-k> <C-\><C-n>:call Focus('up', 'k')<CR>
-tnoremap <silent> <A-j> <C-\><C-n>:call Focus('down', 'j')<CR>
+map <silent> gzl :<c-u>call Focus('right', 'l')<CR>
+map <silent> gzh :<c-u>call Focus('left', 'h')<CR>
+map <silent> gzk :<c-u>call Focus('up', 'k')<CR>
+map <silent> gzj :<c-u>call Focus('down', 'j')<CR>
 
 "completion
 inoremap <A-p> <C-x><C-U>
@@ -211,9 +221,6 @@ tnoremap <A-n> <C-\><C-n>
 "open git locally
 let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 autocmd FileType gitcommit set bufhidden=delete
-
-"do I need this
-set guicursor=
 
 " Go to last active tab
 if !exists('g:lasttab')
@@ -270,7 +277,7 @@ nmap ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <leader>d <Plug>(coc-definition)
-nmap <leader>t <Plug>(coc-type-definition)
+nmap <leader>o <Plug>(coc-type-definition)
 nmap <leader>i <Plug>(coc-implementation)
 nmap <leader>u <Plug>(coc-references)
 
@@ -293,6 +300,109 @@ function! s:show_documentation()
   else
     call CocAction('doHover')
   endif
+endfunction
+
+"use fzf for diagnostics
+function! s:format_coc_diagnostic(item) abort
+  return (has_key(a:item,'file')  ? bufname(a:item.file) : '')
+        \ . '|' . (a:item.lnum  ? a:item.lnum : '')
+        \ . (a:item.col ? ' col ' . a:item.col : '')
+        \ . '| ' . a:item.severity
+        \ . ': ' . a:item.message 
+endfunction
+
+function! s:get_current_diagnostics() abort
+  " Remove entries not belonging to the current file.
+  let l:diags = filter(copy(CocAction('diagnosticList')), {key, val -> val.file ==# expand('%:p')})
+  return map(l:diags, 's:format_coc_diagnostic(v:val)')
+endfunction
+
+function! s:format_qf_diags(item) abort
+  let l:parsed = s:parse_error(a:item)
+  return {'bufnr' : bufnr(l:parsed['bufnr']), 'lnum' : l:parsed['linenr'], 'col': l:parsed['colnr'], 'text' : l:parsed['text']}
+endfunction
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(a:lines, 's:format_qf_diags(v:val)'),'r', "Diagnostics")
+endfunc
+
+let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
+
+let s:default_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+function! s:action_for(key, ...)
+  let default = a:0 ? a:1 : ''
+  if a:key == 'ctrl-q'
+    let l:Cmd = function('s:build_quickfix_list')
+  else
+    let l:Cmd = get(get(g:, 'fzf_action', s:default_action), a:key, default)
+  endif
+  return l:Cmd
+endfunction
+
+function! GetFzfDiags() abort
+  let l:diags = CocAction('diagnosticList')
+  if !empty(l:diags)
+    let expect_keys = join(keys(get(g:, 'fzf_action', s:default_action)), ',')
+    let l:opts = {
+          \ 'source': s:get_current_diagnostics(),
+          \ 'sink*': function('s:error_handler'),
+          \ 'options': ['--multi','--expect=ctrl-q,'.expect_keys,'--ansi', '--prompt=Coc Diagnostics> '],
+          \ }
+    call fzf#run(fzf#wrap(l:opts))
+    call s:syntax()
+  endif
+endfunction
+
+function! s:syntax() abort
+  if has('syntax') && exists('g:syntax_on')
+    syntax match FzfQuickFixFileName '^[^|]*' nextgroup=FzfQuickFixSeparator
+    syntax match FzfQuickFixSeparator '|' nextgroup=FzfQuickFixLineNumber contained
+    syntax match FzfQuickFixLineNumber '[^|]*' contained contains=FzfQuickFixError
+    syntax match FzfQuickFixError 'error' contained
+
+    highlight default link FzfQuickFixFileName Directory
+    highlight default link FzfQuickFixLineNumber LineNr
+    highlight default link FzfQuickFixError Error
+  endif
+endfunction
+
+function! s:error_handler(err) abort
+   
+  let l:Cmd = s:action_for(a:err[0])
+
+  if !empty(l:Cmd) && type(l:Cmd) == s:TYPE.string && stridx('edit', l:Cmd) < 0
+    execute 'silent' l:Cmd
+  elseif !empty(l:Cmd) && type(l:Cmd) == s:TYPE.funcref
+    call l:Cmd(a:err[1:])
+    return
+  endif
+  let l:parsed = s:parse_error(a:err[1:])
+  execute 'buffer' bufnr(l:parsed["bufnr"])
+  mark '
+  call cursor(l:parsed["linenr"], l:parsed["colnr"])
+  normal! zvzz
+
+endfunction
+
+function! s:parse_error(err) abort
+  let l:match = matchlist(a:err, '\v^([^|]*)\|(\d+)?%(\scol\s(\d+))?.*\|(.*)')[1:4]
+  if empty(l:match) || empty(l:match[0])
+    return
+  endif
+
+  if empty(l:match[1]) && (bufnr(l:match[0]) == bufnr('%'))
+    return
+  endif
+
+  let l:line_number = empty(l:match[1]) ? 1 : str2nr(l:match[1])
+  let l:col_number = empty(l:match[2]) ? 1 : str2nr(l:match[2])
+  let l:error_msg = l:match[3]
+
+  return ({'bufnr' : l:match[0],'linenr' : l:line_number, 'colnr':l:col_number, 'text': l:error_msg})
 endfunction
 
 "java doc commenting (requires eclim/eclipse workspace)
@@ -328,11 +438,13 @@ let g:wordmotion_prefix = ';'
 set iskeyword+=-
 
 "startify
+
 let g:startify_bookmarks = [{'z': '~/.zshrc'}, {'v': '~/.config/nvim/init.vim'},
-      \ {'w': '~/.config/i3/config'}, {'t': 'term://zsh'}, {'b': '~/.config/qutebrowser/config.py'},
+      \ {'w': '~/.config/i3/config'}, {'b': '~/.config/qutebrowser/config.py'},
       \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, {'s': '~/.config/i3status/config'}] 
 
-let g:startify_commands = [{'c': 'Calendar -position=here'}]
+let g:startify_commands = [{'m': 'call TerminalProgram("neomutt")'}, {'t': 'call TerminalProgram("zsh")'}, 
+      \ {'c': 'Calendar -position=here'}]
 
 let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
@@ -355,42 +467,42 @@ let g:startify_custom_header =
 
 "windowswap
 let g:windowswap_map_keys = 0
-nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
+  nnoremap <silent> <leader>v :call WindowSwap#EasyWindowSwap()<CR>
 
-"scratch
-let g:scratch_no_mappings = 1
+  "scratch
+  let g:scratch_no_mappings = 1
 
-nmap gs <plug>(scratch-reuse)
-nmap gS <plug>(scratch-clear)
+  nmap gs <plug>(scratch-reuse)
+  nmap gS <plug>(scratch-clear)
 
-xmap gs <plug>(scratch-selection-reuse)
-xmap gS <plug>(scratch-selection-clear)
+  xmap gs <plug>(scratch-selection-reuse)
+  xmap gS <plug>(scratch-selection-clear)
 
-colorscheme gruvbox
+  colorscheme gruvbox
 
-"limelight/goyo
-let g:limelight_conceal_ctermfg = 'DarkGray'
+  "limelight/goyo
+  let g:limelight_conceal_ctermfg = 'DarkGray'
 
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
+  " Color name (:help gui-colors) or RGB color
+  let g:limelight_conceal_guifg = 'DarkGray'
 
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
-noremap <silent> <leader><leader>g :Goyo<cr>
-
-function SetupGoyo() 
-  Limelight
-  noremap <silent> <leader><leader>g :Goyo!<cr>
-endfunction
-
-function SetupNoGoyo() 
-  Limelight!
+  " Highlighting priority (default: 10)
+  "   Set it to -1 not to overrule hlsearch
+  let g:limelight_priority = -1
   noremap <silent> <leader><leader>g :Goyo<cr>
-endfunction
 
-autocmd! User GoyoEnter call SetupGoyo()
-autocmd! User GoyoLeave call SetupNoGoyo()
+  function SetupGoyo() 
+    Limelight
+    noremap <silent> <leader><leader>g :Goyo!<cr>
+  endfunction
+
+  function SetupNoGoyo() 
+    Limelight!
+    noremap <silent> <leader><leader>g :Goyo<cr>
+  endfunction
+
+  autocmd! User GoyoEnter call SetupGoyo()
+  autocmd! User GoyoLeave call SetupNoGoyo()
 
 let g:mwAutoLoadMarks = 1
 
@@ -446,9 +558,6 @@ let g:nrrw_rgn_nomap_Nr = 1
 map ;r <Plug>NrrwrgnDo 
 xmap ;R <Plug>NrrwrgnBangDo 
 
-"vim-slash
-noremap <plug>(slash-after) zz
-
 "calender.vim
 let g:calendar_google_task = 1
 let g:calendar_google_calendar = 1
@@ -459,3 +568,30 @@ augroup calendar-mappings
   autocmd!
   autocmd FileType calendar nunmap <buffer> <space>
 augroup END
+
+"vimtex
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_view_method = 'zathura'
+noremap <leader>xi  <plug>(vimtex-info)
+noremap <leader>xI  <plug>(vimtex-info-full)
+noremap <leader>xt  <plug>(vimtex-toc-open)
+noremap <leader>xT  <plug>(vimtex-toc-toggle)
+noremap <leader>xq  <plug>(vimtex-log)
+noremap <leader>xv  <plug>(vimtex-view)
+noremap <leader>xr  <plug>(vimtex-reverse-search)
+noremap <leader>xl  <plug>(vimtex-compile)
+noremap <leader>xL  <plug>(vimtex-compile-selected)
+xnoremap <leader>xL  <plug>(vimtex-compile-selected)
+noremap <leader>xk  <plug>(vimtex-stop)
+noremap <leader>xK  <plug>(vimtex-stop-all)
+noremap <leader>xe  <plug>(vimtex-errors)
+noremap <leader>xo  <plug>(vimtex-compile-output)
+noremap <leader>xg  <plug>(vimtex-status)
+noremap <leader>xG  <plug>(vimtex-status-all)
+noremap <leader>xc  <plug>(vimtex-clean)
+noremap <leader>xC  <plug>(vimtex-clean-full)
+noremap <leader>xm  <plug>(vimtex-imaps-list)
+noremap <leader>xx  <plug>(vimtex-reload)
+noremap <leader>xX  <plug>(vimtex-reload-state)
+noremap <leader>xs  <plug>(vimtex-toggle-main)

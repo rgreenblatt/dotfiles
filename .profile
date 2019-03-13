@@ -28,15 +28,14 @@ fi
 
 
 if xset q &>/dev/null; then
-    setxkbmap -option caps:backspace
     setxkbmap -option shift:both_capslock
-    add_display_modes.sh
-    xmodmap -e 'clear Lock'
+    # add_display_modes.sh
 fi
 
 export PATH="$HOME/.local/bin/:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=~/.npm-global/bin:$PATH
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_OPTS='--layout=reverse'

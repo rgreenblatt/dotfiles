@@ -1,8 +1,18 @@
 {
-  "java.home": "/usr/lib/jvm/java-1.8.0-openjdk-amd64/",
   "coc.preferences.echodocSupport": true,
   "coc.preferences.minTriggerInputLength": 2,
   "languageserver": {
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
