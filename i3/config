@@ -25,7 +25,7 @@ font pango:monospace 8
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+# font, it doesn’t scale on retina/hdpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -43,8 +43,8 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+BackSpace exec qutebrowser
-bindsym $mod+y exec qalculate
+bindsym $mod+semicolon exec qutebrowser
+# bindsym XF86Calculator exec qalculate
 bindsym $mod+p exec gnome-screenshot
 bindsym $mod+Shift+v exec vnc
 bindsym $mod+u exec ranger_new_window
@@ -54,23 +54,13 @@ bindsym $super+d exec just_laptop.sh
 bindsym $super+Shift+s exec single_large.sh
 bindsym $super+s exec single_small.sh
 
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1+"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1-"
-bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle -q"
+bindsym $super+comma exec inc_vol
+bindsym $super+period exec dec_vol
+bindsym $super+slash exec mute_vol
 
-bindsym $super+comma exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1+"
-bindsym $super+period exec "amixer -D pulse sset Master unmute -q && amixer -q sset Master,0 1-"
-bindsym $super+slash exec "amixer -D pulse sset Master toggle -q"
+bindsym $super+semicolon exec inc_bright
+bindsym $super+apostrophe exec dec_bright 
 
-bindsym $super+semicolon exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')+0.1" | bc)
-bindsym $super+apostrophe exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')-0.1" | bc)
-
-bindsym XF86MonBrightnessUp exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')+0.1" | bc)
-bindsym XF86MonBrightnessDown exec xrandr --output eDP1 --brightness \
-  $(echo "$(xrandr --verbose | grep Brightness -m 1 | grep -o '[0-9].*')-0.1" | bc)
 
 bindsym $mod+grave exec "toggle-touchpad"
 
@@ -144,28 +134,28 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-bindsym F1 workspace 1
-bindsym F2 workspace 2
-bindsym F3 workspace 3
-bindsym F4 workspace 4
-bindsym F5 workspace 5
-bindsym F6 workspace 6
-bindsym F7 workspace 7
-bindsym F8 workspace 8
-bindsym F9 workspace 9
-bindsym F10 workspace 10
+# bindsym F1 workspace 1
+# bindsym F2 workspace 2
+# bindsym F3 workspace 3
+# bindsym F4 workspace 4
+# bindsym F5 workspace 5
+# bindsym F6 workspace 6
+# bindsym F7 workspace 7
+# bindsym F8 workspace 8
+# bindsym F9 workspace 9
+# bindsym F10 workspace 10
 
-# move focused container to workspace
-bindsym Shift+F1 move container to workspace 1
-bindsym Shift+F2 move container to workspace 2
-bindsym Shift+F3 move container to workspace 3
-bindsym Shift+F4 move container to workspace 4
-bindsym Shift+F5 move container to workspace 5
-bindsym Shift+F6 move container to workspace 6
-bindsym Shift+F7 move container to workspace 7
-bindsym Shift+F8 move container to workspace 8
-bindsym Shift+F9 move container to workspace 9
-bindsym Shift+F10 move container to workspace 10
+# # move focused container to workspace
+# bindsym Shift+F1 move container to workspace 1
+# bindsym Shift+F2 move container to workspace 2
+# bindsym Shift+F3 move container to workspace 3
+# bindsym Shift+F4 move container to workspace 4
+# bindsym Shift+F5 move container to workspace 5
+# bindsym Shift+F6 move container to workspace 6
+# bindsym Shift+F7 move container to workspace 7
+# bindsym Shift+F8 move container to workspace 8
+# bindsym Shift+F9 move container to workspace 9
+# bindsym Shift+F10 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -197,33 +187,6 @@ mode "resize" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-
-# bindsym XF86Calculator mode "single_sym" 
-# bindsym --release XF86Calculator+q exec "xdotool key 1"
-
-# mode "single_sym" {
-#   bindsym --release q exec "xdotool key 1"; mode "default"
-#   bindsym --release w exec "xdotool key 2"; mode "default"
-#   bindsym --release e exec "xdotool key 3"; mode "default"
-#   bindsym --release r exec "xdotool key 4"; mode "default"
-#   bindsym --release t exec "xdotool key 5"; mode "default"
-#   bindsym --release y exec "xdotool key 6"; mode "default"
-#   bindsym --release u exec "xdotool key 7"; mode "default"
-#   bindsym --release i exec "xdotool key 8"; mode "default"
-#   bindsym --release o exec "xdotool key 9"; mode "default"
-#   bindsym --release p exec "xdotool key 0"; mode "default"
-#   bindsym --release Shift+q exec "xdotool key !"; mode "default"
-#   bindsym --release Shift+w exec "xdotool key @"; mode "default"
-#   bindsym --release Shift+e exec "xdotool key #"; mode "default"
-#   bindsym --release Shift+r exec "xdotool key $"; mode "default"
-#   bindsym --release Shift+t exec "xdotool key %"; mode "default"
-#   bindsym --release Shift+y exec "xdotool key ^"; mode "default"
-#   bindsym --release Shift+u exec "xdotool key &"; mode "default"
-#   bindsym --release Shift+i exec "xdotool key *"; mode "default"
-#   bindsym --release Shift+o exec "xdotool key ("; mode "default"
-#   bindsym --release Shift+p exec "xdotool key )"; mode "default"
-#   bindsym --release Escape mode "default"
-# }
 
 bindsym $mod+r mode "resize"
 
