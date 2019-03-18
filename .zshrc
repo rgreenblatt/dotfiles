@@ -16,8 +16,13 @@ prompt ryan
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
+bindkey -v
+
+autoload -z edit-command-line 
+zle -N edit-command-line
+bindkey "^E" edit-command-line
+
+export KEYTIMEOUT=1
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -70,15 +75,15 @@ alias d_eval_unset='eval $(docker-machine env -u)'
 alias py='python3.6'
 alias python3='python3.6'
 alias python='python3.6'
-alias pip3='pip3.6'
-alias pip='pip3.6'
-alias git='rlwrap git'
+alias pip3='pip3'
+alias pip='pip3'
+alias o='xdg-open'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
@@ -90,6 +95,8 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias nvim='nvr --remote-tab'
   alias e='nvr --remote'
   export GIT_TERMINAL_PROMPT=1
+  export VISUAL='nvr -cc split --remote-wait'
+  export EDITOR="$VISUAL"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
