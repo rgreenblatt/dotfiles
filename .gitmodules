@@ -22,3 +22,6 @@
 [submodule "zathura"]
 	path = zathura
 	url = https://github.com/rgreenblatt/zathura
+[submodule "st"]
+	path = st
+	url = https://github.com/rgreenblatt/st
