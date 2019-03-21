@@ -32,4 +32,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
-export FZF_DEFAULT_OPTS='--layout=reverse'
+export FZF_DEFAULT_OPTS='--layout=reverse -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "preview {}"'
