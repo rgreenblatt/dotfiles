@@ -32,4 +32,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='--layout=reverse -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "preview {}"'
+export FZF_DEFAULT_OPTS='--layout=reverse -m --bind ctrl-a:select-all+accept,ctrl-j:jump,ctrl-k:jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "preview {}" --preview-window=wrap'
