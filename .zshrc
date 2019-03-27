@@ -80,12 +80,13 @@ alias pip='pip3'
 alias o='xdg-open'
 
 mgs() {
-  cd $(mgs_path $@)
+  mgs_path=$(mgs_path $@)
+  if [[ -n $mgs_path ]]; then
+      cd $mgs_path
+  fi
 }
 
 alias mgsd='mgs -e ~'
-
-
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
