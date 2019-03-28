@@ -104,3 +104,7 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval $(thefuck --alias)
+eval $(thefuck --alias f)
+eval $(thefuck --alias FUCK)

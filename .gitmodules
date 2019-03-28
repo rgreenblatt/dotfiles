@@ -22,9 +22,9 @@
 [submodule "zathura"]
 	path = zathura
 	url = https://github.com/rgreenblatt/zathura
-[submodule "st"]
-	path = st
-	url = https://github.com/rgreenblatt/st
 [submodule "bat"]
 	path = bat
 	url = https://github.com/rgreenblatt/bat
+[submodule "st"]
+	path = st
+	url = https://github.com/rgreenblatt/st

@@ -1,6 +1,6 @@
 # dotfiles
 
-I am using Nerd font, exa, bat, and ripgrep. 
+I am using the Hack font (patched for devicons), exa, bat, thefuck, feh, tldr, and ripgrep. 
 
 I have almost everything configured to use some variant of the gruvbox theme.
 
