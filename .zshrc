@@ -73,6 +73,7 @@ alias python='python3.6'
 alias pip3='pip3'
 alias pip='pip3'
 alias o='xdg-open'
+alias p='preview'
 
 mgs() {
   mgs_path=$(mgs_path $@)
