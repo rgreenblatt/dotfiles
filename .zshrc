@@ -81,7 +81,7 @@ mgs() {
   fi
 }
 
-alias mgsd='mgs -e ~'
+alias mgsd='mgs -e ~ 4'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
