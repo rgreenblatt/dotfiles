@@ -25,3 +25,6 @@
 [submodule "st"]
 	path = st
 	url = https://github.com/rgreenblatt/st
+[submodule "bat"]
+	path = bat
+	url = https://github.com/rgreenblatt/bat
