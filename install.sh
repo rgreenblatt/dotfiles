@@ -23,7 +23,16 @@ fi
 
 
 if ! type "$zsh" &> /dev/null; then
-    ln -s $PWD/.zimrc ~/
-    ln -s $PWD/.zshrc ~/
+    if [ -f "$HOME/.zshrc" ]; then 
+        echo ".zshrc must be deleted or moved before install"
+        exit 1
+    fi
+    if [ -f "$HOME/.zimrc" ]; then 
+        echo ".zimrc must be deleted or moved before install"
+        exit 1
+    fi
     ./zimfw/install.sh
+    rm -f ~/.zshrc ~/.zimrc
+    ln -s $PWD/.zshrc ~/
+    ln -s $PWD/.zimrc ~/
 fi
