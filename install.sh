@@ -13,7 +13,7 @@ if [[ "$1" != "-c" ]]; then
    ln -s $PWD/zathura ~/.config/
 fi
 
-ln -s nvim ~/.config/nvim  
+ln -s $PWD/nvim ~/.config/nvim  
 if ! type "$zsh" &> /dev/null; then
     ./zimfw/install.sh
 fi
