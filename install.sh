@@ -4,18 +4,19 @@ git submodule init
 git submodule update --recursive --remote
 mkdir -p ~/.config/
 
-ln -s $PWD/nvim ~/.config/
-ln -s $PWD/bat ~/.config/
-ln -s $PWD/scripts ~/
-ln -s $PWD/.profile ~/
+ln -sfn $PWD/nvim ~/.config/
+ln -sfn $PWD/bat ~/.config/
+ln -sfn $PWD/scripts ~/
+ln -sfn $PWD/.profile ~/
 
 if [[ "$1" != "-c" ]]; then
-    ln -s $PWD/i3 ~/.config/
-    ln -s $PWD/i3status ~/.config/
-    ln -s $PWD/keyboard ~/
-    ln -s $PWD/qutebrowser ~/.config/
-    ln -s $PWD/st ~/.config/
-    ln -s $PWD/zathura ~/.config/
+    ln -sfn $PWD/i3 ~/.config/
+    ln -sfn $PWD/i3status ~/.config/
+    ln -sfn $PWD/keyboard ~/
+    ln -sfn $PWD/qutebrowser ~/.config/
+    mkdir -p ~/.local/etc/
+    ln -sfn $PWD/st ~/.local/etc/
+    ln -sfn $PWD/zathura ~/.config/
     touch ~/.vim_machine_specific.vim
 else
     echo "let g:headless = 1" > ~/.vim_machine_specific.vim
@@ -23,16 +24,16 @@ fi
 
 
 if ! type "$zsh" &> /dev/null; then
-    if [ -f "$HOME/.zshrc" ]; then 
+    if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
         echo ".zshrc must be deleted or moved before install"
         exit 1
     fi
-    if [ -f "$HOME/.zimrc" ]; then 
+    if [ -f "$HOME/.zimrc" ] && [ ! -L "$HOME/.zimrc" ]; then 
         echo ".zimrc must be deleted or moved before install"
         exit 1
     fi
     ./zimfw/install.sh
     rm -f ~/.zshrc ~/.zimrc
-    ln -s $PWD/.zshrc ~/
-    ln -s $PWD/.zimrc ~/
+    ln -sfn $PWD/.zshrc ~/
+    ln -sfn $PWD/.zimrc ~/
 fi
