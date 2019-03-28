@@ -27,4 +27,4 @@
 	url = https://github.com/rgreenblatt/bat
 [submodule "st"]
 	path = st
-	url = https://github.com/rgreenblatt/st
+	url = https://github.com/rgreenblatt/st-old
