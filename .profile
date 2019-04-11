@@ -40,8 +40,17 @@ if [ -d "$HOME/.npm-global" ] ; then
     export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
+if [ -d "/opt/intel/system_studio_2019/bin/" ] ; then
+    export PATH="/opt/intel/system_studio_2019/bin/:$PATH"
+fi
+
+if [ -d "$HOME/.nvm" ] ; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
+
 if [ -d "$HOME/.fzf" ] ; then
-    local color00='#282828'
+    local color00='#1d2021'
     local color01='#3c3836'
     local color02='#504945'
     local color03='#665c54'

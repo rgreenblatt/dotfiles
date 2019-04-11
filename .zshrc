@@ -62,7 +62,6 @@ alias lgi='exa -l --git --git-ignore'
 alias lt='exa -T'
 alias lr='exa -R'
 
-#my aliases
 alias d_run_bind='docker run -it -v $HOME:$HOME -w $PWD'
 alias d_run_w_bind='~/.d_run_w_bind.sh'
 alias d_eval_2016='eval $(docker-machine env 2016)'
@@ -74,6 +73,11 @@ alias pip3='pip3'
 alias pip='pip3'
 alias o='xdg-open'
 alias p='preview'
+alias gst='git status'
+alias gpu='git pull'
+alias gad='git add'
+alias calc='python3 -ic "from math import *; import numpy as np"'
+
 
 mgs() {
   mgs_path=$(mgs_path $@)
@@ -102,6 +106,16 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export GIT_TERMINAL_PROMPT=1
   export VISUAL='nvr -cc split --remote-wait'
   export EDITOR="$VISUAL"
+
+  #indicate insert vs normal mode zsh
+  zle-keymap-select () {
+    case $KEYMAP in
+      vicmd) nvr -cc "highlight TermCursor ctermfg=Blue guifg=Blue" --remote-send "<esc>";;
+      viins|main) nvr -cc "highlight TermCursor ctermfg=Red guifg=Red" --remote-send "h<bs>";;
+    esac
+  }
+
+  zle -N zle-keymap-select
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -109,3 +123,5 @@ fi
 eval $(thefuck --alias)
 eval $(thefuck --alias f)
 eval $(thefuck --alias FUCK)
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
