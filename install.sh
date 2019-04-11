@@ -17,6 +17,7 @@ if [[ "$1" != "-c" ]]; then
     mkdir -p ~/.local/etc/
     ln -sfn $PWD/st ~/.local/etc/
     ln -sfn $PWD/zathura ~/.config/
+    ln -sfn $PWD/undistract-me ~/.undistract-me
     touch ~/.vim_machine_specific.vim
 else
     echo "let g:headless = 1" > ~/.vim_machine_specific.vim
