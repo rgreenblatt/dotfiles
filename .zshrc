@@ -77,6 +77,8 @@ alias gst='git status'
 alias gpu='git pull'
 alias gad='git add'
 alias calc='python3 -ic "from math import *; import numpy as np"'
+a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
+alias stime="$a"
 
 
 mgs() {
@@ -87,10 +89,6 @@ mgs() {
 }
 
 alias mgsd='mgs -e ~ 4'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -124,4 +122,7 @@ eval $(thefuck --alias)
 eval $(thefuck --alias f)
 eval $(thefuck --alias FUCK)
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source .undistract-me/long-running.bash
+notify_when_long_running_commands_finish_install
+export IGNORE_WINDOW_CHECK=1
+# export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
