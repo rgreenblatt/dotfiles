@@ -126,3 +126,4 @@ source .undistract-me/long-running.bash
 notify_when_long_running_commands_finish_install
 export IGNORE_WINDOW_CHECK=1
 # export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
+export LONG_RUNNING_COMMAND_TIMEOUT=30
