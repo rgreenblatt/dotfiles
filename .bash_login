@@ -1,6 +1,6 @@
-if [ "$SHELL" != "/bin/zsh" ] then
-  echo "SHELL"
-  export SHELL="/bin/zsh"
-  exec /bin/zsh -l    # -l: login shell again
-fi
+#!/bin/bash
 
+if [ "$SHELL" != "/bin/zsh" ]; then
+  export SHELL="/bin/zsh"
+  exec /bin/zsh -l
+fi

@@ -1,7 +1,1 @@
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 export ZSH_PROMPT_PREFIX="CS"
-
-pyenv global 3.6.7

@@ -36,5 +36,6 @@ if ! type "$zsh" &> /dev/null; then
     ./zimfw/install.sh
     rm -f ~/.zshrc ~/.zimrc
     ln -sfn $PWD/.zshrc ~/
+    ln -sfn $PWD/.bash_login ~/
     ln -sfn $PWD/.zimrc ~/
 fi
