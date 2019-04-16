@@ -1,4 +1,3 @@
-
 let g:startify_bookmarks = [{'z': '~/.zshrc'}, {'v': '~/.config/nvim/'},
       \ {'w': '~/.config/i3/config'}, 
       \ {'b': '~/.config/qutebrowser/config.py'},
