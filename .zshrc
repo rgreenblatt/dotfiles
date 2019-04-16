@@ -120,12 +120,16 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval $(thefuck --alias)
-eval $(thefuck --alias f)
-eval $(thefuck --alias FUCK)
+if hash thefuck 2>/dev/null; then
+  eval $(thefuck --alias)
+  eval $(thefuck --alias f)
+  eval $(thefuck --alias FUCK)
+fi
 
-source ~/.undistract-me/long-running.bash
-notify_when_long_running_commands_finish_install
-export IGNORE_WINDOW_CHECK=1
-# export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
-export LONG_RUNNING_COMMAND_TIMEOUT=30
+if [ -f ~/.undistract-me/long-running.bash ]; then
+  source ~/.undistract-me/long-running.bash
+  notify_when_long_running_commands_finish_install
+  export IGNORE_WINDOW_CHECK=1
+  # export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
+  export LONG_RUNNING_COMMAND_TIMEOUT=30
+fi
