@@ -1,4 +1,8 @@
 # Define zim location
+if [ -z "$PROFILE_SOURCED" ]; then
+  source .profile
+fi
+
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Start zim
@@ -69,7 +73,7 @@ alias d_eval_unset='eval $(docker-machine env -u)'
 alias py='python3.6'
 alias python3='python3.6'
 alias python='python3.6'
-alias pip3='pip3'
+alias pip3='pip3.6'
 alias pip='pip3'
 alias o='xdg-open'
 alias p='preview'
