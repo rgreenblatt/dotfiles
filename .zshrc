@@ -7,7 +7,7 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
-prompt ryan black blue green yellow
+prompt ryan red blue green yellow
 
 setopt histignorealldups sharehistory
 
