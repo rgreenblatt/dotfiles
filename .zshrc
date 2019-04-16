@@ -1,7 +1,6 @@
-# Define zim location
-# if [ -z "$PROFILE_SOURCED" ]; then
-#   source .profile
-# fi
+if [ -z "$PROFILE_SOURCED" ]; then
+  source .profile
+fi
 
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
