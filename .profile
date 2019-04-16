@@ -8,12 +8,10 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+if [ "$SHELL" != "/bin/zsh" ]
+then
+    export SHELL="/bin/zsh"
+    exec /bin/zsh -l    # -l: login shell again
 fi
 
 if [ -d "$HOME/bin" ] ; then
@@ -71,4 +69,6 @@ if [ -d "$HOME/.fzf" ] ; then
     export FZF_DEFAULT_OPTS="--layout=reverse --bind ctrl-a:select-all+accept,ctrl-j:jump,ctrl-k:jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview 'preview {}' --preview-window=wrap --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
 fi
 
-export CUDA_DEBUGGER_SOFTWARE_PREEMPTION=1
+if [ -d "$HOME/.profile_machine_specific" ]; then
+  source ~/.profile_machine_specific
+fi
