@@ -1,3 +1,7 @@
+if [ -z "$PROFILE_SOURCED" ]; then
+  source .profile
+fi
+
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Start zim
