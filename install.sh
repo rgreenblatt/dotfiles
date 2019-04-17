@@ -41,10 +41,10 @@ case "$target" in
     ;;
   "")
     ;;
-   \? )
-     echo "Invalid target."
-     exit 1
-     ;;
+  *)
+    echo "Invalid target."
+    exit 1
+    ;;
 esac
 
 ln -sfn $PWD/nvim ~/.config/
