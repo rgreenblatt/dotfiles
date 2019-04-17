@@ -1,5 +1,5 @@
 if [ -z "$PROFILE_SOURCED" ]; then
-  source .profile
+  source ~/.profile
 fi
 
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
