@@ -36,6 +36,9 @@ case "$target" in
   brown_ccv)
     ln -sfn $PWD/additional/brown_ccv/* ~/
     ;;
+  devbox)
+    ln -sfn $PWD/additional/devbox/* ~/
+    ;;
   "")
     ;;
    \? )
