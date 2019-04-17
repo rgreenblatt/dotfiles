@@ -1,7 +1,9 @@
 #!/bin/bash
 
+headless="false"
+
 # Parse options
-while getopts ":h" opt; do
+while getopts ":hc" opt; do
   case ${opt} in
     h )
       echo "Usage:"
@@ -11,18 +13,22 @@ while getopts ":h" opt; do
       echo "    ./install.sh -c           Install for a headless system."
       exit 0
       ;;
-   \? )
-     echo "Invalid Option: -$OPTARG" 1>&2
-     exit 1
-     ;;
+    c )
+      echo "Installing headless"
+      headless="true"
+      ;; 
+    \? )
+      echo "Invalid Option: -$OPTARG" 1>&2
+      exit 1
+      ;;
   esac
 done
 shift $((OPTIND -1))
 
 shopt -s dotglob nullglob
 
-git submodule init
-git submodule update --recursive --remote
+git submodule init > /dev/null
+git submodule update --recursive --remote > /dev/null
 mkdir -p ~/.config/
 
 target=$1; shift  # Remove 'install.sh' from the argument list
@@ -52,7 +58,8 @@ ln -sfn $PWD/bat ~/.config/
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
 
-if [[ "$1" != "-c" ]]; then
+if [[ "headless" == "false" ]]; then
+  echo "Installing headed"
     ln -sfn $PWD/i3 ~/.config/
     ln -sfn $PWD/i3status ~/.config/
     ln -sfn $PWD/keyboard ~/
@@ -61,9 +68,6 @@ if [[ "$1" != "-c" ]]; then
     ln -sfn $PWD/st ~/.local/etc/
     ln -sfn $PWD/zathura ~/.config/
     ln -sfn $PWD/undistract-me ~/.undistract-me
-    touch ~/.vim_machine_specific.vim
-else
-    echo "let g:headless = 1" > ~/.vim_machine_specific.vim
 fi
 
 
@@ -76,7 +80,7 @@ if ! type "$zsh" &> /dev/null; then
         echo ".zimrc must be deleted or moved before install"
         exit 1
     fi
-    ./zimfw/install.sh
+    ./zimfw/install.sh > /dev/null
     rm -f ~/.zshrc ~/.zimrc
     ln -sfn $PWD/.zshrc ~/
     ln -sfn $PWD/.zimrc ~/
