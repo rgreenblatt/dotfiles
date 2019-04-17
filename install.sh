@@ -1,8 +1,48 @@
 #!/bin/bash
 
+# Parse options
+while getopts ":h" opt; do
+  case ${opt} in
+    h )
+      echo "Usage:"
+      echo "    ./install.sh [target]"
+      echo ""
+      echo "    ./install.sh -h           Display this help message."
+      echo "    ./install.sh -c           Install for a headless system."
+      exit 0
+      ;;
+   \? )
+     echo "Invalid Option: -$OPTARG" 1>&2
+     exit 1
+     ;;
+  esac
+done
+shift $((OPTIND -1))
+
+shopt -s dotglob nullglob
+
 git submodule init
 git submodule update --recursive --remote
 mkdir -p ~/.config/
+
+target=$1; shift  # Remove 'install.sh' from the argument list
+case "$target" in
+  main)
+    ln -sfn $PWD/additional/main/* ~/
+    ;;
+  brown_cs)
+    ln -sfn $PWD/additional/brown_cs/* ~/
+    ;;
+  brown_ccv)
+    ln -sfn $PWD/additional/brown_ccv/* ~/
+    ;;
+  "")
+    ;;
+   \? )
+     echo "Invalid target."
+     exit 1
+     ;;
+esac
 
 ln -sfn $PWD/nvim ~/.config/
 ln -sfn $PWD/bat ~/.config/
