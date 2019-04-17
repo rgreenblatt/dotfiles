@@ -89,6 +89,14 @@ mgs() {
   fi
 }
 
+if hash scancel 2>/dev/null; then 
+  alias cancel_all='scancel -u guest287'
+fi 
+
+if hash check 2>/dev/null; then 
+  alias check='squeue -u guest287'
+fi
+
 alias mgsd='mgs -e ~ 4'
 
 export VISUAL=nvim
