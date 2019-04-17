@@ -93,8 +93,12 @@ if hash scancel 2>/dev/null; then
   alias cancel_all='scancel -u guest287'
 fi 
 
-if hash check 2>/dev/null; then 
+if hash squeue 2>/dev/null; then 
   alias check='squeue -u guest287'
+fi
+
+if hash module 2>/dev/null; then 
+  alias fix="module load python/3.6.6"
 fi
 
 alias mgsd='mgs -e ~ 4'
