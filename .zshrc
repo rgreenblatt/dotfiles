@@ -1,3 +1,4 @@
+#setup {{{
 if [ -z "$PROFILE_SOURCED" ]; then
   source ~/.profile
 fi
@@ -6,14 +7,15 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Start zim
 [[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
+#}}}
 
-# Set up the prompt
+#prompt {{{
 autoload -Uz promptinit
 promptinit
 prompt ryan black blue green yellow
+#}}}
 
-setopt histignorealldups sharehistory
-
+#bindings {{{
 bindkey -v
 
 autoload -z edit-command-line 
@@ -21,13 +23,17 @@ zle -N edit-command-line
 bindkey "^E" edit-command-line
 
 export KEYTIMEOUT=1
+#}}}
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+#history {{{
+setopt histignorealldups sharehistory
+
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
+#}}}
 
-# Use modern completion system
+#completion (is this needed or correct?) {{{
 autoload -Uz compinit
 compinit
 
@@ -48,40 +54,50 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+#}}}
 
-#changing cat
+#aliases {{{
+#common typos and changing ls and cat {{{
 alias cat=bat
-
-#common typos and changing ls
+alias ct=bat
 alias cs='cd'
 alias l='exa'
 alias ls='exa'
 alias sl='exa'
+#}}}
 
-# some more ls aliases
+# some more ls aliases {{{
 alias ll='exa -l'
 alias lg='exa -l --git'
 alias lgi='exa -l --git --git-ignore'
 alias lt='exa -T'
 alias lr='exa -R'
+#}}}
 
+#docker {{{
 alias d_run_bind='docker run -it -v $HOME:$HOME -w $PWD'
 alias d_run_w_bind='~/.d_run_w_bind.sh'
 alias d_eval_2016='eval $(docker-machine env 2016)'
 alias d_eval_unset='eval $(docker-machine env -u)'
+#}}}
+
+#python {{{
 alias py='python3'
 alias python='python3'
 alias pip='pip3'
+#}}}
+
+#generic {{{
 alias o='xdg-open'
 alias p='preview'
-alias gst='git status'
-alias gpu='git pull'
-alias gad='git add'
 alias calc='python3 -ic "from math import *; import numpy as np"'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
 alias d="disown %"
+#}}}
 
+#git {{{
+#see https://github.com/zimfw/zimfw/tree/master/modules/git for list of aliases
 
 mgs() {
   mgs_path=$(mgs_path $@)
@@ -90,6 +106,10 @@ mgs() {
   fi
 }
 
+alias mgsd='mgs -e ~ 4'
+#}}}
+
+#slurm {{{
 if hash scancel 2>/dev/null; then 
   alias cancel_all='scancel -u guest287'
 fi 
@@ -97,12 +117,15 @@ fi
 if hash squeue 2>/dev/null; then 
   alias check='squeue -u guest287'
 fi
+#}}}
+#}}}
 
-alias mgsd='mgs -e ~ 4'
-
+#editor {{{
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+#}}}
 
+#nvim terminal specific settings {{{
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
@@ -115,29 +138,143 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export VISUAL='nvr -cc split --remote-wait'
   export EDITOR="$VISUAL"
 
+  highlight_term_color() {
+    echo "highlight TermCursor ctermfg=$1 guifg=$1"
+  }
+
+  cursor_red="highlight TermCursor ctermfg=Red guifg=Red"
+  cursor_blue="highlight TermCursor ctermfg=Blue guifg=Blue"
+
   #indicate insert vs normal mode zsh
   zle-keymap-select () {
     case $KEYMAP in
-      vicmd) nvr -cc "highlight TermCursor ctermfg=Blue guifg=Blue" --remote-send "<esc>";;
-      viins|main) nvr -cc "highlight TermCursor ctermfg=Red guifg=Red" --remote-send "h<bs>";;
+      vicmd) nvr -cc $cursor_blue --remote-send "<esc>";;
+      viins|main) nvr -cc $cursor_red --remote-send "h<bs>";;
     esac
   }
 
   zle -N zle-keymap-select
 fi
+#}}}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+#thefuck {{{
 if hash thefuck 2>/dev/null; then
   eval $(thefuck --alias)
   eval $(thefuck --alias f)
   eval $(thefuck --alias FUCK)
 fi
+#}}}
 
-if [ -f ~/.undistract-me/long-running.bash ]; then
-  source ~/.undistract-me/long-running.bash
-  notify_when_long_running_commands_finish_install
-  export IGNORE_WINDOW_CHECK=1
-  # export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
-  export LONG_RUNNING_COMMAND_TIMEOUT=30
-fi
+#undistractify me (modified, also set term title) {{{
+# export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
+export LONG_RUNNING_COMMAND_TIMEOUT=30
+
+# Copyright (c) 2012-2013 Jonathan M. Lange <jml@mumak.net> and the undistract-me
+# authors.
+
+# The undistract-me authors are:
+#  * Canonical Ltd
+#  * Jonathan Lange
+#  * Matthew Lefkowitz
+#  * Clint Byrum
+#  * Mikey Neuling
+#  * Stephen Rothwell
+
+# and are collectively referred to as "undistract-me developers".
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+function get_now() {
+    local secs
+    if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
+        secs=$(\date +'%s')
+    fi
+    echo $secs
+}
+
+function sec_to_human () {
+    local H=''
+    local M=''
+    local S=''
+
+    local h=$(($1 / 3600))
+    [ $h -gt 0 ] && H="${h} hour" && [ $h -gt 1 ] && H="${H}s"
+
+    local m=$((($1 / 60) % 60))
+    [ $m -gt 0 ] && M=" ${m} min" && [ $m -gt 1 ] && M="${M}s"
+
+    local s=$(($1 % 60))
+    [ $s -gt 0 ] && S=" ${s} sec" && [ $s -gt 1 ] && S="${S}s"
+
+    echo $H$M$S
+}
+
+function precmd () {
+    path_expand='%~'
+    print -Pn "\e]0;${path_expand}\a"
+    if [[ -n "$__udm_last_command_started" ]]; then
+
+        now=$(get_now)
+            local time_taken=$(( $now - $__udm_last_command_started ))
+            local time_taken_human=$(sec_to_human $time_taken)
+            local appname=$(basename "${__udm_last_command%% *}")
+            if [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
+                [[ -n $DISPLAY ]] &&
+                [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
+                local icon=dialog-information
+                local urgency=low
+                if [[ $__preexec_exit_status != 0 ]]; then
+                    icon=dialog-error
+                    urgency=normal
+                fi
+                notify=$(command -v notify-send)
+                if [ -x "$notify" ]; then
+                    $notify \
+                    -i $icon \
+                    -u $urgency \
+                    "Command completed in $time_taken_human" \
+                    "$__udm_last_command"
+                else
+                    echo -ne "\a"
+                fi
+            fi
+            if [[ -n $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
+                [[ -n $LONG_RUNNING_COMMAND_CUSTOM ]] &&
+                [[ $time_taken -gt $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
+                [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
+                # put in brackets to make it quiet
+                export __preexec_exit_status
+                ( $LONG_RUNNING_COMMAND_CUSTOM \
+                    "\"$__udm_last_command\" took $time_taken_human" & )
+            fi
+    fi
+}
+
+function preexec () {
+    __udm_last_command=$(echo "$1")
+    path_expand='%~:'
+    print -Pn "\e]0;${path_expand}${__udm_last_command}\a"
+    # use __udm to avoid global name conflicts
+    __udm_last_command_started=$(get_now)
+}
+#}}}
+
+# vim: set fdm=marker:

@@ -28,6 +28,3 @@
 [submodule "st"]
 	path = st
 	url = https://github.com/rgreenblatt/st-old
-[submodule "undistract-me"]
-	path = undistract-me
-	url = https://github.com/rgreenblatt/undistract-me

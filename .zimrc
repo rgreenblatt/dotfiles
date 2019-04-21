@@ -52,7 +52,8 @@ zprompt_theme='ryan'
 # ${PWD} are only evaluated once. Use prompt expansion strings for dynamic data:
 #   http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
 # The example below uses the following format: 'username@host:/current/directory'
-ztermtitle='%n@%m:%~'
+# ztermtitle='%n@%m:%~:%N'
+# This isn't needed because I am overriding with zshrc
 
 #
 # Input
@@ -63,7 +64,7 @@ zinput_mode='vi'
 
 # Uncomment to enable double-dot expansion. This appends '../' to your input for
 # each '.' you type after an initial '..'
-#zdouble_dot_expand='true'
+zdouble_dot_expand='true'
 
 #
 # Syntax-Highlighting
@@ -74,7 +75,7 @@ zinput_mode='vi'
 #   https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
 # For (u)rxvt, termite and gnome-terminal users,
 # removing the 'cursor' highlighter will fix the disappearing cursor problem
-zhighlighters=(main brackets cursor)
+zhighlighters=(main brackets root line)
 
 #
 # SSH
