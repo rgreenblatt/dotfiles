@@ -60,7 +60,14 @@ if [ -d "$HOME/.fzf" ] ; then
   color0F='#d65d0e'
 
   export FZF_DEFAULT_COMMAND='rg --files'
-  export FZF_DEFAULT_OPTS="--layout=reverse --bind ctrl-a:select-all+accept,ctrl-j:jump,ctrl-k:jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview 'preview {}' --preview-window=wrap --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+  a="--layout=reverse --bind ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
+  b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d"
+  c=":preview-page-down,ctrl-u:preview-page-up,ctrl-g:top "
+  d="--color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D "
+  e="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
+  f="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+  export FZF_DEFAULT_OPTS="$a$b$c$d$e$f"
+  export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
 fi
 
 if [ -f "$HOME/.profile_machine_specific" ]; then

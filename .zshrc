@@ -80,6 +80,7 @@ alias gad='git add'
 alias calc='python3 -ic "from math import *; import numpy as np"'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
+alias d="disown %"
 
 
 mgs() {
