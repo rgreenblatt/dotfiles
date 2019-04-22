@@ -228,52 +228,59 @@ function sec_to_human () {
 }
 
 function precmd () {
-    path_expand='%~'
-    print -Pn "\e]0;${path_expand}\a"
-    if [[ -n "$__udm_last_command_started" ]]; then
+  path_expand='%~'
+  print -Pn "\e]0;${path_expand}\a"
 
-        now=$(get_now)
-            local time_taken=$(( $now - $__udm_last_command_started ))
-            local time_taken_human=$(sec_to_human $time_taken)
-            local appname=$(basename "${__udm_last_command%% *}")
-            if [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
-                [[ -n $DISPLAY ]] &&
-                [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
-                local icon=dialog-information
-                local urgency=low
-                if [[ $__preexec_exit_status != 0 ]]; then
-                    icon=dialog-error
-                    urgency=normal
-                fi
-                notify=$(command -v notify-send)
-                if [ -x "$notify" ]; then
-                    $notify \
-                    -i $icon \
-                    -u $urgency \
-                    "Command completed in $time_taken_human" \
-                    "$__udm_last_command"
-                else
-                    echo -ne "\a"
-                fi
-            fi
-            if [[ -n $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
-                [[ -n $LONG_RUNNING_COMMAND_CUSTOM ]] &&
-                [[ $time_taken -gt $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
-                [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
-                # put in brackets to make it quiet
-                export __preexec_exit_status
-                ( $LONG_RUNNING_COMMAND_CUSTOM \
-                    "\"$__udm_last_command\" took $time_taken_human" & )
-            fi
-    fi
+  if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+    #async for speed
+    (nvr -c "silent lcd $PWD" &)
+  fi
+
+  if [[ -n "$__udm_last_command_started" ]]; then
+
+    now=$(get_now)
+      local time_taken=$(( $now - $__udm_last_command_started ))
+      local time_taken_human=$(sec_to_human $time_taken)
+      local appname=$(basename "${__udm_last_command%% *}")
+      if [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
+        [[ -n $DISPLAY ]] &&
+        [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
+        local icon=dialog-information
+        local urgency=low
+        if [[ $__preexec_exit_status != 0 ]]; then
+          icon=dialog-error
+          urgency=normal
+        fi
+        notify=$(command -v notify-send)
+        if [ -x "$notify" ]; then
+          $notify \
+          -i $icon \
+          -u $urgency \
+          "Command completed in $time_taken_human" \
+          "$__udm_last_command"
+        else
+          echo -ne "\a"
+        fi
+      fi
+      if [[ -n $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
+        [[ -n $LONG_RUNNING_COMMAND_CUSTOM ]] &&
+        [[ $time_taken -gt $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
+        [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
+        # put in brackets to make it quiet
+        export __preexec_exit_status
+        ( $LONG_RUNNING_COMMAND_CUSTOM \
+          "\"$__udm_last_command\" took $time_taken_human" & )
+      fi
+  fi
 }
 
 function preexec () {
-    __udm_last_command=$(echo "$1")
-    path_expand='%~:'
-    print -Pn "\e]0;${path_expand}${__udm_last_command}\a"
-    # use __udm to avoid global name conflicts
-    __udm_last_command_started=$(get_now)
+  __udm_last_command=$(echo "$1")
+  path_expand='%~:'
+
+  print -Pn "\e]0;${path_expand}${__udm_last_command}\a"
+  # use __udm to avoid global name conflicts
+  __udm_last_command_started=$(get_now)
 }
 #}}}
 
