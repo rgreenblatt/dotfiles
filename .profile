@@ -42,7 +42,7 @@ if [ -d "$HOME/.nvm" ] ; then
 fi
 
 if [ -d "$HOME/.fzf" ] ; then
-  color00='#1d2021'
+  color00='#282828'
   color01='#3c3836'
   color02='#504945'
   color03='#665c54'
