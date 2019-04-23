@@ -59,7 +59,7 @@ if [ -d "$HOME/.fzf" ] ; then
   color0E='#d3869b'
   color0F='#d65d0e'
 
-  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
   a="--layout=reverse --bind ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
   b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d"
   c=":preview-page-down,ctrl-u:preview-page-up,ctrl-g:top "
@@ -68,6 +68,8 @@ if [ -d "$HOME/.fzf" ] ; then
   f="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
   export FZF_DEFAULT_OPTS="$a$b$c$d$e$f"
   export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
+  # export FZF_EXACT_PREVIEW="true"
+  # export FZF_PREVIEW_COMMAND="nvr -c 'call FloatingFZFPreview(\"{}\", \"<>\")"
 fi
 
 if [ -f "$HOME/.profile_machine_specific" ]; then

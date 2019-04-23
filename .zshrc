@@ -57,9 +57,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 #}}}
 
 #aliases {{{
-#common typos and changing ls and cat {{{
-alias cat=bat
-alias ct=bat
+#common typos and changing ls {{{
 alias cs='cd'
 alias l='exa'
 alias ls='exa'
