@@ -28,15 +28,20 @@ export KEYTIMEOUT=1
 #history {{{
 setopt histignorealldups sharehistory
 
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=20000
 HISTFILE=~/.zsh_history
 #}}}
 
-#completion (is this needed or correct?) {{{
+#completion {{{
 autoload -Uz compinit
-compinit
 
+#faster load, may require manual load after installs
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+
+compinit -C
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -157,11 +162,12 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#thefuck {{{
-if hash thefuck 2>/dev/null; then
-  eval $(thefuck --alias)
-  eval $(thefuck --alias f)
-  eval $(thefuck --alias FUCK)
+#thefuck (lazy loading) {{{
+if command -v thefuck >/dev/null 2>&1; then
+  f() {
+    eval "$(thefuck --alias f)"
+    f
+  }
 fi
 #}}}
 
@@ -283,3 +289,5 @@ function preexec () {
 #}}}
 
 # vim: set fdm=marker:
+
+eval $(thefuck --alias)
