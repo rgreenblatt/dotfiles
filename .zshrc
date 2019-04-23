@@ -164,10 +164,9 @@ fi
 
 #thefuck (lazy loading) {{{
 if command -v thefuck >/dev/null 2>&1; then
-  f() {
-    eval "$(thefuck --alias f)"
-    f
-  }
+  a='if type fuck_alias &>/dev/null; then; fuck_alias; else;'
+  b=' eval "$(thefuck --alias fuck_alias)"; fuck_alias; fi'
+  alias f="$a$b"
 fi
 #}}}
 
@@ -289,5 +288,3 @@ function preexec () {
 #}}}
 
 # vim: set fdm=marker:
-
-eval $(thefuck --alias)
