@@ -57,7 +57,6 @@ ln -sfn $PWD/nvim ~/.config/
 ln -sfn $PWD/bat ~/.config/
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
-ln -sfn $PWD/.enhancd ~/
 
 if [[ "headless" == "false" ]]; then
   echo "Installing headed"
