@@ -14,6 +14,7 @@ I am using an install script instead of stow because I want to have this directo
 ### Installation
 
 To install everything run `./install.sh`. To install everything for a headless install run `./install.sh -c`
+A set of machine specific files can also be installed using `./install.sh <name-of-machine>`.
 
 ### Notes
 
@@ -23,3 +24,9 @@ It is possible to install cargo without root (see standard install).
 It is possible to install npm packages without root using 
 [this approach](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally)
 
+Here is some vague idea of how to set ubuntu to have everything needed:
+```
+sudo apt install git build-essentials i3
+sudo pip install pynvim :
+```
+Install neovim using some approach.

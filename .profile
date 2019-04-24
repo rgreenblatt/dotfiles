@@ -77,3 +77,5 @@ if [ -f "$HOME/.profile_machine_specific" ]; then
 fi
 
 export PROFILE_SOURCED=1
+
+export PATH="$HOME/.cargo/bin:$PATH"

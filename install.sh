@@ -58,7 +58,7 @@ ln -sfn $PWD/bat ~/.config/
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
 
-if [[ "headless" == "false" ]]; then
+if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
     ln -sfn $PWD/i3 ~/.config/
     ln -sfn $PWD/i3status ~/.config/
@@ -71,7 +71,8 @@ if [[ "headless" == "false" ]]; then
 fi
 
 
-if ! type "$zsh" &> /dev/null; then
+if type "$zsh" &> /dev/null; then
+  echo "zsh is installed"
     if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
         echo ".zshrc must be deleted or moved before install"
         exit 1
