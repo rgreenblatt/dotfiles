@@ -121,6 +121,11 @@ if hash squeue 2>/dev/null; then
   alias check='squeue -u guest287'
 fi
 #}}}
+
+#mounting flash drive {{{
+alias lm="lsblk"
+alias am="udisksctl mount -b"
+#}}}
 #}}}
 
 #nvim terminal specific settings {{{
