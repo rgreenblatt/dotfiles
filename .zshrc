@@ -61,17 +61,18 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 setopt rm_star_silent
+setopt +o nomatch
+
+# Make zsh know about hosts already accessed by SSH
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 #}}}
 
 #aliases {{{
-#common typos and changing ls {{{
+#ls {{{
 alias cs='cd'
 alias l='exa'
 alias ls='exa'
 alias sl='exa'
-#}}}
-
-# some more ls aliases {{{
 alias ll='exa -l'
 alias lg='exa -l --git'
 alias lgi='exa -l --git --git-ignore'
@@ -99,6 +100,23 @@ alias calc='python3 -ic "from math import *; import numpy as np"'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
 alias d="disown %"
+
+alias t='tail -f'
+
+# Command line head / tail shortcuts
+alias -g H='| head'
+alias -g T='| tail'
+alias -g L="| bat"
+alias -g F="| fzf"
+alias -g NO="> /dev/null"
+alias -g NE="2> /dev/null"
+alias -g NA="&> /dev/null"
+
+alias dud='du -d 1 -h'
+alias duf='du -sh *'
+alias ff='rg --files -g'
+
+alias h='history'
 #}}}
 
 #git {{{
