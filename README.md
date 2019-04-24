@@ -28,7 +28,7 @@ I am not making this a script because it should probably be run at most several 
 ```
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
-  compton xdotool subversion
+  compton xdotool subversion openssh-server
 ```
 Install neovim as desired (I am am currently on master or a fork with additional features). 
 Install drivers as needed, nvidia drivers may be required for qutebrowser.
