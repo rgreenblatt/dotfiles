@@ -73,7 +73,7 @@ if [[ "$headless" == "false" ]]; then
 fi
 
 
-if type "$zsh" &> /dev/null; then
+if hash zsh 2> /dev/null; then
   echo "zsh is installed"
     if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
         echo ".zshrc must be deleted or moved before install"
