@@ -20,9 +20,6 @@ A set of machine specific files can also be installed using `./install.sh <name-
 
 It is possible to install nvim without root using 
 [this approach](https://github.com/neovim/neovim/wiki/Installing-Neovim#Linux).
-It is possible to install cargo without root (see standard install).
-It is possible to install npm packages without root using 
-[this approach](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally)
 
 Most of this can be found [here](git@github.com:rgreenblatt/devbox), but here is some vague idea of how to set Ubuntu 18.04/18.10 to have everything needed:
 ```
@@ -37,9 +34,11 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install lts
+npm i -g bash-language-server
 curl -o- -L https://yarnpkg.com/install.sh | bash
 sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
   /etc/udev/rules.d/85-input.rules
+sudo usermod -aG input $USER
 curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cd ~/.local/etc/st/ && make && sudo make install && cd -
@@ -74,3 +73,5 @@ nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
 ```
+
+Additional language servers for coc may also be desirable.
