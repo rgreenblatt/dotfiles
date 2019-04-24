@@ -76,6 +76,7 @@ if [ -f "$HOME/.profile_machine_specific" ]; then
   source ~/.profile_machine_specific
 fi
 
-export PROFILE_SOURCED=1
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 
-export PATH="$HOME/.cargo/bin:$PATH"
+export PROFILE_SOURCED=1

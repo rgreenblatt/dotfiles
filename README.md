@@ -24,7 +24,8 @@ It is possible to install nvim without root using
 Most of this can be found [here](git@github.com:rgreenblatt/devbox), but here is some vague idea of how to set Ubuntu 18.04/18.10 to have everything needed:
 ```
 sudo apt update
-sudo apt install git build-essential i3 python3-pip zathura qutebrowser compton
+sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
+  compton xdotool
 ```
 Install neovim as desired (I am am currently on master or a fork with additional features). Install drivers as needed, nvidia drivers may be required for qutebrowser.
 ```
