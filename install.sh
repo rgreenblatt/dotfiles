@@ -67,7 +67,8 @@ if [[ "$headless" == "false" ]]; then
     mkdir -p ~/.local/etc/
     ln -sfn $PWD/st ~/.local/etc/
     ln -sfn $PWD/zathura ~/.config/
-    ln -sfn $PWD/undistract-me ~/.undistract-me
+    mkdir -p ~/.local/share/applications/
+    ln -sfn $PWD/defaults.list ~/.local/share/applications/
 fi
 
 
