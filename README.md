@@ -28,7 +28,7 @@ I am not making this a script because it should probably be run at most several 
 ```
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
-  compton xdotool subversion openssh-server
+  compton xdotool subversion openssh-server ruby-dev
 ```
 Install neovim as desired (I am am currently on master or a fork with additional features). 
 Install drivers as needed, nvidia drivers may be required for qutebrowser.
@@ -44,12 +44,14 @@ cd ..
 chmod +x install.sh
 ./install.sh
 pip3 install pynvim neovim-remote thefuck evdev
+pip2 install pynvim
+sudo gem install neovim
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
   | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install lts
-npm i -g tldr bash-language-server
+npm i -g tldr bash-language-server neovim
 curl -o- -L https://yarnpkg.com/install.sh | bash
 cd .. && sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
   /etc/udev/rules.d/85-input.rules && cd install
