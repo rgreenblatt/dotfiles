@@ -154,6 +154,7 @@ alias am="udisksctl mount -b"
 
 #nvim terminal specific settings {{{
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+  export NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -172,8 +173,8 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   #indicate insert vs normal mode zsh
   zle-keymap-select () {
     case $KEYMAP in
-      vicmd) nvr -cc $cursor_blue --remote-send "<esc>";;
-      viins|main) nvr -cc $cursor_red --remote-send "h<bs>";;
+      vicmd) (nvr -cc $cursor_blue --remote-send "<esc>" &);;
+      viins|main) (nvr -cc $cursor_red --remote-send "h<bs>" &);;
     esac
   }
 
@@ -191,40 +192,8 @@ if command -v thefuck >/dev/null 2>&1; then
 fi
 #}}}
 
-#undistractify me (modified, also set term title) {{{
-# export LONG_RUNNING_IGNORE_LIST="o cat xdg-open git gca gc f p gp"
-export LONG_RUNNING_COMMAND_TIMEOUT=30
-
-# Copyright (c) 2012-2013 Jonathan M. Lange <jml@mumak.net> and the undistract-me
-# authors.
-
-# The undistract-me authors are:
-#  * Canonical Ltd
-#  * Jonathan Lange
-#  * Matthew Lefkowitz
-#  * Clint Byrum
-#  * Mikey Neuling
-#  * Stephen Rothwell
-
-# and are collectively referred to as "undistract-me developers".
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+#prexec: handles setting path for nvim, notifications, and terminal names {{{
+export LONG_RUNNING_COMMAND_TIMEOUT=4
 
 function get_now() {
     local secs
@@ -251,24 +220,39 @@ function sec_to_human () {
     echo $H$M$S
 }
 
+function active_window_id () {
+  if [[ -n $DISPLAY ]] ; then
+    xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
+    return
+  fi
+  echo nowindowid
+}
+
+export __udm_last_command_handled=0
+
 function precmd () {
   path_expand='%~'
   print -Pn "\e]0;${path_expand}\a"
 
   if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
-    #async for speed
     (nvr -c "silent lcd $PWD" &)
+    (nvr -cc $cursor_red --remote-send "h<bs>" &)
   fi
 
   if [[ -n "$__udm_last_command_started" ]]; then
-
     now=$(get_now)
-      local time_taken=$(( $now - $__udm_last_command_started ))
-      local time_taken_human=$(sec_to_human $time_taken)
-      local appname=$(basename "${__udm_last_command%% *}")
-      if [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
-        [[ -n $DISPLAY ]] &&
-        [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
+    local focused_window=$(active_window_id)
+    local time_taken=$(( $now - $__udm_last_command_started ))
+    local time_taken_human=$(sec_to_human $time_taken)
+    local appname=$(basename "${__udm_last_command%% *}")
+    if [[ $__udm_last_command_handled == 0 ]] && 
+      [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] && 
+      [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]]; then 
+      if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+        local nvim_current_buffer=$(nvr --remote-expr "bufnr('%')" 2> /dev/null)
+      fi
+      if [[ $focused_window != $__udm_last_window ]] || 
+        [[  $nvim_current_buffer != $NVIM_BUF_ID ]]; then
         local icon=dialog-information
         local urgency=low
         if [[ $__preexec_exit_status != 0 ]]; then
@@ -277,34 +261,27 @@ function precmd () {
         fi
         notify=$(command -v notify-send)
         if [ -x "$notify" ]; then
-          $notify \
-          -i $icon \
-          -u $urgency \
-          "Command completed in $time_taken_human" \
-          "$__udm_last_command"
+          echo $time_taken
+          $notify -i $icon -u $urgency "$time_taken_human:" \
+            "$__udm_last_command"
         else
           echo -ne "\a"
         fi
       fi
-      if [[ -n $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
-        [[ -n $LONG_RUNNING_COMMAND_CUSTOM ]] &&
-        [[ $time_taken -gt $LONG_RUNNING_COMMAND_CUSTOM_TIMEOUT ]] &&
-        [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]] ; then
-        # put in brackets to make it quiet
-        export __preexec_exit_status
-        ( $LONG_RUNNING_COMMAND_CUSTOM \
-          "\"$__udm_last_command\" took $time_taken_human" & )
-      fi
+    fi
+    __udm_last_command_handled=1
   fi
 }
 
 function preexec () {
   __udm_last_command=$(echo "$1")
+  __udm_last_window=$(active_window_id)
   path_expand='%~:'
 
   print -Pn "\e]0;${path_expand}${__udm_last_command}\a"
   # use __udm to avoid global name conflicts
   __udm_last_command_started=$(get_now)
+  __udm_last_command_handled=0
 }
 #}}}
 
