@@ -11,5 +11,5 @@ let g:startify_commands = [{'m': 'te neomutt '}, {'t': 'GlobalSharedTerm'},
 let g:startify_custom_header = ""
 let g:startify_custom_footer =
       \ map(split(system('cat /home/ryan/Documents/efficiency'.
-      \ '/TODO/TODO_LIST.txt'), '\n'), 
+      \ '/TODO/TODO_LIST.txt 2> /dev/null'), '\n'), 
       \'"   ". v:val')

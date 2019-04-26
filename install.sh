@@ -57,22 +57,25 @@ ln -sfn $PWD/nvim ~/.config/
 ln -sfn $PWD/bat ~/.config/
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
-ln -sfn $PWD/.enhancd ~/
 
-if [[ "headless" == "false" ]]; then
+if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
     ln -sfn $PWD/i3 ~/.config/
     ln -sfn $PWD/i3status ~/.config/
     ln -sfn $PWD/keyboard ~/
     ln -sfn $PWD/qutebrowser ~/.config/
+    ln -sfn $PWD/compton ~/.config/
     mkdir -p ~/.local/etc/
     ln -sfn $PWD/st ~/.local/etc/
     ln -sfn $PWD/zathura ~/.config/
-    ln -sfn $PWD/undistract-me ~/.undistract-me
+    mkdir -p ~/.local/share/
+    ln -sfn $PWD/applications ~/.local/share/
+
 fi
 
 
-if ! type "$zsh" &> /dev/null; then
+if hash zsh 2> /dev/null; then
+  echo "zsh is installed"
     if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
         echo ".zshrc must be deleted or moved before install"
         exit 1
