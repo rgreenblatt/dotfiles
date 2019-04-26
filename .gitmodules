@@ -30,4 +30,4 @@
 	url = https://github.com/rgreenblatt/st-old
 [submodule "compton"]
 	path = compton
-	url = git@github.com:rgreenblatt/compton
+	url = https://github.com/rgreenblatt/compton
