@@ -11,6 +11,7 @@ if [[ ! $(git status --porcelain) ]]; then
     git pull
     ./install.sh $(cat target)
     nvim +PlugInstall +qa
+    nvim +PlugUpdate +qa
   else 
     >&2 echo "target isn't defined"
     exit 1
