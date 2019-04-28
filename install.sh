@@ -34,18 +34,24 @@ git submodule update --recursive --remote > /dev/null
 mkdir -p ~/.config/
 
 target=$1; shift  # Remove 'install.sh' from the argument list
+
+install_target() {
+  ln -sfn $PWD/additional/$target/* ~/
+  echo "Installing $target"
+}
+
 case "$target" in
   main)
-    ln -sfn $PWD/additional/main/* ~/
+    install_target
     ;;
   brown_cs)
-    ln -sfn $PWD/additional/brown_cs/* ~/
+    install_target
     ;;
   brown_ccv)
-    ln -sfn $PWD/additional/brown_ccv/* ~/
+    install_target
     ;;
   devbox)
-    ln -sfn $PWD/additional/devbox/* ~/
+    install_target
     ;;
   "")
     ;;
@@ -76,10 +82,33 @@ if [[ "$headless" == "false" ]]; then
     ln -sfn $PWD/applications ~/.local/share/
 fi 
 
-mail="MAILTO=ryan_greenblatt@brown.edu\n"
+#when changing the cron job be sure to change the c number
+c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
+mail="MAILTO=ryan_greenblatt@brown.edu"
 install_job="0 2 * * * cd $PWD && ./check_git_install.sh"
+c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-(crontab -l 2>/dev/null; echo "$mail$install_job") | crontab -
+full=$(printf "\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$install_job" "$c_end") 
+
+current_cron=$(crontab -l 2>/dev/null)
+
+line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" | grep -Eo '^[^:]+')
+exit_status=$?
+if [ "$exit_status" -eq 0 ]; then
+
+  line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" | grep -Eo '^[^:]+')
+  exit_status=$?
+  if [ $exit_status -ne 0 ]; then
+    >&2 echo "first cron tab comment found, but second wasn't found, exiting"
+    exit 1
+  fi
+  sed_end=d
+  current_cron=$(echo "$current_cron" | sed -e "$line_start,$line_end$sed_end")
+else
+  echo "cron jobs not found, adding"
+fi
+
+echo "$current_cron$full" | crontab -
 
 if hash zsh 2> /dev/null; then
   echo "zsh is installed"
