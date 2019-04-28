@@ -5,6 +5,7 @@ if [[ ! $(git status --porcelain) ]]; then
     echo "git is clean and target is defined so pulling and installing"
     git pull
     ./install.sh $(cat target)
+    nvim +PlugInstall +qa
   else 
     >&2 echo "target isn't defined"
     exit 1
