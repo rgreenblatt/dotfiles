@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#needed to ensure nvim is in the path
+if [ -z "$PROFILE_SOURCED" ]; then
+  source ~/.profile
+fi
+
 if [[ ! $(git status --porcelain) ]]; then
   if [[ -f target ]]; then
     echo "git is clean and target is defined so pulling and installing"

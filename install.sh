@@ -93,11 +93,13 @@ full=$(printf "\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$install_job" "$c_end")
 
 current_cron=$(crontab -l 2>/dev/null)
 
-line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" | grep -Eo '^[^:]+')
+line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" | 
+  grep -Eo '^[^:]+')
 exit_status=$?
 if [ "$exit_status" -eq 0 ]; then
 
-  line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" | grep -Eo '^[^:]+')
+  line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" | 
+    grep -Eo '^[^:]+')
   exit_status=$?
   if [ $exit_status -ne 0 ]; then
     >&2 echo "first cron tab comment found, but second wasn't found, exiting"
