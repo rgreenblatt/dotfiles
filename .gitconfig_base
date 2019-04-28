@@ -1,0 +1,7 @@
+[user]
+  email = greenblattryan@gmail.com
+  name = rgreenblatt
+[core]
+	excludesfile = ~/.cvsignore
+
+# vim: set filetype=gitconfig:

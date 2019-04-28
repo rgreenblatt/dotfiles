@@ -12,6 +12,6 @@ if [ "$SHELL" != "~/.local/bin/zsh" ]; then
   export SHELL="~/.local/bin/zsh"
 fi
 
-if hash module; then
+if hash module 2> /dev/null; then
   exec nvim -l
 fi

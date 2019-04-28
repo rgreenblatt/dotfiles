@@ -200,7 +200,6 @@ function get_now() {
     if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
         secs=$(\date +'%s')
     fi
-    echo $secs
 }
 
 function sec_to_human () {
