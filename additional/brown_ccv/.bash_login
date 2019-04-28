@@ -13,5 +13,5 @@ if [ "$SHELL" != "~/.local/bin/zsh" ]; then
 fi
 
 if hash module 2> /dev/null; then
-  # exec nvim -l
+  exec nvim -l
 fi
