@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$PS1" ]; then
+  return
+fi
+
 if [ -z "$PROFILE_SOURCED" ]; then
   source .profile
 fi
