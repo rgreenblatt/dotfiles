@@ -59,7 +59,7 @@ if [ -d "$HOME/.fzf" ] ; then
   color0E='#d3869b'
   color0F='#d65d0e'
 
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+  export FZF_DEFAULT_COMMAND="rg --files --hidden --follow -g '!**/.git/**' -g '!**/*.git/**'"
   a="--layout=reverse --bind ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
   b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d"
   c=":preview-page-down,ctrl-u:preview-page-up,ctrl-g:top "
