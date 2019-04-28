@@ -85,7 +85,8 @@ fi
 #when changing the cron job be sure to change the c number
 c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
 mail="MAILTO=ryan_greenblatt@brown.edu"
-install_job="0 2 * * * cd $PWD && ./check_git_install.sh"
+hourly_job="cd $PWD && ./check_git_install.sh && nvim +PlugInstall +qa"
+install_job="40 2 * * * $hourly_job"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
 full=$(printf "\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$install_job" "$c_end") 
