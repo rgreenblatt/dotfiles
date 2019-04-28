@@ -57,6 +57,8 @@ ln -sfn $PWD/nvim ~/.config/
 ln -sfn $PWD/bat ~/.config/
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
+ln -sfn $PWD/.cvsignore ~/
+ln -sfn $PWD/.gitconfig_base ~/
 
 if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
