@@ -10,5 +10,5 @@ fi
 
 if [ "$SHELL" != "/bin/zsh" ]; then
   export SHELL="/bin/zsh"
-  exec ~/.local/bin/nvim -l
+  # exec ~/.local/bin/nvim -l
 fi
