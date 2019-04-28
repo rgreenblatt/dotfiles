@@ -72,9 +72,12 @@ if [[ "$headless" == "false" ]]; then
     ln -sfn $PWD/zathura ~/.config/
     mkdir -p ~/.local/share/
     ln -sfn $PWD/applications ~/.local/share/
+fi 
 
-fi
+mail="MAILTO=ryan_greenblatt@brown.edu\n"
+install_job="0 2 * * * cd $PWD && ./check_git_install.sh"
 
+(crontab -l 2>/dev/null; echo "$mail$install_job") | crontab -
 
 if hash zsh 2> /dev/null; then
   echo "zsh is installed"
