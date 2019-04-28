@@ -2,6 +2,8 @@
 
 headless="false"
 
+echo "$@" > target
+
 # Parse options
 while getopts ":hc" opt; do
   case ${opt} in
