@@ -151,6 +151,10 @@ fi
 alias lm="lsblk"
 alias am="udisksctl mount -b"
 #}}}
+
+#cargo fix {{{
+alias cargo='eval `ssh-agent -s` && ssh-add && cargo'
+#}}}
 #}}}
 
 #nvim terminal specific settings {{{
@@ -182,7 +186,6 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   zle -N zle-keymap-select
 fi
 #}}}
-
 
 #fzf {{{
   _fzf_compgen_path () {
