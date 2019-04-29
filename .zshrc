@@ -189,11 +189,11 @@ fi
 
 #fzf {{{
   _fzf_compgen_path () {
-    eval "$FZF_DEFAULT_COMMAND"
+    eval "$FZF_DEFAULT_COMMAND '' $1"
   }
 
   _fzf_compgen_dir () {
-    eval "$FZF_DIR_COMMAND"
+    eval "$FZF_DIR_COMMAND '' $1"
   }
 
 
