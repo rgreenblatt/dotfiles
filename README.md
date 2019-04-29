@@ -62,7 +62,7 @@ cd ~/.local/etc/st/ && make && sudo make install && cd -
 sudo update-alternatives --install /usr/bin/x-terminal-emulator \
   x-terminal-emulator /usr/local/bin/st 300 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
-~/.cargo/bin/cargo install bat exa ripgrep
+~/.cargo/bin/cargo install bat exa ripgrep fd-find
 apt-get install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo man-db
 git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
   ./configure --prefix=/usr \
@@ -96,3 +96,9 @@ bat cache --build
 ```
 
 Additional language servers for coc may also be desirable.
+Cargo installs seem to fail with my git config, running:
+```
+eval `ssh-agent -s`
+ssh-add
+```
+solves the issue. See https://github.com/rust-lang/cargo/issues/3381.

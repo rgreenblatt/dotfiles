@@ -118,7 +118,8 @@ alias -g NA="&> /dev/null"
 
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
-alias ff='rg --files -g'
+alias ffi="$FZF_DEFAULT_COMMAND"
+alias fdi="$FZF_DIR_COMMAND"
 
 alias h='history'
 #}}}
@@ -182,7 +183,19 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 fi
 #}}}
 
+
+#fzf {{{
+  _fzf_compgen_path () {
+    eval "$FZF_DEFAULT_COMMAND"
+  }
+
+  _fzf_compgen_dir () {
+    eval "$FZF_DIR_COMMAND"
+  }
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#}}}
 
 #thefuck (lazy loading) {{{
 if command -v thefuck >/dev/null 2>&1; then
