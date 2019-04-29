@@ -51,7 +51,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install lts
-npm i -g tldr bash-language-server neovim
+npm i -g tldr bash-language-server neovim insect
 curl -o- -L https://yarnpkg.com/install.sh | bash
 cd .. && sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
   /etc/udev/rules.d/85-input.rules && cd install

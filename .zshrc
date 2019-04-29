@@ -100,7 +100,7 @@ alias pip='pip3'
 #generic {{{
 alias o='xdg-open'
 alias p='preview'
-alias calc='python3 -ic "from math import *; import numpy as np"'
+alias calc='insect'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
 alias d="disown %"
