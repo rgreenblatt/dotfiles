@@ -192,18 +192,11 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
 
-  highlight_term_color() {
-    echo "highlight TermCursor ctermfg=$1 guifg=$1"
-  }
-
-  cursor_red="highlight TermCursor ctermfg=Red guifg=Red"
-  cursor_blue="highlight TermCursor ctermfg=Blue guifg=Blue"
-
   #indicate insert vs normal mode zsh
   zle-keymap-select () {
     case $KEYMAP in
-      vicmd) (nvr -cc $cursor_blue --remote-send "<esc>" &);;
-      viins|main) (nvr -cc $cursor_red --remote-send "h<bs>" &);;
+      vicmd) (nvr -cc "ZshVIMModeExitInsert" &);;
+      viins|main) (nvr -cc "ZshVIMModeEnterInsert" &);;
     esac
   }
 
@@ -275,7 +268,7 @@ function precmd () {
 
   if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
     (nvr -c "silent lcd $PWD" &)
-    (nvr -cc $cursor_red --remote-send "h<bs>" &)
+    (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
 
   if [[ -n "$__udm_last_command_started" ]]; then
