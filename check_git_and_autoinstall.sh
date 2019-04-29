@@ -12,6 +12,7 @@ if [[ ! $(git status --porcelain) ]]; then
     ./install.sh $(cat target)
     nvim +PlugInstall +qa
     nvim +PlugUpdate +qa
+    zsh -c "source ~/.zshrc && (zplug install;  zplug update)"
   else 
     >&2 echo "target isn't defined"
     exit 1

@@ -15,6 +15,16 @@ promptinit
 prompt ryan black blue green yellow
 #}}}
 
+#zplug {{{
+source ~/.zplug/init.zsh
+
+zplug 'zsh-users/zsh-autosuggestions'
+zplug 'urbainvaes/fzf-marks'
+zplug "MichaelAquilina/zsh-you-should-use"
+
+export YSU_HARDCORE=1
+#}}}
+
 #bindings {{{
 bindkey -v
 
@@ -39,9 +49,19 @@ if [ -z $NO_COMPLETE ]; then
   
   #faster load, may require manual load after installs
   for dump in ~/.zcompdump(N.mh+24); do
+    # Install plugins if there are plugins that have not been installed
+    if ! zplug check --verbose; then
+      printf "Install? [y/N]: "
+      if read -q; then
+        echo; zplug install
+      fi
+    fi
+
     compinit
   done
   
+  zplug load
+
   compinit -C
   zstyle ':completion:*' auto-description 'specify: %d'
   zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -122,6 +142,8 @@ alias ffi="$FZF_DEFAULT_COMMAND"
 alias fdi="$FZF_DIR_COMMAND"
 
 alias h='history'
+
+alias s="du -hs * .[^.]* 2> /dev/null | sort -h"
 #}}}
 
 #git {{{
@@ -152,8 +174,10 @@ alias lm="lsblk"
 alias am="udisksctl mount -b"
 #}}}
 
-#cargo fix {{{
-alias cargo='eval `ssh-agent -s` && ssh-add && cargo'
+#cargo fix HACK {{{
+alias start_cargo='mv ~/.gitconfig ~/.gitconfig.bak'
+alias end_cargo='mv ~/.gitconfig.bak ~/.gitconfig'
+alias c-update='cargo install-update -a'
 #}}}
 #}}}
 

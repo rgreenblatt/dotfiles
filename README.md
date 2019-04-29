@@ -62,7 +62,7 @@ cd ~/.local/etc/st/ && make && sudo make install && cd -
 sudo update-alternatives --install /usr/bin/x-terminal-emulator \
   x-terminal-emulator /usr/local/bin/st 300 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
-~/.cargo/bin/cargo install bat exa ripgrep fd-find
+~/.cargo/bin/cargo install bat exa ripgrep fd-find sd
 apt-get install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo man-db
 git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
   ./configure --prefix=/usr \
@@ -91,6 +91,9 @@ git clone https://github.com/karlch/vimiv && cd vimiv && make && \
 cd ..
 ./install.sh main
 nvim +PlugInstall +qa
+curl -sL --proto-redir -all,https \
+  https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+zsh -c "source ~/.zshrc && zplug install"
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
 ```

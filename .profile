@@ -65,9 +65,9 @@ if [ -d "$HOME/.fzf" ] ; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
 
-  a="--layout=reverse --bind ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
-  b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-d"
-  c=":preview-page-down,ctrl-u:preview-page-up,ctrl-g:top "
+  a="--layout=reverse --bind 'ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
+  b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-g:top,"
+  c="alt-e:execute-silent[(nvr --remote-tab {} &)]' "
   d="--color=bg+:$color01,spinner:$color0C,hl:$color0D "
   e="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
   f="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi"
