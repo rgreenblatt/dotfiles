@@ -32,6 +32,11 @@ if [ -d "$HOME/.npm-global" ] ; then
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
+if [ -d "/usr/local/cuda/" ]; then
+  export PATH="/usr/local/cuda/bin/:$PATH"
+  # export LD_LIBRARY_PATH="/usr/local/cuda/lib64/:$LD_LIBRARY_PATH"
+fi
+
 if [ -d "/opt/intel/system_studio_2019/bin/" ] ; then
   export PATH="/opt/intel/system_studio_2019/bin/:$PATH"
 fi
@@ -79,9 +84,9 @@ if [ -d "$HOME/.fzf" ] ; then
 fi
 
 if [ -d "$HOME/athame_install" ]; then
-  LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
-  PATH="$HOME/athame_install/bin/:$PATH"
-  SHELL="$HOME/athame_install/bin/zsh"
+  export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
+  export PATH="$HOME/athame_install/bin/:$PATH"
+  export SHELL="$HOME/athame_install/bin/zsh"
 
 fi
 
