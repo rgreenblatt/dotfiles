@@ -16,13 +16,15 @@ prompt ryan black blue green yellow
 #}}}
 
 #zplug {{{
-source ~/.zplug/init.zsh
+if [ -f ~/.zplug/init.zsh ]; then
+  source ~/.zplug/init.zsh
 
-# zplug 'zsh-users/zsh-autosuggestions'
-zplug 'urbainvaes/fzf-marks'
-zplug "MichaelAquilina/zsh-you-should-use"
-
-export YSU_HARDCORE=1
+  # zplug 'zsh-users/zsh-autosuggestions'
+  zplug 'urbainvaes/fzf-marks'
+  zplug "MichaelAquilina/zsh-you-should-use"
+  
+  export YSU_HARDCORE=1
+fi
 #}}}
 
 #bindings {{{
@@ -50,12 +52,14 @@ if [ -z $NO_COMPLETE ]; then
   #faster load, may require manual load after installs
   for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
-    if ! zplug check --verbose; then
-      printf "Install? [y/N]: "
-      if read -q; then
-        echo; zplug install
+      if [ -f ~/.zplug/init.zsh]; then
+        if ! zplug check --verbose; then
+          printf "Install? [y/N]: "
+          if read -q; then
+            echo; zplug install
+          fi
+        fi
       fi
-    fi
 
     compinit
   done
