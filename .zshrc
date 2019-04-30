@@ -52,7 +52,7 @@ if [ -z $NO_COMPLETE ]; then
   #faster load, may require manual load after installs
   for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
-      if [ -f ~/.zplug/init.zsh]; then
+      if [ -f ~/.zplug/init.zsh ]; then
         if ! zplug check --verbose; then
           printf "Install? [y/N]: "
           if read -q; then
