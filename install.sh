@@ -29,6 +29,7 @@ shift $((OPTIND -1))
 
 shopt -s dotglob nullglob
 
+git pull > /dev/null
 git submodule init > /dev/null
 git submodule update --recursive --remote > /dev/null
 mkdir -p ~/.config/

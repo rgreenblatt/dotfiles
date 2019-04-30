@@ -64,7 +64,9 @@ if [ -z $NO_COMPLETE ]; then
     compinit
   done
   
-  zplug load
+  if [ -f ~/.zplug/init.zsh ]; then
+    zplug load
+  fi
 
   compinit -C
   zstyle ':completion:*' auto-description 'specify: %d'
