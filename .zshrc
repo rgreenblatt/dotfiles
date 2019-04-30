@@ -18,7 +18,7 @@ prompt ryan black blue green yellow
 #zplug {{{
 source ~/.zplug/init.zsh
 
-zplug 'zsh-users/zsh-autosuggestions'
+# zplug 'zsh-users/zsh-autosuggestions'
 zplug 'urbainvaes/fzf-marks'
 zplug "MichaelAquilina/zsh-you-should-use"
 
@@ -316,5 +316,7 @@ function preexec () {
   __udm_last_command_handled=0
 }
 #}}}
+
+unset zle_bracketed_paste
 
 # vim: set fdm=marker:

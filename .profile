@@ -76,6 +76,12 @@ if [ -d "$HOME/.fzf" ] ; then
   export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
   # export FZF_EXACT_PREVIEW="true"
   # export FZF_PREVIEW_COMMAND="nvr -c 'call FloatingFZFPreview(\"{}\", \"<>\")"
+fi
+
+if [ -d "$HOME/athame_install" ]; then
+  LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
+  PATH="$HOME/athame_install/bin/:$PATH"
+  SHELL="$HOME/athame_install/bin/zsh"
 
 fi
 

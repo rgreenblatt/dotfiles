@@ -1,4 +1,4 @@
-let g:disable_coc = 1
+let g:no_coc = 1
 
 tnoremap <C-H> <C-\><C-n>
 
