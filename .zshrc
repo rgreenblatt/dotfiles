@@ -23,7 +23,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug 'urbainvaes/fzf-marks'
   zplug "MichaelAquilina/zsh-you-should-use"
   
-  export YSU_HARDCORE=1
+  # export YSU_HARDCORE=1
 fi
 #}}}
 
