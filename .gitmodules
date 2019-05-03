@@ -31,3 +31,6 @@
 [submodule "compton"]
 	path = compton
 	url = https://github.com/rgreenblatt/compton
+[submodule "mutt"]
+	path = mutt
+	url = https://github.com/rgreenblatt/mutt
