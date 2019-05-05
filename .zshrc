@@ -104,6 +104,7 @@ alias l='exa'
 alias ls='exa'
 alias sl='exa'
 alias ll='exa -l'
+alias la='exa -a'
 alias lg='exa -l --git'
 alias lgi='exa -l --git --git-ignore'
 alias lt='exa -T'
@@ -150,6 +151,8 @@ alias fdi="$FZF_DIR_COMMAND"
 alias h='history'
 
 alias s="du -hs * .[^.]* 2> /dev/null | sort -h"
+
+alias rf="rm -rf"
 #}}}
 
 #git {{{
