@@ -1,4 +1,4 @@
-#setup {{{
+#setup {{{1
 if [ -z "$PROFILE_SOURCED" ]; then
   source ~/.profile
 fi
@@ -7,15 +7,13 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Start zim
 [[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
-#}}}
 
-#prompt {{{
+#prompt {{{1
 autoload -Uz promptinit
 promptinit
 prompt ryan black blue green yellow
-#}}}
 
-#zplug {{{
+#zplug {{{1
 if [ -f ~/.zplug/init.zsh ]; then
   source ~/.zplug/init.zsh
 
@@ -25,9 +23,8 @@ if [ -f ~/.zplug/init.zsh ]; then
   
   # export YSU_HARDCORE=1
 fi
-#}}}
 
-#bindings {{{
+#bindings {{{1
 bindkey -v
 
 autoload -z edit-command-line 
@@ -35,17 +32,15 @@ zle -N edit-command-line
 bindkey "^E" edit-command-line
 
 export KEYTIMEOUT=1
-#}}}
 
-#history {{{
+#history {{{1
 setopt histignorealldups sharehistory
 
 HISTSIZE=10000
 SAVEHIST=20000
 HISTFILE=~/.zsh_history
-#}}}
 
-#completion {{{
+#completion {{{1
 if [ -z $NO_COMPLETE ]; then
   autoload -Uz compinit
   
@@ -95,10 +90,9 @@ if [ -z $NO_COMPLETE ]; then
 else
   export COMPLETE_DISABLED="true"
 fi
-#}}}
 
-#aliases {{{
-#ls {{{
+#aliases {{{1
+#ls {{{2
 alias cs='cd'
 alias l='exa'
 alias ls='exa'
@@ -109,22 +103,19 @@ alias lg='exa -l --git'
 alias lgi='exa -l --git --git-ignore'
 alias lt='exa -T'
 alias lr='exa -R'
-#}}}
 
-#docker {{{
+#docker {{{2
 alias d_run_bind='docker run -it -v $HOME:$HOME -w $PWD'
 alias d_run_w_bind='~/.d_run_w_bind.sh'
 alias d_eval_2016='eval $(docker-machine env 2016)'
 alias d_eval_unset='eval $(docker-machine env -u)'
-#}}}
 
-#python {{{
+#python {{{2
 alias py='python3'
 alias python='python3'
 alias pip='pip3'
-#}}}
 
-#generic {{{
+#generic {{{2
 alias o='xdg-open'
 alias p='preview'
 alias calc='insect'
@@ -153,9 +144,10 @@ alias h='history'
 alias s="du -hs * .[^.]* 2> /dev/null | sort -h"
 
 alias rf="rm -rf"
-#}}}
 
-#git {{{
+alias tf="tail -f"
+
+#git {{{2
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for list of aliases
 
 mgs() {
@@ -166,9 +158,8 @@ mgs() {
 }
 
 alias mgsd='mgs -e ~ 4'
-#}}}
 
-#slurm {{{
+#slurm {{{2
 if hash scancel 2>/dev/null; then 
   alias cancel_all='scancel -u guest287'
 fi 
@@ -176,21 +167,27 @@ fi
 if hash squeue 2>/dev/null; then 
   alias check='squeue -u guest287'
 fi
-#}}}
 
-#mounting flash drive {{{
+#mounting flash drive {{{2
 alias lm="lsblk"
 alias am="udisksctl mount -b"
-#}}}
 
-#cargo fix HACK {{{
+#cargo fix HACK {{{2
 alias start_cargo='mv ~/.gitconfig ~/.gitconfig.bak'
 alias end_cargo='mv ~/.gitconfig.bak ~/.gitconfig'
 alias c-update='cargo install-update -a'
-#}}}
-#}}}
 
-#nvim terminal specific settings {{{
+#tar {{{2
+alias onzt='tar xvf'
+alias ot='tar xzvf'
+create_tar() {
+  name=$(basename $2)
+  tar $1 "$name.tar.gz" $2
+}
+alias ct='create_tar czvf'
+alias cnzt='create_tar cvf'
+
+#nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
   alias h='nvr -o'
@@ -211,9 +208,8 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 
   zle -N zle-keymap-select
 fi
-#}}}
 
-#fzf {{{
+#fzf {{{1
   _fzf_compgen_path () {
     eval "$FZF_DEFAULT_COMMAND '' $1"
   }
@@ -224,17 +220,15 @@ fi
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#}}}
 
-#thefuck (lazy loading) {{{
+#thefuck (lazy loading) {{{1
 if command -v thefuck >/dev/null 2>&1; then
   a='if type fuck_alias &>/dev/null; then; fuck_alias; else;'
   b=' eval "$(thefuck --alias fuck_alias)"; fuck_alias; fi'
   alias f="$a$b"
 fi
-#}}}
 
-#prexec: handles setting path for nvim, notifications, and terminal names {{{
+#prexec: handles setting path for nvim, notifications, and terminal names {{{1
 export LONG_RUNNING_COMMAND_TIMEOUT=4
 
 function get_now() {
@@ -324,7 +318,6 @@ function preexec () {
   __udm_last_command_started=$(get_now)
   __udm_last_command_handled=0
 }
-#}}}
 
 unset zle_bracketed_paste
 
