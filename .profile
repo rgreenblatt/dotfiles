@@ -1,52 +1,50 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
-
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
-
-if [ -d "$HOME/bin" ] ; then
+#install specific environment variables (mostly path) {{{1 
+if [ -d "$HOME/bin" ] ; then #{{{2
   PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin" ] ; then
+if [ -d "$HOME/.local/bin" ] ; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/scripts" ] ; then
+if [ -d "$HOME/scripts" ] ; then #{{{2
   export PATH="$HOME/scripts:$PATH"
 fi
 
-if [ -d "$HOME/.cargo/" ] ; then
+if [ -d "$HOME/.cargo/" ] ; then #{{{2
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [ -d "$HOME/.yarn" ] ; then
+if [ -d "$HOME/.yarn" ] ; then #{{{2
   export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 fi
 
-if [ -d "$HOME/.npm-global" ] ; then
+if [ -d "$HOME/.npm-global" ] ; then #{{{2
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
-if [ -d "/usr/local/cuda/" ]; then
+if [ -d "/usr/local/cuda/" ]; then #{{{2
   export PATH="/usr/local/cuda/bin/:$PATH"
   # export LD_LIBRARY_PATH="/usr/local/cuda/lib64/:$LD_LIBRARY_PATH"
 fi
 
-if [ -d "/opt/intel/system_studio_2019/bin/" ] ; then
+if [ -d "/opt/intel/system_studio_2019/bin/" ] ; then #{{{2
   export PATH="/opt/intel/system_studio_2019/bin/:$PATH"
 fi
 
-if [ -d "$HOME/.nvm" ] ; then
+if [ -d "$HOME/.nvm" ] ; then #{{{2
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
-if [ -d "$HOME/.fzf" ] ; then
+if [ -d "$HOME/athame_install" ]; then #{{{2
+  export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
+  export PATH="$HOME/athame_install/bin/:$PATH"
+  export SHELL="$HOME/athame_install/bin/zsh"
+
+fi
+
+if [ -d "$HOME/.fzf" ] ; then #{{{1
   color00='#282828'
   color01='#3c3836'
   color02='#504945'
@@ -83,18 +81,14 @@ if [ -d "$HOME/.fzf" ] ; then
   # export FZF_PREVIEW_COMMAND="nvr -c 'call FloatingFZFPreview(\"{}\", \"<>\")"
 fi
 
-if [ -d "$HOME/athame_install" ]; then
-  export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
-  export PATH="$HOME/athame_install/bin/:$PATH"
-  export SHELL="$HOME/athame_install/bin/zsh"
-
-fi
-
-if [ -f "$HOME/.profile_machine_specific" ]; then
+if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
   source ~/.profile_machine_specific
 fi
 
+#generic environment vars {{{1
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 export PROFILE_SOURCED=1
+#}}}
+# vim: set fdm=marker:
