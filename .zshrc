@@ -321,4 +321,5 @@ function preexec () {
 
 unset zle_bracketed_paste
 
+#}}}
 # vim: set fdm=marker:
