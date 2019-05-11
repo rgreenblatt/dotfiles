@@ -85,8 +85,14 @@ if [ -z $NO_COMPLETE ]; then
   setopt rm_star_silent
   setopt +o nomatch
   
-  # Make zsh know about hosts already accessed by SSH
-  zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+  zstyle ':completion:*:(scp|rsync):*' tag-order \
+    ' hosts:-ipaddr:ip\ address hosts:-host:host files'
+  zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns \
+    '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
+  zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns \
+    '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' \
+    '255.255.255.255' '::1' 'fe80::*'
 else
   export COMPLETE_DISABLED="true"
 fi
@@ -141,11 +147,15 @@ alias fdi="$FZF_DIR_COMMAND"
 
 alias h='history'
 
-alias s="du -hs * .[^.]* 2> /dev/null | sort -h"
+alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
+
+alias s='ssh'
 
 alias rf="rm -rf"
 
 alias tf="tail -f"
+
+alias cr="cp -r"
 
 #git {{{2
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for list of aliases
