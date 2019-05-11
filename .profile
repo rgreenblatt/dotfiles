@@ -37,12 +37,12 @@ if [ -d "$HOME/.nvm" ] ; then #{{{2
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
-if [ -d "$HOME/athame_install" ]; then #{{{2
-  export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
-  export PATH="$HOME/athame_install/bin/:$PATH"
-  export SHELL="$HOME/athame_install/bin/zsh"
+# if [ -d "$HOME/athame_install" ]; then #{{{2
+#   export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
+#   export PATH="$HOME/athame_install/bin/:$PATH"
+#   export SHELL="$HOME/athame_install/bin/zsh"
 
-fi
+# fi
 
 if [ -d "$HOME/.fzf" ] ; then #{{{1
   color00='#282828'
