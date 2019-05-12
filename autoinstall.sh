@@ -10,6 +10,7 @@ if [[ -f target ]]; then
   ./install.sh $(cat target)
   nvim +PlugInstall +qa > /dev/null
   nvim +PlugUpdate +qa > /dev/null
+  nvim +PlugUpgrade +qa > /dev/null
   zsh -c "source ~/.zshrc && (zplug install;  zplug update)" > /dev/null
 else 
   >&2 echo "target isn't defined"

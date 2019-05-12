@@ -124,16 +124,22 @@ echo "$current_cron$full" | crontab -
 
 if hash zsh 2> /dev/null; then
   echo "zsh is installed"
-    if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
-        echo ".zshrc must be deleted or moved before install"
-        exit 1
-    fi
-    if [ -f "$HOME/.zimrc" ] && [ ! -L "$HOME/.zimrc" ]; then 
-        echo ".zimrc must be deleted or moved before install"
-        exit 1
-    fi
-    ./zimfw/install.sh > /dev/null
-    rm -f ~/.zshrc ~/.zimrc
-    ln -sfn $PWD/.zshrc ~/
-    ln -sfn $PWD/.zimrc ~/
+  if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
+    echo ".zshrc must be deleted or moved before install"
+    exit 1
+  fi
+  if [ -f "$HOME/.zimrc" ] && [ ! -L "$HOME/.zimrc" ]; then 
+    echo ".zimrc must be deleted or moved before install"
+    exit 1
+  fi
+  ./zimfw/install.sh > /dev/null
+  rm -f ~/.zshrc ~/.zimrc
+  ln -sfn $PWD/.zshrc ~/
+  ln -sfn $PWD/.zimrc ~/
+
+  if [ ! -d ~/.zplug ]; then
+    curl -L \
+      https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | \
+      zsh -s --
+  fi
 fi
