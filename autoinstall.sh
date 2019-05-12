@@ -11,6 +11,7 @@ if [[ -f target ]]; then
   nvim +PlugInstall +qa > /dev/null
   nvim +PlugUpdate +qa > /dev/null
   nvim +PlugUpgrade +qa > /dev/null
+  zsh -c "source ~/.zshrc && (cd ~/.fzf && ./install --all)" > /dev/null
   zsh -c "source ~/.zshrc && (zplug install;  zplug update)" > /dev/null
 else 
   >&2 echo "target isn't defined"
