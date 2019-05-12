@@ -138,8 +138,6 @@ if hash zsh 2> /dev/null; then
   ln -sfn $PWD/.zimrc ~/
 
   if [ ! -d ~/.zplug ]; then
-    curl -L \
-      https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | \
-      zsh -s --
+    git clone https://github.com/zplug/zplug.git ~/.zplug
   fi
 fi
