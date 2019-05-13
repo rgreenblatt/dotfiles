@@ -137,7 +137,7 @@ if hash zsh 2> /dev/null; then
   ln -sfn $PWD/.zshrc ~/
   ln -sfn $PWD/.zimrc ~/
 
-  if [ ! -d ~/.zplug ]; then
-    git clone https://github.com/zplug/zplug.git ~/.zplug
+  if [ ! -d ~/.zgen ]; then
+    git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
   fi
 fi

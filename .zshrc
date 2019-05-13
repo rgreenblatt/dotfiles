@@ -13,17 +13,6 @@ autoload -Uz promptinit
 promptinit
 prompt ryan black blue green yellow
 
-#zplug {{{1
-if [ -f ~/.zplug/init.zsh ]; then
-  source ~/.zplug/init.zsh
-
-  # zplug 'zsh-users/zsh-autosuggestions'
-  zplug 'urbainvaes/fzf-marks'
-  zplug "MichaelAquilina/zsh-you-should-use"
-  
-  # export YSU_HARDCORE=1
-fi
-
 #bindings {{{1
 bindkey -v
 
@@ -32,6 +21,40 @@ zle -N edit-command-line
 bindkey "^E" edit-command-line
 
 export KEYTIMEOUT=1
+
+#zgen {{{1
+if [ -f ~/.zgen/zgen.zsh ]; then
+  source ~/.zgen/zgen.zsh
+    
+  zgen_make_save () {
+    echo "creating zgen save"
+
+    zgen oh-my-zsh plugins/dircycle
+    zgen oh-my-zsh plugins/dirpersist
+    zgen oh-my-zsh plugins/colored-man-pages
+    zgen oh-my-zsh plugins/fancy-ctrl-z
+
+    zgen loadall <<EOPLUGINS 
+    zsh-users/zsh-autosuggestions
+    webyneter/docker-aliases
+    urbainvaes/fzf-marks
+    MichaelAquilina/zsh-you-should-use
+    mollifier/cd-gitroot
+    hschne/fzf-git
+    rapgenic/zsh-git-complete-urls
+    zpm-zsh/ssh
+EOPLUGINS
+    zgen save
+  }
+
+  if ! zgen saved; then
+    zgen_make_save
+  fi
+  bindkey '' insert-cycledleft
+  bindkey '' insert-cycledright
+  alias cdg='cd-gitroot'
+fi
+
 
 #history {{{1
 setopt histignorealldups sharehistory
@@ -47,15 +70,6 @@ if [ -z $NO_COMPLETE ]; then
   #faster load, may require manual load after installs
   for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
-      if [ -f ~/.zplug/init.zsh ]; then
-        if ! zplug check --verbose; then
-          printf "Install? [y/N]: "
-          if read -q; then
-            echo; zplug install
-          fi
-        fi
-      fi
-
     compinit
   done
   
@@ -86,6 +100,7 @@ if [ -z $NO_COMPLETE ]; then
   setopt +o nomatch
   
 
+  #I am not convinced these lines do anything
   zstyle ':completion:*:(scp|rsync):*' tag-order \
     ' hosts:-ipaddr:ip\ address hosts:-host:host files'
   zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns \

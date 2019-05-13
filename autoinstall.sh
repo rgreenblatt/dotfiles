@@ -13,7 +13,7 @@ if [[ -f target ]]; then
   nvim +PlugUpgrade +qa > /dev/null
   zsh -c "mkdir -p ~/.cache && bat cache --build" > /dev/null
   zsh -c "cd ~/.fzf && ./install --all" > /dev/null
-  zsh -c "source ~/.zshrc && zplug install;  zplug update" > /dev/null
+  zsh -c "source ~/.zshrc && zgen update;  zgen_make_save" > /dev/null
 else 
   >&2 echo "target isn't defined"
   exit 1
