@@ -143,8 +143,14 @@ alias calc='insect'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
 alias d="disown %"
-
 alias t='tail -f'
+alias h='history'
+alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
+alias s='ssh'
+alias rf="rm -rf"
+alias tf="tail -f"
+alias cr="cp -r"
+alias so="source"
 
 # Command line head / tail shortcuts
 alias -g H='| head'
@@ -159,18 +165,6 @@ alias dud='du -d 1 -h'
 alias duf='du -sh *'
 alias ffi="$FZF_DEFAULT_COMMAND"
 alias fdi="$FZF_DIR_COMMAND"
-
-alias h='history'
-
-alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
-
-alias s='ssh'
-
-alias rf="rm -rf"
-
-alias tf="tail -f"
-
-alias cr="cp -r"
 
 #git {{{2
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for list of aliases
@@ -206,8 +200,8 @@ alias c-update='cargo install-update -a'
 alias onzt='tar xvf'
 alias ot='tar xzvf'
 create_tar() {
-  name=$(basename $2)
-  tar $1 "$name.tar.gz" $2
+  name=$(basename "${@: -1}")
+  tar $1 "$name.tar.gz" "${@:2}"
 }
 alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
