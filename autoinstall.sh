@@ -8,13 +8,16 @@ fi
 if [[ -f target ]]; then
   echo "target is defined - installing"
   ./install.sh $(cat target)
-  nvim +PlugInstall +qa > /dev/null
-  nvim +PlugUpdate +qa > /dev/null
-  nvim +PlugUpgrade +qa > /dev/null
+  nvim +PlugInstall +qa
+  nvim +PlugUpdate +qa
+  nvim +PlugUpgrade +qa
+  # nvim +PlugInstall +qa > /dev/null
+  # nvim +PlugUpdate +qa > /dev/null
+  # nvim +PlugUpgrade +qa > /dev/null
   zsh -c "mkdir -p ~/.cache && bat cache --build" > /dev/null
   zsh -c "cd ~/.fzf && ./install --all" > /dev/null
   zsh -c "source ~/.zshrc && zgen update;  zgen_make_save" > /dev/null
-else 
+else
   >&2 echo "target isn't defined"
   exit 1
 fi
