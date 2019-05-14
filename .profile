@@ -67,6 +67,12 @@ if [ -d "$HOME/.fzf" ] ; then #{{{1
   export FZF_DIR_COMMAND="fd --type directory $fd_base_args"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
+  
+  export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
+  export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
+  a='--preview "echo {}" --preview-window down:3:hidden:wrap'
+  export FZF_CTRL_R_OPTS="$a"
+  export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
 
   a="--layout=reverse --bind 'ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
   b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-g:top,"
@@ -75,10 +81,6 @@ if [ -d "$HOME/.fzf" ] ; then #{{{1
   e="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
   f="--color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D --ansi"
   export FZF_DEFAULT_OPTS="$a$b$c$d$e$f"
-
-  export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
-  # export FZF_EXACT_PREVIEW="true"
-  # export FZF_PREVIEW_COMMAND="nvr -c 'call FloatingFZFPreview(\"{}\", \"<>\")"
 fi
 
 if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
@@ -91,4 +93,5 @@ export EDITOR="$VISUAL"
 
 export PROFILE_SOURCED=1
 #}}}
+
 # vim: set fdm=marker:
