@@ -126,6 +126,8 @@ alias d_run_bind='docker run -it -v $HOME:$HOME -w $PWD'
 alias d_run_w_bind='~/.d_run_w_bind.sh'
 alias d_eval_2016='eval $(docker-machine env 2016)'
 alias d_eval_unset='eval $(docker-machine env -u)'
+alias d="docker"
+alias dr="docker run"
 
 #python {{{2
 alias py='python3'
@@ -138,7 +140,7 @@ alias p='preview'
 alias calc='insect'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
-alias d="disown %"
+alias di="disown %"
 alias t='tail -f'
 alias h='history'
 alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
