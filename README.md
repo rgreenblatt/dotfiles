@@ -28,7 +28,8 @@ I am not making this a script because it should probably be run at most several 
 ```
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
-  compton xdotool subversion openssh-server ruby-dev
+  compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
+  libxft-dev
 ```
 Install neovim as desired (I am am currently on master or a fork with additional features). 
 Install drivers as needed, nvidia drivers may be required for qutebrowser.
@@ -43,7 +44,7 @@ svn export https://github.com/ryanoasis/nerd-fonts/trunk/patched-fonts/Hack
 cd ..
 chmod +x install.sh
 ./install.sh
-pip3 install pynvim neovim-remote thefuck evdev
+pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass
 pip2 install pynvim
 sudo gem install neovim
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
@@ -63,7 +64,8 @@ sudo update-alternatives --install /usr/bin/x-terminal-emulator \
   x-terminal-emulator /usr/local/bin/st 300 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 ~/.cargo/bin/cargo install bat exa ripgrep fd-find sd
-apt-get install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo man-db
+sudo apt install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo \
+  man-db
 git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
   ./configure --prefix=/usr \
     --mandir=/usr/share/man \
@@ -82,18 +84,16 @@ git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
     --enable-readnullcmd=pager \
     --enable-custom-patchlevel=Debian \
     LDFLAGS="-Wl,--as-needed -g" && \
-    make && make check && sudo make install
-chsh -s /bin/zsh
+    make && make check && sudo make install && \
+    command -v zsh | sudo tee -a /etc/shells && chsh -s /bin/zsh
 git clone https://github.com/universal-ctags/ctags.git && cd ctags \
   && ./autogen.sh && ./configure && make && sudo make install && cd ..
 git clone https://github.com/karlch/vimiv && cd vimiv && make && \
   sudo make install && cd ..
 cd ..
 ./install.sh main
+source ~/.profile
 nvim +PlugInstall +qa
-curl -sL --proto-redir -all,https \
-  https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-zsh -c "source ~/.zshrc && zplug install"
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
 ```
