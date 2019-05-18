@@ -90,6 +90,7 @@ fi
 #generic environment vars {{{1
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export SUDO_EDITOR="$VISUAL"
 
 export PROFILE_SOURCED=1
 #}}}
