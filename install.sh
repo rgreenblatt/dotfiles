@@ -79,27 +79,31 @@ ln -sfn $PWD/.muttrc ~/
 
 if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
-    ln -sfn $PWD/.xinitrc ~/
-    ln -sfn $PWD/i3 ~/.config/
-    ln -sfn $PWD/i3status ~/.config/
-    ln -sfn $PWD/keyboard ~/
-    ln -sfn $PWD/qutebrowser ~/.config/
-    ln -sfn $PWD/compton ~/.config/
-    mkdir -p ~/.local/etc/
-    ln -sfn $PWD/st ~/.local/etc/
-    ln -sfn $PWD/zathura ~/.config/
-    mkdir -p ~/.local/share/
-    ln -sfn $PWD/applications ~/.local/share/
+  ln -sfn $PWD/.xinitrc ~/
+  ln -sfn $PWD/i3 ~/.config/
+  ln -sfn $PWD/i3status ~/.config/
+  ln -sfn $PWD/keyboard ~/
+  ln -sfn $PWD/qutebrowser ~/.config/
+  ln -sfn $PWD/compton ~/.config/
+  mkdir -p ~/.local/etc/
+  ln -sfn $PWD/st ~/.local/etc/
+  ln -sfn $PWD/zathura ~/.config/
+  mkdir -p ~/.local/share/
+  ln -sfn $PWD/applications ~/.local/share/
+  a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
+  keyboard_job="$a"
+else
+  keyboard_job=""
 fi 
 
-#when changing the cron job be sure to change the c number
 c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
 mail="MAILTO=ryan_greenblatt@brown.edu"
 hourly_job="cd $PWD && ./check_git_and_autoinstall.sh"
 install_job="0 4 * * * $hourly_job"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-full=$(printf "\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$install_job" "$c_end") 
+full=$(printf "\n%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$keyboard_job" \
+  "$install_job" "$c_end") 
 
 current_cron=$(crontab -l 2>/dev/null)
 
