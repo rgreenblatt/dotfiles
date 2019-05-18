@@ -79,6 +79,7 @@ ln -sfn $PWD/.muttrc ~/
 
 if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
+    ln -sfn $PWD/.xinitrc ~/
     ln -sfn $PWD/i3 ~/.config/
     ln -sfn $PWD/i3status ~/.config/
     ln -sfn $PWD/keyboard ~/
