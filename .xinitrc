@@ -9,6 +9,7 @@ compton -b --config ~/.config/compton/compton.conf &
   sleep 1.0 && keyboard_setup) &
 low_battery_notify &
 notify_setup &
+auto_default_monitor &
 
 # invoke global X session script
 . /etc/X11/Xsession
