@@ -96,6 +96,7 @@ source ~/.profile
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
+sudo update-alternatives --install /usr/bin/editor editor ~/scripts/editor 300
 ```
 
 Additional language servers for coc may also be desirable.
