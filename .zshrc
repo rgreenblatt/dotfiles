@@ -248,13 +248,14 @@ if command -v thefuck >/dev/null 2>&1; then
 fi
 
 #prexec: handles setting path for nvim, notifications, and terminal names {{{1
-export LONG_RUNNING_COMMAND_TIMEOUT=4
+export LONG_RUNNING_COMMAND_TIMEOUT=30
 
 function get_now() {
     local secs
     if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
         secs=$(\date +'%s')
     fi
+    echo $secs
 }
 
 function sec_to_human () {
