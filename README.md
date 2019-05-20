@@ -30,10 +30,7 @@ sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
   compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
   libxft-dev xsel
-```
-Install neovim as desired (I am am currently on master or a fork with additional features). 
-Install drivers as needed, nvidia drivers may be required for qutebrowser.
-```
+sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
 cd install
