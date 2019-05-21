@@ -229,10 +229,10 @@ alias rw="roswtf"
 source ~/.fzf_ros/fzf_ros.sh
 
 alias rcd="roscd"
-alias rcdf="fzf_rcd"
+alias rcdf="fzf_roscd"
 
 alias rl="roslaunch"
-alias rlf="fzf_rlaunch"
+alias rlf="fzf_roslaunch"
 
 alias rr="rosrun"
 alias rrf="fzf_rosrun"
@@ -240,8 +240,8 @@ alias rrf="fzf_rosrun"
 alias rte="rostopic echo"
 alias rtef="fzf_ros_topic_echo"
 
-alias rte="rostopic info"
-alias rtef="fzf_ros_topic_info"
+alias rti="rostopic info"
+alias rtif="fzf_ros_topic_info"
 
 alias rne="rosnode info"
 alias rnef="fzf_ros_node_info"
@@ -258,7 +258,7 @@ alias rbef="fzf_catkin_build_edit"
 
 alias rclf="fzf_ros_clean"
 
-alias rse='source $(fd devel/setup.zsh | fzf)'
+alias rse='file=$(fd setup.zsh | fzf) && source $file'
 
 #nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
