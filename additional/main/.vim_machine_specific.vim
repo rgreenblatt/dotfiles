@@ -4,7 +4,7 @@ let g:startify_bookmarks = [{'z': '~/.zshrc'}, {'v': '~/.config/nvim/'},
       \ {'T': '~/Documents/efficiency/TODO/TODO_LIST.txt'}, 
       \ {'s': '~/.config/i3status/config'},
       \ {'p': '~/.profile'}, 
-      \ {'K': '~/Documents/keyboard/src/keyboard/layers.py'}] 
+      \ {'K': '~/keyboard/src/keyboard/layers.py'}] 
 
 let g:startify_commands = [{'m': 'te neomutt '}, {'t': 'GlobalSharedTerm'}, 
       \ {'c': 'Calendar -position=here'}, {'f': 'Files'}]
