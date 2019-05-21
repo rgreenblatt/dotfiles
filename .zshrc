@@ -77,7 +77,7 @@ if [ -z $NO_COMPLETE ]; then
   zstyle ':completion:*' auto-description 'specify: %d'
   zstyle ':completion:*' completer _expand _complete _correct _approximate
   zstyle ':completion:*' format 'Completing %d'
-  zstyle ':completion:*' group-name ''
+  # zstyle ':completion:*' group-name ''
   zstyle ':completion:*' menu select=2
   eval "$(dircolors -b)"
   zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -86,7 +86,7 @@ if [ -z $NO_COMPLETE ]; then
   zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
   zstyle ':completion:*' menu select=long
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-  zstyle ':completion:*' use-compctl false
+  # zstyle ':completion:*' use-compctl false
   zstyle ':completion:*' verbose true
   
   zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -205,6 +205,61 @@ create_tar() {
 alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
 
+
+#ros {{{2
+#locus {{{3
+alias lsb="roslaunch locus_sim base.launch robots:=1 lidar:=gpu"
+alias lsa="roslaunch locus_sim autonomy.launch robots:=1"
+alias lsv="rosrun locus_viz sim"
+alias locus_source_base="source /opt/locusrobotics/hotdog/dev/ros1/setup.zsh"
+
+#general {{{3
+alias r="ros"
+
+alias rbag="rosbag"
+alias rc="roscore"
+alias rdi="rosdiagnostic"
+alias rgr="rosgraph"
+alias rn="rosnode"
+alias rp="rosparam"
+alias rs="rosservice"
+alias rt="rostopic"
+alias rw="roswtf"
+
+source ~/.fzf_ros/fzf_ros.sh
+
+alias rcd="roscd"
+alias rcdf="fzf_rcd"
+
+alias rl="roslaunch"
+alias rlf="fzf_rlaunch"
+
+alias rr="rosrun"
+alias rrf="fzf_rosrun"
+
+alias rte="rostopic echo"
+alias rtef="fzf_ros_topic_echo"
+
+alias rte="rostopic info"
+alias rtef="fzf_ros_topic_info"
+
+alias rne="rosnode info"
+alias rnef="fzf_ros_node_info"
+
+alias rnp="rosnode ping"
+alias rnpf="fzf_ros_node_ping"
+
+alias rnl="rosnode kill"
+alias rnlf="fzf_ros_node_kill"
+
+alias rb="catkin build"
+alias rbf="fzf_catkin_build_immediate"
+alias rbef="fzf_catkin_build_edit"
+
+alias rclf="fzf_ros_clean"
+
+alias rse='source $(fd devel/setup.zsh | fzf)'
+
 #nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
@@ -239,6 +294,99 @@ fi
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+gsf() {
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
+
+# checkout git branch (including remote branches)
+gcobrf() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# checkout git branch/tag
+gcof() {
+  local tags branches target
+  tags=$(
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$tags"; echo "$branches") |
+    fzf -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
+
+# checkout git commit
+gcocf() {
+  local commits commit
+  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# get git commit sha
+# example usage: git rebase -i `gcsf`
+gcsf() {
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+  echo -n $(echo "$commit" | sed "s/ .*//")
+}
+
+
+# cd to selected parent directory
+cdp() {
+  local declare dirs=()
+  get_parent_dirs() {
+    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+    if [[ "${1}" == '/' ]]; then
+      for _dir in "${dirs[@]}"; do echo $_dir; done
+    else
+      get_parent_dirs $(dirname "$1")
+    fi
+  }
+  local DIR=$(get_parent_dirs $(realpath "${1:-$(pwd)}") | fzf --tac)
+  cd "$DIR"
+}
+
+# cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
 
 #thefuck (lazy loading) {{{1
 if command -v thefuck >/dev/null 2>&1; then

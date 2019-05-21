@@ -34,3 +34,6 @@
 [submodule "mutt"]
 	path = mutt
 	url = https://github.com/rgreenblatt/mutt
+[submodule "fzf_ros"]
+	path = fzf_ros
+	url = git@github.com:rgreenblatt/fzf_ros.git
