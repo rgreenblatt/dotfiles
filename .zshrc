@@ -249,8 +249,8 @@ alias rnef="fzf_ros_node_info"
 alias rnp="rosnode ping"
 alias rnpf="fzf_ros_node_ping"
 
-alias rnl="rosnode kill"
-alias rnlf="fzf_ros_node_kill"
+alias rnk="rosnode kill"
+alias rnkf="fzf_ros_node_kill"
 
 alias cb="catkin build"
 alias cbf="fzf_catkin_build_immediate"
