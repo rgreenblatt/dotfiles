@@ -252,9 +252,11 @@ alias rnpf="fzf_ros_node_ping"
 alias rnl="rosnode kill"
 alias rnlf="fzf_ros_node_kill"
 
-alias rb="catkin build"
-alias rbf="fzf_catkin_build_immediate"
-alias rbef="fzf_catkin_build_edit"
+alias cb="catkin build"
+alias cbf="fzf_catkin_build_immediate"
+alias cbef="fzf_catkin_build_edit"
+
+alias cm="catkin_make"
 
 alias rclf="fzf_ros_clean"
 
