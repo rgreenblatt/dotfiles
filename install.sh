@@ -93,6 +93,7 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn $PWD/zathura ~/.config/
   mkdir -p ~/.local/share/
   ln -sfn $PWD/applications ~/.local/share/
+  ln -sfn $PWD/mimeapps.list ~/.config
   a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
   keyboard_job="$a"
 else
