@@ -96,7 +96,11 @@ bat cache --build
 sudo update-alternatives --install /usr/bin/editor editor ~/scripts/editor 300
 ```
 
-Additional language servers for coc may also be desirable.
+Additional language servers and watchmen for coc may also be desirable. Consider changing to
+```
+GRUB_CMDLINE_LINUX_DEFAULT="text"
+```
+in `/etc/default/grub`.
 Cargo installs seem to fail with my git config, running:
 ```
 eval `ssh-agent -s`
