@@ -29,7 +29,7 @@ I am not making this a script because it should probably be run at most several 
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
   compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
-  libxft-dev xsel xcalib
+  libxft-dev xsel xcalib cmake
 sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
