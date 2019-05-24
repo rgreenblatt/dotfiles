@@ -56,9 +56,6 @@ cd .. && sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
 sudo usermod -aG input $USER
 curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cd ~/.local/etc/st/ && make && sudo make install && cd -
-sudo update-alternatives --install /usr/bin/x-terminal-emulator \
-  x-terminal-emulator /usr/local/bin/st 300 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 ~/.cargo/bin/cargo install bat exa ripgrep fd-find sd
 sudo apt install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo \
@@ -90,6 +87,9 @@ git clone https://github.com/karlch/vimiv && cd vimiv && make && \
 cd ..
 ./install.sh main
 source ~/.profile
+cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
+  update-alternatives --install /usr/bin/x-terminal-emulator \
+  x-terminal-emulator /usr/local/bin/st 300 
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
