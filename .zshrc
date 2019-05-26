@@ -137,6 +137,7 @@ alias pip='pip3'
 #generic {{{2
 alias o='xdg-open'
 alias p='preview'
+alias e='editor'
 alias calc='insect'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
@@ -268,7 +269,6 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
-  alias e='nvr --remote'
   export GIT_TERMINAL_PROMPT=1
   export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
