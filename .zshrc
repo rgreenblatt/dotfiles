@@ -152,7 +152,7 @@ alias rf="rm -rf"
 alias tf="tail -f"
 alias cr="cp -r"
 alias so="source"
-alias sx="startx"
+alias sx="exec startx"
 
 # Command line head / tail shortcuts
 alias -g H='| head'
