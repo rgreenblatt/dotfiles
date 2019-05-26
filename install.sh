@@ -43,7 +43,7 @@ fi
 target=$1; shift  # Remove 'install.sh' from the argument list
 
 install_target() {
-  ln -sfn $PWD/additional/$target/* ~/
+  ln -sfn "$PWD/additional/$target/*" ~/
   echo "Installing $target"
 }
 
@@ -68,32 +68,32 @@ case "$target" in
     ;;
 esac
 
-ln -sfn $PWD/nvim ~/.config/
-ln -sfn $PWD/bat ~/.config/
-ln -sfn $PWD/mutt ~/.mutt
-ln -sfn $PWD/fzf_ros ~/.fzf_ros
-ln -sfn $PWD/scripts ~/
-ln -sfn $PWD/.profile ~/
-ln -sfn $PWD/.cvsignore ~/
-ln -sfn $PWD/.gitconfig_base ~/
-ln -sfn $PWD/.muttrc ~/
+ln -sfn "$PWD/nvim" ~/.config/
+ln -sfn "$PWD/bat" ~/.config/
+ln -sfn "$PWD/mutt" ~/.mutt
+ln -sfn "$PWD/fzf_ros" ~/.fzf_ros
+ln -sfn "$PWD/scripts" ~/
+ln -sfn "$PWD/.profile" ~/
+ln -sfn "$PWD/.cvsignore" ~/
+ln -sfn "$PWD/.gitconfig_base" ~/
+ln -sfn "$PWD/.muttrc" ~/
 mkdir -p ~/.ssh
-ln -sfn $PWD/ssh_config ~/.ssh/config
+ln -sfn "$PWD/ssh_config" ~/.ssh/config
 
 if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
-  ln -sfn $PWD/.xinitrc ~/
-  ln -sfn $PWD/i3 ~/.config/
-  ln -sfn $PWD/i3status ~/.config/
-  ln -sfn $PWD/keyboard ~/
-  ln -sfn $PWD/qutebrowser ~/.config/
-  ln -sfn $PWD/compton ~/.config/
+  ln -sfn "$PWD/.xinitrc" ~/
+  ln -sfn "$PWD/i3" ~/.config/
+  ln -sfn "$PWD/i3status" ~/.config/
+  ln -sfn "$PWD/keyboard" ~/
+  ln -sfn "$PWD/qutebrowser" ~/.config/
+  ln -sfn "$PWD/compton" ~/.config/
   mkdir -p ~/.local/etc/
-  ln -sfn $PWD/st ~/.local/etc/
-  ln -sfn $PWD/zathura ~/.config/
+  ln -sfn "$PWD/st" ~/.local/etc/
+  ln -sfn "$PWD/zathura" ~/.config/
   mkdir -p ~/.local/share/
-  ln -sfn $PWD/applications ~/.local/share/
-  ln -sfn $PWD/mimeapps.list ~/.config
+  ln -sfn "$PWD/applications" ~/.local/share/
+  ln -sfn "$PWD/mimeapps.list" ~/.config
   a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
   keyboard_job="$a"
 else
@@ -143,8 +143,9 @@ if hash zsh 2> /dev/null; then
   fi
   ./zimfw/install.sh > /dev/null
   rm -f ~/.zshrc ~/.zimrc
-  ln -sfn $PWD/.zshrc ~/
-  ln -sfn $PWD/.zimrc ~/
+  ln -sfn "$PWD/.zshrc" ~/
+  ln -sfn "$PWD/.zimrc" ~/
+  ln -sfn "$PWD/.zlogin" ~/
 
   if [ ! -d ~/.zgen ]; then
     git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
