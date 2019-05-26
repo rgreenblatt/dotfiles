@@ -29,11 +29,8 @@ I am not making this a script because it should probably be run at most several 
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
   compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
-  libxft-dev
-```
-Install neovim as desired (I am am currently on master or a fork with additional features). 
-Install drivers as needed, nvidia drivers may be required for qutebrowser.
-```
+  libxft-dev xsel xcalib cmake
+sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
 cd install
@@ -51,7 +48,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
   | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install lts
+nvm install --lts
 npm i -g tldr bash-language-server neovim insect
 curl -o- -L https://yarnpkg.com/install.sh | bash
 cd .. && sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
@@ -59,9 +56,6 @@ cd .. && sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
 sudo usermod -aG input $USER
 curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cd ~/.local/etc/st/ && make && sudo make install && cd -
-sudo update-alternatives --install /usr/bin/x-terminal-emulator \
-  x-terminal-emulator /usr/local/bin/st 300 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 ~/.cargo/bin/cargo install bat exa ripgrep fd-find sd
 sudo apt install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo \
@@ -93,13 +87,20 @@ git clone https://github.com/karlch/vimiv && cd vimiv && make && \
 cd ..
 ./install.sh main
 source ~/.profile
+cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
+  update-alternatives --install /usr/bin/x-terminal-emulator \
+  x-terminal-emulator /usr/local/bin/st 300 
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
 sudo update-alternatives --install /usr/bin/editor editor ~/scripts/editor 300
 ```
 
-Additional language servers for coc may also be desirable.
+Additional language servers and watchmen for coc may also be desirable. Consider changing to
+```
+GRUB_CMDLINE_LINUX_DEFAULT="text"
+```
+in `/etc/default/grub`.
 Cargo installs seem to fail with my git config, running:
 ```
 eval `ssh-agent -s`

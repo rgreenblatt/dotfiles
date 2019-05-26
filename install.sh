@@ -70,7 +70,8 @@ esac
 
 ln -sfn $PWD/nvim ~/.config/
 ln -sfn $PWD/bat ~/.config/
-ln -sfn $PWD/mutt ~/.config/
+ln -sfn $PWD/mutt ~/.mutt
+ln -sfn $PWD/fzf_ros ~/.fzf_ros
 ln -sfn $PWD/scripts ~/
 ln -sfn $PWD/.profile ~/
 ln -sfn $PWD/.cvsignore ~/
@@ -92,6 +93,7 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn $PWD/zathura ~/.config/
   mkdir -p ~/.local/share/
   ln -sfn $PWD/applications ~/.local/share/
+  ln -sfn $PWD/mimeapps.list ~/.config
   a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
   keyboard_job="$a"
 else
