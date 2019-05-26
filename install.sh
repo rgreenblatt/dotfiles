@@ -141,8 +141,12 @@ if hash zsh 2> /dev/null; then
     echo ".zimrc must be deleted or moved before install"
     exit 1
   fi
+  if [ -f "$HOME/.zlogin" ] && [ ! -L "$HOME/.zlogin" ]; then 
+    echo ".zlogin must be deleted or moved before install"
+    exit 1
+  fi
   ./zimfw/install.sh > /dev/null
-  rm -f ~/.zshrc ~/.zimrc
+  rm -f ~/.zshrc ~/.zimrc ~/.zlogin
   ln -sfn "$PWD/.zshrc" ~/
   ln -sfn "$PWD/.zimrc" ~/
   ln -sfn "$PWD/.zlogin" ~/
