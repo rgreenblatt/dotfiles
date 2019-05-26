@@ -43,7 +43,9 @@ fi
 target=$1; shift  # Remove 'install.sh' from the argument list
 
 install_target() {
-  ln -sfn "$PWD/additional/$target/*" ~/
+  path="$PWD/additional/$target"
+  #TODO
+  ln -sfn $path/* ~/
   echo "Installing $target"
 }
 
