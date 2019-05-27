@@ -10,6 +10,7 @@ compton -b --config ~/.config/compton/compton.conf &
 low_battery_notify &
 notify_setup &
 auto_default_monitor &
+flashfocus &
 
 # invoke global X session script
 . /etc/X11/Xsession

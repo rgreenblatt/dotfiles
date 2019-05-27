@@ -90,6 +90,7 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn "$PWD/keyboard" ~/
   ln -sfn "$PWD/qutebrowser" ~/.config/
   ln -sfn "$PWD/compton" ~/.config/
+  ln -sfn "$PWD/flashfocus" ~/.config/
   mkdir -p ~/.local/etc/
   ln -sfn "$PWD/st" ~/.local/etc/
   ln -sfn "$PWD/zathura" ~/.config/

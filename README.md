@@ -43,6 +43,8 @@ chmod +x install.sh
 ./install.sh
 pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass
 pip2 install pynvim
+sudo apt-get install libxcb-render0-dev libffi-dev python-dev python-cffi && \
+  pip3 install flashfocus
 sudo gem install neovim
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
   | bash
