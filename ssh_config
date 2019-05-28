@@ -1,3 +1,5 @@
+Include ~/.ssh/extra_configs/*
+
 Host ccv
     Hostname ssh.ccv.brown.edu
     User guest287

@@ -53,4 +53,16 @@
 [push]
 	default = simple
 
+[pull]
+	rebase = True
+
+[fetch]
+	prune = True
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+
 # vim: set filetype=gitconfig:
