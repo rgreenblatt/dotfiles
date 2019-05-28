@@ -11,25 +11,24 @@ if [ -d "$HOME/scripts" ] ; then #{{{2
   export PATH="$HOME/scripts:$PATH"
 fi
 
-if [ -d "$HOME/.cargo/" ] ; then #{{{2
+if [ -d "$HOME/.cargo/bin" ] ; then #{{{2
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [ -d "$HOME/.yarn" ] ; then #{{{2
-  export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+if [ -d "$HOME/.yarn/bin" ] ; then #{{{2
+  export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
-if [ -d "$HOME/.npm-global" ] ; then #{{{2
+if [ -d "$HOME/.config/yarn/global/node_modules/.bin" ] ; then #{{{2
+  export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fi
+
+if [ -d "$HOME/.npm-global/bin" ] ; then #{{{2
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
-if [ -d "/usr/local/cuda/" ]; then #{{{2
+if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
   export PATH="/usr/local/cuda/bin/:$PATH"
-  # export LD_LIBRARY_PATH="/usr/local/cuda/lib64/:$LD_LIBRARY_PATH"
-fi
-
-if [ -d "/opt/intel/system_studio_2019/bin/" ] ; then #{{{2
-  export PATH="/opt/intel/system_studio_2019/bin/:$PATH"
 fi
 
 if [ -d "$HOME/.nvm" ] ; then #{{{2
