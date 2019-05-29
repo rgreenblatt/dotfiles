@@ -180,6 +180,12 @@ mgs() {
 
 alias mgsd='mgs -e ~ 4'
 
+git_commit_all_submodules () {
+  git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | xargs git add 
+  git commit --message="Submodule update"
+}
+alias gcas='git_commit_all_submodules'
+
 #slurm {{{2
 if hash scancel 2>/dev/null; then 
   alias cancel_all='scancel -u guest287'
