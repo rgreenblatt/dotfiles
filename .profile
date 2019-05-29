@@ -73,8 +73,8 @@ if [ -d "$HOME/.fzf" ] ; then #{{{1
   export FZF_CTRL_R_OPTS="$a"
   export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
 
-  a="--layout=reverse --bind 'ctrl-s:select-all+accept,ctrl-j:jump,ctrl-k"
-  b=":jump-accept,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-g:top,"
+  a="--layout=reverse --bind 'ctrl-s:select-all+accept,ctrl-j:jump-accept,"
+  b="ctrl-k:jump,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-g:top,"
   c="alt-e:execute-silent[(nvr --remote-tab {} &)]' "
   d="--color=bg+:$color01,spinner:$color0C,hl:$color0D "
   e="--color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C "
