@@ -259,6 +259,14 @@ alias cb="catkin build"
 alias cbf="fzf_catkin_build_immediate"
 alias cbef="fzf_catkin_build_edit"
 
+catkin_full_make_package() {
+  catkin_make --pkg $1
+  catkin_make roslint_$1
+  catkin_make run_tests_$1
+}
+
+alias cfmp="catkin_full_make_package"
+
 alias cm="catkin_make"
 
 alias rclf="fzf_ros_clean"
@@ -408,6 +416,7 @@ function get_now() {
     if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
         secs=$(\date +'%s')
     fi
+
     echo $secs
 }
 
@@ -433,6 +442,7 @@ function active_window_id () {
     xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
     return
   fi
+
   echo nowindowid
 }
 
@@ -469,7 +479,6 @@ function precmd () {
         fi
         notify=$(command -v notify-send)
         if [ -x "$notify" ]; then
-          echo $time_taken
           $notify -i $icon -u $urgency "$time_taken_human:" \
             "$__udm_last_command"
         else
