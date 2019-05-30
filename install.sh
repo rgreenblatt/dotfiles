@@ -97,6 +97,7 @@ if [[ "$headless" == "false" ]]; then
   mkdir -p ~/.local/share/
   ln -sfn "$PWD/applications" ~/.local/share/
   ln -sfn "$PWD/mimeapps.list" ~/.config
+  ln -sfn "$PWD/user-dirs.dirs" ~/.config
   a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
   keyboard_job="$a"
 else
