@@ -41,7 +41,6 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     MichaelAquilina/zsh-you-should-use
     mollifier/cd-gitroot
     hschne/fzf-git
-    rapgenic/zsh-git-complete-urls
     zpm-zsh/ssh
 EOPLUGINS
     zgen save
