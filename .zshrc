@@ -171,10 +171,7 @@ alias fdi="$FZF_DIR_COMMAND"
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for list of aliases
 
 mgs() {
-  mgs_path=$(mgs_path $@)
-  if [[ -n $mgs_path ]]; then
-      cd $mgs_path
-  fi
+  m_path=$(mgs_path $@) && cd $m_path 
 }
 
 alias mgsd='mgs -e ~ 4'
@@ -282,8 +279,9 @@ ros_link_compile_commands_json() {
     f_basename="$(basename $file)"
     if [ $f_basename != "catkin_tools_prebuild" ]; then
       src_path="$(catkin locate -s)"
-      f_path=$(fd --type d --fixed-strings "$f_basename" "$src_path" | head -n 1)
-      ln -sf "$file/compile_commands.json" "$f_path"
+      f_path=$(fd -t f -F -p "$f_basename/package.xml" "$src_path" | head -n 1)
+      d_path=$(dirname "$f_path")
+      ln -sf "$file/compile_commands.json" "$d_path"
     fi
   done
 }
