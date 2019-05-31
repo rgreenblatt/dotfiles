@@ -21,11 +21,15 @@ A set of machine specific files can also be installed using `./install.sh <name-
 It is possible to install nvim without root using 
 [this approach](https://github.com/neovim/neovim/wiki/Installing-Neovim#Linux).
 
-Most of this can be found [here](git@github.com:rgreenblatt/devbox), but here is some vague idea of how to set Ubuntu 18.04/18.10 to have everything needed for a full install.
+Most of this can be found [here](git@github.com:rgreenblatt/devbox), but here is some vague idea of how to set Ubuntu 18.04/18.10/19.04 etc to have everything needed for a full install.
 
 I am not making this a script because it should probably be run at most several lines at a time and I haven't tested the entire sequence (yet). Some lines require user input.
 
 ```
+./change_directory_names.sh
+cd ../../
+cd documents/dotfiles
+ln -sfn "$PWD/user-dirs.dirs" ~/.config
 sudo apt update
 sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
   compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
