@@ -265,18 +265,29 @@ alias cbf="fzf_catkin_build_immediate"
 alias cbef="fzf_catkin_build_edit"
 
 catkin_full_make_package() {
-  catkin_make --pkg $1
-  catkin_make roslint_$1
-  catkin_make run_tests_$1
+  catkin build $1
+  catkin build roslint_$1
+  catkin build run_tests_$1
 }
 
 alias cfmp="catkin_full_make_package"
 
-alias cm="catkin_make"
-
 alias rclf="fzf_ros_clean"
 
 alias rse='file=$(fd setup.zsh | fzf) && source $file'
+
+ros_link_compile_commands_json() {
+  for file in $(catkin locate -b)/*
+  do
+    f_basename="$(basename $file)"
+    if [ $f_basename != "catkin_tools_prebuild" ]; then
+      src_path="$(catkin locate -s)"
+      f_path=$(fd --type d --fixed-strings "$f_basename" "$src_path" | head -n 1)
+      ln -sf "$file/compile_commands.json" "$f_path"
+    fi
+  done
+}
+alias rlccj='ros_link_compile_commands_json'
 
 #nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
