@@ -73,6 +73,7 @@ esac
 ln -sfn "$PWD/nvim" ~/.config/
 ln -sfn "$PWD/bat" ~/.config/
 ln -sfn "$PWD/rtv" ~/.config/
+ln -sfn "$PWD/mpv" ~/.config/
 ln -sfn "$PWD/mutt" ~/.mutt
 ln -sfn "$PWD/fzf_ros" ~/.fzf_ros
 ln -sfn "$PWD/scripts" ~/
