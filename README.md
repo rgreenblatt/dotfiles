@@ -31,9 +31,9 @@ cd ../../
 cd documents/dotfiles
 ln -sfn "$PWD/user-dirs.dirs" ~/.config
 sudo apt update
-sudo apt install git build-essential i3 python3-pip zathura qutebrowser \
-  compton xdotool subversion openssh-server ruby-dev curl libx11-dev \
-  libxft-dev xsel xcalib cmake flameshot mpv
+sudo apt install git build-essential i3 python3-pip python-pip zathura \
+  qutebrowser compton xdotool subversion openssh-server ruby-dev curl \
+   libx11-dev libxft-dev xsel xcalib cmake flameshot mpv
 sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
@@ -86,7 +86,8 @@ git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
     --enable-custom-patchlevel=Debian \
     LDFLAGS="-Wl,--as-needed -g" && \
     make && make check && sudo make install && \
-    command -v zsh | sudo tee -a /etc/shells && chsh -s /bin/zsh
+    command -v zsh | sudo tee -a /etc/shells && chsh -s $(command -v zsh) &&
+    cd ..
 git clone https://github.com/universal-ctags/ctags.git && cd ctags \
   && ./autogen.sh && ./configure && make && sudo make install && cd ..
 git clone https://github.com/karlch/vimiv && cd vimiv && make && \
