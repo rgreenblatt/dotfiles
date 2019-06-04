@@ -115,3 +115,9 @@ eval `ssh-agent -s`
 ssh-add
 ```
 solves the issue. See https://github.com/rust-lang/cargo/issues/3381.
+
+Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1` to `... = 0`.
+Consider running:
+```
+echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && watchman shutdown-server && sudo sysctl -p
+```
