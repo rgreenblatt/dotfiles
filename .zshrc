@@ -195,9 +195,7 @@ fi
 alias lm="lsblk"
 alias am="udisksctl mount -b"
 
-#cargo fix HACK {{{2
-alias start_cargo='mv ~/.gitconfig ~/.gitconfig.bak'
-alias end_cargo='mv ~/.gitconfig.bak ~/.gitconfig'
+#cargo {{{2
 alias c-update='cargo install-update -a'
 
 #tar {{{2

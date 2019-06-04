@@ -84,6 +84,10 @@ ln -sfn "$PWD/.muttrc" ~/
 mkdir -p ~/.ssh
 ln -sfn "$PWD/ssh_config" ~/.ssh/config
 
+if [ -d "$HOME/.cargo" ]; then 
+  ln -sfn "$PWD/cargo_config" ~/.cargo/config
+fi
+
 if [[ "$headless" == "false" ]]; then
   echo "Installing headed"
   ln -sfn "$PWD/.xinitrc" ~/

@@ -109,12 +109,6 @@ Additional language servers and watchmen for coc may also be desirable. Consider
 GRUB_CMDLINE_LINUX_DEFAULT="text"
 ```
 in `/etc/default/grub`.
-Cargo installs seem to fail with my git config, running:
-```
-eval `ssh-agent -s`
-ssh-add
-```
-solves the issue. See https://github.com/rust-lang/cargo/issues/3381.
 
 Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1` to `... = 0`.
 Consider running:
