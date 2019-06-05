@@ -1,4 +1,5 @@
 if [[ -z $DISPLAY ]] && ([[ $(tty) = /dev/tty1 ]] || [[ $(tty) = /dev/tty2 ]])
 then
-  nohup keyboard_setup &> /dev/null &
+  rm -rf /tmp/keyboard_info && mkdir /tmp/keyboard_info && \
+    nohup keyboard_setup &> /dev/null &
 fi
