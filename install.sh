@@ -155,11 +155,16 @@ if hash zsh 2> /dev/null; then
     echo ".zlogin must be deleted or moved before install"
     exit 1
   fi
+  if [ -f "$HOME/.zlogout" ] && [ ! -L "$HOME/.zlogout" ]; then 
+    echo ".zlogout must be deleted or moved before install"
+    exit 1
+  fi
   ./zimfw/install.sh > /dev/null
   rm -f ~/.zshrc ~/.zimrc ~/.zlogin
   ln -sfn "$PWD/.zshrc" ~/
   ln -sfn "$PWD/.zimrc" ~/
   ln -sfn "$PWD/.zlogin" ~/
+  ln -sfn "$PWD/.zlogout" ~/
 
   if [ ! -d ~/.zgen ]; then
     git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
