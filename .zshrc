@@ -308,6 +308,11 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   zle -N zle-keymap-select
 fi
 
+#source ros setup to ensure tab completion works {{{1
+if [ -n "${ROS_VERSION+x}" ]; then
+  source "$(cut -d':' -f1 <<< $CMAKE_PREFIX_PATH)/setup.zsh"
+fi
+
 #fzf {{{1
   _fzf_compgen_path () {
     eval "$FZF_DEFAULT_COMMAND '' $1"
