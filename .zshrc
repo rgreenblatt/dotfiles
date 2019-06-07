@@ -33,6 +33,12 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     zgen oh-my-zsh plugins/dirpersist
     zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/fancy-ctrl-z
+    zgen oh-my-zsh plugins/pip
+    zgen oh-my-zsh plugins/ubuntu
+    zgen oh-my-zsh plugins/docker
+    zgen oh-my-zsh plugins/cargo
+    zgen oh-my-zsh plugins/nvm
+    zgen oh-my-zsh plugins/ripgrep
 
     zgen loadall <<EOPLUGINS 
     zsh-users/zsh-autosuggestions
