@@ -14,6 +14,7 @@ if [[ -f target ]]; then
   zsh -c "mkdir -p ~/.cache && bat cache --build" > /dev/null
   zsh -c "cd ~/.fzf && ./install --all" > /dev/null
   zsh -c "source ~/.zshrc && zgen update;  zgen_make_save" > /dev/null
+  zsh -i -c "compinit && compinit -c" > /dev/null
 else
   >&2 echo "target isn't defined"
   exit 1
