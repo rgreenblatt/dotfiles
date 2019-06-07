@@ -46,7 +46,7 @@ cd ..
 chmod +x install.sh
 ./install.sh
 pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass \
-  rtv
+  rtv cmakelint
 pip2 install pynvim
 sudo apt-get install libxcb-render0-dev libffi-dev python-dev python-cffi && \
   pip3 install flashfocus

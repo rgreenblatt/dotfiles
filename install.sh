@@ -73,7 +73,7 @@ esac
 ln -sfn "$PWD/nvim" ~/.config/
 ln -sfn "$PWD/bat" ~/.config/
 ln -sfn "$PWD/rtv" ~/.config/
-ln -sfn "$PWD/mpv" ~/.config/
+ln -sfn "$PWD/cmakelintrc" ~/.config/
 ln -sfn "$PWD/mutt" ~/.mutt
 ln -sfn "$PWD/fzf_ros" ~/.fzf_ros
 ln -sfn "$PWD/scripts" ~/
@@ -97,6 +97,7 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn "$PWD/qutebrowser" ~/.config/
   ln -sfn "$PWD/compton" ~/.config/
   ln -sfn "$PWD/flashfocus" ~/.config/
+  ln -sfn "$PWD/mpv" ~/.config/
   mkdir -p ~/.local/etc/
   ln -sfn "$PWD/st" ~/.local/etc/
   ln -sfn "$PWD/zathura" ~/.config/
