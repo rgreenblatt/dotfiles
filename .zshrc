@@ -145,6 +145,7 @@ alias stime="$a"
 alias di="disown %"
 alias t='tail -f'
 alias h='history'
+alias to='htop'
 alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
 alias s='ssh'
 alias rf="rm -rf"
