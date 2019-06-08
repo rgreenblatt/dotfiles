@@ -11,9 +11,9 @@ low_battery_notify &
 notify_setup &
 auto_default_monitor &
 flashfocus &
-if [ -f ~/.video_bg ]; then
-  run_xwin_vid ~/.video_bg
-fi
+# if [ -f ~/.video_bg ]; then
+#   (sleep 1 && run_xwin_vid ~/.video_bg) &
+# fi
 hsetroot -solid "#1d2021"
 
 
