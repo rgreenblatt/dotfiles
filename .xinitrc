@@ -14,6 +14,7 @@ flashfocus &
 # if [ -f ~/.video_bg ]; then
 #   (sleep 1 && run_xwin_vid ~/.video_bg) &
 # fi
+unclutter -idle 1.0 -root &
 hsetroot -solid "#1d2021"
 
 
