@@ -109,7 +109,8 @@ Additional language servers and watchmen for coc may also be desirable. Consider
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="text"
 ```
-in `/etc/default/grub`.
+in `/etc/default/grub`. Also consider no mitigations along the lines of: 
+`pti=off spectre_v2=off l1tf=off nospec_store_bypass_disable no_stf_barrier`.
 
 Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1` to `... = 0`.
 Consider running:
