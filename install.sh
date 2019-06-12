@@ -44,31 +44,16 @@ target=$1; shift  # Remove 'install.sh' from the argument list
 
 install_target() {
   path="$PWD/additional/$target"
-  #TODO
   ln -sfn $path/* ~/
   echo "Installing $target"
 }
 
-case "$target" in
-  main)
-    install_target
-    ;;
-  brown_cs)
-    install_target
-    ;;
-  brown_ccv)
-    install_target
-    ;;
-  devbox)
-    install_target
-    ;;
-  "")
-    ;;
-  *)
-    echo "Invalid target."
-    exit 1
-    ;;
-esac
+if [[ -d "$PWD/additional/$target" ]]; then
+  install_target
+elif [[ ! -z "$target" ]]; then
+  echo "Invalid target."
+  exit 1
+fi
 
 ln -sfn "$PWD/nvim" ~/.config/
 ln -sfn "$PWD/bat" ~/.config/
