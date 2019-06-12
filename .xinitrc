@@ -17,6 +17,5 @@ flashfocus &
 unclutter -idle 1.0 -root &
 hsetroot -solid "#1d2021"
 
-
 # invoke global X session script
 . /etc/X11/Xsession
