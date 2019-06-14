@@ -129,4 +129,6 @@ The following can speed up boot time (docker will need to be manually started)
 sudo systemctl disable docker.socket
 sudo systemctl disable docker.service
 sudo systemctl disable NetworkManager-wait-online.service
+systemd stop systemd-timesyncd
+systemctl disable systemd-timesyncd
 ```
