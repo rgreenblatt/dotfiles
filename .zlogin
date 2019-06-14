@@ -10,5 +10,5 @@ if hash yaft startx 2> /dev/null && [[ -z $DISPLAY ]] &&
   ([[ $(tty) = /dev/tty3 ]] || [[ $(tty) = /dev/tty4 ]])
 then
   # sleep is needed for some reason
-  sleep 0.3 && exec "yaft"
+  sleep 0.3 && exec yaft nvim
 fi
