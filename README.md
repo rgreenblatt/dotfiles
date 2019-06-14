@@ -117,3 +117,16 @@ Consider running:
 ```
 echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && watchman shutdown-server && sudo sysctl -p
 ```
+Consider running the following to remove ubuntu bloat:
+```
+sudo apt purge gnome*
+sudo apt purge snapd ubuntu-core-launcher squashfs-tools
+sudo apt purge plymouth*
+```
+
+The following can speed up boot time (docker will need to be manually started)
+```
+sudo systemctl disable docker.socket
+sudo systemctl disable docker.service
+sudo systemctl disable NetworkManager-wait-online.service
+```
