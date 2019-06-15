@@ -90,19 +90,18 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn "$PWD/applications" ~/.local/share/
   ln -sfn "$PWD/mimeapps.list" ~/.config
   ln -sfn "$PWD/user-dirs.dirs" ~/.config
-  a="@reboot bash -c 'source $PWD/.profile && $PWD/scripts/keyboard_setup' &"
-  keyboard_job="$a"
+  reboot_job="@reboot $PWD/scripts/cron_reboot '$PWD' &"
 else
-  keyboard_job=""
+  reboot_job=""
 fi 
 
 c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
 mail="MAILTO=ryan_greenblatt@brown.edu"
-hourly_job="cd $PWD && ./autoinstall.sh"
-install_job="0 4 * * * $hourly_job"
+install="cd $PWD && ./autoinstall.sh"
+install_job="0 4 * * * $install"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-full=$(printf "\n%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$keyboard_job" \
+full=$(printf "\n%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$reboot_job" \
   "$install_job" "$c_end") 
 
 current_cron=$(crontab -l 2>/dev/null)
