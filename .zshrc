@@ -37,7 +37,6 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     zgen oh-my-zsh plugins/ubuntu
     zgen oh-my-zsh plugins/docker
     zgen oh-my-zsh plugins/cargo
-    zgen oh-my-zsh plugins/nvm
     zgen oh-my-zsh plugins/ripgrep
 
     zgen loadall <<EOPLUGINS 
