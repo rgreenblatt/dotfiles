@@ -148,6 +148,7 @@ alias calc='insect'
 a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
 alias stime="$a"
 alias di="disown %"
+alias bgd="bg && disown %"
 alias t='tail -f'
 alias h='history'
 alias to='htop'
@@ -284,8 +285,11 @@ ros_link_compile_commands_json() {
     if [ $f_basename != "catkin_tools_prebuild" ]; then
       src_path="$(catkin locate -s)"
       f_path=$(fd -t f -F -p "$f_basename/package.xml" "$src_path" | head -n 1)
-      d_path=$(dirname "$f_path")
-      ln -sf "$file/compile_commands.json" "$d_path"
+      # f_path=$(find "$src_path" -path "*$f_basename/package.xml" | head -n 1)
+      if [[ ! -z $f_path ]]; then
+        d_path=$(dirname "$f_path")
+        ln -sf "$file/compile_commands.json" "$d_path"
+      fi
     fi
   done
 }
