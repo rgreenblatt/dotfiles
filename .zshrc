@@ -265,6 +265,7 @@ alias rnkf="fzf_ros_node_kill"
 alias cb="catkin build"
 alias cbf="fzf_catkin_build_immediate"
 alias cbef="fzf_catkin_build_edit"
+alias rv="sudo pkill openvpn; (nohup openpyn us &> /dev/null &)"
 
 catkin_full_make_package() {
   catkin build $1
