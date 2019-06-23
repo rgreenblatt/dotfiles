@@ -32,9 +32,9 @@ cd documents/dotfiles
 ln -sfn "$PWD/user-dirs.dirs" ~/.config
 sudo apt update
 sudo apt install git build-essential i3 python3-pip python-pip zathura \
-  qutebrowser compton xdotool subversion openssh-server ruby-dev curl \
-   libx11-dev libxft-dev xsel xcalib cmake flameshot mpv openvpn hsetroot \
-   unclutter
+  compton xdotool subversion openssh-server ruby-dev curl sqlite3 libx11-dev \
+  libxft-dev xsel xcalib cmake flameshot mpv openvpn hsetroot \
+  unclutter
 sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
@@ -47,7 +47,7 @@ cd ..
 chmod +x install.sh
 ./install.sh
 pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass \
-  rtv cmakelint py3status youtube-dl
+  rtv cmakelint py3status youtube-dl tox
 sudo python3 -m pip install --upgrade openpyn
 sudo openpyn --init
 pip2 install pynvim
@@ -100,7 +100,12 @@ cd ..
 source ~/.profile
 cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
   update-alternatives --install /usr/bin/x-terminal-emulator \
-  x-terminal-emulator /usr/local/bin/st 300 
+  x-terminal-emulator /usr/local/bin/st 300
+cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
+  cd qutebrowser && tox -e mkvenv-pypi && echo '#!/bin/bash
+
+~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser' > \
+  ~/.local/bin/qutebrowser && cd -
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
