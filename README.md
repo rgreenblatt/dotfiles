@@ -104,8 +104,8 @@ cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
 cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
   cd qutebrowser && tox -e mkvenv-pypi && echo '#!/bin/bash
 
-~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser' > \
-  ~/.local/bin/qutebrowser && cd -
+~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser $@' > \
+  ~/.local/bin/qutebrowser && chmod +x ~/.local/bin/qutebrowser && cd -
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
