@@ -9,6 +9,7 @@ compton -b --config ~/.config/compton/compton.conf &
   sleep 1.0 && keyboard_setup) &
 low_battery_notify &
 notify_setup &
+default_monitor &
 auto_default_monitor &
 flashfocus &
 # if [ -f ~/.video_bg ]; then
