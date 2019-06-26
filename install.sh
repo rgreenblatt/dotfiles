@@ -48,11 +48,13 @@ install_target() {
   echo "Installing $target"
 }
 
-if [[ -d "$PWD/additional/$target" ]]; then
-  install_target
-elif [[ ! -z "$target" ]]; then
-  echo "Invalid target."
-  exit 1
+if [[ ! -z "$target" ]]; then
+  if [[ -d "$PWD/additional/$target" ]]; then
+    install_target
+  else
+    echo "Invalid target."
+    exit 1
+  fi
 fi
 
 ln -sfn "$PWD/nvim" ~/.config/
