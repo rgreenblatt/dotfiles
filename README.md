@@ -47,7 +47,7 @@ cd ..
 chmod +x install.sh
 ./install.sh
 pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass \
-  rtv cmakelint py3status youtube-dl tox
+  rtv cmakelint py3status youtube-dl tox bpython
 sudo python3 -m pip install --upgrade openpyn
 sudo openpyn --init
 pip2 install pynvim

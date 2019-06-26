@@ -137,6 +137,7 @@ alias dr="docker run"
 alias py='python3'
 alias python='python3'
 alias pip='pip3'
+alias bp='bpython'
 
 #generic {{{2
 alias o='xdg-open'
