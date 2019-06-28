@@ -36,6 +36,10 @@ if [ -d "$HOME/.nvm" ] ; then #{{{2
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
+if command -v javac >/dev/null 2>&1; then 
+  export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+fi
+
 # if [ -d "$HOME/athame_install" ]; then #{{{2
 #   export LD_LIBRARY_PATH="$HOME/athame_install/lib/:$LD_LIBRARY_PATH"
 #   export PATH="$HOME/athame_install/bin/:$PATH"
