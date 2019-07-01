@@ -89,7 +89,7 @@ if [[ "$headless" == "false" ]]; then
   ln -sfn "$PWD/st" ~/.local/etc/
   ln -sfn "$PWD/zathura" ~/.config/
   mkdir -p ~/.local/share/applications
-  ln -sfn "$PWD/extra_applications/*" ~/.local/share/applications
+  ln -sfn "$PWD/extra_applications/"* ~/.local/share/applications
   ln -sfn "$PWD/mimeapps.list" ~/.config
   ln -sfn "$PWD/user-dirs.dirs" ~/.config
   reboot_job="@reboot $PWD/scripts/cron_reboot '$PWD' &"
