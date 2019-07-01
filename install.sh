@@ -128,24 +128,19 @@ fi
 
 echo "$current_cron$full" | crontab -
 
+check_file() {
+  if [ -f "$1/$2" ] && [ ! -L "$1/$2" ]; then 
+    echo "$2 must be deleted or moved before install"
+    exit 1
+  fi
+}
+
 if hash zsh 2> /dev/null; then
   echo "zsh is installed"
-  if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then 
-    echo ".zshrc must be deleted or moved before install"
-    exit 1
-  fi
-  if [ -f "$HOME/.zimrc" ] && [ ! -L "$HOME/.zimrc" ]; then 
-    echo ".zimrc must be deleted or moved before install"
-    exit 1
-  fi
-  if [ -f "$HOME/.zlogin" ] && [ ! -L "$HOME/.zlogin" ]; then 
-    echo ".zlogin must be deleted or moved before install"
-    exit 1
-  fi
-  if [ -f "$HOME/.zlogout" ] && [ ! -L "$HOME/.zlogout" ]; then 
-    echo ".zlogout must be deleted or moved before install"
-    exit 1
-  fi
+  check_file "$HOME" ".zshrc"
+  check_file "$HOME" ".zimrc"
+  check_file "$HOME" ".zlogin"
+  check_file "$HOME" ".zlogout"
   ./zimfw/install.sh > /dev/null
   rm -f ~/.zshrc ~/.zimrc ~/.zlogin
   ln -sfn "$PWD/.zshrc" ~/
