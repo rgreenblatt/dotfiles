@@ -88,8 +88,8 @@ if [[ "$headless" == "false" ]]; then
   mkdir -p ~/.local/etc/
   ln -sfn "$PWD/st" ~/.local/etc/
   ln -sfn "$PWD/zathura" ~/.config/
-  mkdir -p ~/.local/share/
-  ln -sfn "$PWD/applications" ~/.local/share/
+  mkdir -p ~/.local/share/applications
+  ln -sfn "$PWD/extra_applications/*" ~/.local/share/applications
   ln -sfn "$PWD/mimeapps.list" ~/.config
   ln -sfn "$PWD/user-dirs.dirs" ~/.config
   reboot_job="@reboot $PWD/scripts/cron_reboot '$PWD' &"
@@ -103,7 +103,7 @@ install="cd $PWD && ./autoinstall.sh"
 install_job="0 4 * * * $install"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-full=$(printf "\n%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$reboot_job" \
+full=$(printf "%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$reboot_job" \
   "$install_job" "$c_end") 
 
 current_cron=$(crontab -l 2>/dev/null)
