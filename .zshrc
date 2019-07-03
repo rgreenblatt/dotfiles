@@ -297,6 +297,11 @@ ros_link_compile_commands_json() {
 }
 alias rlccj='ros_link_compile_commands_json'
 
+set_ros_master_uri() {
+  export ROS_MASTER_URI=http://$1:11311
+}
+alias rmu=set_ros_master_uri
+
 #nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
