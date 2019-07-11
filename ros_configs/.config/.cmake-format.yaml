@@ -1,0 +1,9 @@
+line_width: 120
+dangle_parens: true
+additional_commands:
+  catkin_package:
+    kwargs:
+      INCLUDE_DIRS: '*'
+      LIBRARIES: '*'
+      CATKIN_DEPENDS: '*'
+      DEPENDS: '*'
