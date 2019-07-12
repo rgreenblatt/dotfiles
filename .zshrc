@@ -160,6 +160,9 @@ alias tf="tail -f"
 alias cr="cp -r"
 alias so="source"
 alias sx="exec startx"
+alias sudo='sudo '
+alias xargs='xargs '
+alias time='time '
 
 # Command line head / tail shortcuts
 alias -g H='| head'

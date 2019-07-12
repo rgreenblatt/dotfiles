@@ -139,3 +139,5 @@ sudo systemctl disable NetworkManager-wait-online.service
 systemd stop systemd-timesyncd
 systemctl disable systemd-timesyncd
 ```
+Consider installing some of the rust binaries to a global bin directory so that
+sudo aliases don't cause ls to fail etc.
