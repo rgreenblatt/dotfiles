@@ -7,3 +7,7 @@ additional_commands:
       LIBRARIES: '*'
       CATKIN_DEPENDS: '*'
       DEPENDS: '*'
+  add_message_files:
+    kwargs:
+      DIRECTORY: '*'
+      FILES: '*'
