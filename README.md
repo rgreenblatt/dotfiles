@@ -106,7 +106,8 @@ cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && 
   ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ && 
   cp ~/.local/kitty.app/share/applications/kitty.desktop \
-  ~/.local/share/applications
+  ~/.local/share/applications && (cd ~/.local/bin/ && 
+  ln -s kitty x-terminal-emulator)
 ~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser $@' > \
   ~/.local/bin/qutebrowser && chmod +x ~/.local/bin/qutebrowser && cd -
 nvim +PlugInstall +qa
