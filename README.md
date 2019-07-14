@@ -103,7 +103,10 @@ cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
   x-terminal-emulator /usr/local/bin/st 300
 cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
   cd qutebrowser && tox -e mkvenv-pypi && echo '#!/bin/bash
-
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && 
+  ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ && 
+  cp ~/.local/kitty.app/share/applications/kitty.desktop \
+  ~/.local/share/applications
 ~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser $@' > \
   ~/.local/bin/qutebrowser && chmod +x ~/.local/bin/qutebrowser && cd -
 nvim +PlugInstall +qa

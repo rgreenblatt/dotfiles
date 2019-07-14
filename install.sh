@@ -57,10 +57,11 @@ if [[ ! -z "$target" ]]; then
   fi
 fi
 
-ln -sfn "$PWD/nvim" ~/.config/
 ln -sfn "$PWD/bat" ~/.config/
-ln -sfn "$PWD/rtv" ~/.config/
 ln -sfn "$PWD/cmakelintrc" ~/.config/
+ln -sfn "$PWD/kitty" ~/.config/
+ln -sfn "$PWD/nvim" ~/.config/
+ln -sfn "$PWD/rtv" ~/.config/
 ln -sfn "$PWD/mutt" ~/.mutt
 ln -sfn "$PWD/fzf_ros" ~/.fzf_ros
 ln -sfn "$PWD/scripts" ~/
