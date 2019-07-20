@@ -69,6 +69,7 @@ ln -sfn "$PWD/.profile" ~/
 ln -sfn "$PWD/.cvsignore" ~/
 ln -sfn "$PWD/.gitconfig_base" ~/
 ln -sfn "$PWD/.muttrc" ~/
+ln -sfn "$PWD/.pylintrc" ~/
 mkdir -p ~/.ssh
 ln -sfn "$PWD/ssh_config" ~/.ssh/config
 
