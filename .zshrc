@@ -384,7 +384,7 @@ gcobrf() {
 }
 
 # checkout git branch/tag
-gcof() {
+git_checkout_fzf() {
   local tags branches target
   tags=$(
     git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
@@ -397,6 +397,8 @@ gcof() {
     fzf -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
+
+alias gcof=git_checkout_fzf
 
 # checkout git commit
 gcocf() {
