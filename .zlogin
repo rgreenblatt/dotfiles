@@ -6,7 +6,7 @@ then
   exec startx
 fi
 
-if hash yaft startx 2> /dev/null && [[ -z $DISPLAY ]] && 
+if hash yaft 2> /dev/null && [[ -z $DISPLAY ]] && 
   ([[ $(tty) = /dev/tty3 ]] || [[ $(tty) = /dev/tty4 ]])
 then
   # sleep is needed for some reason
