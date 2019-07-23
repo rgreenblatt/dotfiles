@@ -350,7 +350,7 @@ fi
 # enter shows you the contents of the stash
 # ctrl-d shows a diff of the stash against your current HEAD
 # ctrl-b checks the stash out as a branch, for easier merging
-gsf() {
+git_stash_fzf() {
   local out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
@@ -374,14 +374,18 @@ gsf() {
   done
 }
 
+alias gsf='git_stash_fzf'
+
 # checkout git branch (including remote branches)
-gcobrf() {
+git_checkout_branch_fzf() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
            fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
+alias gcobf='git_checkout_branch_fzf'
 
 # checkout git branch/tag
 git_checkout_fzf() {
@@ -398,28 +402,31 @@ git_checkout_fzf() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
-alias gcof=git_checkout_fzf
+alias gcof='git_checkout_fzf'
 
 # checkout git commit
-gcocf() {
+git_checkout_commit_fzf() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
   commit=$(echo "$commits" | fzf --tac +s +m -e) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
+alias gcocf='git_checkout_commit_fzf'
+
 # get git commit sha
 # example usage: git rebase -i `gcsf`
-gcsf() {
+git_commit_sha_fzf() {
   local commits commit
   commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
   commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
   echo -n $(echo "$commit" | sed "s/ .*//")
 }
 
+alias gcsf='git_commit_sha_fzf'
 
 # cd to selected parent directory
-cdp() {
+cd_parent() {
   local declare dirs=()
   get_parent_dirs() {
     if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
@@ -433,12 +440,16 @@ cdp() {
   cd "$DIR"
 }
 
+alias cdp='cd_parent'
+
 # cd into the directory of the selected file
-cdf() {
+cd_file() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
+
+alias cdf='cd_file'
 
 #thefuck (lazy loading) {{{1
 if command -v thefuck >/dev/null 2>&1; then
@@ -539,8 +550,6 @@ function preexec () {
   __udm_last_command_started=$(get_now)
   __udm_last_command_handled=0
 }
-
-unset zle_bracketed_paste
 #}}}
 
 # vim: set fdm=marker:
