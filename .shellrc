@@ -14,7 +14,7 @@ export HISTFILE=~/.shell_history
 #aliases {{{1
 #ls {{{2
 ls_command() {
-  if hash exa 2> /dev/null; then
+  if hash exa 2>/dev/null; then
     exa "$@"
   else
     ls --color=auto "$@"
@@ -83,19 +83,19 @@ mgs() {
 
 alias mgsd='mgs -e ~ 4'
 
-git_commit_all_submodules () {
-  git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | 
-    xargs git add 
+git_commit_all_submodules() {
+  git config --file .gitmodules --get-regexp path | awk '{ print $2 }' |
+    xargs git add
   git commit --message="Submodule update"
 }
 alias gcas='git_commit_all_submodules'
 
 #slurm {{{2
-if hash scancel 2>/dev/null; then 
+if hash scancel 2>/dev/null; then
   alias cancel_all='scancel -u guest287'
-fi 
+fi
 
-if hash squeue 2>/dev/null; then 
+if hash squeue 2>/dev/null; then
   alias check='squeue -u guest287'
 fi
 
@@ -115,7 +115,6 @@ create_tar() {
 }
 alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
-
 
 #ros {{{2
 #locus {{{3
@@ -181,14 +180,13 @@ alias rclf="fzf_ros_clean"
 alias rse='file=$(fd setup.zsh | fzf) && source $file'
 
 ros_link_compile_commands_json() {
-  for file in "$(catkin locate -b)"/*
-  do
+  for file in "$(catkin locate -b)"/*; do
     f_basename="$(basename "$file")"
     if [ "$f_basename" != "catkin_tools_prebuild" ]; then
       src_path="$(catkin locate -s)"
       f_path=$(fd -t f -F -p "$f_basename/package.xml" "$src_path" | head -n 1)
       # f_path=$(find "$src_path" -path "*$f_basename/package.xml" | head -n 1)
-      if [[ ! -z $f_path ]]; then
+      if [[ -n $f_path ]]; then
         d_path=$(dirname "$f_path")
         ln -sf "$file/compile_commands.json" "$d_path"
       fi
@@ -204,14 +202,14 @@ alias rmu=set_ros_master_uri
 
 #source ros setup to ensure tab completion works {{{1
 if [ -n "${ROS_VERSION+x}" ]; then
-  if [  -n "${ZSH_VERSION+x}" ]; then
+  if [ -n "${ZSH_VERSION+x}" ]; then
     shell_used="zsh"
-  elif [  -n "${BASH_VERSION+x}" ]; then
+  elif [ -n "${BASH_VERSION+x}" ]; then
     shell_used="bash"
   else
     shell_used="sh"
   fi
-  \. "$(cut -d':' -f1 <<< "$CMAKE_PREFIX_PATH")/setup.$shell_used"
+  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$shell_used"
 fi
 
 #fzf commands {{{1
@@ -224,20 +222,20 @@ git_stash_fzf() {
   local out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
-  do
-    mapfile -t out <<< "$out"
+      fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b
+  ); do
+    mapfile -t out <<<"$out"
     q="${out[0]}"
     k="${out[1]}"
     sha="${out[-1]}"
     sha="${sha%% *}"
-    [[ -z "$sha" ]] && continue
-    if [[ "$k" == 'ctrl-d' ]]; then
+    [[ -z $sha ]] && continue
+    if [[ $k == 'ctrl-d' ]]; then
       git diff $sha
-    elif [[ "$k" == 'ctrl-b' ]]; then
+    elif [[ $k == 'ctrl-b' ]]; then
       git stash branch "stash-$sha" $sha
-      break;
+      break
     else
       git stash show -p $sha
     fi
@@ -250,9 +248,9 @@ alias gsf='git_stash_fzf'
 git_checkout_branch_fzf() {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+    branch=$(echo "$branches" |
+      fzf -d $((2 + $(wc -l <<<"$branches"))) +m) &&
+    git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
 }
 
 alias gcobf='git_checkout_branch_fzf'
@@ -261,14 +259,20 @@ alias gcobf='git_checkout_branch_fzf'
 git_checkout_fzf() {
   local tags branches target
   tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}'
+  ) || return
   branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+    git branch --all | grep -v HEAD |
+      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+  ) || return
   target=$(
-    (echo "$tags"; echo "$branches") |
-    fzf -l30 -- --no-hscroll --ansi +m -d '\t' -n 2) || return
+    (
+      echo "$tags"
+      echo "$branches"
+    ) |
+      fzf -l30 -- --no-hscroll --ansi +m -d '\t' -n 2
+  ) || return
   git checkout "$(echo "$target" | awk '{print $2}')"
 }
 
@@ -278,8 +282,8 @@ alias gcof='git_checkout_fzf'
 git_checkout_commit_fzf() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-  git checkout "$(echo "$commit" | sed "s/ .*//")"
+    commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+    git checkout "$(echo "$commit" | sed "s/ .*//")"
 }
 
 alias gcocf='git_checkout_commit_fzf'
@@ -288,9 +292,9 @@ alias gcocf='git_checkout_commit_fzf'
 # example usage: git rebase -i `gcsf`
 git_commit_sha_fzf() {
   local commits commit
-  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-  echo -n "$(echo "$commit" | sed "s/ .*//")"
+  commits=$(git log --color=always --oneline --reverse) &&
+    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+    echo -n "$(echo "$commit" | sed "s/ .*//")"
 }
 
 alias gcsf='git_commit_sha_fzf'
@@ -299,8 +303,8 @@ alias gcsf='git_commit_sha_fzf'
 cd_parent() {
   local dirs
   get_parent_dirs() {
-    if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-    if [[ "${1}" == '/' ]]; then
+    if [[ -d ${1} ]]; then dirs+=("$1"); else return; fi
+    if [[ ${1} == '/' ]]; then
       for _dir in "${dirs[@]}"; do echo "$_dir"; done
     else
       get_parent_dirs "$(dirname "$1")"
@@ -314,9 +318,9 @@ alias cdp='cd_parent'
 
 # cd into the directory of the selected file
 cd_file() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+  local file
+  local dir
+  file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 alias cdf='cd_file'
