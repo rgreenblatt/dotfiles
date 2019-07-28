@@ -36,8 +36,18 @@ if [ -d "$HOME/.nvm" ] ; then #{{{2
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
+if [ -d "/usr/local/go/" ]; then
+  export GOROOT=/usr/local/go
+  export PATH="$GOROOT/bin:$PATH"
+fi
+
+if [ -d "$HOME/go/" ]; then
+  export PATH="$HOME/go/bin:$PATH"
+fi
+
 if command -v javac >/dev/null 2>&1; then 
-  export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+  JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")"
+  export JAVA_HOME
 fi
 
 # if [ -d "$HOME/athame_install" ]; then #{{{2
@@ -82,12 +92,14 @@ if [ -d "$HOME/.fzf" ] ; then #{{{1
 fi
 
 if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
-  source ~/.profile_machine_specific
+  \. ~/.profile_machine_specific
 fi
 
 #generic environment vars {{{1
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
+export SHELLCHECK_OPTS="$a"
 
 export PROFILE_SOURCED=1
 #}}}

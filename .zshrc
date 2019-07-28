@@ -130,7 +130,8 @@ alias -g NA="&> /dev/null"
 
 #nvim terminal specific settings {{{1
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
-  export NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
+  NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
+  export NVIM_BUF_ID
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
@@ -167,29 +168,29 @@ fi
 export LONG_RUNNING_COMMAND_TIMEOUT=30
 
 function get_now() {
-    local secs
-    if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
-        secs=$(\date +'%s')
-    fi
+  local secs
+  if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
+      secs=$(\date +'%s')
+  fi
 
-    echo $secs
+  echo $secs
 }
 
 function sec_to_human () {
-    local H=''
-    local M=''
-    local S=''
+  local H=''
+  local M=''
+  local S=''
 
-    local h=$(($1 / 3600))
-    [ $h -gt 0 ] && H="${h} hour" && [ $h -gt 1 ] && H="${H}s"
+  local h=$(($1 / 3600))
+  [ $h -gt 0 ] && H="${h} hour" && [ $h -gt 1 ] && H="${H}s"
 
-    local m=$((($1 / 60) % 60))
-    [ $m -gt 0 ] && M=" ${m} min" && [ $m -gt 1 ] && M="${M}s"
+  local m=$((($1 / 60) % 60))
+  [ $m -gt 0 ] && M=" ${m} min" && [ $m -gt 1 ] && M="${M}s"
 
-    local s=$(($1 % 60))
-    [ $s -gt 0 ] && S=" ${s} sec" && [ $s -gt 1 ] && S="${S}s"
+  local s=$(($1 % 60))
+  [ $s -gt 0 ] && S=" ${s} sec" && [ $s -gt 1 ] && S="${S}s"
 
-    echo $H$M$S
+  echo $H$M$S
 }
 
 function active_window_id () {

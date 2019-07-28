@@ -43,8 +43,10 @@ fi
 target=$1; shift  # Remove 'install.sh' from the argument list
 
 install_target() {
-  path="$PWD/additional/$target"
-  ln -sfn $path/* ~/
+  additional_path="$PWD/additional/$target"
+  for file in "$additional_path"/*; do
+    ln -sfn "$file" ~/
+  done
   echo "Installing $target"
 }
 
@@ -108,7 +110,7 @@ install="cd $PWD && ./autoinstall.sh"
 install_job="0 4 * * * $install"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-full=$(printf "%s\n%s\n%s\n%s\n%s\n " "$c_start" "$mail" "$reboot_job" \
+full=$(printf '%s\n%s\n%s\n%s\n%s\n ' "$c_start" "$mail" "$reboot_job" \
   "$install_job" "$c_end") 
 
 current_cron=$(crontab -l 2>/dev/null)

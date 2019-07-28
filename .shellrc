@@ -1,6 +1,9 @@
+#!/usr/bin/env bash
+# This may be sourced by bash or zsh, shebang is just for filetype
+
 #setup {{{1
 if [ -z "$PROFILE_SOURCED" ]; then
-  source $CONFIG_HOME/.profile
+  \. "$CONFIG_HOME/.profile"
 fi
 
 #history {{{1
@@ -12,9 +15,9 @@ export HISTFILE=~/.shell_history
 #ls {{{2
 ls_command() {
   if hash exa 2> /dev/null; then
-    exa $@
+    exa "$@"
   else
-    ls --color=auto $@
+    ls --color=auto "$@"
   fi
 }
 
@@ -63,7 +66,6 @@ alias s='ssh'
 alias rf="rm -rf"
 alias tf="tail -f"
 alias cr="cp -r"
-alias so="source"
 alias sx="exec startx"
 alias sudo='sudo '
 alias xargs='xargs '
@@ -76,7 +78,7 @@ alias fdi="$FZF_DIR_COMMAND"
 
 #git {{{2
 mgs() {
-  m_path=$(mgs_path $@) && cd $m_path 
+  m_path=$(mgs_path "$@") && cd "$m_path"
 }
 
 alias mgsd='mgs -e ~ 4'
@@ -108,8 +110,8 @@ alias c-update='cargo install-update -a'
 alias onzt='tar xvf'
 alias ot='tar xzvf'
 create_tar() {
-  name=$(basename "${@: -1}")
-  tar $1 "$name.tar.gz" "${@:2}"
+  name="$(basename "$2")"
+  tar "$1" "$name.tar.gz" "$2"
 }
 alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
@@ -135,7 +137,7 @@ alias rs="rosservice"
 alias rt="rostopic"
 alias rw="roswtf"
 
-source ~/.fzf_ros/fzf_ros.sh
+\. ~/.fzf_ros/fzf_ros.sh
 
 alias rcd="roscd"
 alias rcdf="fzf_roscd"
@@ -167,9 +169,9 @@ alias cbef="fzf_catkin_build_edit"
 alias rv="sudo pkill openvpn; (nohup openpyn us &> /dev/null &)"
 
 catkin_full_make_package() {
-  catkin build $1
-  catkin build roslint_$1
-  catkin build run_tests_$1
+  catkin build "$1"
+  catkin build roslint_"$1"
+  catkin build run_tests_"$1"
 }
 
 alias cfmp="catkin_full_make_package"
@@ -179,10 +181,10 @@ alias rclf="fzf_ros_clean"
 alias rse='file=$(fd setup.zsh | fzf) && source $file'
 
 ros_link_compile_commands_json() {
-  for file in $(catkin locate -b)/*
+  for file in "$(catkin locate -b)"/*
   do
-    f_basename="$(basename $file)"
-    if [ $f_basename != "catkin_tools_prebuild" ]; then
+    f_basename="$(basename "$file")"
+    if [ "$f_basename" != "catkin_tools_prebuild" ]; then
       src_path="$(catkin locate -s)"
       f_path=$(fd -t f -F -p "$f_basename/package.xml" "$src_path" | head -n 1)
       # f_path=$(find "$src_path" -path "*$f_basename/package.xml" | head -n 1)
@@ -209,7 +211,7 @@ if [ -n "${ROS_VERSION+x}" ]; then
   else
     shell_used="sh"
   fi
-  source "$(cut -d':' -f1 <<< $CMAKE_PREFIX_PATH)/setup.$shell_used"
+  \. "$(cut -d':' -f1 <<< "$CMAKE_PREFIX_PATH")/setup.$shell_used"
 fi
 
 #fzf commands {{{1
@@ -250,7 +252,7 @@ git_checkout_branch_fzf() {
   branches=$(git branch --all | grep -v HEAD) &&
   branch=$(echo "$branches" |
            fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
 }
 
 alias gcobf='git_checkout_branch_fzf'
@@ -266,8 +268,8 @@ git_checkout_fzf() {
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
     (echo "$tags"; echo "$branches") |
-    fzf -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
-  git checkout $(echo "$target" | awk '{print $2}')
+    fzf -l30 -- --no-hscroll --ansi +m -d '\t' -n 2) || return
+  git checkout "$(echo "$target" | awk '{print $2}')"
 }
 
 alias gcof='git_checkout_fzf'
@@ -277,7 +279,7 @@ git_checkout_commit_fzf() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
   commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+  git checkout "$(echo "$commit" | sed "s/ .*//")"
 }
 
 alias gcocf='git_checkout_commit_fzf'
@@ -288,24 +290,24 @@ git_commit_sha_fzf() {
   local commits commit
   commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
   commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-  echo -n $(echo "$commit" | sed "s/ .*//")
+  echo -n "$(echo "$commit" | sed "s/ .*//")"
 }
 
 alias gcsf='git_commit_sha_fzf'
 
 # cd to selected parent directory
 cd_parent() {
-  local declare dirs=()
+  local dirs
   get_parent_dirs() {
     if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
     if [[ "${1}" == '/' ]]; then
-      for _dir in "${dirs[@]}"; do echo $_dir; done
+      for _dir in "${dirs[@]}"; do echo "$_dir"; done
     else
-      get_parent_dirs $(dirname "$1")
+      get_parent_dirs "$(dirname "$1")"
     fi
   }
-  local DIR=$(get_parent_dirs $(realpath "${1:-$(pwd)}") | fzf --tac)
-  cd "$DIR"
+  direc="$(get_parent_dirs "$(realpath "${1:-$(pwd)}")" | fzf --tac)"
+  cd "$direc"
 }
 
 alias cdp='cd_parent'
