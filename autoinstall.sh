@@ -10,6 +10,6 @@ if [[ -f target ]]; then
   ./install.sh $(cat target)
   ./run_update.sh
 else
-  >&2 echo "target isn't defined"
+  echo >&2 "target isn't defined"
   exit 1
 fi

@@ -1,8 +1,8 @@
 #setup {{{1
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-  *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 if [ -z "$CONFIG_HOME" ]; then

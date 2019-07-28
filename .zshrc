@@ -23,7 +23,7 @@ prompt ryan black blue green yellow
 #bindings {{{1
 bindkey -v
 
-autoload -z edit-command-line 
+autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^E" edit-command-line
 
@@ -32,8 +32,8 @@ export KEYTIMEOUT=1
 #zgen {{{1
 if [ -f ~/.zgen/zgen.zsh ]; then
   source ~/.zgen/zgen.zsh
-    
-  zgen_make_save () {
+
+  zgen_make_save() {
     echo "creating zgen save"
 
     zgen oh-my-zsh plugins/dircycle
@@ -46,7 +46,7 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     zgen oh-my-zsh plugins/cargo
     zgen oh-my-zsh plugins/ripgrep
 
-    zgen loadall <<EOPLUGINS 
+    zgen loadall <<EOPLUGINS
     zsh-users/zsh-autosuggestions
     webyneter/docker-aliases
     urbainvaes/fzf-marks
@@ -65,7 +65,6 @@ EOPLUGINS
   bindkey '' insert-cycledright
   alias cdg='cd-gitroot'
 fi
-
 
 #history {{{1
 setopt histignorealldups
@@ -95,13 +94,12 @@ if [ -z $NO_COMPLETE ]; then
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
   # zstyle ':completion:*' use-compctl false
   zstyle ':completion:*' verbose true
-  
+
   zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
   zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-  
+
   setopt rm_star_silent
   setopt +o nomatch
-  
 
   #I am not convinced these lines do anything
   zstyle ':completion:*:(scp|rsync):*' tag-order \
@@ -142,10 +140,10 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export SUDO_EDITOR="$VISUAL"
 
   #indicate insert vs normal mode zsh
-  zle-keymap-select () {
+  zle-keymap-select() {
     case $KEYMAP in
-      vicmd) (nvr -cc "ZshVIMModeExitInsert" &);;
-      viins|main) (nvr -cc "ZshVIMModeEnterInsert" &);;
+    vicmd) (nvr -cc "ZshVIMModeExitInsert" &) ;;
+    viins | main) (nvr -cc "ZshVIMModeEnterInsert" &) ;;
     esac
   }
 
@@ -153,14 +151,13 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 fi
 
 #fzf setup {{{1
-  _fzf_compgen_path () {
-    eval "$FZF_DEFAULT_COMMAND '' $1"
-  }
+_fzf_compgen_path() {
+  eval "$FZF_DEFAULT_COMMAND '' $1"
+}
 
-  _fzf_compgen_dir () {
-    eval "$FZF_DIR_COMMAND '' $1"
-  }
-
+_fzf_compgen_dir() {
+  eval "$FZF_DIR_COMMAND '' $1"
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -169,14 +166,14 @@ export LONG_RUNNING_COMMAND_TIMEOUT=30
 
 function get_now() {
   local secs
-  if ! secs=$(printf "%(%s)T" -1 2> /dev/null) ; then
-      secs=$(\date +'%s')
+  if ! secs=$(printf "%(%s)T" -1 2>/dev/null); then
+    secs=$(\date +'%s')
   fi
 
   echo $secs
 }
 
-function sec_to_human () {
+function sec_to_human() {
   local H=''
   local M=''
   local S=''
@@ -193,8 +190,8 @@ function sec_to_human () {
   echo $H$M$S
 }
 
-function active_window_id () {
-  if [[ -n $DISPLAY ]] ; then
+function active_window_id() {
+  if [[ -n $DISPLAY ]]; then
     xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
     return
   fi
@@ -204,7 +201,7 @@ function active_window_id () {
 
 export __udm_last_command_handled=0
 
-function precmd () {
+function precmd() {
   path_expand='%~'
   print -Pn "\e]0;${path_expand}\a"
 
@@ -213,20 +210,20 @@ function precmd () {
     (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
 
-  if [[ -n "$__udm_last_command_started" ]]; then
+  if [[ -n $__udm_last_command_started ]]; then
     now=$(get_now)
     local focused_window=$(active_window_id)
-    local time_taken=$(( $now - $__udm_last_command_started ))
+    local time_taken=$((now - __udm_last_command_started))
     local time_taken_human=$(sec_to_human $time_taken)
     local appname=$(basename "${__udm_last_command%% *}")
-    if [[ $__udm_last_command_handled == 0 ]] && 
-      [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] && 
-      [[ ! " $LONG_RUNNING_IGNORE_LIST " == *" $appname "* ]]; then 
+    if [[ $__udm_last_command_handled == 0 ]] &&
+      [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
+      [[ " $LONG_RUNNING_IGNORE_LIST " != *" $appname "* ]]; then
       if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
-        local nvim_current_buffer=$(nvr --remote-expr "bufnr('%')" 2> /dev/null)
+        local nvim_current_buffer=$(nvr --remote-expr "bufnr('%')" 2>/dev/null)
       fi
-      if [[ $focused_window != $__udm_last_window ]] || 
-        [[  $nvim_current_buffer != $NVIM_BUF_ID ]]; then
+      if [[ $focused_window != $__udm_last_window ]] ||
+        [[ $nvim_current_buffer != $NVIM_BUF_ID ]]; then
         local icon=dialog-information
         local urgency=low
         if [[ $__preexec_exit_status != 0 ]]; then
@@ -246,7 +243,7 @@ function precmd () {
   fi
 }
 
-function preexec () {
+function preexec() {
   __udm_last_command=$(echo "$1")
   __udm_last_window=$(active_window_id)
   path_expand='%~:'

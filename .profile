@@ -1,29 +1,29 @@
-#install specific environment variables (mostly path) {{{1 
-if [ -d "$HOME/bin" ] ; then #{{{2
+#install specific environment variables (mostly path) {{{1
+if [ -d "$HOME/bin" ]; then #{{{2
   PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin" ] ; then #{{{2
+if [ -d "$HOME/.local/bin" ]; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/scripts" ] ; then #{{{2
+if [ -d "$HOME/scripts" ]; then #{{{2
   export PATH="$HOME/scripts:$PATH"
 fi
 
-if [ -d "$HOME/.cargo/bin" ] ; then #{{{2
+if [ -d "$HOME/.cargo/bin" ]; then #{{{2
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [ -d "$HOME/.yarn/bin" ] ; then #{{{2
+if [ -d "$HOME/.yarn/bin" ]; then #{{{2
   export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
-if [ -d "$HOME/.config/yarn/global/node_modules/.bin" ] ; then #{{{2
+if [ -d "$HOME/.config/yarn/global/node_modules/.bin" ]; then #{{{2
   export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 fi
 
-if [ -d "$HOME/.npm-global/bin" ] ; then #{{{2
+if [ -d "$HOME/.npm-global/bin" ]; then #{{{2
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
@@ -31,9 +31,9 @@ if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
   export PATH="/usr/local/cuda/bin/:$PATH"
 fi
 
-if [ -d "$HOME/.nvm" ] ; then #{{{2
+if [ -d "$HOME/.nvm" ]; then #{{{2
   export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
 if [ -d "/usr/local/go/" ]; then
@@ -45,7 +45,7 @@ if [ -d "$HOME/go/" ]; then
   export PATH="$HOME/go/bin:$PATH"
 fi
 
-if command -v javac >/dev/null 2>&1; then 
+if command -v javac >/dev/null 2>&1; then
   JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")"
   export JAVA_HOME
 fi
@@ -57,7 +57,7 @@ fi
 
 # fi
 
-if [ -d "$HOME/.fzf" ] ; then #{{{1
+if [ -d "$HOME/.fzf" ]; then #{{{1
   gruvbox_fg_1='#ebdbb2'
   gruvbox_yellow='#fabd2f'
   gruvbox_bg_1='#3c3836'
@@ -66,14 +66,13 @@ if [ -d "$HOME/.fzf" ] ; then #{{{1
   gruvbox_orange='#fe8019'
   gruvbox_bg_3='#665c54'
 
-
   fd_base_args='--follow --hidden --exclude .git --color=always'
   export FZF_DEFAULT_COMMAND="fd $fd_base_args"
   export FZF_DIR_COMMAND="fd --type directory $fd_base_args"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DIR_COMMAND"
-  
-  export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap" 
+
+  export FZF_COMPLETION_OPTS="--preview 'preview {}' --preview-window=wrap"
   export FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
   a='--preview "echo {}" --preview-window down:3:hidden:wrap'
   export FZF_CTRL_R_OPTS="$a"
