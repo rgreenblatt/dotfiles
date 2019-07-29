@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -n "${ZSH_VERSION+x}" ]; then
+  source "$SSHHOME/.sshrc.d/.zshrc"
+elif [ -n "${BASH_VERSION+x}" ]; then
+  source "$SSHHOME/.sshrc.d/.bashrc"
+fi
+
+a="let \$MYVIMRC='$SSHHOME/.sshrc.d/.config/nvim/init.vim' | source \$MYVIMRC"
+export VIMINT="$a"
