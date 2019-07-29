@@ -7,21 +7,22 @@ esac
 
 if [ -z "$CONFIG_HOME" ]; then
   if [ -n "$SSHHOME" ]; then
-    CONFIG_HOME=$SSHHOME
+    CONFIG_HOME="$SSHHOME/.sshrc.d"
   else
     CONFIG_HOME=$HOME
   fi
   export CONFIG_HOME
 fi
 
-source $CONFIG_HOME/.shellrc
+source "$CONFIG_HOME/.shellrc"
 
 #defaults from debian/ubuntu {{{1
 HISTCONTROL=ignoreboth
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if hash dircolors 2>/dev/null; then
+  (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") ||
+    eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
