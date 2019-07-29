@@ -11,7 +11,7 @@ export HISTSIZE=10000
 export SAVEHIST=20000
 export HISTFILE=~/.shell_history
 
-#aliases {{{1
+#aliases and functions {{{1
 #ls {{{2
 ls_command() {
   if hash exa 2>/dev/null; then
@@ -50,7 +50,6 @@ alias bp='bpython'
 alias cs='cd'
 alias o='xdg-open'
 alias p='preview'
-alias e='editor'
 alias se='sudoedit'
 alias sr='sudo reboot'
 alias calc='insect'
@@ -75,6 +74,27 @@ alias dud='du -d 1 -h'
 alias duf='du -sh *'
 alias ffi="$FZF_DEFAULT_COMMAND"
 alias fdi="$FZF_DIR_COMMAND"
+
+env_editor () {
+  eval "$EDITOR $*"
+}
+
+alias e='env_editor'
+
+red_gap() {
+  n=10
+
+  if [ "$#" -gt 0 ]; then
+    n=$1
+  fi
+
+  for ((i = 0; i < n; i++)); do
+    printf '\e[48;5;196m RESET\n'
+  done
+  printf '\e[0m\n'
+}
+
+alias rgap='red_gap'
 
 #git {{{2
 mgs() {
@@ -136,7 +156,7 @@ alias rs="rosservice"
 alias rt="rostopic"
 alias rw="roswtf"
 
-\. ~/.fzf_ros/fzf_ros.sh
+[ -f ~/.fzf_ros/fzf_ros.sh ] && source ~/.fzf_ros/fzf_ros.sh
 
 alias rcd="roscd"
 alias rcdf="fzf_roscd"
@@ -213,6 +233,7 @@ if [ -n "${ROS_VERSION+x}" ]; then
 fi
 
 #fzf commands {{{1
+# git {{{2
 # easier way to deal with stashes
 # type fstash to get a list of your stashes
 # enter shows you the contents of the stash
@@ -299,8 +320,9 @@ git_commit_sha_fzf() {
 
 alias gcsf='git_commit_sha_fzf'
 
+# misc {{{2
 # cd to selected parent directory
-cd_parent() {
+cd_parent_fzf() {
   local dirs
   get_parent_dirs() {
     if [[ -d ${1} ]]; then dirs+=("$1"); else return; fi
@@ -314,16 +336,98 @@ cd_parent() {
   cd "$direc"
 }
 
-alias cdp='cd_parent'
+alias cdp='cd_parent_fzf'
 
 # cd into the directory of the selected file
-cd_file() {
+cd_file_fzf() {
   local file
   local dir
   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
-alias cdf='cd_file'
+alias cdf='cd_file_fzf'
+
+
+# show output of "ps -ef", use [tab] to select one or multiple entries
+# press [enter] to kill selected processes and go back to the process list.
+# or press [escape] to go back to the process list. Press [escape] twice to exit 
+# completely.
+kill_process_fzf() {
+  fzf_cmd="fzf ${FZF_DEFAULT_OPTS} -m --header='[kill:process]'"
+  pid=$(ps -ef | sed 1d | eval $fzf_cmd | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]; then
+    echo "$pid" | xargs kill -"${1:-9}"
+    kp
+  fi
+}
+alias kp=kill_process_fzf
+
+# list directories in $PATH, press [enter] to list the executables inside.
+# press [escape] to go back to directory listing, [escape] twice to exit
+find_path_fzf() {
+  fzf_cmd="fzf ${FZF_DEFAULT_OPTS} --header='[find:path]'"
+  loc=$(echo "$PATH" | sed -e $'s/:/\\\n/g' | eval $fzf_cmd)
+
+  if [[ -d $loc ]]; then
+    fzf_cmd="fzf ${FZF_DEFAULT_OPTS} --header='[find:exe] => ${loc}' >/dev/null"
+    rg --files "$loc" | rev | cut -d"/" -f1 | rev | eval $fzf_cmd
+    find_path_fzf
+  fi
+}
+
+alias fp=find_path_fzf
+
+# apt {{{2
+# install multiple packages at once
+a="fzf ${FZF_DEFAULT_OPTS} -m "
+b="--preview 'apt show \$(parse_packages {}) 2> /dev/null'"
+base_apt_fzf_cmd="$a$b"
+
+apt_install_package_fzf() {
+  if [ "$1" == "-u" ]; then
+    sudo apt update
+  fi
+
+  fzf_cmd="$base_apt_fzf_cmd --header='[apt:install]'"
+  inst="$(parse_packages "$(apt list 2>/dev/null | tail -n +2 | 
+    eval $fzf_cmd)")"
+
+  if [[ -n $inst ]]; then
+    sudo apt install "$inst"
+  fi
+}
+
+alias aip=apt_install_package_fzf
+
+apt_upgrade_package_fzf() {
+  # upgrade multiple packages at once
+  if [ "$1" == "-u" ]; then
+    sudo apt update
+  fi
+
+  fzf_cmd="$base_apt_fzf_cmd --header='[apt:upgrade]'"
+  upgr="$(parse_packages "$(apt list --upgradable 2>/dev/null | tail -n +2 |
+    eval $fzf_cmd)")"
+
+  if [[ -n $upgr ]]; then
+    sudo apt install --only-upgrade "$upgr"
+  fi
+}
+
+alias aup=apt_upgrade_package_fzf
+
+apt_remove_package_fzf() {
+  fzf_cmd="$base_apt_fzf_cmd --header='[apt:remove]'"
+  rem="$(parse_packages "$(apt list --installed 2>/dev/null | tail -n +2 |
+    eval $fzf_cmd)")"
+
+  if [[ -n $rem ]]; then
+    sudo apt remove "$rem"
+  fi
+}
+
+alias arp=apt_remove_package_fzf
 
 #thefuck (lazy loading) {{{1
 if command -v thefuck >/dev/null 2>&1; then
