@@ -95,7 +95,13 @@ if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
 fi
 
 #generic environment vars {{{1
-export VISUAL=nvim
+if hash nvim 2>/dev/null; then
+  export VISUAL=nvim
+elif hash vim 2>/dev/null; then
+  export VISUAL=vim
+elif hash vi 2>/dev/null; then
+  export VISUAL=vi
+fi
 export EDITOR="$VISUAL"
 a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
 export SHELLCHECK_OPTS="$a"
