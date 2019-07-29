@@ -1,2 +1,2 @@
-set colorcolumn=121
-let g:ale_cpp_cpplint_executable = "cpplint_ros"
+setlocal colorcolumn=121
+let b:ale_cpp_cpplint_executable = "cpplint_ros"
