@@ -7,4 +7,4 @@ elif [ -n "${BASH_VERSION+x}" ]; then
 fi
 
 a="let \$MYVIMRC='$SSHHOME/.sshrc.d/.config/nvim/init.vim' | source \$MYVIMRC"
-export VIMINT="$a"
+export VIMINIT="$a"

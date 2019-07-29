@@ -74,6 +74,7 @@ ln -sfn "$PWD/.muttrc" ~/
 ln -sfn "$PWD/.pylintrc" ~/
 ln -sfn "$PWD/.shellrc" ~/
 ln -sfn "$PWD/.sshrc" ~/
+# tar???
 ln -sfn "$PWD/.sshrc.d" ~/
 mkdir -p ~/.ssh
 ln -sfn "$PWD/ssh_config" ~/.ssh/config
