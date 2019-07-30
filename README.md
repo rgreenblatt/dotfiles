@@ -145,3 +145,5 @@ systemctl disable systemd-timesyncd
 ```
 Consider installing some of the rust binaries to a global bin directory so that
 sudo aliases don't cause ls to fail etc.
+Considering installing [cling](https://github.com/root-project/cling#installation).
+Consider installing lld (the LLVM Linker) and setting it as default using update alternatives.
