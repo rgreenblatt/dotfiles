@@ -34,7 +34,7 @@ sudo apt update
 sudo apt install git build-essential i3 python3-pip python-pip zathura \
   compton xdotool subversion openssh-server ruby-dev curl sqlite3 libx11-dev \
   libxft-dev xsel xcalib cmake flameshot mpv openvpn hsetroot \
-  unclutter
+  unclutter stow
 sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
 sudo update-alternatives --config x-www-browser
 mkdir install
