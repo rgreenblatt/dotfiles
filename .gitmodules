@@ -37,3 +37,6 @@
 [submodule "fzf_ros"]
 	path = fzf_ros
 	url = https://github.com/rgreenblatt/fzf_ros
+[submodule "shell/.zim"]
+	path = shell/.zim
+	url = https://github.com/rgreenblatt/zimfw

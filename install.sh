@@ -32,7 +32,11 @@ shopt -s dotglob nullglob
 git pull >/dev/null
 git submodule init >/dev/null
 git submodule update --recursive --remote >/dev/null
-mkdir -p ~/.config/
+
+mkdir ~/.config/
+mkdir -p ~/.local/etc/
+mkdir ~/.local/bin/
+mkdir -p ~/.local/share/applications
 
 if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -40,67 +44,47 @@ if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
 fi
 
 target=$1
-shift # Remove 'install.sh' from the argument list
-
-install_target() {
-  additional_path="$PWD/additional/$target"
-  for file in "$additional_path"/*; do
-    ln -sfn "$file" ~/
-  done
-  echo "Installing $target"
-}
 
 if [[ -n $target ]]; then
-  if [[ -d "$PWD/additional/$target" ]]; then
-    install_target
+  if [[ -d "$target" ]]; then
+    stow "$target"
+    echo "Installing $target"
   else
     echo "Invalid target."
     exit 1
   fi
+else
+  stow generic
 fi
 
-ln -sfn "$PWD/bat" ~/.config/
-ln -sfn "$PWD/cmakelintrc" ~/.config/
-ln -sfn "$PWD/kitty" ~/.config/
-ln -sfn "$PWD/nvim" ~/.config/
-ln -sfn "$PWD/rtv" ~/.config/
-ln -sfn "$PWD/mutt" ~/.mutt
-ln -sfn "$PWD/fzf_ros" ~/.fzf_ros
-ln -sfn "$PWD/scripts" ~/
-ln -sfn "$PWD/.profile" ~/
-ln -sfn "$PWD/.cvsignore" ~/
-ln -sfn "$PWD/.gitconfig_base" ~/
-ln -sfn "$PWD/.muttrc" ~/
-ln -sfn "$PWD/.pylintrc" ~/
-ln -sfn "$PWD/.shellrc" ~/
-ln -sfn "$PWD/.sshrc" ~/
-# tar???
-ln -sfn "$PWD/.sshrc.d" ~/
-mkdir -p ~/.ssh
-ln -sfn "$PWD/ssh_config" ~/.ssh/config
-
+stow bat 
 if [ -d "$HOME/.cargo" ]; then
-  ln -sfn "$PWD/cargo_config" ~/.cargo/config
+  stow cargo 
 fi
+stow cmakelint
+stow nvim
+stow mutt
+stow shell
+stow git
+stow pylint
+stow ssh
+stow sshrc
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
-  ln -sfn "$PWD/.xinitrc" ~/
-  ln -sfn "$PWD/i3" ~/.config/
-  ln -sfn "$PWD/i3status" ~/.config/
+  stow compton
+  stow flashfocus
+  stow i3
+  stow i3status
+  stow kitty
+  stow misc_desktop
+  stow mpv
+  stow qutebrowser
+  stow rtv
+  stow st
+  stow zathura
   ln -sfn "$PWD/keyboard" ~/
-  ln -sfn "$PWD/qutebrowser" ~/.config/
-  ln -sfn "$PWD/compton" ~/.config/
-  ln -sfn "$PWD/flashfocus" ~/.config/
-  ln -sfn "$PWD/mpv" ~/.config/
-  mkdir -p ~/.local/etc/
-  ln -sfn "$PWD/st" ~/.local/etc/
-  ln -sfn "$PWD/zathura" ~/.config/
-  mkdir -p ~/.local/share/applications
-  ln -sfn "$PWD/extra_applications/"* ~/.local/share/applications
-  ln -sfn "$PWD/mimeapps.list" ~/.config
-  ln -sfn "$PWD/user-dirs.dirs" ~/.config
-  reboot_job="@reboot $PWD/scripts/cron_reboot '$PWD' &"
+  reboot_job="@reboot $PWD/shell/.local/bin/cron_reboot '$PWD/shell' &"
 else
   reboot_job=""
 fi
@@ -136,27 +120,6 @@ fi
 
 echo "$current_cron$full" | crontab -
 
-check_file() {
-  if [ -f "$1/$2" ] && [ ! -L "$1/$2" ]; then
-    echo "$2 must be deleted or moved before install"
-    exit 1
-  fi
-}
-
-if hash zsh 2>/dev/null; then
-  echo "zsh is installed"
-  check_file "$HOME" ".zshrc"
-  check_file "$HOME" ".zimrc"
-  check_file "$HOME" ".zlogin"
-  check_file "$HOME" ".zlogout"
-  ./zimfw/install.sh >/dev/null
-  rm -f ~/.zshrc ~/.zimrc ~/.zlogin
-  ln -sfn "$PWD/.zshrc" ~/
-  ln -sfn "$PWD/.zimrc" ~/
-  ln -sfn "$PWD/.zlogin" ~/
-  ln -sfn "$PWD/.zlogout" ~/
-
-  if [ ! -d ~/.zgen ]; then
-    git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
-  fi
+if [ ! -d ~/.zgen ]; then
+  git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
 fi

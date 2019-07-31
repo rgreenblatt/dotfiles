@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf /tmp/keyboard_info/ && mkdir /tmp/keyboard_info/ &&
+  python3 ~/keyboard/src/main.py

@@ -1,0 +1,23 @@
+set realname = "Ryan Greenblatt"
+set from = "ryan_greenblatt@brown.com"
+set use_from = yes
+set envelope_from = yes
+
+set smtp_url = "smtps://ryan_greenblatt@brown.edu@smtp.gmail.com:465/"
+set imap_user = "ryan_greenblatt@brown.edu"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set ssl_force_tls = yes
+
+# G to get mail
+bind index G imap-fetch-mail
+set editor = "nvr --remote-tab-wait"
+set charset = "utf-8"
+set record = ''
+
+set header_cache_backend=tokyocabinet
+
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+
+# vim:set filetype=muttrc:

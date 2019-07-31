@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xcalib -"$1" 1.1 "$2" 100.0 -a
+sleep 0.25
+xcalib -c

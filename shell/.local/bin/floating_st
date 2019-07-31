@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+st -c "fzf_launch" -g 190x30 -e "$@"

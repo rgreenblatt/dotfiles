@@ -1,0 +1,18 @@
+#!/bin/bash
+dirname_search=$1
+cmakelists_path=
+
+while [[ $dirname_search != "/" ]]; do
+  dirname_search=$(dirname "$(realpath "$dirname_search")")
+  cmakelists_path=$(fd -d 1 -F -s CMakeLists.txt "$dirname_search" | head -n 1)
+  if [[ -n $cmakelists_path ]]; then
+    break
+  fi
+done
+
+if [[ -n $cmakelists_path ]]; then
+  #pretty hacky
+  args=$(rg 'set\(ROSLINT_CPP_OPTS.*\)' "$cmakelists_path" | head -n 1 | sd '.*"(.*)".*' '$1')
+fi
+
+rosrun roslint cpplint "$args" "$1"

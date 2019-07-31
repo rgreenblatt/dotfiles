@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xset q | grep -m 1 "Caps Lock" | grep -o ':   \w\+' | grep -o '\w\+'

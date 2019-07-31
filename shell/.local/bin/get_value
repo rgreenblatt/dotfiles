@@ -1,0 +1,4 @@
+#!/bin/bash
+
+split_first=("$1")
+eval "echo \$${split_first[0]}"
