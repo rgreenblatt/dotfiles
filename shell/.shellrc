@@ -71,6 +71,10 @@ alias sudo='sudo '
 alias xargs='xargs '
 alias time='time '
 
+if hash sshrc 2>/dev/null; then
+  alias ssh='sshrc'
+fi
+
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
 alias ffi="$FZF_DEFAULT_COMMAND"
