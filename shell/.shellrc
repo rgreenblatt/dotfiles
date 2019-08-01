@@ -62,7 +62,6 @@ alias t='tail -f'
 alias h='history'
 alias to='htop'
 alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
-alias s='ssh'
 alias rf="rm -rf"
 alias tf="tail -f"
 alias cr="cp -r"
