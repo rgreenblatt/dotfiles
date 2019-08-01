@@ -46,7 +46,7 @@ fi
 target=$1
 
 if [[ -n $target ]]; then
-  if [[ -d "$target" ]]; then
+  if [[ -d $target ]]; then
     stow "$target"
     echo "Installing $target"
   else
@@ -57,9 +57,9 @@ else
   stow generic
 fi
 
-stow bat 
+stow bat
 if [ -d "$HOME/.cargo" ]; then
-  stow cargo 
+  stow cargo
 fi
 stow cmakelint
 stow nvim
@@ -79,6 +79,8 @@ if [[ $headless == "false" ]]; then
   stow kitty
   stow misc_desktop
   stow mpv
+  # by default, additional files shouldn't be tracked
+  mkdir -p ~/.config/qutebrowser
   stow qutebrowser
   stow rtv
   stow st
