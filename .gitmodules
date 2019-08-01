@@ -25,9 +25,6 @@
 [submodule "bat"]
 	path = bat
 	url = https://github.com/rgreenblatt/bat
-[submodule "st"]
-	path = st
-	url = https://github.com/rgreenblatt/st-old
 [submodule "compton"]
 	path = compton
 	url = https://github.com/rgreenblatt/compton
@@ -40,3 +37,6 @@
 [submodule "shell/.zim"]
 	path = shell/.zim
 	url = https://github.com/rgreenblatt/zimfw
+[submodule "st"]
+	path = st/.local/etc/st
+	url = https://github.com/rgreenblatt/st
