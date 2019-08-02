@@ -2,8 +2,6 @@
 
 headless="false"
 
-echo "$@" >target
-
 targets_dir='targets'
 
 help_msg() {
@@ -14,6 +12,8 @@ help_msg() {
   echo "    ./install.sh -h           Display this help message."
   echo "    ./install.sh -c           Install for a headless system."
 }
+
+args="$@"
 
 for var in "$@"; do
   case "$var" in
@@ -46,6 +46,8 @@ while getopts ":hc" opt; do
   esac
 done
 shift $((OPTIND - 1))
+
+echo "$args" >target
 
 shopt -s dotglob nullglob
 
