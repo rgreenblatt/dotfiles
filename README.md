@@ -98,10 +98,10 @@ cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
   x-terminal-emulator /usr/local/bin/st 300
 cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
   cd qutebrowser && tox -e mkvenv-pypi && 
-  { cat << EOF > ~/.local/bin/qutebrowser_cmd
+  { cat << 'EOF' > ~/.local/bin/qutebrowser_cmd
 #!/usr/bin/env bash
 
-~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser $@
+~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser "$@"
 EOF
   } && chmod +x ~/.local/bin/qutebrowser_cmd
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && 
