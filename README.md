@@ -1,20 +1,16 @@
 # dotfiles
 
-I am using the nerd fonts version of the Hack font, exa, bat, thefuck, vimiv, tldr, and ripgrep. 
-
 I have almost everything configured to use some variant of the gruvbox theme.
 
-The keyboard repo contains code for using the event interface through python-evdev to contruct arbitrary 
-keyboard layouts. Its undocumented right now.
+The keyboard repo contains code for using the event interface through python-evdev to contruct arbitrary keyboard layouts. Its undocumented right now.
 
 Submodules in this repo may not be on latest.
 
-I am using an install script instead of stow because I want to have this directory structure and submodules.
-
 ### Installation
 
-To install everything run `./install.sh`. To install everything for a headless install run `./install.sh -c`
-A set of machine specific files can also be installed using `./install.sh <name-of-machine>`.
+This repo should be clones into the home directory. 
+Stow is used for installation, so existing files will never be deleted. 
+To install everything run `./install.sh`.  See `./install.sh -h` for options.
 
 ### Notes
 
@@ -23,12 +19,11 @@ It is possible to install nvim without root using
 
 Most of this can be found [here](git@github.com:rgreenblatt/devbox), but here is some vague idea of how to set Ubuntu 18.04/18.10/19.04 etc to have everything needed for a full install.
 
-I am not making this a script because it should probably be run at most several lines at a time and I haven't tested the entire sequence (yet). Some lines require user input.
+I am not making this a script because it should probably be run at most several lines at a time and I haven't tested the entire sequence (yet). 
+Some lines require user input.
 
 ```
 ./change_directory_names.sh
-cd ../../
-cd documents/dotfiles
 ln -sfn "$PWD/user-dirs.dirs" ~/.config
 sudo apt update
 sudo apt install git build-essential i3 python3-pip python-pip zathura \
@@ -126,19 +121,19 @@ in `/etc/default/grub`. Also consider no mitigations along the lines of:
 Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1` to `... = 0`.
 Consider running:
 ```
-echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && watchman shutdown-server && sudo sysctl -p
+echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && 
+  echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && 
+  echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && 
+  watchman shutdown-server && sudo sysctl -p
 ```
 Consider running the following to remove ubuntu bloat:
 ```
 sudo apt purge gnome*
 sudo apt purge snapd ubuntu-core-launcher squashfs-tools
-sudo apt purge plymouth*
 ```
 
-The following can speed up boot time (docker will need to be manually started)
+The following can speed up boot time
 ```
-sudo systemctl disable docker.socket
-sudo systemctl disable docker.service
 sudo systemctl disable NetworkManager-wait-online.service
 systemd stop systemd-timesyncd
 systemctl disable systemd-timesyncd
@@ -146,4 +141,4 @@ systemctl disable systemd-timesyncd
 Consider installing some of the rust binaries to a global bin directory so that
 sudo aliases don't cause ls to fail etc.
 Considering installing [cling](https://github.com/root-project/cling#installation).
-Consider installing lld (the LLVM Linker) and setting it as default using update alternatives.
+Consider installing lld (the LLVM Linker) and setting it as default using `update-alternatives`.

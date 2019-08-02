@@ -4,15 +4,35 @@ headless="false"
 
 echo "$@" >target
 
+targets_dir='targets'
+
+help_msg() {
+  echo "Usage:"
+  echo "    ./install.sh [target]"
+  echo "    available targets: $(ls $targets_dir | tr '\n' ' ')"
+  echo ""
+  echo "    ./install.sh -h           Display this help message."
+  echo "    ./install.sh -c           Install for a headless system."
+}
+
+for var in "$@"; do
+  case "$var" in
+    --help)
+      help_msg
+      exit 0
+      ;;
+
+    *)
+      ;;
+  esac
+done
+
+
 # Parse options
 while getopts ":hc" opt; do
   case ${opt} in
   h)
-    echo "Usage:"
-    echo "    ./install.sh [target]"
-    echo ""
-    echo "    ./install.sh -h           Display this help message."
-    echo "    ./install.sh -c           Install for a headless system."
+    help_msg
     exit 0
     ;;
   c)
@@ -29,13 +49,9 @@ shift $((OPTIND - 1))
 
 shopt -s dotglob nullglob
 
-git pull >/dev/null
-git submodule init >/dev/null
-git submodule update --recursive --remote >/dev/null
-
-mkdir ~/.config/
+mkdir -p ~/.config/
 mkdir -p ~/.local/etc/
-mkdir ~/.local/bin/
+mkdir -p ~/.local/bin/
 mkdir -p ~/.local/share/applications
 
 if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
@@ -45,16 +61,20 @@ fi
 
 target=$1
 
-if [[ -n $target ]]; then
-  if [[ -d $target ]]; then
-    stow "$target"
-    echo "Installing $target"
+stow_target() {
+  if [[ -d "$targets_dir/$1" ]]; then
+    (cd $targets_dir && stow $1 --target ../../)
+    echo "Installing $1"
   else
-    echo "Invalid target."
+    echo "Invalid target: $1"
     exit 1
   fi
+}
+
+if [[ -n $target ]]; then
+  stow_target $target
 else
-  stow generic
+  stow_target default
 fi
 
 stow bat
@@ -93,7 +113,7 @@ fi
 
 c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
 mail="MAILTO=ryan_greenblatt@brown.edu"
-install="cd $PWD && ./autoinstall.sh"
+install="cd $PWD && ./autoinstall.sh && ./run_update.sh"
 install_job="0 4 * * * $install"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
