@@ -14,7 +14,7 @@ def count_screens(xr):
 
 # - to run the connect / disconnect command(s)
 def run_command(cmd):
-    subprocess.Popen(["/bin/bash", "-c", cmd])
+    subprocess.Popen([cmd])
 
 # first count
 xr1 = None
