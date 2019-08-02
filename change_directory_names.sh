@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ -d ~/Desktop ]]; then
   mv ~/Desktop ~/desktop

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # initial idea: Florian Bruhin (The-Compiler)
 # author: Thore Bödecker (foxxx0)
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###mgitstatus + FZF
 # cd to git repos using mgitstatus

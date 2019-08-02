@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 run_xwin_cmd "mpv --wid WID --no-config --keepaspect=no --loop \
   --no-border --vd-lavc-fast --x11-bypass-compositor=no \

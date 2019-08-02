@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "${ZSH_VERSION+x}" ]; then
   source "$SSHHOME/.sshrc.d/.zshrc"

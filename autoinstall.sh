@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ -f target ]]; then
   echo "target is defined - installing"

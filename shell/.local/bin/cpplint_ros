@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 dirname_search=$1
 cmakelists_path=
 

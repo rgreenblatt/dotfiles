@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 nvim +PlugInstall +qa
 nvim +PlugUpdate +qa

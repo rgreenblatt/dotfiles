@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 path=$(echo "$1" | grep -Eo '.*?:')
 path=${path::-1}

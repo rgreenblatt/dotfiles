@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 caps_lock_on=0
 sym_lock_on=0

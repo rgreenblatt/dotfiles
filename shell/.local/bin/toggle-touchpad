@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 read -r TPdevice <<<"$(xinput | sed -nre '/[tT]ouch[pP]ad/s/.*id=([0-9]*).*/\1/p' | sed -n 1p)"
 state=$(xinput list-props "$TPdevice" | grep "Device Enabled" | grep -o "[01]$")
