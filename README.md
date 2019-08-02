@@ -97,7 +97,13 @@ cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
   update-alternatives --install /usr/bin/x-terminal-emulator \
   x-terminal-emulator /usr/local/bin/st 300
 cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
-  cd qutebrowser && tox -e mkvenv-pypi && echo '#!/usr/bin/env bash
+  cd qutebrowser && tox -e mkvenv-pypi && 
+  { cat << EOF > ~/.local/bin/qutebrowser_cmd
+#!/usr/bin/env bash
+
+~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser $@
+EOF
+  } && chmod +x ~/.local/bin/qutebrowser_cmd
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin && 
   ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ && 
   cp ~/.local/kitty.app/share/applications/kitty.desktop \
