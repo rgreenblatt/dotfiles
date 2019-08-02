@@ -113,7 +113,7 @@ fi
 
 c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
 mail="MAILTO=ryan_greenblatt@brown.edu"
-install="cd $PWD && ./autoinstall.sh && ./run_update.sh"
+install="cd $PWD && ./sync.sh"
 install_job="0 4 * * * $install"
 c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
