@@ -79,7 +79,7 @@ alias duf='du -sh *'
 alias ffi="$FZF_DEFAULT_COMMAND"
 alias fdi="$FZF_DIR_COMMAND"
 
-env_editor () {
+env_editor() {
   eval "$EDITOR $*"
 }
 
@@ -108,8 +108,9 @@ mgs() {
 alias mgsd='mgs -e ~ 4'
 
 git_commit_all_submodules() {
-  git config --file .gitmodules --get-regexp path | awk '{ print $2 }' |
-    xargs git add
+  git_root=$(git rev-parse --show-toplevel)
+  git config --file "$git_root/.gitmodules" --get-regexp path |
+    awk -v gr=$git_root '{ print gr "/" $2 }' | xargs git add
   git commit --message="Submodule update"
 }
 alias gcas='git_commit_all_submodules'
@@ -350,10 +351,9 @@ cd_file_fzf() {
 
 alias cdf='cd_file_fzf'
 
-
 # show output of "ps -ef", use [tab] to select one or multiple entries
 # press [enter] to kill selected processes and go back to the process list.
-# or press [escape] to go back to the process list. Press [escape] twice to exit 
+# or press [escape] to go back to the process list. Press [escape] twice to exit
 # completely.
 kill_process_fzf() {
   fzf_cmd="fzf ${FZF_DEFAULT_OPTS} -m --header='[kill:process]'"
@@ -397,106 +397,106 @@ writecmd() {
 
 ## roscd
 fzf_roscd() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        roscd "$package"
+  local package
+  package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    roscd "$package"
 }
 
 ## roslaunch
 fzf_roslaunch() {
-   find $ROS_DIR_PATH -type f -name "*.launch" | fzf-tmux --query="$1" --select-1 --exit-0 |\
-        sed "s/^/roslaunch  /" | writecmd
+  find $ROS_DIR_PATH -type f -name "*.launch" | fzf-tmux --query="$1" --select-1 --exit-0 |
+    sed "s/^/roslaunch  /" | writecmd
 }
 
 ## rosbag play
 fzf_rosbag() {
-   find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" --select-1 --exit-0 |\
-        sed "s/^/\$FZF_ROSBAG_PLAY_COMMAND/" | writecmd
+  find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" --select-1 --exit-0 |
+    sed 's/^/$FZF_ROSBAG_PLAY_COMMAND/' | writecmd
 }
 
 ## Run executables like rosrun (but not really rosrun)
 fzf_rosrun() {
-   find $ROS_DIR_PATH/devel/ $ROS_DIR_PATH/src/ -executable -type f | fzf-tmux --query="$1" --select-1 --exit-0 |\
-        sed "s/^//" | writecmd
+  find $ROS_DIR_PATH/devel/ $ROS_DIR_PATH/src/ -executable -type f | fzf-tmux --query="$1" --select-1 --exit-0 |
+    sed "s/^//" | writecmd
 }
 
 #==============================================================================
 # Topic related tools
 ## Echo a topic
 fzf_ros_topic_echo() {
-    rostopic list > /dev/null &&
-        rostopic list | fzf-tmux --query="$1" --select-1 --exit-0 |\
-        sed "s/^/rostopic echo /" | writecmd
+  rostopic list >/dev/null &&
+    rostopic list | fzf-tmux --query="$1" --select-1 --exit-0 |
+    sed "s/^/rostopic echo /" | writecmd
 }
 
 ## Topic info
 fzf_ros_topic_info() {
-    local topic
-    rostopic list > /dev/null &&
-        topic=$(rostopic list | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        rostopic info "$topic"
+  local topic
+  rostopic list >/dev/null &&
+    topic=$(rostopic list | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    rostopic info "$topic"
 }
 
 #==============================================================================
 # Node related tools
 ## Node info
 fzf_ros_node_info() {
-    local node
-    rostopic list > /dev/null
-        node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        rosnode info "$node"
+  local node
+  rostopic list >/dev/null
+  node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    rosnode info "$node"
 }
 
 ## Ping nodes
 fzf_ros_node_ping() {
-    local node
-    rostopic list > /dev/null &&
-        node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        rosnode ping "$node"
+  local node
+  rostopic list >/dev/null &&
+    node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    rosnode ping "$node"
 }
 
 ## Kill nodes
 fzf_ros_node_kill() {
-    local node
-    rostopic list > /dev/null &&
-        node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        rosnode kill "$node"
+  local node
+  rostopic list >/dev/null &&
+    node=$(rosnode list | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    rosnode kill "$node"
 }
 
 #==============================================================================
 # Build tools
 ## Build a package - start immediately on match
 fzf_catkin_build_immediate() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0) &&
-        catkin build -w $ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$package"
+  local package
+  package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0) &&
+    catkin build -w $ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$package"
 }
 
 ## Build a package - prepare build command on command line for the user to
 #  edit before starting a build
 fzf_catkin_build_edit() {
-    rospack list-names  | fzf-tmux --query="$1" --select-1 --exit-0 |\
-        sed "s/^/catkin build -w \$ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON  /" | writecmd
+  rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0 |
+    sed 's/^/catkin build -w $ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON  /' | writecmd
 }
 
 ## Clean packages
 fzf_ros_clean() {
-    local package
-    package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0)
-    local rclean_build_path=$ROS_DIR_PATH/build/$package
-    local rclean_devel_path=$ROS_DIR_PATH/devel/lib/$package
-    if [ -d $rclean_build_path ]; then
-        echo "Removing $rclean_build_path" &&
-        rm -rf $rclean_build_path > /dev/null
-    else
-        echo "$rclean_build_path does not exist"
-    fi
-    if [ -d $rclean_devel_path ]; then
-        echo "Removing $rclean_devel_path" &&
-        rm -rf $rclean_devel_path > /dev/null
-    else
-        echo "$rclean_devel_path does not exist"
-    fi
+  local package
+  package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0)
+  local rclean_build_path=$ROS_DIR_PATH/build/$package
+  local rclean_devel_path=$ROS_DIR_PATH/devel/lib/$package
+  if [ -d $rclean_build_path ]; then
+    echo "Removing $rclean_build_path" &&
+      rm -rf $rclean_build_path >/dev/null
+  else
+    echo "$rclean_build_path does not exist"
+  fi
+  if [ -d $rclean_devel_path ]; then
+    echo "Removing $rclean_devel_path" &&
+      rm -rf $rclean_devel_path >/dev/null
+  else
+    echo "$rclean_devel_path does not exist"
+  fi
 }
 
 # apt {{{2
@@ -511,7 +511,7 @@ apt_install_package_fzf() {
   fi
 
   fzf_cmd="$base_apt_fzf_cmd --header='[apt:install]'"
-  inst="$(parse_packages "$(apt list 2>/dev/null | tail -n +2 | 
+  inst="$(parse_packages "$(apt list 2>/dev/null | tail -n +2 |
     eval $fzf_cmd)")"
 
   if [[ -n $inst ]]; then
