@@ -223,10 +223,6 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
 
   command! -nargs=* RgPreview call RgPreview(<q-args>, '')
   command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
-  command! ZshAliases call ZshAliases()
-  command! ZshFunctions call ZshFunctions()
-  command! ZshVariables call ZshVariables()
-  command! ZshExecutables call ZshExecutables()
 
   let g:fzf_layout = { 'window': s:fzf_window_option }
 
