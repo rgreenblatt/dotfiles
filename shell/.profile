@@ -103,6 +103,7 @@ elif hash vi 2>/dev/null; then
   export VISUAL=vi
 fi
 export EDITOR="$VISUAL"
+export SUDO_EDITOR="editor"
 a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
 export SHELLCHECK_OPTS="$a"
 

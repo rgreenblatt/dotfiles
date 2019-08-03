@@ -137,7 +137,6 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   export GIT_TERMINAL_PROMPT=1
   export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
   export EDITOR="$VISUAL"
-  export SUDO_EDITOR="$VISUAL"
 
   #indicate insert vs normal mode zsh
   zle-keymap-select() {
