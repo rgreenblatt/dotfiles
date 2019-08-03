@@ -114,7 +114,14 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin &&
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
-sudo update-alternatives --install /usr/bin/editor editor ~/scripts/editor 300
+{cat << 'EOF' | sudo tee /usr/local/bin/env_editor
+#!/usr/bin/env bash
+
+eval "$EDITOR $*"
+EOF
+} && sudo chmod +x /usr/local/bin/env_editor
+sudo update-alternatives --install /usr/bin/editor editor \
+  /usr/local/bin/env_editor 300
 ```
 
 Additional language servers and watchmen for coc may also be desirable. Consider changing to
