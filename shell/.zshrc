@@ -72,13 +72,13 @@ setopt histignorealldups
 #completion {{{1
 if [ -z $NO_COMPLETE ]; then
   autoload -Uz compinit
-  
+
   #faster load, may require manual load after installs
   for dump in ~/.zcompdump(N.mh+24); do
     # Install plugins if there are plugins that have not been installed
     compinit
   done
-  
+
   compinit -C
   zstyle ':completion:*' auto-description 'specify: %d'
   zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -157,6 +157,33 @@ _fzf_compgen_path() {
 
 _fzf_compgen_dir() {
   eval "$FZF_DIR_COMMAND '' $1"
+}
+
+# Paste the selected alias into the command line
+fzf_aliases() {
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  a="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.."
+  b=" --tiebreak=index --bind=ctrl-r:toggle-sort +m"
+  paste <(print -rl -- ${(k)aliases}) <(print -rl -- ${aliases}) |
+    FZF_DEFAULT_OPTS="$a$b" $(__fzfcmd) | awk '{print $1;}' | writecmd
+}
+
+fzf_functions() {
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  a="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.."
+  b=" --tiebreak=index --bind=ctrl-r:toggle-sort +m "
+  c="--preview 'zsh -c \"NO_COMPLETE=true source ~/.zshrc && which {}\"'"
+  print -rl -- ${(k)functions} | FZF_DEFAULT_OPTS="$a$b$c" $(__fzfcmd) |
+    writecmd
+}
+
+fzf_variables() {
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  a="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.."
+  b=" --tiebreak=index --bind=ctrl-r:toggle-sort +m "
+  c="--preview 'zsh -c \"NO_COMPLETE=true source ~/.zshrc && get_value {}\"'"
+  paste <(print -rl -- ${(k)parameters}) <(print -rl -- ${parameters}) |
+    FZF_DEFAULT_OPTS="$a$b$c" $(__fzfcmd)
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

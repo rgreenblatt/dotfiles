@@ -325,6 +325,13 @@ git_commit_sha_fzf() {
 alias gcsf='git_commit_sha_fzf'
 
 # misc {{{2
+# utility function used to write the command in the shell
+writecmd() {
+  a='$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" :'
+  b='""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;'
+  perl -e "$a$b"
+}
+
 # cd to selected parent directory
 cd_parent_fzf() {
   local dirs
@@ -381,18 +388,19 @@ find_path_fzf() {
 
 alias fp=find_path_fzf
 
+# Paste the selected executable into the command line
+fzf_executables() {
+  a="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.."
+  b=" --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_T_OPTS +m"
+  fzf_cmd="$(__fzfcmd)"
+  whence -pm "*" | FZF_DEFAULT_OPTS="$a$b" $fzf_cmd | writecmd
+}
+
 # ros {{{2
 # Change this if you want your own rosbag play command
 export FZF_ROSBAG_PLAY_COMMAND="rosbag play --pause --clock --hz=200 "
 # Change this if you want your own rosbag play command
 export FZF_ROSBAG_DIRS="$HOME"
-
-# utility function used to write the command in the shell
-writecmd() {
-  a='$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" :'
-  b='""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;'
-  perl -e "$a$b"
-}
 
 #==============================================================================
 # General ros tools
