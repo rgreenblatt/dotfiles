@@ -217,38 +217,6 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
 
   let s:fzf_window_option = 'call FloatingFullscreen()'
 
-  "most of these zsh ones don't need to be vim functions
-  function! ZshAliases()
-    call fzf#run({'source': "zsh -c 'source ~/.zshrc && paste <(print -rl -- " .
-          \ "${(k)aliases}) <(print -rl -- ${aliases})'",
-          \ 'window': s:fzf_window_option})
-  endfunction
-
-  function! ZshFunctions()
-    call fzf#run({
-          \ 'source': "zsh -c 'source ~/.zshrc && print -rl -- ${(k)functions}'", 
-          \ 'window': s:fzf_window_option,
-          \ 'options' : "--preview 'zsh -c \"export NO_COMPLETE=true && ".
-          \ "source ~/.zshrc && which {}\"'"})
-  endfunction
-
-  function! ZshVariables()
-    call fzf#run({
-          \ 'source': "zsh -c 'source ~/.zshrc && paste <(print -rl -- " .
-          \ " ${(k)parameters}) <(print -rl -- ${parameters}) '", 
-          \ 'window': s:fzf_window_option,
-          \ 'options' : "--preview 'zsh -c \"export NO_COMPLETE=true && ".
-          \ "source ~/.zshrc && get_value {}\"'"})
-  endfunction
-
-  function! ZshExecutables()
-    call fzf#run({
-          \ 'source': "zsh -c 'source ~/.zshrc && whence -pm \"*\"'", 
-          \ 'sink': 'e',
-          \ 'window': s:fzf_window_option,
-          \ 'options' : fzf#vim#with_preview('right:50%').options})
-  endfunction
-
   function! RgPreviewHidden(args, extra_args)
     call RgPreview(a:args, '--hidden --glob "!.git/*" ' . a:extra_args)
   endfunction
