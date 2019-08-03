@@ -110,7 +110,7 @@ alias mgsd='mgs -e ~ 4'
 git_commit_all_submodules() {
   git_root=$(git rev-parse --show-toplevel)
   git config --file "$git_root/.gitmodules" --get-regexp path |
-    awk -v gr=$git_root '{ print gr "/" $2 }' | xargs git add
+    awk -v gr="$git_root" '{ print gr "/" $2 }' | xargs git add
   git commit --message="Submodule update"
 }
 alias gcas='git_commit_all_submodules'
@@ -257,12 +257,12 @@ git_stash_fzf() {
     sha="${sha%% *}"
     [[ -z $sha ]] && continue
     if [[ $k == 'ctrl-d' ]]; then
-      git diff $sha
+      git diff "$sha"
     elif [[ $k == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
+      git stash branch "stash-$sha" "$sha"
       break
     else
-      git stash show -p $sha
+      git stash show -p "$sha"
     fi
   done
 }
@@ -357,7 +357,7 @@ alias cdf='cd_file_fzf'
 # completely.
 kill_process_fzf() {
   fzf_cmd="fzf ${FZF_DEFAULT_OPTS} -m --header='[kill:process]'"
-  pid=$(ps -ef | sed 1d | eval $fzf_cmd | awk '{print $2}')
+  pid=$(ps -ef | sed 1d | eval "$fzf_cmd" | awk '{print $2}')
 
   if [ "x$pid" != "x" ]; then
     echo "$pid" | xargs kill -"${1:-9}"
@@ -370,11 +370,11 @@ alias kp=kill_process_fzf
 # press [escape] to go back to directory listing, [escape] twice to exit
 find_path_fzf() {
   fzf_cmd="fzf ${FZF_DEFAULT_OPTS} --header='[find:path]'"
-  loc=$(echo "$PATH" | sed -e $'s/:/\\\n/g' | eval $fzf_cmd)
+  loc=$(echo "$PATH" | sed -e $'s/:/\\\n/g' | eval "$fzf_cmd")
 
   if [[ -d $loc ]]; then
     fzf_cmd="fzf ${FZF_DEFAULT_OPTS} --header='[find:exe] => ${loc}' >/dev/null"
-    rg --files "$loc" | rev | cut -d"/" -f1 | rev | eval $fzf_cmd
+    rg --files "$loc" | rev | cut -d"/" -f1 | rev | eval "$fzf_cmd"
     find_path_fzf
   fi
 }
@@ -389,7 +389,9 @@ export FZF_ROSBAG_DIRS="$HOME"
 
 # utility function used to write the command in the shell
 writecmd() {
-  perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
+  a='$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" :'
+  b='""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;'
+  perl -e "$a$b"
 }
 
 #==============================================================================
@@ -404,19 +406,22 @@ fzf_roscd() {
 
 ## roslaunch
 fzf_roslaunch() {
-  find $ROS_DIR_PATH -type f -name "*.launch" | fzf-tmux --query="$1" --select-1 --exit-0 |
+  find "$ROS_DIR_PATH" -type 'f' -name "*.launch" |
+    fzf-tmux --query="$1" --select-1 --exit-0 |
     sed "s/^/roslaunch  /" | writecmd
 }
 
 ## rosbag play
 fzf_rosbag() {
-  find $FZF_ROSBAG_DIRS -type f -name "*.bag" | fzf-tmux --query="$1" --select-1 --exit-0 |
+  find "$FZF_ROSBAG_DIRS" -type 'f' -name "*.bag" |
+    fzf-tmux --query="$1" --select-1 --exit-0 |
     sed 's/^/$FZF_ROSBAG_PLAY_COMMAND/' | writecmd
 }
 
 ## Run executables like rosrun (but not really rosrun)
 fzf_rosrun() {
-  find $ROS_DIR_PATH/devel/ $ROS_DIR_PATH/src/ -executable -type f | fzf-tmux --query="$1" --select-1 --exit-0 |
+  find "$ROS_DIR_PATH/devel/" "$ROS_DIR_PATH/src/" -executable -type 'f' |
+    fzf-tmux --query="$1" --select-1 --exit-0 |
     sed "s/^//" | writecmd
 }
 
@@ -463,20 +468,22 @@ fzf_ros_node_kill() {
     rosnode kill "$node"
 }
 
+export CATKIN_BUILD_ARGS="-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+
 #==============================================================================
 # Build tools
 ## Build a package - start immediately on match
 fzf_catkin_build_immediate() {
   local package
   package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0) &&
-    catkin build -w $ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "$package"
+    catkin build -w "$ROS_DIR_PATH" "$CATKIN_BUILD_ARGS" "$package"
 }
 
 ## Build a package - prepare build command on command line for the user to
 #  edit before starting a build
 fzf_catkin_build_edit() {
   rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0 |
-    sed 's/^/catkin build -w $ROS_DIR_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON  /' | writecmd
+    sed "s/^/catkin build -w $ROS_DIR_PATH $CATKIN_BUILD_ARGS /" | writecmd
 }
 
 ## Clean packages
@@ -485,15 +492,15 @@ fzf_ros_clean() {
   package=$(rospack list-names | fzf-tmux --query="$1" --select-1 --exit-0)
   local rclean_build_path=$ROS_DIR_PATH/build/$package
   local rclean_devel_path=$ROS_DIR_PATH/devel/lib/$package
-  if [ -d $rclean_build_path ]; then
+  if [ -d "$rclean_build_path" ]; then
     echo "Removing $rclean_build_path" &&
-      rm -rf $rclean_build_path >/dev/null
+      rm -rf "$rclean_build_path" >/dev/null
   else
     echo "$rclean_build_path does not exist"
   fi
-  if [ -d $rclean_devel_path ]; then
+  if [ -d "$rclean_devel_path" ]; then
     echo "Removing $rclean_devel_path" &&
-      rm -rf $rclean_devel_path >/dev/null
+      rm -rf "$rclean_devel_path" >/dev/null
   else
     echo "$rclean_devel_path does not exist"
   fi
@@ -512,7 +519,7 @@ apt_install_package_fzf() {
 
   fzf_cmd="$base_apt_fzf_cmd --header='[apt:install]'"
   inst="$(parse_packages "$(apt list 2>/dev/null | tail -n +2 |
-    eval $fzf_cmd)")"
+    eval "$fzf_cmd")")"
 
   if [[ -n $inst ]]; then
     sudo apt install "$inst"
@@ -529,7 +536,7 @@ apt_upgrade_package_fzf() {
 
   fzf_cmd="$base_apt_fzf_cmd --header='[apt:upgrade]'"
   upgr="$(parse_packages "$(apt list --upgradable 2>/dev/null | tail -n +2 |
-    eval $fzf_cmd)")"
+    eval "$fzf_cmd")")"
 
   if [[ -n $upgr ]]; then
     sudo apt install --only-upgrade "$upgr"
@@ -541,7 +548,7 @@ alias aup=apt_upgrade_package_fzf
 apt_remove_package_fzf() {
   fzf_cmd="$base_apt_fzf_cmd --header='[apt:remove]'"
   rem="$(parse_packages "$(apt list --installed 2>/dev/null | tail -n +2 |
-    eval $fzf_cmd)")"
+    eval "$fzf_cmd")")"
 
   if [[ -n $rem ]]; then
     sudo apt remove "$rem"
