@@ -9,7 +9,7 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 ## Type: Dict
 c.aliases = {'wq': 'quit --save', 'q': 'close', 'w': 'session-save',
              'wqa': 'quit --save', 'qa': 'quit',
-             'mpv': 'spawn --userscript ~/scripts/view_in_mpv'}
+             'mpv': 'spawn --userscript ~/.local/bin/view_in_mpv'}
 
 ## Time interval (in milliseconds) between auto-saves of
 ## config/cookies/etc.
@@ -531,7 +531,7 @@ config.bind('  p', 'tab-focus -1')
 CSS = '~/.config/qutebrowser/gruvbox-all-sites.css'
 config.bind('sd', f'config-cycle content.user_stylesheets {CSS} ""')
 config.bind('sz', 'config-cycle zoom.default 100% 67%')
-BASE_SPAWN_FZF = 'spawn --userscript ~/scripts/floating_st'
+BASE_SPAWN_FZF = 'spawn --userscript ~/.local/bin/floating_st'
 config.bind(' o', BASE_SPAWN_FZF + ' fzf_qutebrowser_url')
 config.bind(' O', BASE_SPAWN_FZF + ' fzf_qutebrowser_url -t')
 config.bind(' c', BASE_SPAWN_FZF + ' fzf_qutebrowser_cmd')
