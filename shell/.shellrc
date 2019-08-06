@@ -368,7 +368,7 @@ kill_process_fzf() {
 
   if [ "x$pid" != "x" ]; then
     echo "$pid" | xargs kill -"${1:-9}"
-    kp
+    kill_process_fzf
   fi
 }
 alias kp=kill_process_fzf
