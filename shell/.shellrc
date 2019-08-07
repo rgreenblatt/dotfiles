@@ -577,4 +577,4 @@ if command -v thefuck >/dev/null 2>&1; then
 fi
 #}}}
 
-# vim: set fdm=marker filetype=sh:
+# vim: set fdm=marker:
