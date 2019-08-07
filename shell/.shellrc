@@ -177,6 +177,8 @@ alias rtef="fzf_ros_topic_echo"
 alias rti="rostopic info"
 alias rtif="fzf_ros_topic_info"
 
+alias rtl="rostopic list"
+
 alias rne="rosnode info"
 alias rnef="fzf_ros_node_info"
 
@@ -185,6 +187,8 @@ alias rnpf="fzf_ros_node_ping"
 
 alias rnk="rosnode kill"
 alias rnkf="fzf_ros_node_kill"
+
+alias rnl="rosnode list"
 
 alias cb="catkin build"
 alias cbf="fzf_catkin_build_immediate"
