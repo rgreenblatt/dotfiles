@@ -193,7 +193,7 @@ alias rnl="rosnode list"
 alias cb="catkin build"
 alias cbf="fzf_catkin_build_immediate"
 alias cbef="fzf_catkin_build_edit"
-alias rv="sudo pkill openvpn; (nohup openpyn us &> /dev/null &)"
+alias rv="sudo pkill openvpn; openpyn us"
 
 catkin_full_make_package() {
   catkin build "$1"
@@ -372,7 +372,7 @@ kill_process_fzf() {
 
   if [ "x$pid" != "x" ]; then
     echo "$pid" | xargs kill -"${1:-9}"
-    kill_process_fzf
+    kill_process_fzf "$@"
   fi
 }
 alias kp=kill_process_fzf
