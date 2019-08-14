@@ -7,13 +7,13 @@ targets_dir='targets'
 help_msg() {
   echo "Usage:"
   echo "    ./install.sh [target]"
-  echo "    available targets: $(ls $targets_dir | tr '\n' ' ')"
+  echo "    available targets: $(find $targets_dir -maxdepth 1| tr '\n' ' ')"
   echo ""
   echo "    ./install.sh -h           Display this help message."
   echo "    ./install.sh -c           Install for a headless system."
 }
 
-args="$@"
+args="$*"
 
 for var in "$@"; do
   case "$var" in
@@ -65,7 +65,7 @@ target=$1
 
 stow_target() {
   if [[ -d "$targets_dir/$1" ]]; then
-    (cd $targets_dir && stow $1 --target ../../)
+    (cd $targets_dir && stow "$1" --target ../../)
     echo "Installing $1"
   else
     echo "Invalid target: $1"
@@ -74,15 +74,12 @@ stow_target() {
 }
 
 if [[ -n $target ]]; then
-  stow_target $target
+  stow_target "$target"
 else
   stow_target default
 fi
 
 stow bat
-if [ -d "$HOME/.cargo" ]; then
-  stow cargo
-fi
 stow cmakelint
 stow nvim
 stow mutt
@@ -91,6 +88,9 @@ stow git
 stow pylint
 stow ssh
 stow sshrc
+# avoid tracking other files
+mkdir -p ~/.cargo
+stow rust
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
