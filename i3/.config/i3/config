@@ -44,6 +44,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 bindsym $mod+semicolon exec qutebrowser
 bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+g exec screen_record
 bindsym $mod+Shift+v exec vnc
 bindsym $mod+Escape exec "touch /tmp/keyboard_info/kill"
 bindsym --release $mod+slash exec "keyboard_setup"
