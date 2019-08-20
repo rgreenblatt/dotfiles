@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+echo 'if [ -n "${ROS_WORKSPACE_PATH+x}" ]; then
+  cd $ROS_WORKSPACE_PATH
+  \. devel/setup.$(eval "$(get_shell)")
+else
+  echo "ROS_WORKSPACE_PATH not set"
+fi'

@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-i3-sensible-terminal -e nvim
+if [ -n "${START_TERM_ARGS+x}" ]; then
+  eval "i3-sensible-terminal $START_TERM_ARGS"
+else
+  i3-sensible-terminal -e nvim
+fi

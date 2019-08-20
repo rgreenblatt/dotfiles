@@ -81,16 +81,6 @@ alias fdi="$FZF_DIR_COMMAND"
 
 alias e='editor'
 
-get_shell() {
-  if [ -n "${ZSH_VERSION+x}" ]; then
-    echo "zsh"
-  elif [ -n "${BASH_VERSION+x}" ]; then
-    echo "bash"
-  else
-    echo "sh"
-  fi
-}
-
 red_gap() {
   n=10
 
@@ -155,14 +145,7 @@ alias lsv="rosrun locus_viz sim"
 alias locus_source_base="source /opt/locusrobotics/hotdog/dev/ros1/setup.zsh"
 
 #general {{{3
-alias ros='
-if [ -n "${ROS_WORKSPACE_PATH+x}" ]; then
-  cd $ROS_WORKSPACE_PATH
-  \. devel/setup.$(get_shell)
-else
-  echo "ROS_WORKSPACE_PATH not set"
-fi
-'
+alias ros='eval "$(ros_setup)"'
 
 alias rbag="rosbag"
 alias rc="roscore"
@@ -243,7 +226,7 @@ alias rmu=set_ros_master_uri
 
 #source ros setup to ensure tab completion works {{{1
 if [ -n "${ROS_VERSION+x}" ]; then
-  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$(get_shell)"
+  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$(eval "$(get_shell)")"
 fi
 
 #fzf commands {{{1
