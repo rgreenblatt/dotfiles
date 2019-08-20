@@ -57,6 +57,21 @@ fi
 
 # fi
 
+#generic environment vars {{{1
+if hash nvim 2>/dev/null; then
+  export VISUAL=nvim
+elif hash vim 2>/dev/null; then
+  export VISUAL=vim
+elif hash vi 2>/dev/null; then
+  export VISUAL=vi
+fi
+export EDITOR="$VISUAL"
+export SUDO_EDITOR="editor"
+a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
+export SHELLCHECK_OPTS="$a"
+
+export PROFILE_SOURCED=1
+
 if [ -d "$HOME/.fzf" ]; then #{{{1
   gruvbox_fg_1='#ebdbb2'
   gruvbox_yellow='#fabd2f'
@@ -90,24 +105,10 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   export FZF_DEFAULT_OPTS="$a$b$c$d$e$f$g$h"
 fi
 
+
 if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
   \. ~/.profile_machine_specific
 fi
-
-#generic environment vars {{{1
-if hash nvim 2>/dev/null; then
-  export VISUAL=nvim
-elif hash vim 2>/dev/null; then
-  export VISUAL=vim
-elif hash vi 2>/dev/null; then
-  export VISUAL=vi
-fi
-export EDITOR="$VISUAL"
-export SUDO_EDITOR="editor"
-a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
-export SHELLCHECK_OPTS="$a"
-
-export PROFILE_SOURCED=1
 #}}}
 
 # vim: set fdm=marker:
