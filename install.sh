@@ -7,7 +7,7 @@ targets_dir='targets'
 help_msg() {
   echo "Usage:"
   echo "    ./install.sh [target]"
-  echo "    available targets: $(find $targets_dir -maxdepth 1| tr '\n' ' ')"
+  echo "    available targets: $(find $targets_dir -maxdepth 1 | tr '\n' ' ')"
   echo ""
   echo "    ./install.sh -h           Display this help message."
   echo "    ./install.sh -c           Install for a headless system."
@@ -17,16 +17,15 @@ args="$*"
 
 for var in "$@"; do
   case "$var" in
-    --help)
-      help_msg
-      exit 0
-      ;;
+  --help)
+    help_msg
+    exit 0
+    ;;
 
-    *)
-      ;;
+  *) ;;
+
   esac
 done
-
 
 # Parse options
 while getopts ":hc" opt; do
@@ -61,11 +60,19 @@ if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
+# done before target install so profile exists
+stow shell
+
 target=$1
 
-stow_target() {
+install_target() {
   if [[ -d "$targets_dir/$1" ]]; then
     (cd $targets_dir && stow "$1" --target ../../)
+    \. ~/.profile
+    extra_install_script="$1_install.sh"
+    if [[ -f "$targets_dir/$extra_install_script" ]]; then
+      ./$targets_dir/$extra_install_script
+    fi
     echo "Installing $1"
   else
     echo "Invalid target: $1"
@@ -74,16 +81,15 @@ stow_target() {
 }
 
 if [[ -n $target ]]; then
-  stow_target "$target"
+  install_target "$target"
 else
-  stow_target default
+  install_target default
 fi
 
 stow bat
 stow cmakelint
 stow nvim
 stow mutt
-stow shell
 stow git
 stow pylint
 stow ssh
