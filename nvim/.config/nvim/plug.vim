@@ -80,7 +80,7 @@ if !g:no_editing_plugins
   " call s:PA(['rhysd/clever-f.vim'])
   call s:PA(['unblevable/quick-scope'])
   call s:PA(['justinmk/vim-sneak'])
-  call s:PA(['rgreenblatt/sneak-quick-scope'])
+  " call s:PA(['rgreenblatt/sneak-quick-scope'])
   call s:PA(['inkarkat/vim-ingo-library'])
   call s:PA(['inkarkat/vim-CountJump'])
   call s:PA(['inkarkat/vim-EnhancedJumps'])
