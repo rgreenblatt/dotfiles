@@ -79,11 +79,17 @@ alias duf='du -sh *'
 alias ffi="$FZF_DEFAULT_COMMAND"
 alias fdi="$FZF_DIR_COMMAND"
 
-env_editor() {
-  eval "$EDITOR $*"
-}
+alias e='editor'
 
-alias e='env_editor'
+get_shell() {
+  if [ -n "${ZSH_VERSION+x}" ]; then
+    echo "zsh"
+  elif [ -n "${BASH_VERSION+x}" ]; then
+    echo "bash"
+  else
+    echo "sh"
+  fi
+}
 
 red_gap() {
   n=10
@@ -149,7 +155,14 @@ alias lsv="rosrun locus_viz sim"
 alias locus_source_base="source /opt/locusrobotics/hotdog/dev/ros1/setup.zsh"
 
 #general {{{3
-alias r="ros"
+alias ros='
+if [ -n "${ROS_WORKSPACE_PATH+x}" ]; then
+  cd $ROS_WORKSPACE_PATH
+  \. devel/setup.$(get_shell)
+else
+  echo "ROS_WORKSPACE_PATH not set"
+fi
+'
 
 alias rbag="rosbag"
 alias rc="roscore"
@@ -230,14 +243,7 @@ alias rmu=set_ros_master_uri
 
 #source ros setup to ensure tab completion works {{{1
 if [ -n "${ROS_VERSION+x}" ]; then
-  if [ -n "${ZSH_VERSION+x}" ]; then
-    shell_used="zsh"
-  elif [ -n "${BASH_VERSION+x}" ]; then
-    shell_used="bash"
-  else
-    shell_used="sh"
-  fi
-  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$shell_used"
+  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$(get_shell)"
 fi
 
 #fzf commands {{{1
