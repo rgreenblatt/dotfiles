@@ -13,6 +13,7 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 # Start zim
 [[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
+export INTERATIVE_SHELL="zsh"
 source $CONFIG_HOME/.shellrc
 
 #prompt {{{1

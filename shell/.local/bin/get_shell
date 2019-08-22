@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-echo 'if [ -n "${ZSH_VERSION+x}" ]; then
-  echo "zsh"
-elif [ -n "${BASH_VERSION+x}" ]; then
-  echo "bash"
-else
-  echo "sh"
-fi'

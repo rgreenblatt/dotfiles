@@ -14,6 +14,8 @@ if [ -z "$CONFIG_HOME" ]; then
   export CONFIG_HOME
 fi
 
+export INTERATIVE_SHELL="bash"
+
 source "$CONFIG_HOME/.shellrc"
 
 #defaults from debian/ubuntu {{{1

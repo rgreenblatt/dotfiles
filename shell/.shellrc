@@ -225,8 +225,8 @@ set_ros_master_uri() {
 alias rmu=set_ros_master_uri
 
 #source ros setup to ensure tab completion works {{{1
-if [ -n "${ROS_VERSION+x}" ]; then
-  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$(eval "$(get_shell)")"
+if [ -n "${ROS_VERSION+x}" ] && [ -n "${INTERATIVE_SHELL+x}" ]; then
+  \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$INTERATIVE_SHELL"
 fi
 
 #fzf commands {{{1
