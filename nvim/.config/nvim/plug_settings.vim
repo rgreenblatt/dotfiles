@@ -77,6 +77,17 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-sh',
         \]
 
+  function! CocRunHighlight()
+    if !exists('g:coc_disable_highlight') ||  !g:coc_disable_highlight
+      call CocActionAsync('highlight')
+    endif
+  endfunction
+
+  command! CocDisableHighlight let g:coc_disable_highlight = 1
+  command! CocEnableHighlight let g:coc_disable_highlight = 0
+  command! CocToggleHighlight let g:coc_disable_highlight = 
+        \ !g:coc_disable_highlight
+
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
@@ -84,7 +95,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
           \ setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd CursorHold * silent call CocRunHighlight()
   augroup end
   hi! CocHighlightText cterm=bold,underline gui=bold,underline
   
