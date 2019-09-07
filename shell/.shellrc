@@ -233,6 +233,17 @@ if [ -n "${ROS_VERSION+x}" ] && [ -n "${INTERATIVE_SHELL+x}" ]; then
   \. "$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")/setup.$INTERATIVE_SHELL"
 fi
 
+#nvim terminal specific settings {{{1
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+  alias h='nvr -o'
+  alias v='nvr -O'
+  alias t='nvr --remote-tab'
+  alias e='nvr'
+  export GIT_TERMINAL_PROMPT=1
+  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
+  export EDITOR="$VISUAL"
+fi
+
 #fzf commands {{{1
 # git {{{2
 # easier way to deal with stashes

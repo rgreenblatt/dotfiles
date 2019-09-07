@@ -131,13 +131,6 @@ alias -g NA="&> /dev/null"
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
   export NVIM_BUF_ID
-  alias h='nvr -o'
-  alias v='nvr -O'
-  alias t='nvr --remote-tab'
-  alias e='nvr'
-  export GIT_TERMINAL_PROMPT=1
-  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
-  export EDITOR="$VISUAL"
 
   #indicate insert vs normal mode zsh
   zle-keymap-select() {
