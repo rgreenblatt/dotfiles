@@ -2,13 +2,10 @@ va https://vast.ai/console/create/
 g https://mail.google.com/mail/u/0/#inbox
 p https://myprint.brown.edu/user
 a https://www.amazon.com/
-c8 https://cs.brown.edu/courses/cs018/home.html
-cv https://cs.brown.edu/courses/csci1430/
 r https://github.com/rgreenblatt?tab=repositories
 c https://calendar.google.com/calendar/r
 ca https://canvas.brown.edu/
-p8 https://piazza.com/class/jqh0x09yp3j5ml#
-pv https://piazza.com/class/jo7pb0yhcqa7o0
 ag https://github.com/zimfw/zimfw/tree/master/modules/git
-rl https://github.com/locusrobotics
-j https://locusrobotics.atlassian.net/secure/RapidBoard.jspa?rapidView=8&selectedIssue=RST-2319&assignee=5ce2f6bf4eeaaa0dd0b06d39
+cg https://cs.brown.edu/courses/cs123/
+pl https://cs.brown.edu/courses/cs173/2019/
+cs https://cs.brown.edu/courses/csci0330/
