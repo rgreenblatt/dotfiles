@@ -58,7 +58,6 @@ if !g:no_language_plugins
   call s:PA(['jeetsukumaran/vim-pythonsense'])
   call s:PA(['ehamberg/vim-cute-python'])
   call s:PA(['sheerun/vim-polyglot'])
-  call s:PA(['pseewald/vim-anyfold'])
   call s:PA(['tmhedberg/SimpylFold'])
   call s:PA(['metakirby5/codi.vim'])
 endif
