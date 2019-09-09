@@ -76,7 +76,6 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-vimlsp',
         \ 'coc-snippets',
         \ 'coc-gocode',
-        \ 'coc-sh',
         \]
 
   function! CocRunHighlight()
