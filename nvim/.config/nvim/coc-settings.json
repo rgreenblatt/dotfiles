@@ -14,7 +14,7 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "rust.clippy_preference": "on",
-  "rust-client.channel": "nightly",
+  "rust-client.channel": "stable",
   "rust.unstable_features": true,
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
