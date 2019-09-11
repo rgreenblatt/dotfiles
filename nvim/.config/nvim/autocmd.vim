@@ -1,12 +1,4 @@
 "general filetype autocmds {{{1
-function! RustFmtFunc() abort
-  if line("$") == v:lnum + v:count - 1 && v:lnum == 1
-    RustFmt
-  else
-    execute string(v:lnum) . "," . string(v:lnum + v:count - 1) . "RustFmtRange"
-  endif
-endfunction
-
 augroup FiletypeAutocmds
   autocmd!
   if has('nvim')
@@ -16,7 +8,6 @@ augroup FiletypeAutocmds
   autocmd Filetype tex,text,textile,mkd,markdown setlocal spell
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd BufRead,BufNewFile *.sbt set filetype=scala
-  autocmd FileType,BufWrite rust setlocal formatexpr=RustFmtFunc()
 augroup end
 
 " secure modeline work around {{{1

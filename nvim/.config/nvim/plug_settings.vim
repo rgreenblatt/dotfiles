@@ -92,7 +92,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,java,rust,tex,go,yaml,python,rust
+    autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,go,yaml,python
           \ setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -415,6 +415,19 @@ let g:rust_conceal = 1
 let g:rust_conceal_mod_path = 1
 let g:rust_conceal_pub = 1
 let g:rust_fold = 2
+
+function! RustFmtFunc() abort
+  if line("$") == v:lnum + v:count - 1 && v:lnum == 1
+    RustFmt
+  else
+    execute string(v:lnum) . "," . string(v:lnum + v:count - 1) . "RustFmtRange"
+  endif
+endfunction
+
+augroup RustFmtFunc
+  autocmd!
+  autocmd FileType,BufWrite rust setlocal formatexpr=RustFmtFunc()
+augroup end
 
 " other {{{1
 let g:wordmotion_prefix = ';'
