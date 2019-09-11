@@ -415,6 +415,7 @@ let g:rust_conceal = 1
 let g:rust_conceal_mod_path = 1
 let g:rust_conceal_pub = 1
 let g:rust_fold = 2
+let g:rust_recommended_style = 0
 
 function! RustFmtFunc() abort
   if line("$") == v:lnum + v:count - 1 && v:lnum == 1
