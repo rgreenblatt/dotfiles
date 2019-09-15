@@ -16,6 +16,7 @@
   "rust.clippy_preference": "on",
   "rust-client.channel": "stable",
   "rust.unstable_features": true,
+  "rust.cfg_test": true,
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
     "method": "\uf6a6",
