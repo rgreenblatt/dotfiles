@@ -4,6 +4,8 @@
   "python.jediEnabled": false,
   "python.linting.pylintUseMinimalCheckers": false,
   "python.formatting.provider": "yapf",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
   "diagnostic.displayByAle": true,
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": false,
