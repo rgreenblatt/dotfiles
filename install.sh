@@ -88,6 +88,7 @@ fi
 
 stow bat
 stow cmakelint
+mkdir -p ~/.config/nvim
 stow nvim
 stow mutt
 stow git
