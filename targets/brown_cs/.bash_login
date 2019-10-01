@@ -7,3 +7,5 @@ fi
 if [ -z "$PROFILE_SOURCED" ]; then
   source .profile
 fi
+
+source ~/.bashrc
