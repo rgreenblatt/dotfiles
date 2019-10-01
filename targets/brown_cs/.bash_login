@@ -7,6 +7,3 @@ fi
 if [ -z "$PROFILE_SOURCED" ]; then
   source .profile
 fi
-
-# zsh is slow, so not used right now
-exec ~/.local/bin/nvim -l
