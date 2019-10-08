@@ -3,8 +3,8 @@ if [ -d "$HOME/bin" ]; then #{{{2
   PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin" ]; then #{{{2
-  PATH="$HOME/.local/bin:$PATH"
+if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
+  export PATH="/usr/local/cuda/bin/:$PATH"
 fi
 
 if [ -d "$HOME/scripts" ]; then #{{{2
@@ -27,22 +27,22 @@ if [ -d "$HOME/.npm-global/bin" ]; then #{{{2
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
-if [ -d "/usr/local/cuda/bin/" ]; then #{{{2
-  export PATH="/usr/local/cuda/bin/:$PATH"
-fi
-
 if [ -d "$HOME/.nvm" ]; then #{{{2
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
-if [ -d "/usr/local/go/" ]; then
+if [ -d "/usr/local/go/" ]; then #{{{2
   export GOROOT=/usr/local/go
   export PATH="$GOROOT/bin:$PATH"
 fi
 
-if [ -d "$HOME/go/" ]; then
+if [ -d "$HOME/go/" ]; then #{{{2
   export PATH="$HOME/go/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ]; then #{{{2
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 if command -v javac >/dev/null 2>&1; then
