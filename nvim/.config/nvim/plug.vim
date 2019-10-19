@@ -70,7 +70,7 @@ if !g:no_appearance_plugins
   call s:PA(['junegunn/goyo.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
   call s:PA(['ryanoasis/vim-devicons'])
-  call s:PA(['RRethy/vim-hexokinase'])
+  call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
 endif
 
 "general editing {{{2

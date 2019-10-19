@@ -392,7 +392,7 @@ let g:ale_virtualtext_prefix = "◀ "
 let g:ale_disable_lsp = 1
 " let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
 let g:ale_linters = {
-      \ 'cpp': ['cpplint'], 
+      \ 'cpp': [], 
       \ 'python': ['pylint'], 
       \ 'c': [], 
       \ 'rust': []
