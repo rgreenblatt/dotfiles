@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-xrandr --output "$XRANDR_LAPTOP_DISPLAY" --right-of "$XRANDR_MONITOR_DISPLAY"
+xrandr --output "$XRANDR_LAPTOP_DISPLAY" --left-of "$XRANDR_MONITOR_DISPLAY"
 
 if [[ -n $RESIZE_LAPTOP ]]; then
   xrandr --output "$XRANDR_LAPTOP_DISPLAY" --mode "$RESIZE_LAPTOP"
