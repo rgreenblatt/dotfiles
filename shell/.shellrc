@@ -131,6 +131,15 @@ alias am="udisksctl mount -b"
 #cargo {{{2
 alias c-update='cargo install-update -a'
 
+cargo_command_and_pipe() {
+    cargo --color always "$@" 2>&1 | bat -p
+}
+
+alias c_p='cargo_command_and_pipe'
+alias c_pc='cargo_command_and_pipe check'
+alias c_pb='cargo_command_and_pipe build'
+alias c_pt='cargo_command_and_pipe test'
+
 #tar {{{2
 alias onzt='tar xvf'
 alias ot='tar xzvf'
