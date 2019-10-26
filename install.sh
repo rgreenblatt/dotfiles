@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 headless="false"
+cronjobs="false"
 
 targets_dir='targets'
 
@@ -11,6 +12,7 @@ help_msg() {
   echo ""
   echo "    ./install.sh -h           Display this help message."
   echo "    ./install.sh -c           Install for a headless system."
+  echo "    ./install.sh -u           Enable cron jobs for update."
 }
 
 args="$*"
@@ -28,7 +30,7 @@ for var in "$@"; do
 done
 
 # Parse options
-while getopts ":hc" opt; do
+while getopts ":hcu" opt; do
   case ${opt} in
   h)
     help_msg
@@ -37,6 +39,10 @@ while getopts ":hc" opt; do
   c)
     echo "Installing headless"
     headless="true"
+    ;;
+  u)
+    echo "Enabling cron jobs"
+    cronjobs="true"
     ;;
   \?)
     echo "Invalid Option: -$OPTARG" 1>&2
@@ -120,36 +126,39 @@ else
   reboot_job=""
 fi
 
-c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
-mail="MAILTO=ryan_greenblatt@brown.edu"
-install="cd $PWD && ./sync.sh"
-install_job="0 4 * * * $install"
-c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
+if [[ $cronjobs == "true" ]]; then
+  c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
+  mail="MAILTO=ryan_greenblatt@brown.edu"
+  install="cd $PWD && ./sync.sh"
+  install_job="0 4 * * * $install"
+  c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
 
-full=$(printf '%s\n%s\n%s\n%s\n%s\n ' "$c_start" "$mail" "$reboot_job" \
-  "$install_job" "$c_end")
+  full=$(printf '%s\n%s\n%s\n%s\n%s\n ' "$c_start" "$mail" "$reboot_job" \
+    "$install_job" "$c_end")
 
-current_cron=$(crontab -l 2>/dev/null)
+  current_cron=$(crontab -l 2>/dev/null)
 
-line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" |
-  grep -Eo '^[^:]+')
-exit_status=$?
-if [ "$exit_status" -eq 0 ]; then
-
-  line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" |
+  line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" |
     grep -Eo '^[^:]+')
   exit_status=$?
-  if [ $exit_status -ne 0 ]; then
-    echo >&2 "first cron tab comment found, but second wasn't found, exiting"
-    exit 1
-  fi
-  sed_end=d
-  current_cron=$(echo "$current_cron" | sed -e "$line_start,$line_end$sed_end")
-else
-  echo "cron jobs not found, adding"
-fi
+  if [ "$exit_status" -eq 0 ]; then
 
-echo "$current_cron$full" | crontab -
+    line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" |
+      grep -Eo '^[^:]+')
+    exit_status=$?
+    if [ $exit_status -ne 0 ]; then
+      echo >&2 "first cron tab comment found, but second wasn't found, exiting"
+      exit 1
+    fi
+    sed_end=d
+    current_cron=$(echo "$current_cron" |
+                   sed -e "$line_start,$line_end$sed_end")
+  else
+    echo "cron jobs not found, adding"
+  fi
+
+  echo "$current_cron$full" | crontab -
+fi
 
 if [ ! -d ~/.zgen ]; then
   git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
