@@ -93,16 +93,17 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   export FZF_CTRL_R_OPTS="$a"
   export FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
 
-  a="--layout=reverse --bind 'ctrl-s:select-all+accept,ctrl-j:jump-accept,"
-  b="ctrl-k:jump,ctrl-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-g:top,"
-  c="alt-e:execute-silent[(nvr --remote-tab {} &)]' --ansi "
-  d="--color=fg:$gruvbox_fg_1,hl:$gruvbox_yellow,fg+:$gruvbox_fg_1 "
-  e="--color=bg+:$gruvbox_bg_1,hl+:$gruvbox_yellow,info:$gruvbox_blue "
-  f="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
-  g="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
-  h="--color=header:$gruvbox_bg_3 "
-
-  export FZF_DEFAULT_OPTS="$a$b$c$d$e$f$g$h"
+  export FZF_DEFAULT_OPTS
+  FZF_DEFAULT_OPTS+="--layout=reverse --bind 'ctrl-s:select-all+accept,"
+  FZF_DEFAULT_OPTS+="ctrl-j:jump-accept,ctrl-k:jump,ctrl-p:toggle-preview,"
+  FZF_DEFAULT_OPTS+="ctrl-w:toggle-preview-wrap,ctrl-g:top,"
+  FZF_DEFAULT_OPTS+="alt-e:execute-silent[(nvr --remote-tab {} &)]' --ansi "
+  FZF_DEFAULT_OPTS+="--color=fg:$gruvbox_fg_1,hl:$gruvbox_yellow,"
+  FZF_DEFAULT_OPTS+="fg+:$gruvbox_fg_1 --color=bg+:$gruvbox_bg_1,"
+  FZF_DEFAULT_OPTS+="hl+:$gruvbox_yellow,info:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
+  FZF_DEFAULT_OPTS+="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
+  FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
 fi
 
 

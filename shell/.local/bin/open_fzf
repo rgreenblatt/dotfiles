@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+if selection=$(fd --follow --exclude .git --color=always --type f |
+               fzf ); then
+  nohup "xdg-open" "$selection" &>/dev/null &
+  sleep 0.1
+fi
