@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+st -c "st_floating" -g 130x30 -e "$@"
