@@ -128,7 +128,7 @@ alias am="udisksctl mount -b"
 alias c-update='cargo install-update -a'
 
 cargo_command_and_pipe() {
-    cargo --color always "$@" 2>&1 | bat -p
+  cargo --color always "$@" 2>&1 | bat -p
 }
 
 alias c_p='cargo_command_and_pipe'
