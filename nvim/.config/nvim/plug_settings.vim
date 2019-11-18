@@ -215,8 +215,6 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
           \ ['--bind', 'alt-e:execute-silent(remote_tab_open_grep {} &)']})
   endfunction
 
-  let s:fzf_window_option = 'call FloatingFullscreen()'
-
   function! RgPreviewHidden(args, extra_args)
     call RgPreview(a:args, '--hidden --glob "!.git/*" ' . a:extra_args)
   endfunction
@@ -224,7 +222,7 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   command! -nargs=* RgPreview call RgPreview(<q-args>, '')
   command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
 
-  let g:fzf_layout = { 'window': s:fzf_window_option }
+  let g:fzf_layout = { 'window': 'call FloatingFullscreen()' }
 
   "Too slow
   "

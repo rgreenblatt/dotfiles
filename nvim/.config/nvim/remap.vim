@@ -124,32 +124,6 @@ endfunction
 nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 "window maps {{{1
-function! FloatingOverWindow(path)
-  let buf = nvim_create_buf(v:false, v:true)
-
-  "window size
-  let height = winheight(0)
-  let width = winwidth(0)
-
-  let opts = {
-        \ 'relative': 'win',
-        \ 'row': 0,
-        \ 'col': 0,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  " not sure why before and after is required
-  set winhighlight=NormalFloat:Normal
-  let handle = nvim_open_win(buf, v:true, opts)
-  set winhighlight=NormalFloat:Normal
-  echo handle
-  let win_id = nvim_get_current_win()
-  execute "edit " . a:path
-
-  return win_id
-endfunction
-
 function! FloatingFullscreen()
   let buf = nvim_create_buf(v:false, v:true)
   "full size
