@@ -51,11 +51,6 @@ endif
 let g:EnhancedJumps_CaptureJumpMessages = 0
 let g:EnhancedJumps_UseTab = 0
 
-""cleverf options{{{1
-"let g:clever_f_across_no_line = 1
-"let g:clever_f_fix_key_direction = 0
-"let g:clever_f_timeout_ms = 3000
-
 if IsInstalled('neoclide/coc.nvim') "{{{1
   "coc {{{2
   let g:coc_global_extensions = [
@@ -158,13 +153,6 @@ let g:vimtex_compiler_progname = 'nvr'
 "      \ ]
 "let g:chromatica#responsive_mode = 1
 
-""vimade {{{1
-"augroup VimadeSpecial
-"    autocmd!
-"    autocmd CmdLineEnter * VimadeBufDisable
-"    autocmd CmdlineLeave * VimadeBufEnable
-"augroup END
-"
 " limelight/goyo {{{1
 let g:limelight_conceal_ctermfg = 'DarkGray'
 

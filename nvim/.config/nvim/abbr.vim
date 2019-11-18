@@ -18,4 +18,5 @@ call SetupCommandAbbrs('MT', 'MundoToggle')
 
 cnoreabbrev ehco echo
 "}}}
+
 " vim: set fdm=marker:
