@@ -26,8 +26,7 @@ nmap <space><s-tab> <Plug>EnhancedJumpsRemoteNewer
 nmap z;  <Plug>EnhancedJumpsFarFallbackChangeOlder
 nmap z,  <Plug>EnhancedJumpsFarFallbackChangeNewer
 
-call MapWinCmd("c", "if bufname('') == '' <bar> call EnhancedJumps#Go(".
-      \ "'EnhancedJumps#Jump', 0, 'remote') <bar> endif")
+call MapWinCmd("c", "normal! \<c-o>")
 
 "fzf maps {{{1
 call MapWinCmd("f", "Files")
