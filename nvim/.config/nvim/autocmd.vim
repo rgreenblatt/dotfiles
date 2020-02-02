@@ -6,6 +6,7 @@ augroup FiletypeAutocmds
           \ scrolloff=0
   endif
   autocmd Filetype tex,text,textile,mkd,markdown setlocal spell
+  autocmd Filetype go setlocal noexpandtab
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd BufRead,BufNewFile *.sbt set filetype=scala
 augroup end

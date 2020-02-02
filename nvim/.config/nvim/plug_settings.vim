@@ -70,7 +70,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-highlight',
         \ 'coc-vimlsp',
         \ 'coc-snippets',
-        \ 'coc-gocode',
+        \ 'coc-go',
         \]
 
   function! CocRunHighlight()
@@ -87,7 +87,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,go,yaml,python
+    autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,yaml,python
           \ setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -315,7 +315,7 @@ let g:wintabs_autoclose_vimtab = 1
 let g:wintabs_buffer_limit = 5
 
 "autoformat {{{1
-autocmd FileType,BufWrite cmake nnoremap <buffer> <space>F <Cmd>Autoformat<cr>
+autocmd FileType,BufWrite cmake,go nnoremap <buffer> <space>F <Cmd>Autoformat<cr>
 
 let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
@@ -381,7 +381,8 @@ let g:ale_linters = {
       \ 'cpp': [], 
       \ 'python': ['pylint'], 
       \ 'c': [], 
-      \ 'rust': []
+      \ 'rust': [],
+      \ 'go': []
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
