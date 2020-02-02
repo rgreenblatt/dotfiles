@@ -114,12 +114,8 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin &&
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
-{cat << 'EOF' | sudo tee /usr/local/bin/env_editor
-#!/usr/bin/env bash
-
-eval "$EDITOR $*"
-EOF
-} && sudo chmod +x /usr/local/bin/env_editor
+sudo cp root_configs/usr/local/bin/env_editor /usr/local/bin/env_editor && 
+  sudo chmod +x /usr/local/bin/env_editor
 sudo update-alternatives --install /usr/bin/editor editor \
   /usr/local/bin/env_editor 300
 ```
