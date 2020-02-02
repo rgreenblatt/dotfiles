@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -t 1 ]; then
+  editor "$@"
+else 
+  x-terminal-emulator editor "$@"
+fi
