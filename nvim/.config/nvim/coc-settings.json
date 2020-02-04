@@ -90,8 +90,11 @@
     },
     "haskell": {
       "command": "hie-wrapper",
+      "args": [
+        "--lsp"
+      ],
       "rootPatterns": [
-        ".stack.yaml",
+        "stack.yaml",
         "cabal.config",
         "package.yaml"
       ],
@@ -100,11 +103,9 @@
         "lhs",
         "haskell"
       ],
-      "initializationOptions": {},
-      "settings": {
+      "initializationOptions": {
         "languageServerHaskell": {
-          "hlintOn": false,
-          "maxNumberOfProblems": 10,
+          "hlintOn": true,
           "completionSnippetsOn": true
         }
       }

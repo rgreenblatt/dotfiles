@@ -60,6 +60,7 @@ if !g:no_language_plugins
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tmhedberg/SimpylFold'])
   call s:PA(['metakirby5/codi.vim'])
+  call s:PA(['rgreenblatt/vim-forge'])
 endif
 
 "appearance {{{2

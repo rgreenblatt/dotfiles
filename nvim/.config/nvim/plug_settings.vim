@@ -87,7 +87,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,yaml,python
+    autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,yaml,python,haskell
           \ setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -365,9 +365,9 @@ let g:dirvish_mode = 'call DirvishSetup()'
 let g:rooter_use_lcd = 1
 let g:rooter_silent_chdir = 1
 let g:rooter_resolve_links = 1
-let g:rooter_patterns = ['.root', 'build.sbt', 'package.xml', 'build.sh', 
-      \ '.ccls', 'compile_commands.json', '.git', '.git/', '_darcs/', '.hg/',
-      \ '.bzr/', '.svn/']
+let g:rooter_patterns = ['.root', 'build.sbt', 'stack.yaml', 'package.xml',
+      \ 'build.sh', '.ccls', 'compile_commands.json', '.git', '.git/',
+      \ '_darcs/', '.hg/', '.bzr/', '.svn/']
 
 "ale {{{1
 let g:ale_virtualtext_cursor = 1
@@ -382,7 +382,8 @@ let g:ale_linters = {
       \ 'python': ['pylint'], 
       \ 'c': [], 
       \ 'rust': [],
-      \ 'go': []
+      \ 'go': [],
+      \ 'haskell': []
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
