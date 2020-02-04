@@ -94,6 +94,16 @@ image/x-xpixmap=vimiv.desktop
 
 text/html=qutebrowser.desktop
 
+inode/directory=editor.desktop
+text/rust=editor.desktop
+text/x-tex=editor.desktop
+text/x-haskell=editor.desktop
+text/x-c++src=editor.desktop
+text/x-c=editor.desktop
+text/x-go=editor.desktop
+text/x-chdr=editor.desktop
+text/x-c++hdr=editor.desktop
+text/x-python=editor.desktop
 text/1d-interleaved-parityfec=editor.desktop
 text/RED=editor.desktop
 text/cache-manifest=editor.desktop
