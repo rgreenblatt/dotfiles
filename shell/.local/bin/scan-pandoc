@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+  
+pdf_name="${1%.*}.pdf"
+
+while true
+do
+  inotifywait -q -e modify "$1"
+  pandoc "$1" -o "$pdf_name"
+done
