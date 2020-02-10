@@ -47,7 +47,7 @@ if !g:no_language_plugins
   endif
   "}}}3
 
-  call s:PA(['w0rp/ale'])
+  call s:PA(['dense-analysis/ale'])
   call s:PA(['maximbaz/lightline-ale'])
   call s:PA(['lervag/vimtex'])
   call s:PA(['ludovicchabant/vim-gutentags'])
