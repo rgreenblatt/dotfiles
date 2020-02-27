@@ -101,17 +101,6 @@ if [ -z $NO_COMPLETE ]; then
 
   setopt rm_star_silent
   setopt +o nomatch
-
-  #I am not convinced these lines do anything
-  zstyle ':completion:*:(scp|rsync):*' tag-order \
-    ' hosts:-ipaddr:ip\ address hosts:-host:host files'
-  zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns \
-    '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
-  zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns \
-    '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' \
-    '255.255.255.255' '::1' 'fe80::*'
-
-  compdef sshrc=ssh
 else
   export COMPLETE_DISABLED="true"
 fi
