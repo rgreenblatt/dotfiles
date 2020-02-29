@@ -84,8 +84,10 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   command! CocToggleHighlight let g:coc_disable_highlight = 
         \ !g:coc_disable_highlight
 
-  highlight link CocErrorHighlight SpellBad
+  highlight! link CocErrorHighlight SpellBad
   highlight CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+  highlight CocWarningSign ctermfg=214 guifg=#fabd2f ctermbg=234 guibg=#1d2021
+  highlight CocErrorSign ctermfg=167 guifg=#fb4934 ctermbg=234 guibg=#1d2021
 
   augroup CocGenericAutocmds
     autocmd!

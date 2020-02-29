@@ -19,6 +19,8 @@
   "rust-client.channel": "stable",
   "rust.unstable_features": true,
   "rust.cfg_test": true,
+  "diagnostic.errorSign": "❌",
+  "diagnostic.warningSign": "‼",
   "suggest.completionItemKindLabels": {
     "function": "\uf794",
     "method": "\uf6a6",
