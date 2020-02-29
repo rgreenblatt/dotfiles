@@ -84,6 +84,9 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   command! CocToggleHighlight let g:coc_disable_highlight = 
         \ !g:coc_disable_highlight
 
+  highlight link CocErrorHighlight SpellBad
+  highlight CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
@@ -388,11 +391,13 @@ let g:ale_linters = {
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
-hi ALEVirtualTextError cterm=italic ctermfg=167 gui=italic guifg=#fb4934
-hi ALEVirtualTextWarning cterm=italic ctermfg=214 gui=italic guifg=#fabd2f
-hi ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
-hi link ALEVirtualTextStyleError ALEVirtualTextError
-hi link ALEVirtualTextStyleWarning ALEVirtualTextWarning
+highlight ALEVirtualTextError 
+      \ cterm=italic ctermfg=167 gui=italic guifg=#fb4934
+highlight ALEVirtualTextWarning 
+      \cterm=italic ctermfg=214 gui=italic guifg=#fabd2f
+highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
+highlight link ALEVirtualTextStyleError ALEVirtualTextError
+highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
 
 "ros {{{1
 let g:ros_build_system = 'catkin-tools'

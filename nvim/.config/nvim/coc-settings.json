@@ -6,7 +6,7 @@
   "python.formatting.provider": "yapf",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "diagnostic.displayByAle": true,
+  "diagnostic.displayByAle": false,
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": false,
   "highlight.document.enable": true,

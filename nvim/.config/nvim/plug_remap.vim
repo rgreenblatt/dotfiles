@@ -159,6 +159,13 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   nmap <space>G <plug>(coc-git-chunkinfo)
   nmap ;gu <Cmd>CocCommand git.chunkUndo<cr>
 
+  "diagnostics
+  nmap [g <plug>(coc-diagnostic-prev)
+  nmap ]g <plug>(coc-diagnostic-next)
+  nmap [G <plug>(coc-diagnostic-first)
+  nmap ]G <plug>(coc-diagnostic-last)
+
+
   "vista {{{2
   call MapWinCmd("v", "if bufname('') == '' <bar> call EnhancedJumps#Go(".
         \ "'EnhancedJumps#Jump', 0, 'remote') <bar> endif <bar> Vista finder")
@@ -684,10 +691,10 @@ nmap yoq <Plug>(qf_qf_toggle)
 nmap yol <Plug>(qf_loc_toggle)
 
 "ale {{{1
-nmap [g <Plug>(ale_previous_wrap)
-nmap ]g <Plug>(ale_next_wrap)
-nmap [G <Plug>(ale_first)
-nmap ]G <Plug>(ale_last)
+" nmap [g <Plug>(ale_previous_wrap)
+" nmap ]g <Plug>(ale_next_wrap)
+" nmap [G <Plug>(ale_first)
+" nmap ]G <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
 
