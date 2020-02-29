@@ -5,7 +5,9 @@ haskell
 injectivity
 iff
 surjective
-Archimedean
+archimedean
+suprema
 supremum
 infima
 infimum
+refactor
