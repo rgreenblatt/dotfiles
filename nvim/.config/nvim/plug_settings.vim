@@ -414,6 +414,7 @@ let g:rust_fold = 2
 let g:rust_recommended_style = 0
 
 function! RustFmtFunc() abort
+  set foldmethod=manual "fix speed issues
   if line("$") == v:lnum + v:count - 1 && v:lnum == 1
     RustFmt
   else
