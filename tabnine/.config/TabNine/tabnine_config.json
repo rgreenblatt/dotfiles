@@ -1,7 +1,7 @@
 {
   "version": "2.5.1",
-  "hide_promotional_message": false,
-  "beta_enabled": "No",
+  "hide_promotional_message": true,
+  "beta_enabled": "True",
   "ignore_all_lsp": false,
   "creation_time": "2020-03-15T04:35:26.159997766Z",
   "semantic_status": {},
