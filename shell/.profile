@@ -57,6 +57,8 @@ fi
 
 # fi
 
+mkdir -p /tmp/zsh-1000/
+
 #generic environment vars {{{1
 if hash nvim 2>/dev/null; then
   export VISUAL=nvim
