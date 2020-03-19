@@ -1,7 +1,3 @@
 [language.cpp]
 command = "ccls"
 args = ["--init={\"cacheDirectory\":\"/tmp/tabnine-ccls/\"}"]
-synchronous_triggers = ["."]
-synchronous_timeout_ms = 200
-num_server_instances = 2
-always_prefer = false
