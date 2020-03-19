@@ -50,6 +50,7 @@ if !g:no_language_plugins
   call s:PA(['dense-analysis/ale'])
   call s:PA(['maximbaz/lightline-ale'])
   call s:PA(['lervag/vimtex'])
+  call s:PA(['KeitaNakamura/tex-conceal.vim'])
   call s:PA(['ludovicchabant/vim-gutentags'])
   call s:PA(['Chiel92/vim-autoformat'])
   call s:PA(['tpope/vim-markdown'])
