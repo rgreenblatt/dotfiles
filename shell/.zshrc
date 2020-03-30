@@ -108,6 +108,8 @@ fi
 #zsh specific aliases {{{1
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for git aliases
 
+alias pip3='noglob pip3'
+alias pip='noglob pip3'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L="| bat"
