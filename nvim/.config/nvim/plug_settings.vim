@@ -65,7 +65,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-java',
         \ 'coc-vimtex',
         \ 'coc-yaml',
-        \ 'coc-rls',
+        \ 'coc-rust-analyzer',
         \ 'coc-git',
         \ 'coc-highlight',
         \ 'coc-vimlsp',
@@ -384,7 +384,7 @@ let g:ale_disable_lsp = 1
 " let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
 let g:ale_linters = {
       \ 'cpp': [], 
-      \ 'python': ['pylint'], 
+      \ 'python': [], 
       \ 'c': [], 
       \ 'rust': [],
       \ 'go': [],

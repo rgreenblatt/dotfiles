@@ -110,11 +110,6 @@ c.content.geolocation = 'ask'
 ## Type: Dict
 c.content.headers.custom = {}
 
-## User agent to send. Unset to send the default. Note that the value
-## read from JavaScript is always the global value.
-## Type: String
-c.content.headers.user_agent = None
-
 c.content.host_blocking.enabled = True
 c.content.host_blocking.lists = [
     'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'

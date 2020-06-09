@@ -15,12 +15,9 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "rust.clippy_preference": "on",
-  "rust-client.channel": "stable",
-  "rust.unstable_features": false,
-  "rust.cfg_test": true,
   "diagnostic.errorSign": "❌",
   "diagnostic.warningSign": "‼",
+  "suggest.timeout": 2000,
   "languageserver": {
     "dockerfile": {
       "command": "docker-langserver",
