@@ -76,10 +76,6 @@ call MapWinCmd("d", "Dirvish")
 "startify in new window {{{1
 call MapWinCmd("s", "Startify")
 
-"thesaurus {{{1
-nnoremap <a-t> <Cmd>ThesaurusQueryReplaceCurrentWord<cr>
-xnoremap <a-t> y<Cmd>ThesaurusQueryReplace <c-r>"<cr>
-
 if IsInstalled('neoclide/coc.nvim') " {{{1
   "coc remaps {{{2
   " use <tab> for trigger completion and navigate to next complete item
@@ -198,23 +194,6 @@ nmap  <space>xe   <plug>(vimtex-errors)
 " nmap  <space>xx   <plug>(vimtex-reload)
 " nmap  <space>xX   <plug>(vimtex-reload-state)
 " nmap  <space>xs   <plug>(vimtex-toggle-main)
-
-"plugin remaps for a headed install {{{1
-if !g:headless
-  "google {{{2
-  nnoremap <a-g> :<c-u>Google<space>
-  nnoremap <a-f> :<c-u>Googlef<space>
-
-  xnoremap <a-g> :<c-u>Google<space>
-  xnoremap <a-f> :<c-u>Googlef<space>
-
-  "window navigation (requires keyboard remaping and i3-vim-focus {{{2
-  nnoremap <silent> gzl <Cmd>call Focus('right', 'l')<CR>
-  nnoremap <silent> gzh <Cmd>call Focus('left', 'h')<CR>
-  nnoremap <silent> gzk <Cmd>call Focus('up', 'k')<CR>
-  nnoremap <silent> gzj <Cmd>call Focus('down', 'j')<CR>
-  "}}}
-endif
 
 ""insertchar options {{{1
 "let g:insert_char_no_default_mapping = 1
@@ -587,8 +566,8 @@ xmap <space>ar <Plug>(operator-sandwich-replace)
 " xmap as <Plug>(textobj-sandwich-query-a)
 
 "wintabs {{{1
-nmap <a-h> <Plug>(wintabs_previous)
-nmap <a-l> <Plug>(wintabs_next)
+nmap <a-n> <Plug>(wintabs_previous)
+nmap <a-.> <Plug>(wintabs_next)
 nmap <space>q <Plug>(wintabs_close)
 nmap ;u <Plug>(wintabs_undo)
 nmap <c-w>o <Plug>(wintabs_only)

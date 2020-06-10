@@ -178,6 +178,10 @@ function! MapWinCmd(key, command, ...)
         \ a:command.suffix
 endfunction
 
+"tab for prev position {{{1
+nnoremap <tab> <c-o>
+nnoremap <s-tab> <c-i>
+
 "general space/semicolon/alt maps {{{1
 nnoremap <silent> <space>p <Cmd>lcd %:p:h<cr>
 nnoremap <space>P :<c-u>lcd<space>
@@ -187,6 +191,11 @@ nnoremap <space>Y <Cmd>let @@=expand("%:p")<cr>
 
 nnoremap <silent> <a-n> <Cmd>set invrelativenumber<cr>
 nnoremap <silent> <a-w> <Cmd>%s/\s\+$//<cr>:let @/=''<cr>
+
+nnoremap <A-l> <c-w>l
+nnoremap <A-k> <c-w>k
+nnoremap <A-j> <c-w>j
+nnoremap <A-h> <c-w>h
 
 nnoremap <silent> <space>q <Cmd>q<cr>
 nnoremap <silent> <space>A <Cmd>qa<cr>

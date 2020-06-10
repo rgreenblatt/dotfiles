@@ -44,7 +44,7 @@ function! ExitWin()
   set nocursorline
 endfunction
 
-augroup BgHighlight
+augroup WinChangeHandler
   autocmd!
   autocmd WinEnter,TabEnter,BufWinEnter * call EnterWin()
   autocmd WinLeave,TabLeave  * call ExitWin()

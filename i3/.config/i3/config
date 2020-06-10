@@ -45,8 +45,6 @@ bindsym $mod+Tab workspace back_and_forth
 
 bindsym $mod+semicolon exec qutebrowser
 bindsym $mod+Shift+s exec flameshot gui
-bindsym $mod+g exec screen_record
-bindsym $mod+Shift+v exec vnc
 bindsym $mod+Escape exec "touch /tmp/keyboard_info/kill"
 bindsym --release $mod+slash exec "keyboard_setup"
 # bindsym $mod+u exec ranger_new_window
@@ -103,6 +101,12 @@ bindsym $mod+a focus parent
 # bindsym $mod+d focus child
 
 bindsym $mod+t move workspace to output right
+
+# Keyboard specific bindings:
+bindsym $mod+Shift+z exec inc_vol 5
+bindsym $mod+Shift+x exec dec_vol 5
+bindsym $mod+Shift+m exec mute_vol
+bindsym $mod+Shift+v exec i3-sensible-terminal
 
 # switch to workspace
 bindsym $mod+1 workspace 1

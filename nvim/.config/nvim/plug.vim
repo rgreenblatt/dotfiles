@@ -33,8 +33,6 @@ endfunction
 "tools for headed installs {{{2
 if !g:headless
   call s:PA(['rgreenblatt/xdg_open.vim'])
-  call s:PA(['rgreenblatt/i3-vim-focus'])
-  call s:PA(['szw/vim-g'])
 endif
 
 "languages {{{2
@@ -92,7 +90,6 @@ if !g:no_editing_plugins
   call s:PA(['tommcdo/vim-lion'])
   call s:PA(['tpope/vim-commentary'])
   call s:PA(['tpope/vim-abolish'])
-  call s:PA(['inkarkat/vim-mark'])
   call s:PA(['michaeljsmith/vim-indent-object'])
   call s:PA(['kana/vim-textobj-user'])
   call s:PA(['kana/vim-textobj-fold'])
@@ -104,11 +101,10 @@ if !g:no_editing_plugins
   " call s:PA(['luochen1990/rainbow'])
   call s:PA(['kshenoy/vim-signature'])
   call s:PA(['simnalamburt/vim-mundo'])
-  call s:PA(['mbbill/undotree'])
+  " TODO: try this one
+  " call s:PA(['mbbill/undotree'])
   call s:PA(['romainl/vim-cool'])
   call s:PA(['machakann/vim-sandwich'])
-  call s:PA(['terryma/vim-expand-region'])
-  call s:PA(['matze/vim-move'])
   call s:PA(['wsdjeg/vim-fetch'])
   call s:PA(['thinca/vim-visualstar'])
   call s:PA(['AndrewRadev/splitjoin.vim'])
@@ -142,11 +138,10 @@ if !g:no_integration_plugins
   call s:PA(['junegunn/gv.vim'])
   call s:PA(['rhysd/git-messenger.vim'])
   call s:PA(['tpope/vim-eunuch'])
-  call s:PA(['ron89/thesaurus_query.vim'])
   call s:PA(['neomutt/neomutt.vim'])
   call s:PA(['lambdalisue/suda.vim'])
   " call s:PA(['vhdirk/vim-cmake'])
-  call s:PA(['taketwo/vim-ros'])
+  " call s:PA(['taketwo/vim-ros'])
 endif
 
 "misc {{{2
@@ -154,7 +149,7 @@ if !g:no_misc_plugins
   call s:PA(['wikitopian/hardmode'])
   call s:PA(['rgreenblatt/vim-unimpaired'])
   "TODO
-  call s:PA(['zenbro/mirror.vim'])
+  " call s:PA(['zenbro/mirror.vim'])
 endif
 "}}}
 
