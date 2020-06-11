@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-source "$1/.profile"
-"$1/.local/bin/keyboard_setup"

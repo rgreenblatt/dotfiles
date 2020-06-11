@@ -108,59 +108,20 @@ function! Blank()
   return ' '
 endfunction
 
-"ale wrappers {{{1
-let s:ale_installed = IsInstalled('w0rp/ale') &&
-      \ IsInstalled('maximbaz/lightline-ale')
-
-function! AleCheckingWrapper()
-  if s:ale_installed
-    return '%{lightline#ale#checking()}'
-  else
-    return ''
-  endif
-endfunction
-
-function! AleWarningsWrapper()
-  if s:ale_installed
-    return '%{lightline#ale#warnings()}'
-  else
-    return ''
-  endif
-endfunction
-
-function! AleErrorsWrapper()
-  if s:ale_installed
-    return '%{lightline#ale#errors()}'
-  else
-    return ''
-  endif
-endfunction
-
-function! AleOkWrapper()
-  if s:ale_installed
-    return '%{lightline#ale#ok()}'
-  else
-    return ''
-  endif
-endfunction
-
 "status line {{{1
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'short_pwd', ],
-      \             [ 'cocstatus', 'git_buffer_status', 'linter_checking', 
-      \               'linter_errors', 'linter_warnings', 'linter_ok', 
-      \               'readonly', ] ],
+      \             [ 'cocstatus', 'git_buffer_status', 'readonly', ] ],
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype'  ],
       \              [ 'wintab_after', 'wintab_current_conditional', 
       \                'wintab_before' ] ],
       \ },
       \ 'inactive': {
-      \   'left': [ [ 'short_pwd', 'git_buffer_status', 'linter_checking', 
-      \               'linter_errors', 'linter_warnings', 'linter_ok', ] ],
+      \   'left': [ [ 'short_pwd', 'git_buffer_status' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
       \              [ 'wintab_after', 'wintab_current', 
@@ -178,18 +139,12 @@ let g:lightline = {
       \   'wintab_after': 'WinTabAfter',
       \   'macromode': 'MacroModeInfo',
       \   'short_pwd': 'ShortPwdWrapper',
-      \   'linter_checking': 'AleCheckingWrapper',
-      \   'linter_warnings': 'AleWarningsWrapper',
-      \   'linter_errors': 'AleErrorsWrapper',
-      \   'linter_ok': 'AleOkWrapper',
       \   'marker': 'Blank',
       \ },
       \ 'component_type': {
       \   'wintab_current': 'error',
       \   'wintab_current_conditional': 'error',
       \   'marker': 'error',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
       \   'macromode': 'error',
       \ }
       \ }

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-nvr -c "tabnew | call AgHandler(['', '$1'], 1)"

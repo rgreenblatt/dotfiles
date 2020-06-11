@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-path=$(echo "$1" | grep -Eo '.*?:')
-path=${path::-1}
-cd "$path" || exit
-git >&2 -c color.status=always status | less -REX
-echo "$path"

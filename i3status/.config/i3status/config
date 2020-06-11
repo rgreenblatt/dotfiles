@@ -17,71 +17,8 @@ general {
   output_format = i3bar
 }
 
-order += "external_script keyboard_info"
-order += "weather_owm"
-order += "sysdata simplified"
-order += "nvidia_smi simplified"
-order += "diskdata simplified"
-order += "net_rate rate"
-order += "apt_updates"
-order += "volume master"
-order += "battery 0"
-order += "tztime local"
 order += "time"
-
-external_script keyboard_info {
-  cache_timeout = 0.5
-  script_path = 'keyboard_status'
-}
-
-weather_owm {
-  api_key = 'aa476b58ec76c002285f2b08031775e4'
-  city = 'Durham'
-  unit_temperature = 'C'
-}
-
-sysdata simplified {
-  format = "cpu: {cpu_used_percent}% {mem_used_percent}%"
-}
-
-nvidia_smi simplified {
-  format_gpu = "gpu: {utilization.gpu}% {utilization.memory}%"
-}
-
-net_rate rate {
-  format = "{down} {up}"
-}
-
-diskdata simplified {
-  format = "dsk: {used_percent}% {total}"
-}
-
-battery 0 {
-  format = "%status %percentage %remaining"
-  format_down = ""
-  last_full_capacity = true
-  integer_battery_capacity = true
-  low_threshold = 11
-  threshold_type = percentage
-  hide_seconds = true
-  format_down = "No battery"
-  status_chr = "CHR"
-  status_bat = "BAT"
-  status_full = "FULL"
-}
-
-tztime local {
-  format = "%b %d, %Y"
-}
 
 time {
   format = "%H:%M:%S"
-}
-
-volume master {
-  format = "vol: %volume"
-  format_muted =  "muted (%volume)"
-  device = "default"
-  mixer = "Master"
-  mixer_idx = 0
 }

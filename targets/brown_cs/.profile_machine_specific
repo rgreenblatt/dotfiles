@@ -1,4 +1,0 @@
-export ZSH_PROMPT_PREFIX="CS"
-
-export PATH="$PATH:/local/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin:/contrib/bin:/course/cs1730/bin:/course/cs1680/bin:/course/cs1230/bin"
-export CONFIG_HOME="$HOME"

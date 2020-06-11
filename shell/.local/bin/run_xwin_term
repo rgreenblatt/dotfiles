@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-run_xwin_cmd "st -w WID -g=192x57 -c bg_prog -e $1"

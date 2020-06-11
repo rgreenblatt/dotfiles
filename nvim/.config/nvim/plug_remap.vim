@@ -48,7 +48,6 @@ call MapWinCmd("q", "Commits")
 call MapWinCmd("Q", "BCommits")
 call MapWinCmd("o", "commands")
 call MapWinCmd("b", "Buffers")
-call MapWinCmd("E", "ZshExecutables")
 
 nnoremap <Space>B <Cmd>Wipeouts<cr>
 nnoremap <M-C-B> <Cmd>Buffers<cr>
@@ -59,22 +58,6 @@ nnoremap <M-C-G> :<c-u>RgPreviewHidden<space>
 nnoremap <M-C-H> <Cmd>History/<cr>
 nnoremap <M-C-P> <Cmd>Lines<cr>
 nnoremap <space>: <Cmd>History:<cr>
-
-nnoremap <F1> :<c-u>RgPreviewHidden<space>
-nnoremap <F2> <Cmd>Buffers<cr>
-nnoremap <F3> <Cmd>GFiles<cr>
-nnoremap <F4> <Cmd>Files<cr>
-nnoremap <F5> <Cmd>Lines<cr>
-nnoremap <F6> <Cmd>BLines<cr>
-nnoremap <F7> <Cmd>Commits<cr>
-nnoremap <F8> :<c-u>call RgPreviewHidden('','')<left><left><left><left><left>
-nnoremap <F9> <Cmd>terminal<cr>
-
-"dirvish in new window {{{1
-call MapWinCmd("d", "Dirvish")
-
-"startify in new window {{{1
-call MapWinCmd("s", "Startify")
 
 if IsInstalled('neoclide/coc.nvim') " {{{1
   "coc remaps {{{2
@@ -114,8 +97,6 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
         \ coc#_select_confirm()
         \: "\<CR>"
 
-  nnoremap <space>I <Cmd>CocCommand python.sortImports<cr>
-  nnoremap <space>R <Cmd>CocCommand python.execInTerminal<cr>
   nnoremap ;L :<c-u>CocList<space>
   nnoremap ;A :<c-u>CocCommand<space>
   nnoremap ;D <Cmd>CocList --auto-preview diagnostics<cr>
@@ -160,46 +141,9 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   nmap ]g <plug>(coc-diagnostic-next)
   nmap [G <plug>(coc-diagnostic-first)
   nmap ]G <plug>(coc-diagnostic-last)
-
-
-  "vista {{{2
-  call MapWinCmd("v", "if bufname('') == '' <bar> call EnhancedJumps#Go(".
-        \ "'EnhancedJumps#Jump', 0, 'remote') <bar> endif <bar> Vista finder")
-  nnoremap <silent> <space>V <Cmd>Vista!!<cr>
   "}}}2
 endif
 
-"vimtex {{{1
-let g:vimtex_mappings_enabled = 0
-
-" nmap  <space>xi   <plug>(vimtex-info)
-" nmap  <space>xI   <plug>(vimtex-info-full)
-" nmap  <space>xt   <plug>(vimtex-toc-open)
-" nmap  <space>xT   <plug>(vimtex-toc-toggle)
-" nmap  <space>xq   <plug>(vimtex-log)
-" nmap  <space>xv   <plug>(vimtex-view)
-" nmap  <space>xr   <plug>(vimtex-reverse-search)
-nmap  <space>xl   <plug>(vimtex-compile)
-" nmap  <space>xL   <plug>(vimtex-compile-selected)
-" nmap  <space>xL   <plug>(vimtex-compile-selected)
-" nmap  <space>xk   <plug>(vimtex-stop)
-" nmap  <space>xK   <plug>(vimtex-stop-all)
-nmap  <space>xe   <plug>(vimtex-errors)
-" nmap  <space>xo   <plug>(vimtex-compile-output)
-" nmap  <space>xg   <plug>(vimtex-status)
-" nmap  <space>xG   <plug>(vimtex-status-all)
-" nmap  <space>xc   <plug>(vimtex-clean)
-" nmap  <space>xC   <plug>(vimtex-clean-full)
-" nmap  <space>xm   <plug>(vimtex-imaps-list)
-" nmap  <space>xx   <plug>(vimtex-reload)
-" nmap  <space>xX   <plug>(vimtex-reload-state)
-" nmap  <space>xs   <plug>(vimtex-toggle-main)
-
-""insertchar options {{{1
-"let g:insert_char_no_default_mapping = 1
-"nmap <space>s <Plug>InsertChar
-"nmap <space>S <Plug>InsertCharAfter
-"
 "yankring {{{1
 if IsInstalled('bfredl/nvim-miniyank')
   function! FZFYankList() abort
@@ -458,48 +402,6 @@ if IsInstalled('kana/vim-operator-user')
 
 endif
 
-"goyo {{{1
-nnoremap <silent> ;vg <Cmd>Goyo<cr>
-
-function! SetupGoyo()
-  Limelight
-  nnoremap <silent> ;vg <Cmd>Goyo!<cr>
-  setlocal nocursorline
-endfunction
-
-function! SetupNoGoyo()
-  Limelight!
-  nnoremap <silent> ;vg <Cmd>Goyo<cr>
-  setlocal cursorline
-endfunction
-
-autocmd! User GoyoEnter call SetupGoyo()
-autocmd! User GoyoLeave call SetupNoGoyo()
-
-"git {{{1
-nnoremap <silent> ;gs <Cmd>Gstatus<cr>
-nnoremap ;gd :<c-u>Gvdiff<space>
-
-"when bug gets fixed, switch back to builtin commands
-function! GitCheckSSH(command)
-  if system("cd ". expand("%:p:h") .
-        \ "&& git remote show -n origin")[29:32] == "git@"
-    execute "G" . a:command
-  else
-    execute "Git " . a:command
-  endif
-endfunction
-
-nnoremap ;gp <Cmd>call GitCheckSSH("pull")<cr>
-nnoremap ;gh <Cmd>call GitCheckSSH("push")<cr>
-
-nnoremap ;gcc <Cmd>Gcommit -v<cr>
-nnoremap ;gca <Cmd>Gcommit -v -a<cr>
-nnoremap ;gcA <Cmd>Gcommit --amend -v -a<cr>
-nnoremap ;go :<c-u>Gcheckout<space>
-nnoremap ;gr :<c-u>Gremove<space>
-nnoremap ;gm :<c-u>Gmove<space>
-
 "sideways maps {{{1
 nnoremap <silent> ;h <Cmd>SidewaysJumpLeft<cr>
 nnoremap <silent> ;l <Cmd>SidewaysJumpRight<cr>
@@ -529,41 +431,6 @@ xmap <space>S <Plug>(visualstar-#)``cgN
 "dispatch {{{1
 nnoremap <a-m> <Cmd>Make<cr>
 nnoremap <a-,> <Cmd>Make!<cr>
-
-""vim-cmake {{{1
-"nnoremap <a-b> <Cmd>CMake<cr>
-"nnoremap <a-.> <Cmd>CMake!<cr>
-"nnoremap <a-/> <Cmd>CMakeClean<cr>
-
-"sandwich {{{1
-let g:sandwich_no_default_key_mappings = 1
-let g:operator_sandwich_no_default_key_mappings = 1
-let g:textobj_sandwich_no_default_key_mappings = 1
-
-nmap <silent> <space>ad <Plug>(operator-sandwich-delete)
-      \<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-nmap <silent> <space>ar <Plug>(operator-sandwich-replace)
-      \<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-nmap <silent> <space>as <Plug>(operator-sandwich-delete)
-      \<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-nmap <silent> <space>ae <Plug>(operator-sandwich-replace)
-      \<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-
-nmap <space>aa <Plug>(operator-sandwich-add)
-xmap <space>aa <Plug>(operator-sandwich-add)
-omap <space>aa <Plug>(operator-sandwich-g@)
-xmap <space>ad <Plug>(operator-sandwich-delete)
-xmap <space>ar <Plug>(operator-sandwich-replace)
-
-" omap ib <Plug>(textobj-sandwich-auto-i)
-" xmap ib <Plug>(textobj-sandwich-auto-i)
-" omap ab <Plug>(textobj-sandwich-auto-a)
-" xmap ab <Plug>(textobj-sandwich-auto-a)
-
-" omap is <Plug>(textobj-sandwich-query-i)
-" xmap is <Plug>(textobj-sandwich-query-i)
-" omap as <Plug>(textobj-sandwich-query-a)
-" xmap as <Plug>(textobj-sandwich-query-a)
 
 "wintabs {{{1
 nmap <a-n> <Plug>(wintabs_previous)
@@ -659,29 +526,8 @@ else
   noremap <silent> ;m <Cmd>ToggleMacroMode<CR>
 endif
 
-"vim qf {{{1
-nmap [q <Plug>(qf_qf_previous)
-nmap ]q <Plug>(qf_qf_next)
-nmap [l <Plug>(qf_loc_previous)
-nmap ]l <Plug>(qf_loc_next)
-nmap <c-s> <Plug>(qf_qf_switch)
-nmap yoq <Plug>(qf_qf_toggle)
-"overrides a unimpared mapping, but I don't use that mapping
-nmap yol <Plug>(qf_loc_toggle)
-
-"ale {{{1
-" nmap [g <Plug>(ale_previous_wrap)
-" nmap ]g <Plug>(ale_next_wrap)
-" nmap [G <Plug>(ale_first)
-" nmap ]G <Plug>(ale_last)
-nmap ZA <Plug>(ale_detail)
-
-
 "other {{{1
-nnoremap <a-i> <Cmd>Codi<cr>
-nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
 nnoremap <silent> <space>v <Cmd>call WindowSwap#EasyWindowSwap()<CR>
-nmap <space>g <Plug>(git-messenger)
 let g:targets_nl = 'nN'
 "}}}1
 

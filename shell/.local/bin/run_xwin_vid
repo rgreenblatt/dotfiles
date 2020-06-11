@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-run_xwin_cmd "mpv --wid WID --no-config --keepaspect=no --loop \
-  --no-border --vd-lavc-fast --x11-bypass-compositor=no \
-  --gapless-audio=yes --vo=xv --hwdec=auto --really-quiet \
-  --name=mpvbg --mute=yes $1"

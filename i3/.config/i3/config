@@ -172,7 +172,7 @@ bindsym $mod+r mode "resize"
 # bindsym $mod+Escape mode "send_keys_to_window"
 
 bar {
-    status_command exec status
+    status_command i3status
     strip_workspace_numbers yes
     separator_symbol "❚"
     tray_padding 0
