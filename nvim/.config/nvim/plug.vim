@@ -8,7 +8,7 @@ endfunction
 "tools for headed installs {{{2
 "languages {{{2
 "coc {{{3
-call s:PA(['neoclide/coc.nvim', "{'do': 'yarn install --frozen-lockfile'}"])
+call s:PA(['neoclide/coc.nvim', "{'branch': 'release'}"])
 call s:PA(['honza/vim-snippets'])
 "}}}3
 
