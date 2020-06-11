@@ -34,12 +34,6 @@ endif
 if IsInstalled('neoclide/coc.nvim') "{{{1
   "coc {{{2
   let g:coc_global_extensions = [
-        \ 'coc-word',
-        \ 'coc-tag',
-        \ 'coc-lists',
-        \ 'coc-syntax',
-        \ 'coc-dictionary',
-        \ 'coc-json',
         \ 'coc-git',
         \ 'coc-snippets',
         \]
