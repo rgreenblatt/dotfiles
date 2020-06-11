@@ -1,12 +1,3 @@
-[submodule "keyboard"]
-	path = keyboard
-	url = https://github.com/rgreenblatt/keyboard
-[submodule "shell/.zim"]
-	path = shell/.zim
-	url = https://github.com/rgreenblatt/zimfw
-[submodule "st"]
-	path = st/.local/etc/st
-	url = https://github.com/rgreenblatt/st
 [submodule "nvim/.config/nvim/bundle/coc.nvim"]
 	path = nvim/.config/nvim/bundle/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
