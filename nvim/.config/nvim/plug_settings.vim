@@ -33,11 +33,6 @@ endif
 
 if IsInstalled('neoclide/coc.nvim') "{{{1
   "coc {{{2
-  let g:coc_global_extensions = [
-        \ 'coc-git',
-        \ 'coc-snippets',
-        \]
-
   highlight! link CocErrorHighlight SpellBad
   highlight CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
   highlight CocWarningSign ctermfg=214 guifg=#fabd2f ctermbg=234 guibg=#1d2021

@@ -103,3 +103,9 @@
 [submodule "nvim/.config/nvim/bundle/vim-visualstar"]
 	path = nvim/.config/nvim/bundle/vim-visualstar
 	url = https://github.com/thinca/vim-visualstar
+[submodule "nvim/.config/nvim/bundle/coc-git"]
+	path = nvim/.config/nvim/bundle/coc-git
+	url = https://github.com/neoclide/coc-git
+[submodule "nvim/.config/nvim/bundle/coc-snippets"]
+	path = nvim/.config/nvim/bundle/coc-snippets
+	url = https://github.com/neoclide/coc-snippets
