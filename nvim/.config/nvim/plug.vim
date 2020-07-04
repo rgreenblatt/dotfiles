@@ -9,7 +9,6 @@ if g:athame_running
         \ 'unblevable/quick-scope',
         \ 'rgreenblatt/sneak-quick-scope',
         \ 'markonm/traces.vim',
-        \ 'kien/rainbow_parentheses.vim',
         \ 'simnalamburt/vim-mundo',
         \ ]
 endif
