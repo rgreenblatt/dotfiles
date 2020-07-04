@@ -146,35 +146,38 @@ function! FloatingFullscreen()
   return win_id
 endfunction
 
-function! MapWinCmd(key, command, ...)
-  if a:0 && a:1
+function! MapWinCmd(key, command, apply_enter)
+  if a:apply_enter
     let suffix = ""
   else
     let suffix = "<cr>"
   endif
 
+  let start = "nnoremap <space>"
+  let middle = a:key . " :<c-u>"
+
   "silent?
-  execute "nnoremap <space>h".a:key." :<c-u>aboveleft vnew <bar>".
+  execute start."h".middle."aboveleft vnew <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>j".a:key." :<c-u>belowright new <bar>".
+  execute start."j".middle."belowright new <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>k".a:key." :<c-u>aboveleft new <bar>".
+  execute start."k".middle."aboveleft new <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>l".a:key." :<c-u>belowright vnew <bar>".
+  execute start."l".middle."belowright vnew <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>;".a:key." :<c-u>call FloatingFullscreen()<cr>:".
+  execute start.";".middle."call FloatingFullscreen()<cr>:".
         \ a:command.suffix
-  execute "nnoremap <space>,".a:key." :<c-u>tabnew <bar>".
+  execute start.",".middle."tabnew <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>.".a:key." :<c-u>".
+  execute start.".".middle."".
         \ a:command.suffix
-  execute "nnoremap <space>H".a:key." :<c-u>topleft vnew <bar>".
+  execute start."H".middle."topleft vnew <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>J".a:key." :<c-u>botright new <bar>".
+  execute start."J".middle."botright new <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>K".a:key." :<c-u>topleft new <bar>".
+  execute start."K".middle."topleft new <bar>".
         \ a:command.suffix
-  execute "nnoremap <space>L".a:key." :<c-u>botright vnew <bar>".
+  execute start."L".middle."botright vnew <bar>".
         \ a:command.suffix
 endfunction
 
@@ -254,13 +257,13 @@ if has("nvim")
   tnoremap <C-Space> <C-\><C-n>
 endif
 
-call MapWinCmd("t", "terminal")
-call MapWinCmd("T", "GlobalSharedTerm")
+call MapWinCmd("t", "terminal", 0)
+call MapWinCmd("T", "GlobalSharedTerm", 0)
 
 "edit/arbitrary command in new window and scratch {{{1
 call MapWinCmd("e", " e ", 1)
 call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
-      \ "buftype=nofile")
+      \ "buftype=nofile", 0)
 
 "arrow key window resize {{{1
 noremap <up>    <C-W>+

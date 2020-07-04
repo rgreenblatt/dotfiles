@@ -26,29 +26,29 @@ nmap <space><s-tab> <Plug>EnhancedJumpsRemoteNewer
 nmap z;  <Plug>EnhancedJumpsFarFallbackChangeOlder
 nmap z,  <Plug>EnhancedJumpsFarFallbackChangeNewer
 
-call MapWinCmd("c", "normal! \<c-o>")
+call MapWinCmd("c", "normal! \<c-o>", 0)
 
 "fzf maps {{{1
-call MapWinCmd("f", "Files")
+call MapWinCmd("f", "Files", 0)
 call MapWinCmd("F", "Files ", 1)
-call MapWinCmd("'", "GFiles?")
-call MapWinCmd("g", "GFiles")
+call MapWinCmd("'", "GFiles?", 0)
+call MapWinCmd("g", "GFiles", 0)
 call MapWinCmd("G", "GFiles ", 1)
 call MapWinCmd("r", "RgPreviewHidden ", 1)
-call MapWinCmd("R", "RgPreviewHidden")
+call MapWinCmd("R", "RgPreviewHidden", 0)
 call MapWinCmd(";r", "RgPreview ", 1)
-call MapWinCmd(";R", "RgPreview")
-call MapWinCmd("l", "BLines")
-call MapWinCmd("L", "Lines")
-call MapWinCmd(";t", "Tags")
-call MapWinCmd(";T", "BTags")
-call MapWinCmd("m", "call fzf#vim#marks()")
-call MapWinCmd("h", "History")
-call MapWinCmd("q", "Commits")
-call MapWinCmd("Q", "BCommits")
-call MapWinCmd("o", "commands")
-call MapWinCmd("b", "Buffers")
-call MapWinCmd("E", "ZshExecutables")
+call MapWinCmd(";R", "RgPreview", 0)
+call MapWinCmd("l", "BLines", 0)
+call MapWinCmd("L", "Lines", 0)
+call MapWinCmd(";t", "Tags", 0)
+call MapWinCmd(";T", "BTags", 0)
+call MapWinCmd("m", "call fzf#vim#marks()", 0)
+call MapWinCmd("h", "History", 0)
+call MapWinCmd("q", "Commits", 0)
+call MapWinCmd("Q", "BCommits", 0)
+call MapWinCmd("o", "commands", 0)
+call MapWinCmd("b", "Buffers", 0)
+call MapWinCmd("E", "ZshExecutables", 0)
 
 nnoremap <Space>B <Cmd>Wipeouts<cr>
 nnoremap <M-C-B> <Cmd>Buffers<cr>
@@ -71,10 +71,10 @@ nnoremap <F8> :<c-u>call RgPreviewHidden('','')<left><left><left><left><left>
 nnoremap <F9> <Cmd>terminal<cr>
 
 "dirvish in new window {{{1
-call MapWinCmd("d", "Dirvish")
+call MapWinCmd("d", "Dirvish", 0)
 
 "startify in new window {{{1
-call MapWinCmd("s", "Startify")
+call MapWinCmd("s", "Startify", 0)
 
 if IsInstalled('neoclide/coc.nvim') " {{{1
   "coc remaps {{{2
@@ -163,8 +163,6 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
 
 
   "vista {{{2
-  call MapWinCmd("v", "if bufname('') == '' <bar> call EnhancedJumps#Go(".
-        \ "'EnhancedJumps#Jump', 0, 'remote') <bar> endif <bar> Vista finder")
   nnoremap <silent> <space>V <Cmd>Vista!!<cr>
   "}}}2
 endif
