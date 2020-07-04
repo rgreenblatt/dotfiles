@@ -35,8 +35,6 @@ bindsym $mod+Return exec start_term
 # kill focused window
 bindsym $mod+q kill
 
-mouse_warping none
-
 bindsym $mod+space exec floating_st fzf_launch
 bindsym $mod+o exec floating_st open_fzf
 for_window [class="^st_floating$"] floating enable
