@@ -260,10 +260,11 @@ endif
 call MapWinCmd("t", "terminal", 0)
 call MapWinCmd("T", "GlobalSharedTerm", 0)
 
-"edit/arbitrary command in new window and scratch {{{1
+"edit/arbitrary command in new window, scratch, and current {{{1
 call MapWinCmd("e", " e ", 1)
 call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
       \ "buftype=nofile", 0)
+call MapWinCmd("c", "normal! \<c-o>", 0)
 
 "arrow key window resize {{{1
 noremap <up>    <C-W>+
