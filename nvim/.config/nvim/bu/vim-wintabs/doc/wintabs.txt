@@ -1,0 +1,319 @@
+*wintabs.txt*                Per-window tabs for Vim
+
+==============================================================================
+CONTENTS                                                             *wintabs*
+
+    1. Intro .......................................... |wintabs-intro|
+    2. Usage .......................................... |wintabs-usage|
+    3. Commands and mappings .......................... |wintabs-commands|
+    4. Options ........................................ |wintabs-options|
+    5. FAQ ............................................ |wintabs-faq|
+
+==============================================================================
+INTRO                                                          *wintabs-intro*
+
+This is a fork of the original Wintabs with the following modifications:
+-   No ui elements changed by default.
+-   You can add the tablist to your statusline/tabline using provided functions.
+-   Adds ring buffer for removed buffers, windows, and tabs (TODO).
+-   Doesn't delete buffers automatically.
+-   At the moment WIP
+
+Wintabs is a per-window buffer manager for Vim. It creates "tabs" for each 
+buffer opened in every Vim window, and provides functions to display those
+on your tabline or statusline. It brings persistent contexts to Vim windows 
+and tabs, making them more awesome.
+
+==============================================================================
+USAGE                                                          *wintabs-usage*
+
+By default, wintabs maintains a list of buffers for each buffer opened in each 
+window. To navigate and manage these buffers, a 
+few commands and key mappings are provided, and they are very similar to what 
+Vim buffers/tabs have.
+
+To make full use of wintabs, it is recommended to have the following commands 
+or keys mapped, these are the essential ones:
+
+  |wintabs-commands|     mapping keys                   replacing Vim commands
+  --------------------------------------------------------------------------
+  |:WintabsNext|         |<Plug>(wintabs_next)|           |:bnext|!
+  |:WintabsPrevious|     |<Plug>(wintabs_previous)|       |:bprevious|!
+  |:WintabsClose|        |<Plug>(wintabs_close)|          |:bdelete|
+  |:WintabsUndo|         |<Plug>(wintabs_undo)|
+  |:WintabsOnly|         |<Plug>(wintabs_only)|
+  |:WintabsCloseWindow|  |<Plug>(wintabs_close_window)|   |:close|, CTRL-W c
+  |:WintabsOnlyWindow|   |<Plug>(wintabs_only_window)|    |:only|, CTRL-W o
+  |:WintabsCloseVimtab|  |<Plug>(wintabs_close_vimtab)|   |:tabclose|
+  |:WintabsOnlyVimtab|   |<Plug>(wintabs_only_vimtab)|    |:tabonly|
+
+Below is an example of key mappings:
+>
+    map <C-H> <Plug>(wintabs_previous)
+    map <C-L> <Plug>(wintabs_next)
+    map <C-T>c <Plug>(wintabs_close)
+    map <C-T>u <Plug>(wintabs_undo)
+    map <C-T>o <Plug>(wintabs_only)
+    map <C-W>c <Plug>(wintabs_close_window)
+    map <C-W>o <Plug>(wintabs_only_window)
+    command! Tabc WintabsCloseVimtab
+    command! Tabo WintabsOnlyVimtab
+
+
+See wintabs-commands for all available commands and mappings.
+
+Displaying the list of buffers in your statusline/tabline can be done using the
+`wintabs#get_tablist` function. Note that the function must be called in each
+window to pick up on window local variables. The function takes a single
+argument.  If 0 is passed, it returns a formated list with the buffers before
+the current buffer.  If 1 is passed, it returns a formated version of the 
+current buffer. If 2 is passed, it returns a formated list with the buffers 
+after the current buffer. If -1 is passed, it returns the entire list.
+The are options to control the appearance of the list.
+
+Below is an example of a lightline config:
+>
+    function! WinTabBefore() abort
+      return "%{wintabs#get_tablist(0)}"
+    endfunction
+    
+    function! WinTabCurrent() abort
+      return "%{wintabs#get_tablist(1)}"
+    endfunction
+    
+    function! WinTabAfter() abort
+      return "%{wintabs#get_tablist(2)}"
+    endfunction
+
+    let g:wintabs_marker_modified = "!"
+    let g:wintabs_marker_current = ""
+    let g:wintabs_separator = " "
+    let g:wintabs_number_separator = " "
+    let g:wintabs_only_basename = 1
+    let g:wintabs_show_number = 1
+
+    let g:lightline = {
+          \   'right': [ [ 'lineinfo' ],
+          \              [ 'filetype' ],
+          \              [ 'wintab_after', 'wintab_current', 
+          \               'wintab_before' ] ],
+          \ },
+          \ 'inactive': {
+          \   'right': [ [ 'lineinfo' ],
+          \              [ 'filetype' ],
+          \              [ 'wintab_after', 'wintab_current', 
+          \               'wintab_before' ] ],
+          \ },
+          \ 'component_expand': {
+          \   'wintab_before': 'WinTabBefore',
+          \   'wintab_current': 'WinTabCurrent',
+          \   'wintab_after': 'WinTabAfter',
+          \ },
+          \ 'component_type': {
+          \   'wintab_current': 'error',
+          \ }
+          \ }
+
+==============================================================================
+COMMANDS AND MAPPINGS                                       *wintabs-commands*
+
+These are wintab commands and their normal mode key mappings.
+
+*:WintabsNext*
+*<Plug>(wintabs_next)*
+                Switch to the next wintab.
+
+*:WintabsPrevious*
+*<Plug>(wintabs_previous)*
+                Switch to the previous wintab.
+
+*:WintabsClose*
+*<Plug>(wintabs_close)*
+                Close the current wintab. Depending on the value of 
+                |g:wintabs_autoclose|, might also close the current window.
+
+*:WintabsUndo*
+*<Plug>(wintabs_undo)*
+                Undo last closed wintab if its file exists.
+
+*:WintabsOnly*
+*<Plug>(wintabs_only)*
+                Close all but the current wintab.
+
+*:WintabsAll*
+*<Plug>(wintabs_all)*
+                Open all wintabs that belong to the current Vim tab in the 
+                current window.
+
+*:WintabsAllBuffers*
+                Open all Vim buffers in the current window.
+
+*:WintabsCloseWindow*
+*<Plug>(wintabs_close_window)*
+                Close the current window, very much like CTRL-W c. But it 
+                fails if there are modified wintabs open. This is recommended 
+                to be used to replace CTRL-W c.
+
+*:WintabsOnlyWindow*
+*<Plug>(wintabs_only_window)*
+                Close all but the current window, very much like CTRL-W o. But 
+                it fails if there are modified wintabs open. This is 
+                recommended to be used to replace CTRL-W o.
+
+*:WintabsCloseVimtab*
+*<Plug>(wintabs_close_vimtab)*
+                Close the current Vim tab, very much like |:tabclose|. But it 
+                fails if there are modified wintabs open. This is recommended 
+                to be used to replace |:tabclose|.
+
+*:WintabsOnlyVimtab*
+*<Plug>(wintabs_only_vimtab)*
+                Close all but the current Vim tab, very much like |:tabonly|. 
+                But it fails if there are modified wintabs open. This is 
+                recommended to be used to replace |:tabonly|.
+
+*:WintabsGo* N
+*<Plug>(wintabs_tab1)* , *<Plug>(wintabs_tab2)* ,... *<Plug>(wintabs_tab9)*
+                Switch to the Nth wintab.
+
+*:WintabsFirst*
+*<Plug>(wintabs_first)*
+                Switch to the first wintab.
+
+*:WintabsLast*
+*<Plug>(wintabs_last)*
+                Switch to the last wintab.
+
+*:WintabsMove* N
+*<Plug>(wintabs_move_left)* , *<Plug>(wintabs_move_right)*
+                Move the current wintab to the right by N tabs, or to the left 
+                if N < 0.
+
+*:WintabsMoveToWindow* {arg}
+*<Plug>(wintabs_move_to_window_left)*
+*<Plug>(wintabs_move_to_window_right)*
+*<Plug>(wintabs_move_to_window_above)*
+*<Plug>(wintabs_move_to_window_below)*
+*<Plug>(wintabs_move_to_window_next)*
+                Move the current wintab to the window by using *wincmd* motion 
+                {arg}.
+
+*:WintabsMaximize*
+*<Plug>(wintabs_maximize)*
+                Move the current window to its own Vim tab, very much like 
+                CTRL-W T. But it also brings all of its wintabs.
+
+*:WintabsDo* {cmd}
+                Execute {cmd} for each wintab in the current window, very much 
+                like |:tabdo|.
+
+*:WintabsRefresh*
+*<Plug>(wintabs_refresh)*
+                Refresh UI. This might be needed after configuration changes.
+
+==============================================================================
+OPTIONS                                                      *wintabs-options*
+
+*g:wintabs_autoclose*
+values: 0, 1, or 2
+default: 1
+                This controls whether the window is auto closed, when the last 
+                wintab is closed using |:WintabsClose|.
+                0: never auto close.
+                1: auto close only when there are no listed wintabs.
+                2: always auto close.
+
+*g:wintabs_autoclose_vim*
+values: 0 or 1
+default: 0
+                This controls whether Vim is auto closed, when the last window
+                in the only Vim tab is closed.
+                0: never auto close.
+                1: always auto close.
+
+*g:wintabs_autoclose_vimtab*
+values: 0 or 1
+default: 0
+                This controls whether the Vim tab is auto closed, when the 
+                last window is closed.
+                0: never auto close.
+                1: always auto close.
+
+*g:wintabs_switchbuf*
+values: '', 'useopen', or 'usetab'
+default: value of |switchbuf| option
+                This controls the behavior when switching between buffers.
+                'useopen': jump to the first window in current vim tab that 
+                contains the specific buffer. Otherwise open it in current 
+                window.
+                'usetab': similar to 'useopen' but searches in all vim tabs.
+                '': always open in current window.
+
+*g:wintabs_ignored_filetypes*
+values: list of filetype strings
+default: ['gitcommit', 'vundle', 'qf', 'vimfiler']
+                This is a blacklist of filetypes, based on which buffers are 
+                ignored by wintabs.
+                Also, |unlisted-buffer|s are ignored.
+
+*g:wintabs_reverse_order*
+values: 0 or 1
+default: 0
+                This controls whether new buffers will be added to the
+                beginning of the wintabs list rather than the end.
+
+*g:wintabs_undo_limit*
+values: some integer
+default: 100
+                This controls the number of changes stored in the undo
+                history.
+
+*g:wintabs_marker_modified*
+values: some string
+default: "!"
+                This controls the marker used by `wintabs#get_tablist` to show
+                if a buffer is modified.
+
+*g:wintabs_marker_current*
+values: some string
+default: "*"
+                This controls the marker used by `wintabs#get_tablist` to show
+                if a buffer is the currently displayed buffer.
+
+*g:wintabs_separator*
+values: some string
+default: " "
+                This controls the separator placed between buffers by 
+                `wintabs#get_tablist`.
+
+*g:wintabs_only_basename*
+values: 0 or 1
+default: 1
+                This controls if `wintabs#get_tablist` just shows the buffer
+                basename.
+
+*g:wintabs_show_number*
+values: 0 or 1
+default: 0
+                This controls if `wintabs#get_tablist` just shows the buffers
+                list index in the tab list.
+
+*g:wintabs_number_separator*
+values: 0 or 1
+default: " "
+                This controls the separator placed between the number and the
+                buffer by `wintabs#get_tablist`.
+
+==============================================================================
+FAQ                                                              *wintabs-faq*
+
+
+Q: Does wintabs support Vim sessions?
+
+A: Yes, as long as your `sessionoptions` contains `"globals"`. Wintabs also 
+supports [xolox/vim-session](https://github.com/xolox/vim-session) out of the 
+box.
+
+==============================================================================
+
+_\__/_  \_(-_- \) ...tabs...                                 vim:tw=78:ft=help
