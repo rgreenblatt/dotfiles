@@ -66,42 +66,6 @@ function! ShortPwdWrapper()
   return "%{ShortPwd()}"
 endfunction
 
-"coc wrappers {{{1
-let s:coc_installed = IsInstalled('neoclide/coc.nvim')
-
-function! CocStatusWrapper()
-  if s:coc_installed
-    let out = coc#status()
-    let out = substitute(out, 'Python', '', '')
-    let out = substitute(out, ' 64-bit', '', '')
-    let out = substitute(out, 'Analyzing in background, ', '', '')
-    let out = substitute(out, 'items left...', 'left', '')
-    return out
-  endif
-  return ''
-endfunction
-
-let s:coc_git_status_character_limit = 20
-
-function! CocGitGlobalStatusWrapper()
-  if s:coc_installed && exists("g:coc_git_status")
-    let s:coc_git_status = g:coc_git_status[4:]
-    if len(g:coc_git_status) > (s:coc_git_status_character_limit + 1)
-      return s:coc_git_status[:s:coc_git_status_character_limit - 1] .
-            \ g:wintabs_marker_cutoff
-    else
-      return s:coc_git_status
-    endif
-  endif
-  return ''
-endfunction
-
-function! CocGitBufferStatusWrapper()
-  if s:coc_installed && exists("b:coc_git_status")
-      return trim(b:coc_git_status)
-  endif
-  return ''
-endfunction
 
 "blank {{{1
 function! Blank()
@@ -114,23 +78,20 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'short_pwd', ],
-      \             [ 'cocstatus', 'git_buffer_status', 'readonly', ] ],
+      \             [  'readonly', ] ],
       \   'right': [ [ 'lineinfo'],
       \              [ 'filetype'  ],
       \              [ 'wintab_after', 'wintab_current_conditional', 
       \                'wintab_before' ] ],
       \ },
       \ 'inactive': {
-      \   'left': [ [ 'short_pwd', 'git_buffer_status' ] ],
+      \   'left': [ [ 'short_pwd' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
       \              [ 'wintab_after', 'wintab_current', 
       \               'wintab_before' ] ],
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'CocStatusWrapper',
-      \   'git_global_status': 'CocGitGlobalStatusWrapper',
-      \   'git_buffer_status': 'CocGitBufferStatusWrapper',
       \ },
       \ 'component_expand': {
       \   'wintab_before': 'WinTabBefore',
@@ -151,7 +112,7 @@ let g:lightline = {
 
 "tabline {{{1
 let g:lightline.tabline = {
-      \ 'left': [ ['git_global_status', 'macromode', 'tabs' ] ],
+      \ 'left': [ [ 'macromode', 'tabs' ] ],
       \ 'right': [ ] 
       \ }
 "}}}1
