@@ -31,23 +31,6 @@ if IsInstalled('gruvbox-community/gruvbox')
   call SetColors()
 endif
 
-if IsInstalled('neoclide/coc.nvim') "{{{1
-  "coc {{{2
-  highlight! link CocErrorHighlight SpellBad
-  highlight CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
-  highlight CocWarningSign ctermfg=214 guifg=#fabd2f ctermbg=234 guibg=#1d2021
-  highlight CocErrorSign ctermfg=167 guifg=#fb4934 ctermbg=234 guibg=#1d2021
-
-  augroup CocGenericAutocmds
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json
-          \ setlocal formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
-  hi! CocHighlightText cterm=bold,underline gui=bold,underline
-endif
 " sneak/fFtT {{{1
 let g:sneak#s_next = 1
 let g:sneak#absolute_dir = 0
@@ -69,26 +52,6 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
-
-"fzf {{{1
-if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
-  function! RgPreview(args, extra_args)
-    call fzf#vim#grep("rg --column --line-number --no-heading " .
-          \ "--color=always --smart-case " . a:extra_args . " " .
-          \ shellescape(a:args), 1, {'options' : 
-          \ fzf#vim#with_preview('right:50%').options + 
-          \ ['--bind', 'alt-e:execute-silent(remote_tab_open_grep {} &)']})
-  endfunction
-
-  function! RgPreviewHidden(args, extra_args)
-    call RgPreview(a:args, '--hidden --glob "!.git/*" ' . a:extra_args)
-  endfunction
-
-  command! -nargs=* RgPreview call RgPreview(<q-args>, '')
-  command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
-
-  let g:fzf_layout = { 'window': 'call FloatingFullscreen()' }
-endif
 
 "wintabs {{{1
 let g:wintabs_delete_buffers = 0 
