@@ -72,6 +72,7 @@ let g:lion_squeeze_spaces = 1
 let g:windowswap_map_keys = 0
 let g:dispatch_no_maps = 1
 let g:miniyank_maxitems = 100
+let g:gutentags_cache_dir = '~/.tags'
 "}}}1
 
 " vim: set fdm=marker:
