@@ -113,8 +113,8 @@ if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
   \. ~/.profile_machine_specific
 fi
   
-if hash nvidia-settings 2>/dev/null; then
-  nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1"
+if hash nvidia-settings 2>/dev/null; then #{{{1
+  nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1" &> /dev/null
 fi
 #}}}
 

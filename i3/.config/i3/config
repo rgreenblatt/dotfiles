@@ -163,12 +163,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# mode "send_keys_to_window" {
-#   bindsym $mod+Escape mode "default"
-# }
-
-# bindsym $mod+Escape mode "send_keys_to_window"
-
 bar {
     status_command exec status
     strip_workspace_numbers yes

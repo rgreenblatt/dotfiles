@@ -96,6 +96,7 @@ stow bat
 stow cmakelint
 mkdir -p ~/.config/nvim/spell/
 stow nvim
+stow twmn
 mkdir -p ~/.config/TabNine/
 stow tabnine
 stow mutt
