@@ -118,6 +118,8 @@ sudo cp root_configs/usr/local/bin/env_editor /usr/local/bin/env_editor &&
   sudo chmod +x /usr/local/bin/env_editor
 sudo update-alternatives --install /usr/bin/editor editor \
   /usr/local/bin/env_editor 300
+git clone https://github.com/sboli/twmn && cd twmn && qmake && make && \
+  sudo make install && cd ..
 ```
 
 Additional language servers and watchmen for coc may also be desirable. Consider changing to
