@@ -1,3 +1,11 @@
+if !empty($CONFIG_HOME)
+  let machine_specific_path = expand("$CONFIG_HOME")
+else
+  let machine_specific_path = "~"
+endif
+
+execute "source " . machine_specific_path . "/.vim_machine_specific.vim"
+
 function! s:Set(var, default)
   if !exists(a:var)
     execute "let " . a:var . " = " . a:default

@@ -15,8 +15,6 @@ nmap <space><s-tab> <Plug>EnhancedJumpsRemoteNewer
 nmap z;  <Plug>EnhancedJumpsFarFallbackChangeOlder
 nmap z,  <Plug>EnhancedJumpsFarFallbackChangeNewer
 
-call MapWinCmd("c", "normal! \<c-o>")
-
 "yankring {{{1
 if IsInstalled('bfredl/nvim-miniyank')
   nmap p <Plug>(miniyank-autoput)

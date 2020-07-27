@@ -33,7 +33,7 @@ set backupdir=~/.local/share/nvim/backup/,.backup/,~/.backup/,/tmp//
 set directory=~/.local/share/nvim/swap/,.swap/,~/.swap/,/tmp//
 set undodir=~/.local/share/nvim/undo/,.undo/,~/.undo/,/tmp//
 set undofile
-set inccommand
+set inccommand=nosplit
 
 " potentially available {{{1
 if has('termguicolors')

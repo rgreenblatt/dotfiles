@@ -27,8 +27,24 @@ if IsInstalled('gruvbox-community/gruvbox')
     autocmd!
     autocmd ColorScheme * call SetColors()
   augroup end
-  
+
   call SetColors()
+
+  function! s:ZshVIMModeEnterInsert()
+    setlocal winhighlight=TermCursor:TerminalInsert
+    redraw
+  endfunction
+
+  function! s:ZshVIMModeExitInsert()
+    setlocal winhighlight=TermCursor:TerminalNormal
+    redraw
+  endfunction
+
+  command! -nargs=0 ZshVIMModeExitInsert call s:ZshVIMModeExitInsert()
+  command! -nargs=0 ZshVIMModeEnterInsert call s:ZshVIMModeEnterInsert()
+else
+  command! -nargs=0 ZshVIMModeExitInsert echo "normal"
+  command! -nargs=0 ZshVIMModeEnterInsert echo "insert"
 endif
 
 " sneak/fFtT {{{1
@@ -54,7 +70,7 @@ omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
 "wintabs {{{1
-let g:wintabs_delete_buffers = 0 
+let g:wintabs_delete_buffers = 0
 let g:wintabs_autoclose_vimtab = 1
 let g:wintabs_buffer_limit = 5
 
@@ -63,8 +79,8 @@ let g:rooter_use_lcd = 1
 let g:rooter_silent_chdir = 1
 let g:rooter_resolve_links = 1
 let g:rooter_patterns = ['.root', 'build.sbt', 'stack.yaml', 'package.xml',
-      \ 'build.sh', '.ccls', 'compile_commands.json', '.git', '.git/',
-      \ '_darcs/', '.hg/', '.bzr/', '.svn/']
+      \ '.ccls', 'compile_commands.json', '.git', '.git/', '_darcs/', '.hg/',
+      \ '.bzr/', '.svn/']
 
 " other {{{1
 let g:wordmotion_prefix = ';'
@@ -73,6 +89,6 @@ let g:windowswap_map_keys = 0
 let g:dispatch_no_maps = 1
 let g:miniyank_maxitems = 100
 let g:gutentags_cache_dir = '~/.tags'
-"}}}1
+"}}}
 
 " vim: set fdm=marker:

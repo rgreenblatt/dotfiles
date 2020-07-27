@@ -125,7 +125,7 @@ nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 "window maps {{{1
 function! FloatingFullscreen()
-  let buf = nvim_create_buf(v:false, v:true)
+  let buf = bufnr('%')
   "full size
   let height = &lines - 1 - &cmdheight
   let width = &columns
@@ -146,43 +146,45 @@ function! FloatingFullscreen()
   return win_id
 endfunction
 
-function! MapWinCmd(key, command, ...)
-  if a:0 && a:1
+function! MapWinCmd(key, command, apply_enter)
+  if a:apply_enter
     let suffix = ""
   else
     let suffix = "<cr>"
   endif
 
-  "silent?
-  execute "nnoremap <space>h".a:key." :<c-u>aboveleft vnew <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>j".a:key." :<c-u>belowright new <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>k".a:key." :<c-u>aboveleft new <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>l".a:key." :<c-u>belowright vnew <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>;".a:key." :<c-u>call FloatingFullscreen()<cr>:".
-        \ a:command.suffix
-  execute "nnoremap <space>,".a:key." :<c-u>tabnew <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>.".a:key." :<c-u>".
-        \ a:command.suffix
-  execute "nnoremap <space>H".a:key." :<c-u>topleft vnew <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>J".a:key." :<c-u>botright new <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>K".a:key." :<c-u>topleft new <bar>".
-        \ a:command.suffix
-  execute "nnoremap <space>L".a:key." :<c-u>botright vnew <bar>".
-        \ a:command.suffix
+  for key_mapping in [
+        \ ["h", "aboveleft vsplit"],
+        \ ["j", "belowright split"],
+        \ ["k", "aboveleft split"],
+        \ ["l", "belowright vsplit"],
+        \ [";", "call FloatingFullscreen()"],
+        \ [",", "let buf = bufnr('%') <bar> tabnew <bar> execute 'buffer' buf"],
+        \ [".", ""],
+        \ ["H", "topleft vsplit"],
+        \ ["J", "botright split"],
+        \ ["K", "topleft split"],
+        \ ["L", "botright vsplit"],
+        \ ]
+    execute "nnoremap <space>" . key_mapping[0] . a:key . " <Cmd>" .
+          \ key_mapping[1] . "<cr>:<c-u>" . a:command . suffix
+  endfor
 endfunction
+
+"new window: edit, buffer, scratch, and current {{{1
+call MapWinCmd("e", "e ", 1)
+call MapWinCmd("b", "b ", 1)
+call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
+      \ "buftype=nofile", 0)
+call MapWinCmd("c", "", 0)
 
 "tab for prev position {{{1
 nnoremap <tab> <c-o>
 nnoremap <s-tab> <c-i>
 
 "general space/semicolon/alt maps {{{1
+nnoremap <space>R <Cmd>set invautoread<cr><Cmd>set autoread?<cr>
+
 nnoremap <silent> <space>p <Cmd>lcd %:p:h<cr>
 nnoremap <space>P :<c-u>lcd<space>
 
@@ -197,7 +199,6 @@ nnoremap <A-k> <c-w>k
 nnoremap <A-j> <c-w>j
 nnoremap <A-h> <c-w>h
 
-nnoremap <silent> <space>q <Cmd>q<cr>
 nnoremap <silent> <space>A <Cmd>qa<cr>
 nnoremap <silent> <space>b <Cmd>w<cr>
 nnoremap <silent> <a-d> <Cmd>bd!<cr>
@@ -254,13 +255,8 @@ if has("nvim")
   tnoremap <C-Space> <C-\><C-n>
 endif
 
-call MapWinCmd("t", "terminal")
-call MapWinCmd("T", "GlobalSharedTerm")
-
-"edit/arbitrary command in new window and scratch {{{1
-call MapWinCmd("e", " e ", 1)
-call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
-      \ "buftype=nofile")
+call MapWinCmd("t", "terminal", 0)
+call MapWinCmd("T", "GlobalSharedTerm", 0)
 
 "arrow key window resize {{{1
 noremap <up>    <C-W>+
@@ -277,6 +273,29 @@ nnoremap zK zczkzo
 
 "no ctrl z, I don't typically use vim in a shell, I run it standalone {{{1
 nnoremap <c-z> <nop>
+
+"clang format {{{1
+function! ClangFormat() abort
+  let winview=winsaveview()
+  wviminfo
+  mkview
+  let lines_str = "--lines " . string(v:lnum) . ":" .
+        \ string(v:lnum + v:count - 1) . " "
+  if line("$") == v:lnum + v:count - 1 && v:lnum == 1
+    let lines_str = ""
+  endif
+  write
+  execute "!clang-format -i " . lines_str . expand("%")
+  edit
+  call winrestview(winview)
+  loadview
+  rviminfo
+endfunction
+
+augroup CppClangFormat
+  autocmd!
+  autocmd FileType cpp,c setlocal formatexpr=ClangFormat()
+augroup end
 "}}}
 
 " vim: set fdm=marker:
