@@ -5,7 +5,7 @@ let g:athame_running = g:athame_var == "1\n"
 if !empty($CONFIG_HOME)
   let machine_specific_path = expand("$CONFIG_HOME")
 else
-  let machine_specific_path = '~'
+  let machine_specific_path = "~"
 endif
 
 execute "source " . machine_specific_path . "/.vim_machine_specific.vim"
