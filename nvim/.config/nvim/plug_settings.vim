@@ -227,7 +227,7 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   command! -nargs=* RgPreview call RgPreview(<q-args>, '')
   command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
 
-  let g:fzf_layout = { 'window': 'call FloatingFullscreen()' }
+  let g:fzf_layout = { 'window': 'call FloatingFullscreen() | enew' }
 
   "Too slow
   "

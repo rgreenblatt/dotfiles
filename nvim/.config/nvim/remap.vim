@@ -125,7 +125,7 @@ nnoremap <c-f> <Cmd>call FixSpellingMistake()<cr>
 
 "window maps {{{1
 function! FloatingFullscreen()
-  let buf = nvim_create_buf(v:false, v:true)
+  let buf = bufnr('%')
   "full size
   let height = &lines - 1 - &cmdheight
   let width = &columns
@@ -154,32 +154,31 @@ function! MapWinCmd(key, command, apply_enter)
   endif
 
   let start = "nnoremap <space>"
-  let middle = a:key . " :<c-u>"
+  let middle = a:key . " <Cmd>"
 
-  "silent?
-  execute start."h".middle."aboveleft vnew <bar>".
-        \ a:command.suffix
-  execute start."j".middle."belowright new <bar>".
-        \ a:command.suffix
-  execute start."k".middle."aboveleft new <bar>".
-        \ a:command.suffix
-  execute start."l".middle."belowright vnew <bar>".
-        \ a:command.suffix
-  execute start.";".middle."call FloatingFullscreen()<cr>:".
-        \ a:command.suffix
-  execute start.",".middle."tabnew <bar>".
-        \ a:command.suffix
-  execute start.".".middle."".
-        \ a:command.suffix
-  execute start."H".middle."topleft vnew <bar>".
-        \ a:command.suffix
-  execute start."J".middle."botright new <bar>".
-        \ a:command.suffix
-  execute start."K".middle."topleft new <bar>".
-        \ a:command.suffix
-  execute start."L".middle."botright vnew <bar>".
-        \ a:command.suffix
+  for key_mapping in [ 
+        \ ["h", "aboveleft vsplit"],
+        \ ["j", "belowright split"],
+        \ ["k", "aboveleft split"],
+        \ ["l", "belowright vsplit"],
+        \ [";", "call FloatingFullscreen()"],
+        \ [",", "let buf = bufnr('%') <bar> tabnew <bar> execute 'buffer' buf"],
+        \ [".", ""],
+        \ ["H", "topleft vsplit"],
+        \ ["J", "botright split"],
+        \ ["K", "topleft split"],
+        \ ["L", "botright vsplit"],
+        \ ]
+    execute "nnoremap <space>" . key_mapping[0] . a:key . " <Cmd>" . 
+          \ key_mapping[1] . "<cr>:<c-u>" . a:command . suffix
+  endfor
 endfunction
+
+"new window: edit, scratch, and current {{{1
+call MapWinCmd("e", "e ", 1)
+call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
+      \ "buftype=nofile", 0)
+call MapWinCmd("c", "", 0)
 
 "tab for prev position {{{1
 nnoremap <tab> <c-o>
@@ -259,12 +258,6 @@ endif
 
 call MapWinCmd("t", "terminal", 0)
 call MapWinCmd("T", "GlobalSharedTerm", 0)
-
-"edit/arbitrary command in new window, scratch, and current {{{1
-call MapWinCmd("e", " e ", 1)
-call MapWinCmd("w", "enew <bar> setlocal bufhidden=hide nobuflisted " .
-      \ "buftype=nofile", 0)
-call MapWinCmd("c", "normal! \<c-o>", 0)
 
 "arrow key window resize {{{1
 noremap <up>    <C-W>+
