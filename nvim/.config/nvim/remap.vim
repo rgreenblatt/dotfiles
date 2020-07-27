@@ -153,9 +153,6 @@ function! MapWinCmd(key, command, apply_enter)
     let suffix = "<cr>"
   endif
 
-  let start = "nnoremap <space>"
-  let middle = a:key . " <Cmd>"
-
   for key_mapping in [ 
         \ ["h", "aboveleft vsplit"],
         \ ["j", "belowright split"],
