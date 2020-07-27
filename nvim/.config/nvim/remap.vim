@@ -153,7 +153,7 @@ function! MapWinCmd(key, command, apply_enter)
     let suffix = "<cr>"
   endif
 
-  for key_mapping in [ 
+  for key_mapping in [
         \ ["h", "aboveleft vsplit"],
         \ ["j", "belowright split"],
         \ ["k", "aboveleft split"],
@@ -166,7 +166,7 @@ function! MapWinCmd(key, command, apply_enter)
         \ ["K", "topleft split"],
         \ ["L", "botright vsplit"],
         \ ]
-    execute "nnoremap <space>" . key_mapping[0] . a:key . " <Cmd>" . 
+    execute "nnoremap <space>" . key_mapping[0] . a:key . " <Cmd>" .
           \ key_mapping[1] . "<cr>:<c-u>" . a:command . suffix
   endfor
 endfunction
