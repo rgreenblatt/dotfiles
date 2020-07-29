@@ -427,15 +427,6 @@ augroup RustFmtFunc
   autocmd FileType,BufWrite rust setlocal formatexpr=RustFmtFunc()
 augroup end
 
-" function! ClangFormat() abort
-"   let winview=winsaveview()
-"   wviminfo
-"   execute "!clang-format -i --lines " . string(v:lnum) . ":" .
-"         \ string(v:lnum + v:count - 1) . " " . expand("%")
-"   call winrestview(winview)
-"   rviminfo
-" endfunction
-
 " other {{{1
 let g:wordmotion_prefix = ';'
 let g:lion_squeeze_spaces = 1
