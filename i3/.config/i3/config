@@ -164,6 +164,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
+    tray_output primary
     status_command exec status
     strip_workspace_numbers yes
     separator_symbol "❚"
