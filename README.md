@@ -97,7 +97,7 @@ cd ~/.local/etc/st/ && make && sudo make install && cd - && sudo \
   update-alternatives --install /usr/bin/x-terminal-emulator \
   x-terminal-emulator /usr/local/bin/st 300
 cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
-  cd qutebrowser && tox -e mkvenv-pypi && 
+  cd qutebrowser && python3 scripts/mkvenv.py && 
   { cat << 'EOF' > ~/.local/bin/qutebrowser_cmd
 #!/usr/bin/env bash
 
