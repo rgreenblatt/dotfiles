@@ -7,9 +7,14 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
 ## Type: Dict
-c.aliases = {'wq': 'quit --save', 'q': 'close', 'w': 'session-save',
-             'wqa': 'quit --save', 'qa': 'quit',
-             'mpv': 'spawn --userscript ~/.local/bin/view_in_mpv'}
+c.aliases = {
+    'wq': 'quit --save',
+    'q': 'close',
+    'w': 'session-save',
+    'wqa': 'quit --save',
+    'qa': 'quit',
+    'mpv': 'spawn --userscript ~/.local/bin/view_in_mpv'
+}
 
 ## Time interval (in milliseconds) between auto-saves of
 ## config/cookies/etc.
@@ -27,11 +32,16 @@ c.auto_save.session = False
 ## when a key is bound (via `bindings.default` or `bindings.commands`),
 ## the mapping is ignored.
 ## Type: Dict
-c.bindings.key_mappings = {'<Shift-Return>': '<Return>',
-                           '<Ctrl-6>': '<Ctrl-^>', '<Enter>': '<Return>',
-                           '<Ctrl-M>': '<Return>', '<Ctrl-J>': '<Return>',
-                           '<Ctrl-[>': '<Escape>', '<Shift-Enter>':
-                           '<Return>', '<Ctrl-Enter>': '<Ctrl-Return>'}
+c.bindings.key_mappings = {
+    '<Shift-Return>': '<Return>',
+    '<Ctrl-6>': '<Ctrl-^>',
+    '<Enter>': '<Return>',
+    '<Ctrl-M>': '<Return>',
+    '<Ctrl-J>': '<Return>',
+    '<Ctrl-[>': '<Escape>',
+    '<Shift-Enter>': '<Return>',
+    '<Ctrl-Enter>': '<Ctrl-Return>'
+}
 
 ## Height (in pixels or as percentage of the window) of the completion.
 ## Type: PercOrInt
@@ -156,13 +166,13 @@ c.content.cookies.accept = 'all'
 
 c.downloads.position = 'top'
 c.downloads.remove_finished = 300000
-c.editor.command = ['st', '-e', 'nvim', '-f', '{file}', '-c',
-                    'normal {line}G{column0}l']
+c.editor.command = [
+    'st', '-e', 'nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l'
+]
 
 ## Encoding to use for the editor.
 ## Type: Encoding
 c.editor.encoding = 'utf-8'
-
 
 ## When a hint can be automatically followed without pressing Enter.
 ## Type: String
@@ -211,13 +221,17 @@ c.hints.mode = 'letter'
 
 ## Comma-separated list of regular expressions to use for 'next' links.
 ## Type: List of Regex
-c.hints.next_regexes = ['\\bnext\\b', '\\bmore\\b', '\\bnewer\\b',
-                        '\\b[>→≫]\\b', '\\b(>>|»)\\b', '\\bcontinue\\b']
+c.hints.next_regexes = [
+    '\\bnext\\b', '\\bmore\\b', '\\bnewer\\b', '\\b[>→≫]\\b', '\\b(>>|»)\\b',
+    '\\bcontinue\\b'
+]
 
 ## Comma-separated list of regular expressions to use for 'prev' links.
 ## Type: List of Regex
-c.hints.prev_regexes = ['\\bprev(ious)?\\b', '\\bback\\b', '\\bolder\\b',
-                        '\\b[<←≪]\\b', '\\b(<<|«)\\b']
+c.hints.prev_regexes = [
+    '\\bprev(ious)?\\b', '\\bback\\b', '\\bolder\\b', '\\b[<←≪]\\b',
+    '\\b(<<|«)\\b'
+]
 
 ## Scatter hint key chains (like Vimium) or not (like dwb). Ignored for
 ## number hints.
@@ -273,7 +287,7 @@ c.input.partial_timeout = 5000
 ## Enable Opera-like mouse rocker gestures. This disables the context
 ## menu.
 ## Type: Bool
-c.input.mouse.rocker_gestures = False
+# c.input.mouse.rocker_gestures = False
 
 ## Enable spatial navigation. Spatial navigation consists in the ability
 ## to navigate between focusable elements in a Web page, such as
@@ -433,8 +447,9 @@ c.statusbar.position = 'bottom'
 ##   - tabs: Current active tab, e.g. `2`.
 ##   - keypress: Display pressed keys when composing a vi command.
 ##   - progress: Progress bar for the current page loading.
-c.statusbar.widgets = ['keypress', 'url', 'scroll', 'history', 'tabs',
-                       'progress']
+c.statusbar.widgets = [
+    'keypress', 'url', 'scroll', 'history', 'tabs', 'progress'
+]
 
 ## Open new tabs (middleclick/ctrl+click) in the background.
 ## Type: Bool
@@ -496,8 +511,10 @@ c.url.start_pages = ['https://google.com']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
-c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium',
-                                 'utm_campaign', 'utm_term', 'utm_content']
+c.url.yank_ignored_parameters = [
+    'ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term',
+    'utm_content'
+]
 
 ## Default zoom level.
 ## Type: Perc
@@ -505,9 +522,10 @@ c.zoom.default = '100%'
 
 ## Available zoom levels.
 ## Type: List of Perc
-c.zoom.levels = ['25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%',
-                 '125%', '150%', '175%', '200%', '250%', '300%', '400%',
-                 '500%']
+c.zoom.levels = [
+    '25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%', '125%', '150%',
+    '175%', '200%', '250%', '300%', '400%', '500%'
+]
 
 config.bind('  q', 'tab-focus 1')
 config.bind('  w', 'tab-focus 2')
@@ -522,6 +540,7 @@ config.bind('  p', 'tab-focus -1')
 CSS = '~/.config/qutebrowser/gruvbox-all-sites.css'
 config.bind('sd', f'config-cycle content.user_stylesheets {CSS} ""')
 config.bind('sz', 'config-cycle zoom.default 100% 67%')
+config.bind('sj', 'config-cycle --print content.javascript.enabled true false')
 BASE_SPAWN_FZF = 'spawn --userscript ~/.local/bin/floating_st'
 config.bind(' o', BASE_SPAWN_FZF + ' fzf_qutebrowser_url')
 config.bind(' O', BASE_SPAWN_FZF + ' fzf_qutebrowser_url -t')
