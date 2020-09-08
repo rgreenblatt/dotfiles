@@ -1,0 +1,67 @@
+# Arch Install
+
+This just contains a few notes, mostly just follow installation_guide
+
+https://wiki.archlinux.org/index.php/installation_guide
+
+## Connect to internet
+
+Consider running `rfkill unblock wifi`
+
+https://wiki.archlinux.org/index.php/Iwd#iwctl
+
+(remember that scan doesn't output anything)
+
+## Mirror setup
+
+Step 6 of https://itsfoss.com/install-arch-linux/
+
+## Install essential
+
+`pacstrap /mnt base linux linux-firmware neovim iwd networkmanager man-db manpages texinfo ntp openssh zsh base-devel wget intel-ucode grub efibootmgr sudo`
+Replace `intel-ucode` as needed. Some installs could be done later.
+
+## Boot loader
+
+After chroot
+
+https://wiki.archlinux.org/index.php/GRUB#Installation_2
+
+```
+mkdir -p /efi
+mount <EFI_PARTITION> /efi
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+## Systemd enable
+
+```
+systemctl enable NetworkManager
+systemctl enable iwd
+systemctl enable ntp
+systemctl enable sshd
+```
+
+## After reboot setup
+
+Connect to wifi with nmcli
+
+### User
+
+```
+sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/g' /etc/sudoers
+useradd -m -g users -G wheel -s /bin/zsh ryan
+passwd ryan
+```
+
+### yay
+
+```
+su ryan
+mkdir -p /opt && cd /opt
+sudo git clone https://aur.archlinux.org/yay-git.git
+sudo chown -R ryan:users ./yay-git
+cd yay.git
+makepkg -si
+```
