@@ -142,6 +142,7 @@ let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_fold_enabled = 1
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_progname = 'nvr'
+let g:tex_flavor = "latex"
 
 ""semshi {{{1
 "let g:semshi#error_sign = v:false
@@ -367,7 +368,7 @@ endfunction
 let g:dirvish_mode = 'call DirvishSetup()'
 
 "rooter {{{1
-let g:rooter_use_lcd = 1
+let g:rooter_cd_cmd = 'lcd'
 let g:rooter_silent_chdir = 1
 let g:rooter_resolve_links = 1
 let g:rooter_patterns = ['.root', 'build.sbt', 'stack.yaml', 'package.xml',
