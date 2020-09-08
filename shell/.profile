@@ -29,8 +29,10 @@ fi
 
 if [ -d "$HOME/.nvm" ]; then #{{{2
   export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
+
+[ -s "/usr/share/nvm/nvm.sh" ] && \. "/usr/share/nvm/nvm.sh"
 
 if [ -d "/usr/local/go/" ]; then #{{{2
   export GOROOT=/usr/local/go

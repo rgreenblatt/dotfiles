@@ -102,6 +102,7 @@ stow tabnine
 stow mutt
 stow git
 stow pylint
+mkdir -p ~/.ssh
 stow ssh
 stow sshrc
 # avoid tracking other files
