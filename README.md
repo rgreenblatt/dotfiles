@@ -159,12 +159,9 @@ cd ~/.local/share/nvim/plugged/sneak-quick-scope/src && ./build.sh &&
 
 Consider changing to
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="text"
+GRUB_CMDLINE_LINUX_DEFAULT="text mitigations=off"
 ```
-in `/etc/default/grub` (if needed). Also consider no mitigations along the
-lines of: 
-`pti=off spectre_v2=off l1tf=off nospec_store_bypass_disable no_stf_barrier`.
-
+in `/etc/default/grub`.
 Additional language servers and watchmen for coc may also be desirable. 
 Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1`
 to `... = 0` (ubuntu).

@@ -25,6 +25,7 @@ ls_command() {
   fi
 }
 
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias l="ls_command"
 alias ls="ls_command"
 alias sl="ls_command"

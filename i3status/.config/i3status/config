@@ -40,7 +40,7 @@ weather_owm {
   city = 'Durham'
   unit_temperature = 'C'
   format = '{temperature}, {rain} {forecast}'
-  format_forecast = '{rain} {description}'
+  # format_forecast = '{rain} {description}'
   
   format_temperature = '{current:.0f}°{unit}'
   format_rain = '[\?if=amount {amount:.0f} {unit},]'
