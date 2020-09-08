@@ -19,11 +19,12 @@ general {
 
 order += "external_script keyboard_info"
 order += "weather_owm"
+order += "whatismyip"
 order += "sysdata simplified"
 order += "nvidia_smi simplified"
 order += "diskdata simplified"
 order += "net_rate rate"
-order += "apt_updates"
+# order += "apt_updates"
 order += "volume master"
 order += "battery 0"
 order += "tztime local"
@@ -38,6 +39,15 @@ weather_owm {
   api_key = 'aa476b58ec76c002285f2b08031775e4'
   city = 'Durham'
   unit_temperature = 'C'
+  format = '{temperature}, {rain} {forecast}'
+  format_forecast = '{rain} {description}'
+  
+  format_temperature = '{current:.0f}°{unit}'
+  format_rain = '[\?if=amount {amount:.0f} {unit},]'
+}
+
+whatismyip {
+  format = '{ip} {city}'
 }
 
 sysdata simplified {
