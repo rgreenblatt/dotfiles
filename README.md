@@ -35,7 +35,8 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   community/python-watchdog aur/openpyn-nordvpn aur/flashfocus-git aur/nvm \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
-  boost eigen gdb ttf-roboto zathura-pdf-poppler
+  boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
+  alsa-utils
 
 # Currently failing (and not important): aur/insect and aur/dbg-macro
 
