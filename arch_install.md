@@ -18,7 +18,11 @@ Step 6 of https://itsfoss.com/install-arch-linux/
 
 ## Install essential
 
-`pacstrap /mnt base linux linux-firmware neovim iwd networkmanager man-db manpages texinfo ntp openssh zsh base-devel wget intel-ucode grub efibootmgr sudo`
+```
+pacstrap /mnt base linux linux-firmware neovim iwd networkmanager man-db \
+  man-pages texinfo ntp openssh zsh base-devel wget intel-ucode grub \
+  efibootmgr sudo
+```
 Replace `intel-ucode` as needed. Some installs could be done later.
 
 ## Boot loader
@@ -39,7 +43,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ```
 systemctl enable NetworkManager
 systemctl enable iwd
-systemctl enable ntp
+systemctl enable ntpd
 systemctl enable sshd
 ```
 
@@ -59,7 +63,7 @@ passwd ryan
 
 ```
 su ryan
-mkdir -p /opt && cd /opt
+cd /opt
 sudo git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R ryan:users ./yay-git
 cd yay.git
