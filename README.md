@@ -43,6 +43,15 @@ pip3 install cmakelint recordclass
 
 # large packages to install later
 yay -S aur/cling clang texlive-most 
+
+# swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1M count=16384 status=progress
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# add '/swapfile none swap defaults 0 0'
+se /etc/fstab
 ```
 
 ### Ubuntu
