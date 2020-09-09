@@ -108,6 +108,7 @@ stow sshrc
 # avoid tracking other files
 mkdir -p ~/.cargo
 stow rust
+stow pacman
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"

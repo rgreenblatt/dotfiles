@@ -34,12 +34,15 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   neovim-remote python-pynvim thefuck python-evdev aur/python-bidict \
   community/python-watchdog aur/openpyn-nordvpn aur/flashfocus-git aur/nvm \
   bash-language-server community/yarn aur/ruby-neovim \
-  aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/cling clang aur/bear \
-  boost eigen gdb texlive-most ttf-roboto
+  aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
+  boost eigen gdb ttf-roboto zathura-pdf-poppler
 
 # Currently failing (and not important): aur/insect and aur/dbg-macro
 
 pip3 install cmakelint recordclass
+
+# large packages to install later
+yay -S aur/cling clang texlive-most 
 ```
 
 ### Ubuntu
