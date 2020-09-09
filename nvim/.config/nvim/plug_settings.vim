@@ -58,7 +58,6 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-tag',
         \ 'coc-lists',
         \ 'coc-syntax',
-        \ 'coc-emoji',
         \ 'coc-dictionary',
         \ 'coc-python',
         \ 'coc-json',
