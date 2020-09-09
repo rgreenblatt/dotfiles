@@ -1,3 +1,1 @@
-SUBSYSTEM=="input", MODE="666"
-KERNEL=="uinput", MODE="666"
-
+KERNEL=="uinput", GROUP="input", MODE="0660"

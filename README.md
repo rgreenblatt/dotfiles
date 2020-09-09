@@ -151,8 +151,10 @@ sudo apt purge snapd ubuntu-core-launcher squashfs-tools
 ```
 ./change_directory_names.sh
 ln -sfn "$PWD/user-dirs.dirs" ~/.config
-sudo ln -sf "$PWD/root_configs/etc/udev/rules.d/85-input.rules" \
-  /etc/udev/rules.d/85-input.rules
+sudo cp "root_configs/etc/udev/rules.d/85-input.rules" \
+  /etc/udev/rules.d/
+sudo cp "root_configs/etc/modules-load.d/uinput.conf" \
+  /etc/modules-load.d/
 sudo usermod -aG input $USER
 curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
