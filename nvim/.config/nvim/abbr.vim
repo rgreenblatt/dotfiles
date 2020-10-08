@@ -1,4 +1,8 @@
 inoreabbrev cosnt const
+augroup FiletypeAbbr
+  autocmd FileType tex inoreabbrev mbb \mathbb{
+augroup end
+
 "command abbreviation {{{
 function! SetupCommandAbbrs(from, to)
     execute 'cnoreabbrev <expr> '.a:from

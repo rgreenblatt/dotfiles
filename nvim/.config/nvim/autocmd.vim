@@ -9,6 +9,8 @@ augroup FiletypeAutocmds
   autocmd Filetype go setlocal noexpandtab
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd BufRead,BufNewFile *.sbt set filetype=scala
+  autocmd FileType c,c++,cuda setlocal commentstring=//\ %s
+  autocmd FileType octave setlocal commentstring=\%\ %s
 augroup end
 
 " secure modeline work around {{{1

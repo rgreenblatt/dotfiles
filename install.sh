@@ -109,6 +109,7 @@ stow sshrc
 mkdir -p ~/.cargo
 stow rust
 stow pacman
+stow latex
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
