@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import os
+import argparse
+
+
+def main(init, course, f_name):
+    # simple but gross
+    os.system('cp ~/.local/etc/latex_files/* .')
+    os.system('touch .root') # may not be needed in general
+    if init:
+        s = (r'''\RequirePackage{kvoptions-patch}
+\documentclass[course=''' + course + r''', name=Ryan Greenblatt]{pset}
+\begin{document}
+\section{}
+\end{document}''')
+        with open(f_name, 'w') as f:
+            f.write(s)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='initialize latex files')
+    parser.add_argument('course',
+                        type=str,
+                        help='course name',
+                        default='TODO',
+                        nargs='?')
+    parser.add_argument('--f-name',
+                        type=str,
+                        help='tex file name',
+                        default='main_file.tex')
+    parser.add_argument('--init', action='store_true', help='initialize')
+
+    args = parser.parse_args()
+
+    main(args.init, args.course, args.f_name)
