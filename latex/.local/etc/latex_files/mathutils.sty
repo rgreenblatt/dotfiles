@@ -3,6 +3,7 @@
 
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,amscd}
 \RequirePackage{mathtools}
+\RequirePackage{amsthm,etoolbox}% http://ctan.org/pkg/{amsthm,etoolbox}
 
 \makeatletter
 \newcommand{\ScaleDeclarePairedDelimiter}[3]{%
@@ -66,6 +67,7 @@
 \DeclareMathOperator{\rng}{range}
 \ScaleDeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 \newcommand{\sprod}[2]{\left\langle#1, #2\right\rangle}
+\newcommand{\Span}{\mathrm{Span}}
 
 % Analysis
 \newcommand{\boundary}[1]{\text{bd } #1}
@@ -84,6 +86,8 @@
 \ScaleDeclarePairedDelimiter\abs{\lvert}{\rvert}
 \ScaleDeclarePairedDelimiter\br{[}{]}
 \ScaleDeclarePairedDelimiter\p{(}{)}
+\ScaleDeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\ScaleDeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \newcounter{nTheorems}
 
@@ -109,3 +113,9 @@
   \begingroup\lccode`~=`> \lowercase{\endgroup\let~}\rangle
   \ignorespaces}
  {\ignorespacesafterend}
+
+\patchcmd{\endproof}% <cmd>
+  {\endtrivlist}% <search>
+  {\endtrivlist\par\nobreak\vspace*{\dimexpr-\baselineskip-\parskip}\nobreak\noindent\hrulefill}% <replace>
+  {}{}% <succes><failure>
+
