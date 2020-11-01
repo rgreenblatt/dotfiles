@@ -63,6 +63,9 @@ try
   packadd termdebug
 catch /E919/
 endtry
+
+" plugin preload {{{1
+let g:polyglot_disabled = ['latex']
 "}}}
 
 " vim: set fdm=marker:

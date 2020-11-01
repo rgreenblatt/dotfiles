@@ -326,7 +326,6 @@ let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
 "
 "polyglot and associated plugins: {{{1
-let g:polyglot_disabled = ['latex']
 "if I ever start working with csvs some, look into plugin
 let g:no_csv_maps = 1
 

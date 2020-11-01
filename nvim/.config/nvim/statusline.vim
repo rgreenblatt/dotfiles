@@ -185,12 +185,12 @@ let g:lightline = {
       \   'marker': 'Blank',
       \ },
       \ 'component_type': {
-      \   'wintab_current': 'error',
-      \   'wintab_current_conditional': 'error',
+      \   'wintab_current': 'warning',
+      \   'wintab_current_conditional': 'warning',
       \   'marker': 'error',
       \   'linter_warnings': 'warning',
       \   'linter_errors': 'error',
-      \   'macromode': 'error',
+      \   'macromode': 'warning',
       \ }
       \ }
 
