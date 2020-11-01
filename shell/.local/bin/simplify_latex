@@ -7,12 +7,14 @@ from sympy import latex, simplify, expand
 from sympy.parsing.latex import parse_latex
 
 
-def main(l_expr, order, should_expand):
+def main(l_expr, order, should_expand, apply_float):
     with redirect_stdout(None):
         expr = parse_latex(l_expr)
     expr = simplify(expr.doit())
     if should_expand:
         expr = expand(expr)
+    if apply_float:
+        expr = expr.evalf()
     print(latex(expr, order=order))
 
 
@@ -23,7 +25,8 @@ if __name__ == "__main__":
                         help='expression to simplify')
     parser.add_argument('--flip', action='store_true', help='flip print order')
     parser.add_argument('--expand', action='store_true', help='run expand')
+    parser.add_argument('--float', action='store_true', help='to float')
 
     args = parser.parse_args()
 
-    main(args.expr, 'rev-lex' if args.flip else 'lex', args.expand)
+    main(args.expr, 'rev-lex' if args.flip else 'lex', args.expand, args.float)
