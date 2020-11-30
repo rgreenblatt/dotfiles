@@ -3,11 +3,11 @@
 import argparse
 from contextlib import redirect_stdout
 
-from sympy import latex, simplify, expand
+from sympy import latex, simplify, expand, factor
 from sympy.parsing.latex import parse_latex
 
 
-def main(l_expr, order, should_expand, apply_float):
+def main(l_expr, order, should_expand, apply_float, apply_factor):
     with redirect_stdout(None):
         expr = parse_latex(l_expr)
     expr = simplify(expr.doit())
@@ -15,6 +15,8 @@ def main(l_expr, order, should_expand, apply_float):
         expr = expand(expr)
     if apply_float:
         expr = expr.evalf()
+    if apply_factor:
+        expr = factor(expr)
     print(latex(expr, order=order))
 
 
@@ -26,7 +28,9 @@ if __name__ == "__main__":
     parser.add_argument('--flip', action='store_true', help='flip print order')
     parser.add_argument('--expand', action='store_true', help='run expand')
     parser.add_argument('--float', action='store_true', help='to float')
+    parser.add_argument('--factor', action='store_true', help='apply factoring')
 
     args = parser.parse_args()
 
-    main(args.expr, 'rev-lex' if args.flip else 'lex', args.expand, args.float)
+    main(args.expr, 'rev-lex' if args.flip else 'lex', args.expand, args.float,
+         args.factor)

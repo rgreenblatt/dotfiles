@@ -42,7 +42,7 @@
 \newcommand{\DKL}{D_\mathrm{KL}}
 \renewcommand{\DH}{d_\mathrm{H}}
 
-% Sets and other mathematical constructs
+% Sets/rings/groups/fields and other mathematical constructs
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\PSet}{\mathcal{P}}
 \newcommand{\Real}{\mathbb{R}}
@@ -50,6 +50,7 @@
 \newcommand{\Rational}{\mathbb{Q}}
 \newcommand{\Nat}{\mathbb{N}}
 \newcommand{\Int}{\mathbb{Z}}
+\newcommand{\Fin}[1]{\mathbb{F}_p}
 \newcommand{\argmax}{\operatorname*{\mathrm{arg\,max}}}
 \newcommand{\argmin}{\operatorname*{\mathrm{arg\,min}}}
 \renewcommand{\implies}{\Rightarrow}
@@ -83,9 +84,12 @@
 
 % Miscellaneous
 \newcommand{\eps}{\epsilon}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\divs}{\;|\;}
 \ScaleDeclarePairedDelimiter\abs{\lvert}{\rvert}
 \ScaleDeclarePairedDelimiter\br{[}{]}
 \ScaleDeclarePairedDelimiter\p{(}{)}
+\ScaleDeclarePairedDelimiter\set{\{}{\}}
 \ScaleDeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \ScaleDeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -119,3 +123,4 @@
   {\endtrivlist\par\nobreak\vspace*{\dimexpr-\baselineskip-\parskip}\nobreak\noindent\hrulefill}% <replace>
   {}{}% <succes><failure>
 
+\newcommand{\TODO}{\textbf{\Huge TODO}}
