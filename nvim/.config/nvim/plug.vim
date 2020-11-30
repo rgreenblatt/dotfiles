@@ -99,9 +99,9 @@ if !g:no_editing_plugins
   call s:PA(['bfredl/nvim-miniyank'])
   " call s:PA(['luochen1990/rainbow'])
   call s:PA(['kshenoy/vim-signature'])
-  call s:PA(['simnalamburt/vim-mundo'])
+  " call s:PA(['simnalamburt/vim-mundo'])
   " TODO: try this one
-  " call s:PA(['mbbill/undotree'])
+  call s:PA(['mbbill/undotree'])
   call s:PA(['romainl/vim-cool'])
   call s:PA(['machakann/vim-sandwich'])
   call s:PA(['wsdjeg/vim-fetch'])

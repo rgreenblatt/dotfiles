@@ -29,9 +29,9 @@ set showtabline=2
 set winminwidth=0
 set winminheight=0
 set winwidth=1
-set backupdir=~/.local/share/nvim/backup/,.backup/,~/.backup/,/tmp//
-set directory=~/.local/share/nvim/swap/,.swap/,~/.swap/,/tmp//
-set undodir=~/.local/share/nvim/undo/,.undo/,~/.undo/,/tmp//
+set backupdir=~/.local/share/nvim/backup/
+set directory=~/.local/share/nvim/swap/
+set undodir=~/.local/share/nvim/undo/
 set undofile
 
 " potentially available {{{1

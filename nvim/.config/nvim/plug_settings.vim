@@ -406,7 +406,7 @@ let g:ros_build_system = 'catkin-tools'
 let g:ros_catkin_make_options = '-DCMAKE_EXPORT_COMPILE_COMMANDS=1'
 
 "rust {{{1
-let g:rust_conceal = 1
+let g:rust_conceal = 0
 let g:rust_conceal_mod_path = 1
 let g:rust_conceal_pub = 1
 let g:rust_fold = 2
