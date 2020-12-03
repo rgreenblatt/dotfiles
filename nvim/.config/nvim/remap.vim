@@ -26,6 +26,13 @@ nnoremap "k 8gt
 nnoremap "l 9gt
 nnoremap "; <Cmd>tablast<cr>
 
+for first in ['', 'g', '[', ']']
+    for mode in ['n', 'x', 'o']
+        exe mode . "noremap " . first . "' " . first . "`"
+        exe mode . "noremap " . first . "` " . first . "'"
+    endfor
+endfor
+
 "macros {{{1
 xnoremap @ :<c-u>call ExecuteMacroOverVisualRange()<cr>
 
