@@ -110,6 +110,7 @@ mkdir -p ~/.cargo
 stow rust
 stow pacman
 stow latex
+stow gnupg
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
