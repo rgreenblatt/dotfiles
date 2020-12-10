@@ -3,7 +3,8 @@
 
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,amscd}
 \RequirePackage{mathtools}
-\RequirePackage{amsthm,etoolbox}% http://ctan.org/pkg/{amsthm,etoolbox}
+\RequirePackage{amsthm,etoolbox}
+\RequirePackage[dvipsnames]{xcolor}
 
 \makeatletter
 \newcommand{\ScaleDeclarePairedDelimiter}[3]{%
@@ -86,6 +87,7 @@
 \DeclareMathOperator{\sgn}{sgn}
 \newcommand{\divs}{\;|\;}
 \ScaleDeclarePairedDelimiter\abs{\lvert}{\rvert}
+\ScaleDeclarePairedDelimiter\size{\lvert}{\rvert}
 \ScaleDeclarePairedDelimiter\br{[}{]}
 \ScaleDeclarePairedDelimiter\p{(}{)}
 \ScaleDeclarePairedDelimiter\set{\{}{\}}
@@ -122,4 +124,4 @@
   {\endtrivlist\par\nobreak\vspace*{\dimexpr-\baselineskip-\parskip}\nobreak\noindent\hrulefill}% <replace>
   {}{}% <succes><failure>
 
-\newcommand{\TODO}{\textbf{\Huge TODO}}
+  \newcommand{\TODO}{\textbf{\Huge \color{Red} TODO}}
