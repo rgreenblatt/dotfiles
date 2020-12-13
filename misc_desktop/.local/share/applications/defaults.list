@@ -1,7 +1,7 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
-
+video/webm=mpv.desktop
 image/aces=vimiv.desktop
 image/avci=vimiv.desktop
 image/avcs=vimiv.desktop
