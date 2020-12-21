@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import sys
+import time
+from datetime import datetime
+from dateutil.parser import parse
+
+
+def wait_until(end_time):
+    while True:
+        diff = (end_time - datetime.now()).total_seconds()
+        if diff <= 0:
+            return
+
+        # logarithmic timeout. sleep for at most 1 second so that suspending
+        # or modifying the time doesn't cause too much error
+        time.sleep(min(diff / 2, 1))
+
+
+def main(end_time):
+    end_time = parse(end_time)
+    print("waiting until", end_time)
+    wait_until(end_time)
+
+
+if __name__ == "__main__":
+    main(' '.join(sys.argv[1:]))
