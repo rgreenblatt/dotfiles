@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=1fd90796-1836-4b79-8159-ac2e0156e022&type=mp4' --path ~/lectures/1690/ &> ~/.download_log_1690.txt &
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=8f3e1c0c-0c06-4f40-a83d-ac2c00faeabc&type=mp4' --path ~/lectures/1530/ &> ~/.download_log_1530.txt &
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=7b56eb4d-0386-4d5f-80a7-ac0d0187b5e2&type=mp4' --path ~/lectures/1170/ &> ~/.download_log_1170.txt &
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=6d8db47b-6ebc-44cd-be24-ac0801430da5&type=mp4' --path ~/lectures/1951/ &> ~/.download_log_1951.txt &
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=a870575f-1bdc-4124-9794-ac28015abb75&type=mp4' --path ~/lectures/1570/ &> ~/.download_log_1570.txt &
+download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=a35dde30-fa5f-4248-bbed-ac300111c806&type=mp4' --path ~/lectures/2952/ &> ~/.download_log_2952.txt &
