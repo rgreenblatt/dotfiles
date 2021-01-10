@@ -2,6 +2,8 @@
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 video/webm=mpv.desktop
+audio/mpeg=mpv.desktop
+application/octet-stream=mpv.desktop
 image/aces=vimiv.desktop
 image/avci=vimiv.desktop
 image/avcs=vimiv.desktop
