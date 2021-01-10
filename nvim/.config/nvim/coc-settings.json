@@ -57,9 +57,6 @@
       "initializationOptions": {
         "cache": {
           "directory": "/tmp/ccls"
-        },
-        "index": {
-          "threads": 1
         }
       }
     },
