@@ -151,7 +151,9 @@ git_conflicting_files() {
   git --no-pager diff --diff-filter=U --name-only
 }
 alias ${gprefix}Cl='git_conflicting_files'
-alias ${gprefix}Ca='git add $(git_conflicting_files)'
+# disabled for now because I can't seem to stop using this for
+# general git add :(
+# alias ${gprefix}Ca='git add $(git_conflicting_files)'
 alias ${gprefix}Ce='git mergetool $(git_conflicting_files)'
 alias ${gprefix}Co='git checkout --ours --'
 alias ${gprefix}CO='gCo $(git_conflicting_files)'
@@ -277,7 +279,7 @@ alias ${gprefix}wd='git diff --no-ext-diff'
 alias ${gprefix}wD='git diff --no-ext-diff --word-diff'
 alias ${gprefix}wr='git reset --soft'
 alias ${gprefix}wR='git reset --hard'
-alias ${gprefix}wc='git clean --dry-run'
+alias ${gprefix}wc='git clean -d --dry-run'
 alias ${gprefix}wC='git clean -d --force'
 alias ${gprefix}wx='git rm -r'
 alias ${gprefix}wX='git rm -rf'
