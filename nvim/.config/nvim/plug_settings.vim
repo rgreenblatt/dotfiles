@@ -59,7 +59,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-lists',
         \ 'coc-syntax',
         \ 'coc-dictionary',
-        \ 'coc-python',
+        \ 'coc-pyright',
         \ 'coc-json',
         \ 'coc-java',
         \ 'coc-vimtex',
@@ -71,6 +71,8 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-snippets',
         \ 'coc-go',
         \]
+        " \ 'coc-clangd',
+        " \]
 
   function! CocRunHighlight()
     if !exists('g:coc_disable_highlight') ||  !g:coc_disable_highlight
@@ -158,16 +160,6 @@ let g:tex_flavor = "latex"
 "      \ ]
 "let g:chromatica#responsive_mode = 1
 
-" limelight/goyo {{{1
-let g:limelight_conceal_ctermfg = 'DarkGray'
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
-
 "codi {{{1
 let g:codi#interpreters = {
       \ 'python': {
@@ -188,27 +180,9 @@ let g:fold_options = {
       \ 'strip_template_arguments': 1
       \ }
 
-" sneak/fFtT {{{1
+" sneak: fFtT {{{1
 let g:sneak#s_next = 1
 let g:sneak#absolute_dir = 0
-
-omap s <Plug>Sneak_s
-omap S <Plug>Sneak_S
-
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
 
 "fzf {{{1
 if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
@@ -329,10 +303,6 @@ let g:formatters_cmake = ['cmake_format']
 "if I ever start working with csvs some, look into plugin
 let g:no_csv_maps = 1
 
-"sneak quick scope {{{1
-let g:sqs_enable = 1
-nmap ;vs <plug>(SneakQuickScopeToggle)
-
 "dirvish {{{1
 function! DirvishFoldHiddenText()
   let names = []
@@ -413,7 +383,7 @@ let g:rust_fold = 2
 let g:rust_recommended_style = 0
 
 function! RustFmtFunc() abort
-  set foldmethod=manual "fix speed issues
+  set foldmethod=manual " fix speed issues
   if line("$") == v:lnum + v:count - 1 && v:lnum == 1
     RustFmt
   else

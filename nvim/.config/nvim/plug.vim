@@ -38,7 +38,7 @@ endif
 if !g:no_language_plugins
   "coc {{{3
   if !g:no_coc
-    call s:PA(['neoclide/coc.nvim', "{'do': 'yarn install --frozen-lockfile'}"])
+    call s:PA(['neoclide/coc.nvim', "{'branch': 'release'}"])
     call s:PA(['liuchengxu/vista.vim'])
     call s:PA(['honza/vim-snippets'])
   endif
@@ -57,29 +57,23 @@ if !g:no_language_plugins
   call s:PA(['ehamberg/vim-cute-python'])
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tmhedberg/SimpylFold'])
-  call s:PA(['metakirby5/codi.vim'])
-  call s:PA(['rgreenblatt/vim-forge'])
-  call s:PA(['https://framagit.org/tyreunom/coquille'])
 endif
 
 "appearance {{{2
 if !g:no_appearance_plugins
   call s:PA(['gruvbox-community/gruvbox'])
   call s:PA(['itchyny/lightline.vim'])
-  call s:PA(['junegunn/limelight.vim'])
-  call s:PA(['junegunn/goyo.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
-  call s:PA(['ryanoasis/vim-devicons'])
   call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
 endif
 
 "general editing {{{2
 if !g:no_editing_plugins
   call s:PA(['wellle/targets.vim'])
+  " vim-sneak can do the same thing but better?
   " call s:PA(['rhysd/clever-f.vim'])
   call s:PA(['unblevable/quick-scope'])
   call s:PA(['justinmk/vim-sneak'])
-  call s:PA(['rgreenblatt/sneak-quick-scope'])
   call s:PA(['inkarkat/vim-ingo-library'])
   call s:PA(['inkarkat/vim-CountJump'])
   call s:PA(['inkarkat/vim-EnhancedJumps'])
@@ -103,7 +97,6 @@ if !g:no_editing_plugins
   " TODO: try this one
   call s:PA(['mbbill/undotree'])
   call s:PA(['romainl/vim-cool'])
-  call s:PA(['machakann/vim-sandwich'])
   call s:PA(['wsdjeg/vim-fetch'])
   call s:PA(['thinca/vim-visualstar'])
   call s:PA(['AndrewRadev/splitjoin.vim'])
@@ -137,7 +130,6 @@ if !g:no_integration_plugins
   call s:PA(['junegunn/gv.vim'])
   call s:PA(['rhysd/git-messenger.vim'])
   call s:PA(['tpope/vim-eunuch'])
-  call s:PA(['neomutt/neomutt.vim'])
   call s:PA(['lambdalisue/suda.vim'])
   " call s:PA(['vhdirk/vim-cmake'])
   " call s:PA(['taketwo/vim-ros'])
@@ -145,7 +137,6 @@ endif
 
 "misc {{{2
 if !g:no_misc_plugins
-  call s:PA(['wikitopian/hardmode'])
   call s:PA(['rgreenblatt/vim-unimpaired'])
   "TODO
   " call s:PA(['zenbro/mirror.vim'])

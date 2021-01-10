@@ -454,24 +454,6 @@ if IsInstalled('kana/vim-operator-user')
 
 endif
 
-"goyo {{{1
-nnoremap <silent> ;vg <Cmd>Goyo<cr>
-
-function! SetupGoyo()
-  Limelight
-  nnoremap <silent> ;vg <Cmd>Goyo!<cr>
-  setlocal nocursorline
-endfunction
-
-function! SetupNoGoyo()
-  Limelight!
-  nnoremap <silent> ;vg <Cmd>Goyo<cr>
-  setlocal cursorline
-endfunction
-
-autocmd! User GoyoEnter call SetupGoyo()
-autocmd! User GoyoLeave call SetupNoGoyo()
-
 "git {{{1
 nnoremap <silent> ;gs <Cmd>Gstatus<cr>
 nnoremap ;gd :<c-u>Gvdiff<space>
@@ -672,6 +654,21 @@ nmap yol <Plug>(qf_loc_toggle)
 " nmap ]G <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
+" sneak: fFtT {{{1
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 
 "other {{{1
 nnoremap <a-i> <Cmd>Codi<cr>
