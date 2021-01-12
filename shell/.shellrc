@@ -323,7 +323,6 @@ alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
 
 #ros {{{2
-#general {{{3
 alias ros='eval "$(ros_setup)"'
 
 alias rbag="rosbag"
