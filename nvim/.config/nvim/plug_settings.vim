@@ -353,12 +353,14 @@ let g:ale_disable_lsp = 1
 " let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
 let g:ale_linters = {
       \ 'cpp': [], 
-      \ 'python': [], 
+      \ 'cuda': [],
+      \ 'objcpp': [], 
       \ 'c': [], 
+      \ 'objc': [], 
+      \ 'python': [], 
       \ 'rust': [],
       \ 'go': [],
       \ 'haskell': [],
-      \ 'cuda': [],
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
