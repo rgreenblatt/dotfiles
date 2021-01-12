@@ -1,6 +1,0 @@
-export CUDA_DEBUGGER_SOFTWARE_PREEMPTION=1
-export XRANDR_LAPTOP_DISPLAY="eDP-1"
-export XRANDR_MONITOR_DISPLAY="HDMI-1"
-export RESIZE_LAPTOP="1920x1080"
-export ROS_WORKSPACE_PATH="$HOME/locus_dev/"
-export START_TERM_ARGS="-T nvim $SHELL -c 'eval \"\$(ros_setup)\" && exec nvim'"

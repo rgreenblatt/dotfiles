@@ -323,12 +323,6 @@ alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
 
 #ros {{{2
-#locus {{{3
-alias lsb="roslaunch locus_sim base.launch robots:=1 lidar:=gpu"
-alias lsa="roslaunch locus_sim autonomy.launch robots:=1"
-alias lsv="rosrun locus_viz sim"
-alias locus_source_base="source /opt/locusrobotics/hotdog/dev/ros1/setup.zsh"
-
 #general {{{3
 alias ros='eval "$(ros_setup)"'
 

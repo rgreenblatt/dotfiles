@@ -404,8 +404,7 @@ let g:mwAutoLoadMarks = 1
 let g:gutentags_cache_dir = '~/.tags'
 let g:highlightedyank_highlight_duration = 200
 let g:localvimrc_name = ['.config/local_init.vim']
-let g:localvimrc_whitelist = [$HOME . '/dotfiles', $HOME . '/documents', 
-      \ $HOME . '/locus_dev']
+let g:localvimrc_whitelist = [$HOME . '/dotfiles', $HOME . '/documents']
 let g:dispatch_no_maps = 1
 let g:markdown_fenced_languages = [
       \ 'vim',
