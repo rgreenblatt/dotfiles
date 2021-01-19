@@ -27,7 +27,7 @@ if IsInstalled('gruvbox-community/gruvbox')
     autocmd!
     autocmd ColorScheme * call SetColors()
   augroup end
-  
+
   call SetColors()
 
   function! s:ZshVIMModeEnterInsert()
@@ -83,7 +83,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
 
   command! CocDisableHighlight let g:coc_disable_highlight = 1
   command! CocEnableHighlight let g:coc_disable_highlight = 0
-  command! CocToggleHighlight let g:coc_disable_highlight = 
+  command! CocToggleHighlight let g:coc_disable_highlight =
         \ !g:coc_disable_highlight
 
   highlight! link CocErrorHighlight SpellBad
@@ -102,7 +102,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
     autocmd CursorHold * silent call CocRunHighlight()
   augroup end
   hi! CocHighlightText cterm=bold,underline gui=bold,underline
-  
+
   "vista {{{2
   let g:vista_fzf_preview = ['right:50%']
   "}}}2
@@ -171,7 +171,7 @@ let g:codi#interpreters = {
 
 "c/cpp folding {{{1
 let g:fold_options = {
-      \ 'fallback_method' : { 'line_threshold' : 2000, 
+      \ 'fallback_method' : { 'line_threshold' : 2000,
       \ 'method' : 'syntax' },
       \ 'fold_blank': 0,
       \ 'fold_includes': 1,
@@ -191,8 +191,8 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   function! RgPreview(args, extra_args)
     call fzf#vim#grep("rg --column --line-number --no-heading " .
           \ "--color=always --smart-case " . a:extra_args . " " .
-          \ shellescape(a:args), 1, {'options' : 
-          \ fzf#vim#with_preview('right:50%').options + 
+          \ shellescape(a:args), 1, {'options' :
+          \ fzf#vim#with_preview('right:50%').options +
           \ ['--bind', 'alt-e:execute-silent(remote_tab_open_grep {} &)']})
   endfunction
 
@@ -241,9 +241,9 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   "    execute "edit " . a:path
   "    normal! zR
   "    call win_gotoid(g:orig_win)
-  "    call nvim_win_set_option(g:fzf_preview_window, "winhighlight", 
+  "    call nvim_win_set_option(g:fzf_preview_window, "winhighlight",
   "          \ "NormalFloat:Normal")
-  "    call nvim_win_set_option(g:fzf_preview_window, "signcolumn", 
+  "    call nvim_win_set_option(g:fzf_preview_window, "signcolumn",
   "          \ "no")
   "    echom "finished_preview"
   "    return g:fzf_preview_window
@@ -254,8 +254,8 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   "endfunction
 
   " function! FZFCheckWindow()
-  "   if g:fzf_window != -1 && g:fzf_preview_window != -1  && 
-  "         \ !nvim_win_is_valid(g:fzf_window) && 
+  "   if g:fzf_window != -1 && g:fzf_preview_window != -1  &&
+  "         \ !nvim_win_is_valid(g:fzf_window) &&
   "         \ nvim_win_is_valid(g:fzf_preview_window)
   "     call nvim_win_close(g:fzf_preview_window, 0)
   "     let g:fzf_preview_window = -1
@@ -265,7 +265,7 @@ if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
   " augroup FzfWindowHandler
   "   autocmd!
   "   autocmd WinEnter * call FZFCheckWindow()
-  " augroup end 
+  " augroup end
 
   " let g:fzf_window = -1
 
@@ -280,7 +280,7 @@ let g:rainbow_conf = {
       \	'guifgs': ['#83a598', '#fe8019', '#b8bb26', '#fb4934'],
       \	'ctermfgs': ['109', '208', '142', '167'],
       \	'operators': '_,_',
-      \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 
+      \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold',
       \                 'start=/{/ end=/}/ fold'],
       \	'separately': {
       \		'lisp': {
@@ -291,7 +291,7 @@ let g:rainbow_conf = {
       \}
 
 "wintabs {{{1
-let g:wintabs_delete_buffers = 0 
+let g:wintabs_delete_buffers = 0
 let g:wintabs_autoclose_vimtab = 1
 let g:wintabs_buffer_limit = 5
 
@@ -299,7 +299,7 @@ let g:wintabs_buffer_limit = 5
 augroup AutoformatAutocmds
   autocmd!
   " TODO
-  autocmd FileType,BufWrite cmake,go 
+  autocmd FileType,BufWrite cmake,go
         \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
         \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
 augroup end
@@ -335,7 +335,7 @@ function! DirvishSetup()
   else
     sort ,^.*[\/],
   endif
-  execute 'setlocal foldexpr=' . escape("match(getline(v:lnum), '" . 
+  execute 'setlocal foldexpr=' . escape("match(getline(v:lnum), '" .
         \ hidden_pattern . "') != -1", ' \')
   setlocal foldmethod=expr
   setlocal foldtext=DirvishFoldHiddenText()
@@ -360,22 +360,22 @@ let g:ale_virtualtext_prefix = "◀ "
 let g:ale_disable_lsp = 1
 " let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
 let g:ale_linters = {
-      \ 'cpp': [], 
+      \ 'cpp': [],
       \ 'cuda': [],
-      \ 'objcpp': [], 
-      \ 'c': [], 
-      \ 'objc': [], 
-      \ 'python': [], 
+      \ 'objcpp': [],
+      \ 'c': [],
+      \ 'objc': [],
+      \ 'python': [],
       \ 'rust': [],
       \ 'go': [],
       \ 'haskell': [],
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
-highlight ALEVirtualTextError 
+highlight ALEVirtualTextError
       \ cterm=italic ctermfg=167 gui=italic guifg=#fb4934
-highlight ALEVirtualTextWarning 
-      \cterm=italic ctermfg=214 gui=italic guifg=#fabd2f
+highlight ALEVirtualTextWarning
+      \ cterm=italic ctermfg=214 gui=italic guifg=#fabd2f
 highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
 highlight link ALEVirtualTextStyleError ALEVirtualTextError
 highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
