@@ -36,13 +36,14 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
   boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
-  alsa-utils pavucontrol
+  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint
 
+# consider also aur/cmake-lint
 # Currently failing (and not important): aur/insect and aur/dbg-macro
 
-pip3 install cmakelint recordclass
+pip3 install recordclass
 
-# large packages to install later
+# slow install packages to install later
 yay -S aur/cling clang texlive-most 
 
 # swapfile
