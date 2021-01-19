@@ -648,10 +648,10 @@ nmap yoq <Plug>(qf_qf_toggle)
 nmap yol <Plug>(qf_loc_toggle)
 
 "ale {{{1
-" nmap [g <Plug>(ale_previous_wrap)
-" nmap ]g <Plug>(ale_next_wrap)
-" nmap [G <Plug>(ale_first)
-" nmap ]G <Plug>(ale_last)
+nmap [a <Plug>(ale_previous_wrap)
+nmap ]a <Plug>(ale_next_wrap)
+nmap [A <Plug>(ale_first)
+nmap ]A <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
 " sneak: fFtT {{{1
