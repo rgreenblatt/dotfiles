@@ -230,10 +230,13 @@ nnoremap <space>S #``cgN
 
 nnoremap <space>Q <Cmd>bp\|bd! #<cr>
 
-nnoremap <space>f gq
-xnoremap <space>f gq
+map <Plug>(FormatSelected) gq
+map <Plug>(FormatAll) gggqG
 
-nnoremap <space>F gggqG
+nmap <space>f <Plug>(FormatSelected)
+xmap <space>f <Plug>(FormatSelected)
+
+nmap <space>F <Plug>(FormatAll)
 
 nnoremap <a-p> <Cmd>pwd<cr>
 nnoremap <a-s> <Cmd>source %<cr>

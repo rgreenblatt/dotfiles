@@ -94,7 +94,8 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
     autocmd!
     " Setup formatexpr specified filetype(s).
     autocmd FileType,BufWrite c,cpp,cuda,json,java,tex,yaml,python,haskell
-          \ setlocal formatexpr=CocAction('formatSelected')
+          \ map <buffer> <Plug>(FormatSelected) <Plug>(coc-format-selected)|
+          \ map <buffer> <Plug>(FormatAll) <Plug>(coc-format)
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd CursorHold * silent call CocRunHighlight()
@@ -294,7 +295,13 @@ let g:wintabs_autoclose_vimtab = 1
 let g:wintabs_buffer_limit = 5
 
 "autoformat {{{1
-autocmd FileType,BufWrite cmake,go nnoremap <buffer> <space>F <Cmd>Autoformat<cr>
+augroup AutoformatAutocmds
+  autocmd!
+  " TODO
+  autocmd FileType,BufWrite cmake,go 
+        \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
+        \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
+augroup end
 
 let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
