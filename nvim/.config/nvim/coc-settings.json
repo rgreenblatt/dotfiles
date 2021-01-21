@@ -1,4 +1,11 @@
 {
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".root",
+    ".env",
+    ".hg",
+    ".projections.json"
+  ],
   "suggest.echodocSupport": true,
   "suggest.maxCompleteItemCount": 20,
   "python.jediEnabled": false,
