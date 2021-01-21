@@ -202,7 +202,17 @@ The following can speed up boot time
 sudo systemctl disable NetworkManager-wait-online.service
 ```
 
+Not sure how needed these are...
+```
+sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+# just improves multiuser times?
+sudo systemctl enable nvidia-persistenced.service
+```
+
+
 Considering installing
 [cling](https://github.com/root-project/cling#installation).
 Consider installing lld (the LLVM Linker) and setting it as default using
-`update-alternatives`.
+`update-alternatives` (or symlinking somewhere - ~/.local/bin preferred).
