@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+import base64
+import lzma
+import sys
+
+
+def main():
+    in_name = sys.argv[1]
+    compressed = lzma.compress(open(in_name, 'rb').read())
+
+    print('''#!/usr/bin/env python3
+import lzma
+import base64
+open('{}', 'wb').write(lzma.decompress(base64.b64decode('{}')))
+'''.format(in_name,
+           base64.b64encode(compressed).decode('utf-8')))
+
+
+if __name__ == "__main__":
+    main()
