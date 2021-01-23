@@ -88,6 +88,10 @@
           "completionSnippetsOn": true
         }
       }
+    },
+    "zls": {
+      "command": "zig",
+      "filetypes": ["zig"]
     }
   }
 }
