@@ -2,19 +2,26 @@
 
 import os
 import argparse
+import datetime
 import time
 
 import youtube_dl
 import notify2
 
 
-def download_feed(url, path, name, restrict_filenames):
+def download_feed(url, path, name, restrict_filenames, n_days):
+    print(path)
     os.makedirs(path, exist_ok=True)
     archive_file_name = 'download_archive.txt'
     opts = {
-        'download_archive': os.path.join(path, archive_file_name),
-        'outtmpl': os.path.join(path, r'%(upload_date)s_%(title)s.%(ext)s'),
-        'restrictfilenames': restrict_filenames,
+        'download_archive':
+        os.path.join(path, archive_file_name),
+        'outtmpl':
+        os.path.join(path, r'%(upload_date)s_%(title)s.%(ext)s'),
+        'restrictfilenames':
+        restrict_filenames,
+        'daterange':
+        youtube_dl.DateRange(start='now-{}day'.format(n_days)),
     }
 
     def get_files():
@@ -50,10 +57,14 @@ if __name__ == "__main__":
                         type=str,
                         help='name to display in notifications',
                         default='')
+    parser.add_argument('--n-days',
+                        type=int,
+                        help='only download files in the last n days',
+                        default=5)
     parser.add_argument('--no-restrict-filenames',
                         action='store_true',
                         help="don't strip outspaces and emoji etc")
 
     args = parser.parse_args()
     download_feed(args.url, args.path, args.name,
-                  not args.no_restrict_filenames)
+                  not args.no_restrict_filenames, args.n_days)

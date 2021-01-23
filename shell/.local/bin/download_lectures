@@ -1,8 +1,36 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=1fd90796-1836-4b79-8159-ac2e0156e022&type=mp4' --path ~/lectures/1690/ &> ~/.download_log_1690.txt &
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=8f3e1c0c-0c06-4f40-a83d-ac2c00faeabc&type=mp4' --path ~/lectures/1530/ &> ~/.download_log_1530.txt &
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=7b56eb4d-0386-4d5f-80a7-ac0d0187b5e2&type=mp4' --path ~/lectures/1170/ &> ~/.download_log_1170.txt &
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=6d8db47b-6ebc-44cd-be24-ac0801430da5&type=mp4' --path ~/lectures/1951/ &> ~/.download_log_1951.txt &
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=a870575f-1bdc-4124-9794-ac28015abb75&type=mp4' --path ~/lectures/1570/ &> ~/.download_log_1570.txt &
-download_feed_daemon 'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=a35dde30-fa5f-4248-bbed-ac300111c806&type=mp4' --path ~/lectures/2952/ &> ~/.download_log_2952.txt &
+import subprocess
+import shlex
+
+items = [
+    [
+        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
+        'courseid=61ae6d23-06c4-43c7-8990-acae000c1de6&type=mp4', '1860'
+    ],
+    [
+        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
+        'courseid=5f555a0e-fe67-4fbd-a15f-acb500f68d4a&type=mp4', '1670'
+    ],
+    [
+        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
+        'courseid=2437b26a-bec8-41c2-bc17-acb40169c3ce&type=mp4', '1260'
+    ],
+    [
+        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?'
+        'courseid=2437b26a-bec8-41c2-bc17-acb40169c3ce&type=mp4', '1550'
+    ],
+    [
+        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx' +
+        '?courseid=7ded9040-3580-4005-bf91-acac00263b11&type=mp4', '1740'
+    ],
+]
+
+for url, name in items:
+    subprocess.Popen([
+        'bash', '-c',
+        'download_feed_daemon {0} --path ~/lectures/{1} &> ~/.download_log_{1}.txt'
+        .format(shlex.quote(url), name)
+    ],
+                     close_fds=True)
+    print("RUN")
