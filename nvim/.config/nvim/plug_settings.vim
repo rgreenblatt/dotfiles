@@ -299,13 +299,16 @@ let g:wintabs_buffer_limit = 5
 augroup AutoformatAutocmds
   autocmd!
   " TODO
-  autocmd FileType,BufWrite cmake,go
+  autocmd FileType,BufWrite cmake,go,zig
         \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
         \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
 augroup end
 
 let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
+" let g:formatdef_zig_format = '"zig fmt --tab-size " . &shiftwidth . " -"'
+let g:formatdef_zig_fmt = '"zig fmt --stdin"'
+let g:formatters_zig = ['zig_fmt']
 "
 "polyglot and associated plugins: {{{1
 "if I ever start working with csvs some, look into plugin
@@ -421,6 +424,7 @@ let g:markdown_fenced_languages = [
       \ 'help'
       \]
 let g:miniyank_maxitems = 100
+let g:zig_fmt_autosave = 0
 "}}}1
 
 " vim: set fdm=marker:

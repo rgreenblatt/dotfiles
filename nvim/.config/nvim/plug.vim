@@ -44,6 +44,7 @@ if !g:no_language_plugins
   endif
   "}}}3
 
+  call s:PA(['ziglang/zig.vim'])
   call s:PA(['dense-analysis/ale'])
   call s:PA(['maximbaz/lightline-ale'])
   call s:PA(['lervag/vimtex'])

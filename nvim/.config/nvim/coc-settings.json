@@ -65,7 +65,7 @@
       }
     },
     "zls": {
-      "command": "zig",
+      "command": "zls",
       "filetypes": ["zig"]
     }
   }
