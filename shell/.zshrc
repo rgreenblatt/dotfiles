@@ -30,8 +30,6 @@ bindkey "^E" edit-command-line
 
 export KEYTIMEOUT=1
 
-fpath=(~/.zsh_extra_complete $fpath)
-
 #zgen {{{1
 if [ -f ~/.zgen/zgen.zsh ]; then
   source ~/.zgen/zgen.zsh
@@ -57,6 +55,7 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     mollifier/cd-gitroot
     hschne/fzf-git
     zpm-zsh/ssh
+    ziglang/shell-completions
 EOPLUGINS
     zgen save
   }
