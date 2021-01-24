@@ -67,6 +67,11 @@
     "zls": {
       "command": "zls",
       "filetypes": ["zig"]
+    },
+    "ocaml-lsp": {
+      "command": "opam",
+      "args": ["config", "exec", "--", "ocamllsp"],
+      "filetypes": ["ocaml", "reason"]
     }
   }
 }

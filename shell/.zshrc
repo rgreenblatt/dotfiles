@@ -106,6 +106,10 @@ else
   export COMPLETE_DISABLED="true"
 fi
 
+# installed by tool {{{2
+test -r /home/ryan/.opam/opam-init/init.zsh &&
+  . /home/ryan/.opam/opam-init/init.zsh &> /dev/null || true
+
 #zsh specific aliases {{{1
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for git aliases
 
@@ -268,5 +272,3 @@ function preexec() {
 #}}}
 
 # vim: set fdm=marker:
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

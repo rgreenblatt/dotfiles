@@ -28,6 +28,7 @@ See arch_install.md
 ```
 yay -Syu
 yay -S python-wheel
+# note, includes many language specific installs, reduce as needed
 yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   ripgrep bat zathura compton xdotool picom aur/nerd-fonts-hack unclutter \
   aur/twmn-git hsetroot xsel curl sqlite xcalib cmake flameshot mpv stow \
@@ -37,10 +38,13 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
   boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
-  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint
+  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint opam
 
 # consider also aur/cmake-lint
 # Currently failing (and not important): aur/insect and aur/dbg-macro
+
+# consider ocaml installs
+opam init && opam install ocaml-lsp-server && opam install utop
 
 pip3 install recordclass
 
