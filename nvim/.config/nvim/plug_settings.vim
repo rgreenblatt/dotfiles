@@ -71,6 +71,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-snippets',
         \ 'coc-go',
         \ 'coc-prettier',
+        \ 'coc-sh',
         \]
         " \ 'coc-clangd',
         " \]
@@ -299,7 +300,7 @@ let g:wintabs_buffer_limit = 5
 augroup AutoformatAutocmds
   autocmd!
   " TODO
-  autocmd FileType,BufWrite cmake,go,zig
+  autocmd FileType,BufWrite cmake,go,zig,ocaml,sh
         \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
         \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
 augroup end
