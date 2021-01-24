@@ -43,7 +43,7 @@ if [ -d "$HOME/go/" ]; then #{{{2
   export PATH="$HOME/go/bin:$PATH"
 fi
 
-if test -r $HOME.opam/opam-init/variables.sh; then
+if test -r $HOME/.opam/opam-init/variables.sh; then
   \. $HOME/.opam/opam-init/variables.sh &>/dev/null
 fi
 
