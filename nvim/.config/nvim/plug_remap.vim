@@ -129,7 +129,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   nmap <space>o <Plug>(coc-type-definition)
 
   nmap <space>i <Plug>(coc-implementation)
-  nmap <space>u <Plug>(coc-references)
+  nmap <space>u <Plug>(coc-references-used)
 
   nmap <space>e <Plug>(coc-rename)
 

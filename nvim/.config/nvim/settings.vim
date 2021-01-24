@@ -23,7 +23,8 @@ set autowrite
 set gdefault
 set cursorline
 set noshowmode
-set foldmethod=syntax
+" disable fold for now...
+" set foldmethod=syntax
 set scrolloff=1
 set showtabline=2
 set winminwidth=0
