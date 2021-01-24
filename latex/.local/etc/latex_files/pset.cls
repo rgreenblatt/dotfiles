@@ -1,11 +1,6 @@
+% must have \psetname and \psetcourse defined!
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{pset}[2020-10-03 Problem set solution class]
-
-\RequirePackage{kvoptions}
-
-\DeclareStringOption{name}
-\DeclareStringOption{course}
-\ProcessKeyvalOptions*
 
 \LoadClass[11pt]{article}
 
@@ -27,8 +22,8 @@
 
 \pagestyle{fancyplain}
 \headheight 35pt
-\lhead{\pset@name}
-\chead{\textbf{\Large \pset@course}}
+\lhead{\psetname}
+\chead{\textbf{\Large \psetcourse}}
 \rhead{\today}
 \lfoot{}
 \cfoot{}

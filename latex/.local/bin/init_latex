@@ -9,8 +9,9 @@ def main(init, course, f_name):
     os.system('cp ~/.local/etc/latex_files/* .')
     os.system('touch .root') # may not be needed in general
     if init:
-        s = (r'''\RequirePackage{kvoptions-patch}
-\documentclass[course=''' + course + r''', name=Ryan Greenblatt]{pset}
+        s = (r'''\newcommand{\psetname}{Ryan Greenblatt}
+\newcommand{\psetcourse}{''' + course +r'''}
+\documentclass{pset}
 \begin{document}
 \section{}
 \end{document}''')
