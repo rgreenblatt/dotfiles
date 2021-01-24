@@ -106,9 +106,14 @@ else
   export COMPLETE_DISABLED="true"
 fi
 
-# installed by tool {{{2
-test -r /home/ryan/.opam/opam-init/init.zsh &&
-  . /home/ryan/.opam/opam-init/init.zsh &> /dev/null || true
+# language specific {{{2
+if [ -t 0 ]; then
+  test -r /home/ryan/.opam/opam-init/complete.zsh &&
+    . /home/ryan/.opam/opam-init/complete.zsh >/dev/null 2>/dev/null || true
+
+  test -r /home/ryan/.opam/opam-init/env_hook.zsh &&
+    . /home/ryan/.opam/opam-init/env_hook.zsh >/dev/null 2>/dev/null || true
+fi
 
 #zsh specific aliases {{{1
 #see https://github.com/zimfw/zimfw/tree/master/modules/git for git aliases

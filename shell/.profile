@@ -43,6 +43,10 @@ if [ -d "$HOME/go/" ]; then #{{{2
   export PATH="$HOME/go/bin:$PATH"
 fi
 
+if test -r $HOME.opam/opam-init/variables.sh; then
+  \. $HOME/.opam/opam-init/variables.sh &>/dev/null
+fi
+
 if [ -d "$HOME/.local/bin" ]; then #{{{2
   PATH="$HOME/.local/bin:$PATH"
 fi
@@ -110,13 +114,12 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
 fi
 
-
 if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
   \. ~/.profile_machine_specific
 fi
-  
+
 if hash nvidia-settings 2>/dev/null; then #{{{1
-  nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1" &> /dev/null
+  nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1" &>/dev/null
 fi
 #}}}
 
