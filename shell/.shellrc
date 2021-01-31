@@ -287,8 +287,6 @@ alias ${gprefix}wr='git reset --soft'
 alias ${gprefix}wR='git reset --hard'
 alias ${gprefix}wc='git clean -d --dry-run'
 alias ${gprefix}wC='git clean -d --force'
-alias ${gprefix}wx='git rm -r'
-alias ${gprefix}wX='git rm -rf'
 
 # Misc
 alias ${gprefix}..='cd "$(git-root || print .)"'
