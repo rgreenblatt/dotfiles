@@ -485,20 +485,6 @@ nnoremap <silent> ;y <Cmd>SidewaysLeft<cr>
 nnoremap <silent> ;o <Cmd>SidewaysRight<cr>
 
 "Termdebug {{{1
-nnoremap ;do <Cmd>Termdebug<cr>
-nnoremap ;dO :<c-u>Termdebug
-nnoremap ;db <Cmd>Break<cr>
-nnoremap ;dc <Cmd>Clear<cr>
-nnoremap ;ds <Cmd>Step<cr>
-nnoremap ;dn <Cmd>Next<cr>
-nnoremap ;dc <Cmd>Continue<cr>
-nnoremap ;ds <Cmd>Stop<cr>
-nnoremap ;de <Cmd>Evaluate<cr>
-xnoremap ;de :Evaluate<cr>
-xnoremap ;dd <Cmd>Gdb<cr>
-xnoremap ;dp <Cmd>Program<cr>
-xnoremap ;dt <Cmd>Source<cr>
-nnoremap ;dw :<c-u>call TermDebugSendCommand('watch <c-r>=expand("<cword>")<cr>')<cr>
 
 "visual star search and replace {{{1
 xmap <space>s <Plug>(visualstar-*)``cgn
@@ -669,6 +655,35 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
+
+" nvim-gdb {{{1
+let g:nvimgdb_disable_start_keymaps = v:true
+
+" We're going to define single-letter keymaps, so don't try to define them
+" in the terminal window.  The debugger CLI should continue accepting text commands.
+function! NvimGdbNoTKeymaps()
+  tnoremap <silent> <buffer> <esc> <c-\><c-n>
+endfunction
+
+nnoremap ;dw :<c-u>call GdbCustomCommand('watchpoint set variable <c-r>=expand("<cword>")<cr>')<cr>
+nnoremap ;dg :<c-u>GdbStart gdb<space>
+nnoremap ;dl :<c-u>GdbStartLLDB lldb<space>
+nnoremap ;dp :<c-u>:GdbStartPDB python -m pdb<space>
+
+let g:nvimgdb_config_override = {
+      \ 'key_until':      ';du',
+      \ 'key_continue':   ';dc',
+      \ 'key_next':       ';dn',
+      \ 'key_step':       ';ds',
+      \ 'key_finish':     ';df',
+      \ 'key_breakpoint': ';db',
+      \ 'key_frameup':    '<c-p>',
+      \ 'key_framedown':  '<c-n>',
+      \ 'key_eval':       ';de',
+      \ 'key_quit':       ';dq',
+      \ 'set_tkeymaps': 'NvimGdbNoTKeymaps',
+      \ 'codewin_command': 'belowright vsplit'
+      \ }
 
 "other {{{1
 nnoremap <a-i> <Cmd>Codi<cr>

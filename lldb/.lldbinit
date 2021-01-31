@@ -1,0 +1,5 @@
+settings set target.load-cwd-lldbinit true
+command alias k kill
+type format add --format decimal u8
+type format add --format decimal "unsigned char"
+type format add --format decimal uint8_t
