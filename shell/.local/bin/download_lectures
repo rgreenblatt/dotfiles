@@ -33,4 +33,3 @@ for url, name in items:
         .format(shlex.quote(url), name)
     ],
                      close_fds=True)
-    print("RUN")
