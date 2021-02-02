@@ -95,7 +95,7 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown
+    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown,rust
           \ map <buffer> <Plug>(FormatSelected) <Plug>(coc-format-selected)|
           \ map <buffer> <Plug>(FormatAll) <Plug>(coc-format)
     " Update signature help on jump placeholder
@@ -395,20 +395,6 @@ let g:rust_conceal_mod_path = 1
 let g:rust_conceal_pub = 1
 let g:rust_fold = 2
 let g:rust_recommended_style = 0
-
-function! RustFmtFunc() abort
-  set foldmethod=manual " fix speed issues
-  if line("$") == v:lnum + v:count - 1 && v:lnum == 1
-    RustFmt
-  else
-    execute string(v:lnum) . "," . string(v:lnum + v:count - 1) . "RustFmtRange"
-  endif
-endfunction
-
-augroup RustFmtFunc
-  autocmd!
-  autocmd FileType,BufWrite rust setlocal formatexpr=RustFmtFunc()
-augroup end
 
 " other {{{1
 let g:wordmotion_prefix = ';'
