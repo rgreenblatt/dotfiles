@@ -167,7 +167,7 @@ c.content.cookies.accept = 'all'
 c.downloads.position = 'top'
 c.downloads.remove_finished = 300000
 c.editor.command = [
-    'st', '-e', 'nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l'
+    'i3-sensible-terminal', '-e', 'nvim -f {file} -c normal {line}G{column0}l'
 ]
 
 ## Encoding to use for the editor.

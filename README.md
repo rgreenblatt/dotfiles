@@ -38,7 +38,7 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
   boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
-  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint opam
+  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint opam xfce4-terminal
 
 # consider also aur/cmake-lint
 # Currently failing (and not important): aur/insect and aur/dbg-macro
@@ -145,7 +145,7 @@ After running general installs:
 ```
 npm i -g tldr bash-language-server neovim
 sudo update-alternatives --install /usr/bin/x-terminal-emulator \
-  x-terminal-emulator /usr/local/bin/st 300
+  x-terminal-emulator /usr/bin/xfce4-terminal 300
 ```
 
 Consider running the following to remove ubuntu bloat:
@@ -174,7 +174,6 @@ source ~/.profile
 nvim +PlugInstall +qa
 cd ~/.fzf && ./install --all && cd -
 bat cache --build
-cd ~/.local/etc/st/ && make && sudo make install && cd -
 sudo cp root_configs/usr/local/bin/env_editor /usr/local/bin/env_editor &&
   sudo ln -sf /usr/local/bin/env_editor /usr/bin/editor
 cd ~/.local/share/nvim/plugged/sneak-quick-scope/src && ./build.sh &&
