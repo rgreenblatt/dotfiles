@@ -4,6 +4,3 @@
 [submodule "shell/.zim"]
 	path = shell/.zim
 	url = https://github.com/rgreenblatt/zimfw
-[submodule "st"]
-	path = st/.local/etc/st
-	url = https://github.com/rgreenblatt/st

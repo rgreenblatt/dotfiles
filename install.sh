@@ -126,8 +126,8 @@ if [[ $headless == "false" ]]; then
   mkdir -p ~/.config/qutebrowser
   stow qutebrowser
   stow rtv
-  stow st
   stow zathura
+  stow xfce4-terminal
   ln -sfn "$PWD/keyboard" ~/
   reboot_job="@reboot $PWD/shell/.local/bin/cron_reboot '$PWD/shell' &"
 else
