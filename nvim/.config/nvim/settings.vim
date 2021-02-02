@@ -12,7 +12,6 @@ set expandtab
 set wildmode=longest,list,full
 set wildmenu
 set conceallevel=2
-set colorcolumn=81
 set ignorecase
 set smartcase
 set hidden
