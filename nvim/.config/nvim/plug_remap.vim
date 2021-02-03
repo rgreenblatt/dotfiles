@@ -428,7 +428,7 @@ if IsInstalled('kana/vim-operator-user')
   "selection operators {{{2
   nmap ;;v  <Plug>(operator-select)
   call operator#user#define('select', 'Op_select_region')
-  function! Op_select_region(window_heightmotion_wiseness)
+  function! Op_select_region(motion_wiseness)
     normal! `[v`]
   endfunction
 
@@ -436,12 +436,23 @@ if IsInstalled('kana/vim-operator-user')
   call operator#user#define('select-block', 'Op_select_block')
   function! Op_select_block(window_heightmotion_wiseness)
     exe "normal `[\<c-v>`]"
-
   endfunction
-  nmap ;;V  <Plug>(operator-select-line)
-  call operator#user#define('select-line', 'Op_select_line')
-  function! Op_select_line(window_heightmotion_wiseness)
-    normal! `[V`]
+
+  nmap <a-a>  <Plug>(operator-increment-region)
+  nmap <a-x>  <Plug>(operator-decrement-region)
+  xmap <a-a>  <Plug>(operator-increment-region)
+  xmap <a-x>  <Plug>(operator-decrement-region)
+  call operator#user#define('increment-region', 'Op_increment_region')
+  function! Op_increment_region(motion_wiseness)
+    let start = getpos("'[")
+    let end = getpos("']")
+    exec ":'[,']s/\\d\\+/\\=(submatch(0)+1)/"
+  endfunction
+  call operator#user#define('decrement-region', 'Op_decrement_region')
+  function! Op_decrement_region(motion_wiseness)
+    let start = getpos("'[")
+    let end = getpos("']")
+    exec ":'[,']s/\\d\\+/\\=(submatch(0)-1)/"
   endfunction
 
   nmap <space>wa  <Plug>(operator-adjust)
