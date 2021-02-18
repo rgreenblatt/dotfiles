@@ -9,7 +9,7 @@ augroup FiletypeAutocmds
   autocmd Filetype go setlocal noexpandtab
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd BufRead,BufNewFile *.sbt set filetype=scala
-  autocmd FileType c,cpp,cuda,cs,java setlocal commentstring=//\ %s
+  autocmd FileType c,cpp,asm,cuda,cs,java setlocal commentstring=//\ %s
   autocmd FileType octave setlocal commentstring=\%\ %s
   autocmd FileType gitcommit setlocal foldmethod=syntax
 augroup end

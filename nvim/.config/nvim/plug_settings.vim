@@ -373,6 +373,7 @@ let g:ale_linters = {
       \ 'rust': [],
       \ 'go': [],
       \ 'haskell': [],
+      \ 'asm': [],
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
