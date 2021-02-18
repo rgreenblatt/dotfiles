@@ -43,3 +43,6 @@ subring
 hypergraph
 hyperedge
 hyperedges
+preemptable
+deduplicating
+connectance
