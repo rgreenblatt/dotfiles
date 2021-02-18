@@ -26,7 +26,7 @@ order += "diskdata simplified"
 order += "net_rate rate"
 # order += "apt_updates"
 order += "volume master"
-order += "battery 0"
+order += "battery_level"
 order += "tztime local"
 order += "time"
 
@@ -66,18 +66,18 @@ diskdata simplified {
   format = "dsk: {used_percent}% {total}"
 }
 
-battery 0 {
-  format = "%status %percentage %remaining"
-  format_down = ""
-  last_full_capacity = true
-  integer_battery_capacity = true
-  low_threshold = 11
-  threshold_type = percentage
-  hide_seconds = true
-  format_down = "No battery"
-  status_chr = "CHR"
-  status_bat = "BAT"
-  status_full = "FULL"
+battery_level {
+  format = "B: {percent}%"
+  # format_down = ""
+  # last_full_capacity = true
+  # integer_battery_capacity = true
+  # low_threshold = 11
+  # threshold_type = percentage
+  # hide_seconds = true
+  # format_down = "No battery"
+  # status_chr = "CHR"
+  # status_bat = "BAT"
+  # status_full = "FULL"
 }
 
 tztime local {
