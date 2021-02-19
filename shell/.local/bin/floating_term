@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xfce4-terminal --title="st_floating" --geometry=180x50 -x "$@"
