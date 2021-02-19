@@ -113,6 +113,7 @@ stow latex
 stow gnupg
 stow lldb
 stow gdb
+stow ranger
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
