@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DIR="~"
+if [[ -f "$PERSISTANT_DIR_FILE" ]]; then
+  DIR=$(<"$PERSISTANT_DIR_FILE")
+fi
+
+SAVE_DIR_TO_PERSISTANT=1 floating_term $SHELL -c "cd $DIR; $SHELL -i"

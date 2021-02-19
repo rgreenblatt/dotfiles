@@ -79,6 +79,7 @@ a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
 export SHELLCHECK_OPTS="$a"
 
 export PROFILE_SOURCED=1
+export PERSISTANT_DIR_FILE=~/.cache/persistant_dir.txt
 
 if [ -d "$HOME/.fzf" ]; then #{{{1
   gruvbox_fg_1='#ebdbb2'

@@ -37,6 +37,7 @@ bindsym $mod+q kill
 
 bindsym $mod+space exec floating_term fzf_launch
 bindsym $mod+o exec floating_term open_fzf
+bindsym $mod+Shift+o exec floating_term_shell
 for_window [title="^floating_term$"] floating enable
 
 bindsym $mod+Tab workspace back_and_forth

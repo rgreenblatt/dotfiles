@@ -230,6 +230,9 @@ function precmd() {
     (nvr -c "silent lcd $PWD" &)
     (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
+  if [ -n "${SAVE_DIR_TO_PERSISTANT+x}" ]; then
+    echo $PWD >! $PERSISTANT_DIR_FILE
+  fi
 
   if [[ -n $__udm_last_command_started ]]; then
     now=$(get_now)
