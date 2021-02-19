@@ -5,6 +5,5 @@ if has("nvim")
   tnoremap <C-H> <C-\><C-n>
 endif
 
-let g:startify_commands = [{'t': 'GlobalSharedTerm'}, {'f': 'Files'}]
 let g:startify_custom_header = ""
 let g:startify_custom_footer = ""

@@ -113,6 +113,12 @@ let g:startify_change_to_dir = 0
 let g:startify_files_number = 5
 let g:startify_session_sort = 1
 
+let g:startify_commands = [
+                  \ {'t': 'terminal'}, 
+                  \ {'c': 'Calendar -position=here'},
+                  \ {'r': 'terminal ranger'},
+                  \ {'f': 'Files'}
+                  \]
 
 let g:startify_lists = [
       \ {'type': 'sessions',  'header': [' Sessions']},
