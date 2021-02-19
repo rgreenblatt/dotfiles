@@ -3,5 +3,5 @@
 if [ -t 1 ]; then
   editor "$@"
 else 
-  x-terminal-emulator editor "$@"
+  i3-sensible-terminal -e "editor '$@'"
 fi
