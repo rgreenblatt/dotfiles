@@ -1,8 +1,11 @@
 # pylint: disable=C0111
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
+
 config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
+
+config.load_autoconfig(False)
 
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
@@ -120,11 +123,7 @@ c.content.geolocation = 'ask'
 ## Type: Dict
 c.content.headers.custom = {}
 
-c.content.host_blocking.enabled = True
-c.content.host_blocking.lists = [
-    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts'
-]
-c.content.host_blocking.whitelist = ['piwik.org']
+c.content.blocking.method = 'adblock'
 
 ## Allow JavaScript to read from or write to the clipboard. With
 ## QtWebEngine, writing the clipboard as response to a user interaction
