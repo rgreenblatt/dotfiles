@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+DIR="~"
+if [[ -f "$PERSISTANT_DIR_FILE" ]]; then
+  DIR=$(<"$PERSISTANT_DIR_FILE")
+fi
+
+tmpfile=$(mktemp /tmp/ranger-open-XXXXXXX.txt)
+ranger "$DIR" --choosefile="$tmpfile"
+FILE=$(<"$tmpfile")
+if [[ -n "$FILE" ]]; then
+  dirname "$FILE" > $PERSISTANT_DIR_FILE
+  log=$(mktemp "/tmp/ranger-xdg-open-log-XXXXXX.txt")
+  echo "logging to $log"
+  nohup xdg-open "$FILE" &> "$log" &
+  sleep 0.2
+fi
