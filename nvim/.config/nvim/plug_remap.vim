@@ -667,6 +667,30 @@ omap F <Plug>Sneak_F
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
+" rooter improvements {{{1
+let g:rooter_disable_first_iter = 0
+
+function! NoRooterOneIter()
+  let g:rooter_disable_first_iter = 1
+  let g:rooter_manual_only = 1
+endfunction
+
+function! CheckRooterReenable()
+  if g:rooter_disable_first_iter != 0
+    let g:rooter_disable_first_iter = g:rooter_disable_first_iter - 1
+  else
+    let g:rooter_manual_only = 0
+  endif
+endfunction
+
+augroup RooterReenable
+  autocmd!
+  autocmd BufEnter,BufReadPost,TermOpen * nested call CheckRooterReenable()
+augroup END
+
+nnoremap <silent> <space>p <Cmd>call NoRooterOneIter() <bar> lcd %:p:h<cr>
+nnoremap <space>P <Cmd>call NoRooterOneIter()<cr>:<c-u>lcd<space>
+
 " nvim-gdb {{{1
 let g:nvimgdb_disable_start_keymaps = v:true
 
