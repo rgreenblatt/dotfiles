@@ -216,7 +216,7 @@ CSS = '~/.config/qutebrowser/gruvbox-all-sites.css'
 config.bind('sd', f'config-cycle content.user_stylesheets {CSS} ""')
 config.bind('sz', 'config-cycle zoom.default 100% 67%')
 config.bind('sj', 'config-cycle --print content.javascript.enabled true false')
-BASE_SPAWN_FZF = 'spawn --userscript ~/.local/bin/floating_st'
+BASE_SPAWN_FZF = 'spawn --userscript ~/.local/bin/floating_term'
 config.bind(' o', BASE_SPAWN_FZF + ' fzf_qutebrowser_url')
 config.bind(' O', BASE_SPAWN_FZF + ' fzf_qutebrowser_url -t')
 config.bind(' c', BASE_SPAWN_FZF + ' fzf_qutebrowser_cmd')
