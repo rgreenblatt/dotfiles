@@ -5,8 +5,6 @@ I have almost everything configured to use some variant of the gruvbox theme.
 The keyboard repo contains code for using the event interface through
 python-evdev to contruct arbitrary keyboard layouts. Its undocumented right now.
 
-Submodules in this repo may not be on latest.
-
 ## Installation
 
 This repo should be cloned into the home directory.
@@ -61,99 +59,13 @@ sudo swapon /swapfile
 se /etc/fstab
 ```
 
-### Ubuntu
-
-```
-sudo apt update
-sudo apt install git build-essential i3 python3-pip python-pip zathura \
-  compton xdotool subversion openssh-server ruby-dev curl sqlite3 libx11-dev \
-  libxft-dev xsel xcalib cmake flameshot mpv openvpn hsetroot \
-  unclutter stow pandoc inotify-tools poppler-utils qtcreater fonts-roboto
-sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt install neovim
-mkdir install
-cd install
-wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/install.sh
-mkdir patched-fonts
-cd patched-fonts
-svn export https://github.com/ryanoasis/nerd-fonts/trunk/patched-fonts/Hack
-cd ..
-chmod +x install.sh
-./install.sh
-pip3 install pynvim neovim-remote thefuck evdev bidict watchdog recordclass \
-  rtv cmakelint py3status youtube-dl tox bpython
-sudo python3 -m pip install --upgrade openpyn
-sudo openpyn --init
-pip2 install pynvim
-sudo apt-get install libxcb-render0-dev libffi-dev python-dev python-cffi && \
-  pip3 install flashfocus
-sudo gem install neovim
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh \
-  | bash
-curl -o- -L https://yarnpkg.com/install.sh | bash
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-~/.cargo/bin/cargo install bat exa ripgrep fd-find sd
-sudo apt install -y  git-core gcc make autoconf yodl libncursesw5-dev texinfo \
-  man-db
-git clone https://github.com/zsh-users/zsh && cd zsh && ./Util/preconfig && \
-  ./configure --prefix=/usr \
-    --mandir=/usr/share/man \
-    --bindir=/bin \
-    --infodir=/usr/share/info \
-    --enable-maildir-support \
-    --enable-max-jobtable-size=256 \
-    --enable-etcdir=/etc/zsh \
-    --enable-function-subdirs \
-    --enable-site-fndir=/usr/local/share/zsh/site-functions \
-    --enable-fndir=/usr/share/zsh/functions \
-    --with-tcsetpgrp \
-    --with-term-lib="ncursesw" \
-    --enable-cap \
-    --enable-pcre \
-    --enable-readnullcmd=pager \
-    --enable-custom-patchlevel=Debian \
-    LDFLAGS="-Wl,--as-needed -g" && \
-    make && make check && sudo make install && \
-    command -v zsh | sudo tee -a /etc/shells && chsh -s $(command -v zsh) &&
-    cd ..
-git clone https://github.com/universal-ctags/ctags.git && cd ctags \
-  && ./autogen.sh && ./configure && make && sudo make install && cd ..
-git clone https://github.com/karlch/vimiv && cd vimiv && make && \
-  sudo make install && cd ..
-cd ..
-cd ~/.local/etc/ && git clone https://github.com/qutebrowser/qutebrowser &&
-  cd qutebrowser && python3 scripts/mkvenv.py &&
-  { cat << 'EOF' > ~/.local/bin/qutebrowser_cmd
-#!/usr/bin/env bash
-
-~/.local/etc/qutebrowser/.venv/bin/python3 -m qutebrowser "$@"
-EOF
-  } && chmod +x ~/.local/bin/qutebrowser_cmd
-sudo update-alternatives --config x-www-browser
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin &&
-  ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/ &&
-  cp ~/.local/kitty.app/share/applications/kitty.desktop \
-  ~/.local/share/applications && (cd ~/.local/bin/ &&
-  ln -s kitty x-terminal-emulator) && rm -rf ~/.config/kitty/
-git clone https://github.com/sboli/twmn && cd twmn && qmake && make && \
-  sudo make install && cd ..
-```
-
 Note: install watchman potentially.
 
 After running general installs:
-
 ```
 npm i -g tldr bash-language-server neovim
-sudo update-alternatives --install /usr/bin/x-terminal-emulator \
-  x-terminal-emulator /usr/bin/xfce4-terminal 300
 ```
 
-Consider running the following to remove ubuntu bloat:
-
-```
-sudo apt purge gnome*
-sudo apt purge snapd ubuntu-core-launcher squashfs-tools
-```
 
 ### General
 
@@ -188,8 +100,6 @@ GRUB_CMDLINE_LINUX_DEFAULT="text mitigations=off"
 
 in `/etc/default/grub`.
 Additional language servers and watchmen for coc may also be desirable.
-Consider changing the contents of `/etc/sysctl.d/10-ptrace.conf` from `... = 1`
-to `... = 0` (ubuntu).
 Consider running:
 
 ```
@@ -217,5 +127,5 @@ sudo systemctl enable nvidia-persistenced.service
 
 Considering installing
 [cling](https://github.com/root-project/cling#installation).
-Consider installing lld (the LLVM Linker) and setting it as default using
-`update-alternatives` (or symlinking somewhere - ~/.local/bin preferred).
+Consider installing lld (the LLVM Linker) and setting it as default
+by symlinking to ~/.local/bin.
