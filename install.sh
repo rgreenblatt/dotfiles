@@ -130,43 +130,6 @@ if [[ $headless == "false" ]]; then
   stow zathura
   stow xfce4-terminal
   ln -sfn "$PWD/keyboard" ~/
-  reboot_job="@reboot $PWD/shell/.local/bin/cron_reboot '$PWD/shell' &"
-else
-  reboot_job=""
-fi
-
-if [[ $cronjobs == "true" ]]; then
-  c_start="#start dotfiles install DON'T DELETE THIS COMMENT"
-  mail="MAILTO=ryan_greenblatt@brown.edu"
-  install="cd $PWD && ./sync.sh"
-  install_job="0 4 * * * $install"
-  c_end="#end dotfiles install DON'T DELETE THIS COMMENT"
-
-  full=$(printf '%s\n%s\n%s\n%s\n%s\n ' "$c_start" "$mail" "$reboot_job" \
-    "$install_job" "$c_end")
-
-  current_cron=$(crontab -l 2>/dev/null)
-
-  line_start=$(echo "$current_cron" | grep -Fn -m 1 "$c_start" |
-    grep -Eo '^[^:]+')
-  exit_status=$?
-  if [ "$exit_status" -eq 0 ]; then
-
-    line_end=$(echo "$current_cron" | grep -Fn -m 1 "$c_end" |
-      grep -Eo '^[^:]+')
-    exit_status=$?
-    if [ $exit_status -ne 0 ]; then
-      echo >&2 "first cron tab comment found, but second wasn't found, exiting"
-      exit 1
-    fi
-    sed_end=d
-    current_cron=$(echo "$current_cron" |
-                   sed -e "$line_start,$line_end$sed_end")
-  else
-    echo "cron jobs not found, adding"
-  fi
-
-  echo "$current_cron$full" | crontab -
 fi
 
 if [ ! -d ~/.zgen ]; then
