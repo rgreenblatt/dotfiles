@@ -114,6 +114,7 @@ stow gnupg
 stow lldb
 stow gdb
 stow ranger
+stow systemd
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"

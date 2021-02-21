@@ -1,0 +1,6 @@
+[Unit]
+Description=disable screen
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/env xset dpms force suspend
