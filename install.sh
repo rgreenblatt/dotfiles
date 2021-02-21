@@ -121,7 +121,6 @@ if [[ $headless == "false" ]]; then
   stow flashfocus
   stow i3
   stow i3status
-  stow kitty
   stow misc_desktop
   stow mpv
   # by default, additional files shouldn't be tracked
