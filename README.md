@@ -31,7 +31,7 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   ripgrep bat zathura compton xdotool picom aur/nerd-fonts-hack unclutter \
   aur/twmn-git hsetroot xsel curl sqlite xcalib cmake flameshot mpv stow \
   openvpn pandoc inotify-tools bpython youtube-dl py3status python-pip \
-  neovim-remote python-pynvim thefuck python-evdev aur/python-bidict \
+  neovim-remote python-pynvim python-evdev aur/python-bidict \
   community/python-watchdog aur/openpyn-nordvpn aur/flashfocus-git aur/nvm \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
