@@ -124,6 +124,7 @@ if [[ $headless == "false" ]]; then
   stow i3status
   stow misc_desktop
   stow mpv
+  stow youtube-dl
   # by default, additional files shouldn't be tracked
   mkdir -p ~/.config/qutebrowser
   stow qutebrowser
