@@ -65,7 +65,7 @@ catch /E919/
 endtry
 
 " plugin preload {{{1
-let g:polyglot_disabled = ['latex']
+let g:polyglot_disabled = ['latex', 'markdown']
 "}}}
 
 " vim: set fdm=marker:
