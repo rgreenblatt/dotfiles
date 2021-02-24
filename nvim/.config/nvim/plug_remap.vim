@@ -694,8 +694,6 @@ nnoremap <space>P <Cmd>call NoRooterOneIter()<cr>:<c-u>lcd<space>
 " nvim-gdb {{{1
 let g:nvimgdb_disable_start_keymaps = v:true
 
-" We're going to define single-letter keymaps, so don't try to define them
-" in the terminal window.  The debugger CLI should continue accepting text commands.
 function! NvimGdbNoTKeymaps()
   tnoremap <silent> <buffer> <esc> <c-\><c-n>
 endfunction
@@ -717,7 +715,8 @@ let g:nvimgdb_config_override = {
       \ 'key_eval':       ';de',
       \ 'key_quit':       ';dq',
       \ 'set_tkeymaps': 'NvimGdbNoTKeymaps',
-      \ 'codewin_command': 'belowright vsplit'
+      \ 'codewin_command': 'belowright vsplit',
+      \ 'jump_bottom_gdb_buf': v:false,
       \ }
 
 "other {{{1

@@ -137,7 +137,8 @@ if !g:no_integration_plugins
   call s:PA(['lambdalisue/suda.vim'])
   " call s:PA(['vhdirk/vim-cmake'])
   " call s:PA(['taketwo/vim-ros'])
-  call s:PA(['sakhnik/nvim-gdb', "{ 'do': ':!./install.sh' }"])
+  call s:PA(['sakhnik/nvim-gdb', 
+        \ "{ 'branch': 'lua', 'do': ':!./install.sh' }"])
 endif
 
 "misc {{{2
