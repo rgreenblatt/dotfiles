@@ -696,6 +696,8 @@ let g:nvimgdb_disable_start_keymaps = v:true
 
 function! NvimGdbNoTKeymaps()
   tnoremap <silent> <buffer> <esc> <c-\><c-n>
+  " center buffer (hacky)
+  tnoremap <silent> <buffer> <a-z> <c-\><c-n><c-w>lzz<c-w>hi
 endfunction
 
 nnoremap ;dw :<c-u>call GdbCustomCommand('watchpoint set variable <c-r>=expand("<cword>")<cr>')<cr>
