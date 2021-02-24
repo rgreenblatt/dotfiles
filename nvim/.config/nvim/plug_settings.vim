@@ -104,6 +104,9 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
   augroup end
   hi! CocHighlightText cterm=bold,underline gui=bold,underline
 
+	call coc#config('java.format.settings', 
+        \ { 'url' : $HOME . "/.config/jdt.ls/format.xml"})
+
   "vista {{{2
   let g:vista_fzf_preview = ['right:50%']
   "}}}2

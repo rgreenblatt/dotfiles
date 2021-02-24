@@ -115,6 +115,7 @@ stow lldb
 stow gdb
 stow ranger
 stow systemd
+stow jdt.ls
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
