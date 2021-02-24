@@ -51,18 +51,20 @@ if !g:no_language_plugins
   call s:PA(['KeitaNakamura/tex-conceal.vim'])
   call s:PA(['ludovicchabant/vim-gutentags'])
   call s:PA(['Chiel92/vim-autoformat'])
-  call s:PA(['tpope/vim-markdown'])
   call s:PA(['tpope/vim-apathy'])
   call s:PA(['kana/vim-textobj-function'])
-  call s:PA(['jeetsukumaran/vim-pythonsense'])
-  call s:PA(['ehamberg/vim-cute-python'])
+  " call s:PA(['jeetsukumaran/vim-pythonsense'])
+  " call s:PA(['ehamberg/vim-cute-python'])
+  " call s:PA(['tmhedberg/SimpylFold'])
   call s:PA(['sheerun/vim-polyglot'])
-  call s:PA(['tmhedberg/SimpylFold'])
+  call s:PA(['tpope/vim-markdown'])
 endif
 
 "appearance {{{2
 if !g:no_appearance_plugins
   call s:PA(['gruvbox-community/gruvbox'])
+  " We recommend updating the parsers on update
+  call s:PA(['nvim-treesitter/nvim-treesitter', "{'do': ':TSUpdate'}"])
   call s:PA(['itchyny/lightline.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
   call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
@@ -104,6 +106,7 @@ if !g:no_editing_plugins
   call s:PA(['AndrewRadev/sideways.vim'])
   call s:PA(['vim-scripts/ReplaceWithRegister'])
   call s:PA(['stefandtw/quickfix-reflector.vim'])
+  call s:PA(['nvim-treesitter/nvim-treesitter-textobjects'])
 endif
 
 "navigation/setup {{{2

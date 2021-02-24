@@ -379,6 +379,7 @@ let g:ale_linters = {
       \ 'c': [],
       \ 'objc': [],
       \ 'python': [],
+      \ 'java': [],
       \ 'rust': [],
       \ 'go': [],
       \ 'haskell': [],
@@ -405,6 +406,38 @@ let g:rust_conceal_mod_path = 1
 let g:rust_conceal_pub = 1
 let g:rust_fold = 2
 let g:rust_recommended_style = 0
+
+" tree-sitter {{{1
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = { enable = true },
+  indent = { enable = true },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    -- sideways.vim is better right now
+    -- swap = {
+    --   enable = true,
+    --   swap_next = {
+    --     [";o"] = "@parameter.inner",
+    --   },
+    --   swap_previous = {
+    --     [";y"] = "@parameter.inner",
+    --   },
+    -- },
+  },
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " other {{{1
 let g:wordmotion_prefix = ';'
