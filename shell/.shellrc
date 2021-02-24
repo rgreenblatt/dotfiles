@@ -54,14 +54,9 @@ alias bp='bpython'
 #generic {{{2
 alias cs='cd'
 alias o='xdg-open'
-alias p='preview'
 alias se='sudoedit'
 alias so='source'
 alias sr='sudo reboot'
-# alias calc='insect'
-alias calc='python3'
-a='while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'
-alias stime="$a"
 alias di="disown %"
 alias bgd="bg && disown %"
 alias t='tail -f'
@@ -71,7 +66,8 @@ alias si="du -hs * .[^.]* 2> /dev/null | sort -h"
 alias rf="rm -rf"
 alias tf="tail -f"
 alias cr="cp -r"
-alias sx="exec startx"
+
+# these allow aliases to work
 alias sudo='sudo '
 alias xargs='xargs '
 alias time='time '
