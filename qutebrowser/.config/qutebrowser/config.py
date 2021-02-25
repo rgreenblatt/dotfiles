@@ -1,3 +1,5 @@
+import os
+
 # pylint: disable=C0111
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
@@ -87,13 +89,15 @@ c.editor.command = [
 #   - external: Use an external command.
 c.fileselect.handler = 'external'
 
+persistant_dir = os.environ['HOME'] + '/.cache/persistant_dir_browser.txt'
+
 # Command (and arguments) to use for selecting multiple files in forms.
 # The command should write the selected file paths to the specified
 # file, separated by newlines. The following placeholders are defined: *
 # `{}`: Filename of the file to be written to.
 # Type: ShellCommand
 c.fileselect.single_file.command = [
-    'floating_term', 'ranger', '--choosefile={}'
+    'floating_term', 'file_picker_gen', '{}', 'false', persistant_dir
 ]
 
 # Command (and arguments) to use for selecting a single file in forms.
@@ -102,7 +106,7 @@ c.fileselect.single_file.command = [
 # to be written to.
 # Type: ShellCommand
 c.fileselect.multiple_files.command = [
-    'floating_term', 'ranger', '--choosefiles={}'
+    'floating_term', 'file_picker_gen', '{}', 'true', persistant_dir
 ]
 
 # Characters used for hint strings.

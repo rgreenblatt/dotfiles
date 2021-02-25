@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 file_loc persistant_dir_file"
+  exit 1
+fi
+
+
+floating_term file_picker_gen "$1" "false" 
