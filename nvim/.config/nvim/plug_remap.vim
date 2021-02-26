@@ -505,11 +505,6 @@ xmap <space>S <Plug>(visualstar-#)``cgN
 nnoremap <a-m> <Cmd>Make<cr>
 nnoremap <a-,> <Cmd>Make!<cr>
 
-""vim-cmake {{{1
-"nnoremap <a-b> <Cmd>CMake<cr>
-"nnoremap <a-.> <Cmd>CMake!<cr>
-"nnoremap <a-/> <Cmd>CMakeClean<cr>
-
 "sandwich {{{1
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
