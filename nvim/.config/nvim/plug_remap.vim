@@ -501,9 +501,14 @@ nnoremap <silent> ;o <Cmd>SidewaysRight<cr>
 xmap <space>s <Plug>(visualstar-*)``cgn
 xmap <space>S <Plug>(visualstar-#)``cgN
 
-"dispatch {{{1
-nnoremap <a-m> <Cmd>Make<cr>
-nnoremap <a-,> <Cmd>Make!<cr>
+"make (using dispatch) {{{1
+let g:compiler_args = ""
+
+command! -bang -nargs=* -range=-1 -complete=customlist,dispatch#make_complete RMake
+      \ execute "Make<bang>" g:compiler_args <q-args>
+
+nnoremap <a-m> <Cmd>RMake<cr>
+nnoremap <a-,> <Cmd>RMake!<cr>
 
 "sandwich {{{1
 let g:sandwich_no_default_key_mappings = 1
