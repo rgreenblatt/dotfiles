@@ -153,6 +153,22 @@ function! FloatingFullscreen()
   return win_id
 endfunction
 
+let g:window_key_prefix = "<space>"
+let g:window_key_mappings = [
+            \ ["h", "aboveleft vsplit"],
+            \ ["j", "belowright split"],
+            \ ["k", "aboveleft split"],
+            \ ["l", "belowright vsplit"],
+            \ [";", "call FloatingFullscreen()"],
+            \ [",", 
+            \ "let buf = bufnr('%') <bar> tabnew <bar> execute 'buffer' buf"],
+            \ [".", ""],
+            \ ["H", "topleft vsplit"],
+            \ ["J", "botright split"],
+            \ ["K", "topleft split"],
+            \ ["L", "botright vsplit"],
+            \ ]
+
 function! MapWinCmd(key, command, apply_enter)
   if a:apply_enter
     let suffix = ""
@@ -160,21 +176,10 @@ function! MapWinCmd(key, command, apply_enter)
     let suffix = "<cr>"
   endif
 
-  for key_mapping in [
-        \ ["h", "aboveleft vsplit"],
-        \ ["j", "belowright split"],
-        \ ["k", "aboveleft split"],
-        \ ["l", "belowright vsplit"],
-        \ [";", "call FloatingFullscreen()"],
-        \ [",", "let buf = bufnr('%') <bar> tabnew <bar> execute 'buffer' buf"],
-        \ [".", ""],
-        \ ["H", "topleft vsplit"],
-        \ ["J", "botright split"],
-        \ ["K", "topleft split"],
-        \ ["L", "botright vsplit"],
-        \ ]
-    execute "nnoremap <space>" . key_mapping[0] . a:key . " <Cmd>" .
-          \ key_mapping[1] . "<cr>:<c-u>" . a:command . suffix
+  for key_mapping in g:window_key_mappings
+      execute "nnoremap " . g:window_key_prefix . key_mapping[0] . a:key . 
+                  \ " <Cmd>" . key_mapping[1] . "<cr>:<c-u>" . a:command .
+                  \ suffix
   endfor
 endfunction
 

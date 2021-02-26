@@ -69,7 +69,7 @@ nnoremap <F8> :<c-u>call RgPreviewHidden('','')<left><left><left><left><left>
 nnoremap <F9> <Cmd>terminal<cr>
 
 "dirvish in new window {{{1
-call MapWinCmd("d", "Dirvish", 0)
+call MapWinCmd("D", "Dirvish", 0)
 
 "startify in new window {{{1
 call MapWinCmd("s", "Startify", 0)
@@ -701,9 +701,7 @@ function! NvimGdbNoTKeymaps()
 endfunction
 
 nnoremap ;dw :<c-u>call GdbCustomCommand('watchpoint set variable <c-r>=expand("<cword>")<cr>')<cr>
-nnoremap ;dg :<c-u>GdbStart gdb<space>
-nnoremap ;dl :<c-u>GdbStartLLDB lldb<space>
-nnoremap ;dp :<c-u>:GdbStartPDB python -m pdb<space>
+let g:default_debug_command = "GdbStartLLDB lldb"
 
 let g:nvimgdb_config_override = {
       \ 'key_until':      ';du',
@@ -718,8 +716,23 @@ let g:nvimgdb_config_override = {
       \ 'key_quit':       ';dq',
       \ 'set_tkeymaps': 'NvimGdbNoTKeymaps',
       \ 'codewin_command': 'belowright vsplit',
+      \ 'termwin_command': 'belowleft vsplit',
       \ 'jump_bottom_gdb_buf': v:false,
       \ }
+
+for key_mapping in g:window_key_mappings
+    let s:win_var = "g:nvimgdb_termwin_command"
+    for key_setup in [
+          \ ["d", "<c-r>=g:default_debug_command<cr>"],
+          \ ["g", "GdbStart gdb"],
+          \ ["l", "GdbStartLLDB lldb"],
+          \ ["p", "GdbStartPDB python -m pdb"]
+          \]
+    execute "nnoremap " . g:window_key_prefix . key_mapping[0] . "d" .
+          \ key_setup[0] " <Cmd>let" s:win_var "='" .  key_mapping[1] . "'<cr>:<c-u>" . 
+          \ key_setup[1] . "<space>"
+    endfor
+endfor
 
 "other {{{1
 nnoremap <a-i> <Cmd>Codi<cr>
