@@ -120,7 +120,6 @@ if !no_setup_plugins
   call s:PA(['kristijanhusak/vim-dirvish-git'])
   call s:PA(['embear/vim-localvimrc'])
   call s:PA(['airblade/vim-rooter'])
-  call s:PA(['romainl/vim-qf'])
   call s:PA(['tpope/vim-dispatch'])
   call s:PA(['radenling/vim-dispatch-neovim'])
   call s:PA(['skywind3000/asyncrun.vim'])

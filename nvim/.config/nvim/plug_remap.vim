@@ -634,16 +634,6 @@ else
   noremap <silent> ;m <Cmd>ToggleMacroMode<CR>
 endif
 
-"vim qf {{{1
-nmap [q <Plug>(qf_qf_previous)
-nmap ]q <Plug>(qf_qf_next)
-nmap [l <Plug>(qf_loc_previous)
-nmap ]l <Plug>(qf_loc_next)
-nmap <c-s> <Plug>(qf_qf_switch)
-nmap yoq <Plug>(qf_qf_toggle)
-"overrides a unimpared mapping, but I don't use that mapping
-nmap yol <Plug>(qf_loc_toggle)
-
 "ale {{{1
 nmap [a <Plug>(ale_previous_wrap)
 nmap ]a <Plug>(ale_next_wrap)
