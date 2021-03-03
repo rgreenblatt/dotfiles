@@ -3,20 +3,23 @@
 import argparse
 from contextlib import redirect_stdout
 
-from sympy import latex, simplify, expand, factor
+from sympy import latex, simplify, expand, factor, solve
 from sympy.parsing.latex import parse_latex
 
 
-def main(l_expr, order, should_expand, apply_float, apply_factor):
+def main(l_expr, order, should_expand, apply_float, apply_factor, apply_solve):
     with redirect_stdout(None):
         expr = parse_latex(l_expr)
-    expr = simplify(expr.doit())
-    if should_expand:
-        expr = expand(expr)
-    if apply_float:
-        expr = expr.evalf()
-    if apply_factor:
-        expr = factor(expr)
+    if apply_solve:
+        expr = solve(expr)
+    else:
+        expr = simplify(expr.doit())
+        if should_expand:
+            expr = expand(expr)
+        if apply_float:
+            expr = expr.evalf()
+        if apply_factor:
+            expr = factor(expr)
     print(latex(expr, order=order))
 
 
@@ -29,8 +32,9 @@ if __name__ == "__main__":
     parser.add_argument('--expand', action='store_true', help='run expand')
     parser.add_argument('--float', action='store_true', help='to float')
     parser.add_argument('--factor', action='store_true', help='apply factoring')
+    parser.add_argument('--solve', action='store_true', help='solve equation')
 
     args = parser.parse_args()
 
     main(args.expr, 'rev-lex' if args.flip else 'lex', args.expand, args.float,
-         args.factor)
+         args.factor, args.solve)
