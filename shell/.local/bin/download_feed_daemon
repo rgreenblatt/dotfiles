@@ -2,7 +2,6 @@
 
 import os
 import argparse
-import datetime
 import time
 
 import youtube_dl
@@ -14,14 +13,10 @@ def download_feed(url, path, name, restrict_filenames, n_days):
     os.makedirs(path, exist_ok=True)
     archive_file_name = 'download_archive.txt'
     opts = {
-        'download_archive':
-        os.path.join(path, archive_file_name),
-        'outtmpl':
-        os.path.join(path, r'%(upload_date)s_%(title)s.%(ext)s'),
-        'restrictfilenames':
-        restrict_filenames,
-        'daterange':
-        youtube_dl.DateRange(start='now-{}day'.format(n_days)),
+        'download_archive': os.path.join(path, archive_file_name),
+        'outtmpl': os.path.join(path, r'%(upload_date)s_%(title)s.%(ext)s'),
+        'restrictfilenames': restrict_filenames,
+        'daterange': youtube_dl.DateRange(start='now-{}day'.format(n_days)),
     }
 
     def get_files():
@@ -31,18 +26,22 @@ def download_feed(url, path, name, restrict_filenames, n_days):
         last_files = get_files()
         notify2.init('feed downloader {}'.format(name))
         while True:
-            ydl.download([url])
-            new_files = get_files()
-            diff = new_files - last_files
+            try:
+                ydl.download([url])
+                new_files = get_files()
+                diff = new_files - last_files
 
-            if diff:
-                n = notify2.Notification("New downloads for {}".format(name),
-                                         '\n'.join(diff), '')
-                n.show()
-                print("New:")
-                print(diff)
-            last_files = new_files
-            time.sleep(5 * 60)
+                if diff:
+                    n = notify2.Notification(
+                        "New downloads for {}".format(name), '\n'.join(diff),
+                        '')
+                    n.show()
+                    print("New:")
+                    print(diff)
+                last_files = new_files
+                time.sleep(5 * 60)
+            except Exception as e:
+                print("Exception:", e)
 
 
 if __name__ == "__main__":
