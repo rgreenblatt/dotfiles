@@ -272,11 +272,6 @@ highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
 highlight link ALEVirtualTextStyleError ALEVirtualTextError
 highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
 
-"ros {{{1
-let g:ros_build_system = 'catkin-tools'
-"is this really needed?
-let g:ros_catkin_make_options = '-DCMAKE_EXPORT_COMPILE_COMMANDS=1'
-
 "rust {{{1
 let g:rust_conceal = 0
 let g:rust_conceal_mod_path = 1
