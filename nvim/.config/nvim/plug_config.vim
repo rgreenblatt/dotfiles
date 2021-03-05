@@ -1,4 +1,56 @@
+"colorscheme{{{1
+if IsInstalled('gruvbox-community/gruvbox')
+  let g:gruvbox_contrast_dark = 'hard'
+  let g:gruvbox_italic = 1
+  " let g:gruvbox_guisp_fallback = 'fg'
+  colorscheme gruvbox
+
+  function! SetColors()
+    highlight TermCursor ctermfg=Red guifg=Red
+    highlight link StartifyFooter GruvboxOrange
+    if &background == 'dark'
+      highlight Pmenu ctermfg=223 ctermbg=239 guifg=#ebdbb2 guibg=#282828
+      highlight CursorLine ctermbg=239 guibg=#282828
+      highlight CursorLineNr ctermbg=239 guibg=#282828
+    endif
+    highlight TerminalNormal cterm=reverse gui=reverse ctermfg=Blue guifg=Blue
+    highlight TerminalInsert cterm=reverse gui=reverse ctermfg=Red guifg=Red
+
+    highlight! link gitmessengerHeader GruvboxBlue
+    highlight! link gitmessengerHash GruvboxYellow
+    highlight! link gitmessengerHistory GruvboxRed
+    highlight! link gitmessengerPopupNormal Pmenu
+    highlight! link gitmessengerEndOfBuffer Pmenu
+  endfunction
+
+  augroup ColorSets
+    autocmd!
+    autocmd ColorScheme * call SetColors()
+  augroup end
+
+  call SetColors()
+
+  function! s:ZshVIMModeEnterInsert()
+    setlocal winhighlight=TermCursor:TerminalInsert
+    redraw
+  endfunction
+
+  function! s:ZshVIMModeExitInsert()
+    setlocal winhighlight=TermCursor:TerminalNormal
+    redraw
+  endfunction
+
+  command! -nargs=0 ZshVIMModeExitInsert call s:ZshVIMModeExitInsert()
+  command! -nargs=0 ZshVIMModeEnterInsert call s:ZshVIMModeEnterInsert()
+else
+  command! -nargs=0 ZshVIMModeExitInsert echo "normal"
+  command! -nargs=0 ZshVIMModeEnterInsert echo "insert"
+endif
+
 "better jumping (uses vim-EnhancedJumps) {{{1
+let g:EnhancedJumps_CaptureJumpMessages = 0
+let g:EnhancedJumps_UseTab = 0
+
 function! MapTab()
   if IsInstalled('neoclide/coc.nvim')
     noremap <silent><expr> <tab>
@@ -26,7 +78,26 @@ nmap <space><s-tab> <Plug>EnhancedJumpsRemoteNewer
 nmap z;  <Plug>EnhancedJumpsFarFallbackChangeOlder
 nmap z,  <Plug>EnhancedJumpsFarFallbackChangeNewer
 
-"fzf maps {{{1
+"fzf {{{1
+if IsInstalled('junegunn/fzf') && IsInstalled('rgreenblatt/fzf.vim')
+  function! RgPreview(args, extra_args)
+    call fzf#vim#grep("rg --column --line-number --no-heading " .
+          \ "--color=always --smart-case " . a:extra_args . " " .
+          \ shellescape(a:args), 1, {'options' :
+          \ fzf#vim#with_preview('right:50%').options +
+          \ ['--bind', 'alt-e:execute-silent(remote_tab_open_grep {} &)']})
+  endfunction
+
+  function! RgPreviewHidden(args, extra_args)
+    call RgPreview(a:args, '--hidden --glob "!.git/*" ' . a:extra_args)
+  endfunction
+
+  command! -nargs=* RgPreview call RgPreview(<q-args>, '')
+  command! -nargs=* RgPreviewHidden call RgPreviewHidden(<q-args>, '')
+endif
+
+let g:fzf_layout = { 'window': 'call FloatingFullscreen() | enew' }
+
 call MapWinCmd("f", "Files", 0)
 call MapWinCmd("F", "Files ", 1)
 call MapWinCmd("'", "GFiles?", 0)
@@ -58,6 +129,7 @@ nnoremap <M-C-H> <Cmd>History/<cr>
 nnoremap <M-C-P> <Cmd>Lines<cr>
 nnoremap <space>: <Cmd>History:<cr>
 
+" TODO unify and cleanup!
 nnoremap <F1> :<c-u>RgPreviewHidden<space>
 nnoremap <F2> <Cmd>Buffers<cr>
 nnoremap <F3> <Cmd>GFiles<cr>
@@ -68,14 +140,94 @@ nnoremap <F7> <Cmd>Commits<cr>
 nnoremap <F8> :<c-u>call RgPreviewHidden('','')<left><left><left><left><left>
 nnoremap <F9> <Cmd>terminal<cr>
 
-"dirvish in new window {{{1
+"dirvish {{{1
+function! DirvishFoldHiddenText()
+  let names = []
+  let i = v:foldstart
+  while i <= v:foldend
+    call add(names, matchlist(getline(i), '\/\(\(.*\/.\)\@!.*$\)')[1])
+    let i += 1
+  endwhile
+  return join(names, " ")
+endfunction
+
+function! DirvishSetup()
+  "This assumes it is sorted with hidden at bottom which should be true
+  let hidden_pattern = '\(\/\.\)\@<=\(.*\/.\)\@!'
+  let line_first_hidden = search(hidden_pattern)
+  if line_first_hidden
+    let sort_dirs = 'sort ,^.*[\/],'
+    execute string(line_first_hidden) . ',$' . sort_dirs
+    if line_first_hidden > 1
+      execute '1,' . string(line_first_hidden - 1) . sort_dirs
+    endif
+  else
+    sort ,^.*[\/],
+  endif
+  execute 'setlocal foldexpr=' . escape("match(getline(v:lnum), '" .
+        \ hidden_pattern . "') != -1", ' \')
+  setlocal foldmethod=expr
+  setlocal foldtext=DirvishFoldHiddenText()
+endfunction
+
+let g:dirvish_mode = 'call DirvishSetup()'
+
 call MapWinCmd("D", "Dirvish", 0)
 
-"startify in new window {{{1
-call MapWinCmd("s", "Startify", 0)
-
 if IsInstalled('neoclide/coc.nvim') " {{{1
-  "coc remaps {{{2
+  "coc {{{2
+  let g:coc_global_extensions = [
+        \ 'coc-word',
+        \ 'coc-tag',
+        \ 'coc-lists',
+        \ 'coc-syntax',
+        \ 'coc-dictionary',
+        \ 'coc-pyright',
+        \ 'coc-json',
+        \ 'coc-java',
+        \ 'coc-vimtex',
+        \ 'coc-yaml',
+        \ 'coc-rust-analyzer',
+        \ 'coc-git',
+        \ 'coc-highlight',
+        \ 'coc-vimlsp',
+        \ 'coc-snippets',
+        \ 'coc-go',
+        \ 'coc-prettier',
+        \ 'coc-sh',
+        \]
+
+  function! CocRunHighlight()
+    if !exists('g:coc_disable_highlight') ||  !g:coc_disable_highlight
+      call CocActionAsync('highlight')
+    endif
+  endfunction
+
+  command! CocDisableHighlight let g:coc_disable_highlight = 1
+  command! CocEnableHighlight let g:coc_disable_highlight = 0
+  command! CocToggleHighlight let g:coc_disable_highlight =
+        \ !g:coc_disable_highlight
+
+  highlight! link CocErrorHighlight SpellBad
+  highlight CocWarningHighlight cterm=undercurl gui=undercurl guisp=#fabd2f
+  highlight CocWarningSign ctermfg=214 guifg=#fabd2f ctermbg=234 guibg=#1d2021
+  highlight CocErrorSign ctermfg=167 guifg=#fb4934 ctermbg=234 guibg=#1d2021
+
+  augroup CocGenericAutocmds
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown,rust
+          \ map <buffer> <Plug>(FormatSelected) <Plug>(coc-format-selected)|
+          \ map <buffer> <Plug>(FormatAll) <Plug>(coc-format)
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd CursorHold * silent call CocRunHighlight()
+  augroup end
+  hi! CocHighlightText cterm=bold,underline gui=bold,underline
+
+	call coc#config('java.format.settings', 
+        \ { 'url' : $HOME . "/.config/jdt.ls/format.xml"})
+
   " use <tab> for trigger completion and navigate to next complete item
   function! s:check_back_space() abort
     let col = col('.') - 1
@@ -161,11 +313,59 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
 
 
   "vista {{{2
+  let g:vista_fzf_preview = ['right:50%']
   nnoremap <silent> <space>V <Cmd>Vista!!<cr>
   "}}}2
 endif
 
+"startify {{{1
+let g:startify_change_to_dir = 0
+let g:startify_files_number = 5
+let g:startify_session_sort = 1
+
+let g:startify_commands = [
+                  \ {'t': 'terminal'}, 
+                  \ {'c': 'Calendar -position=here'},
+                  \ {'r': 'terminal ranger'},
+                  \ {'f': 'Files'}
+                  \]
+
+let g:startify_lists = [
+      \ {'type': 'sessions',  'header': [' Sessions']},
+      \ {'type': 'bookmarks', 'header': [' Bookmarks']},
+      \ {'type': 'commands',  'header': [' Commands']},
+      \ {'type': 'files',     'header': [' Recent']},
+      \ ]
+"possible additonal entry
+"      \ { 'type': 'dir',       'header': ['   Recent: '. getcwd()] },
+
+let g:startify_skiplist = [
+      \ 'init.vim',
+      \ 'config',
+      \ 'config.py'
+      \ ]
+
+call MapWinCmd("s", "Startify", 0)
+
+"calender {{{1
+let g:calendar_google_task = 1
+let g:calendar_google_calendar = 1
+let g:calendar_view = 'week'
+let g:calendar_cyclic_view = 1
+
+augroup calendar-mappings
+  autocmd!
+  autocmd FileType calendar nunmap <buffer> <space>
+augroup end
+
 "vimtex {{{1
+let g:tex_conceal="abdgm"
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_progname = 'nvr'
+let g:tex_flavor = "latex"
+
 let g:vimtex_mappings_enabled = 0
 
 " nmap  <space>xi   <plug>(vimtex-info)
@@ -232,6 +432,8 @@ if IsInstalled('bfredl/nvim-miniyank')
 
   nmap ;n <Plug>(miniyank-cycle)
   nmap ;N <Plug>(miniyank-cycleback)
+
+  let g:miniyank_maxitems = 100
 endif
 
 "custom operators {{{1
@@ -495,13 +697,13 @@ nnoremap <silent> ;l <Cmd>SidewaysJumpRight<cr>
 nnoremap <silent> ;y <Cmd>SidewaysLeft<cr>
 nnoremap <silent> ;o <Cmd>SidewaysRight<cr>
 
-"Termdebug {{{1
-
 "visual star search and replace {{{1
 xmap <space>s <Plug>(visualstar-*)``cgn
 xmap <space>S <Plug>(visualstar-#)``cgN
 
-"make (using dispatch) {{{1
+" dispatch {{{1
+let g:dispatch_no_maps = 1
+
 let g:compiler_args = ""
 
 command! -bang -nargs=* -range=-1 -complete=customlist,dispatch#make_complete RMake
@@ -541,6 +743,10 @@ xmap <space>ar <Plug>(operator-sandwich-replace)
 " xmap as <Plug>(textobj-sandwich-query-a)
 
 "wintabs {{{1
+let g:wintabs_delete_buffers = 0
+let g:wintabs_autoclose_vimtab = 1
+let g:wintabs_buffer_limit = 5
+
 nmap <a-n> <Plug>(wintabs_previous)
 nmap <a-.> <Plug>(wintabs_next)
 nmap <space>q <Plug>(wintabs_close)
@@ -635,6 +841,36 @@ else
 endif
 
 "ale {{{1
+let g:ale_virtualtext_cursor = 1
+let g:ale_sign_error = "❌"
+let g:ale_sign_warning = "‼"
+let g:ale_virtualtext_prefix = "◀ "
+
+let g:ale_disable_lsp = 1
+" let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
+let g:ale_linters = {
+      \ 'cpp': [],
+      \ 'cuda': [],
+      \ 'objcpp': [],
+      \ 'c': [],
+      \ 'objc': [],
+      \ 'python': [],
+      \ 'java': [],
+      \ 'rust': [],
+      \ 'go': [],
+      \ 'haskell': [],
+      \ 'asm': [],
+      \ }
+let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
+
+highlight ALEVirtualTextError
+      \ cterm=italic ctermfg=167 gui=italic guifg=#fb4934
+highlight ALEVirtualTextWarning
+      \ cterm=italic ctermfg=214 gui=italic guifg=#fabd2f
+highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
+highlight link ALEVirtualTextStyleError ALEVirtualTextError
+highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
+
 nmap [a <Plug>(ale_previous_wrap)
 nmap ]a <Plug>(ale_next_wrap)
 nmap [A <Plug>(ale_first)
@@ -642,6 +878,9 @@ nmap ]A <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
 " sneak: fFtT {{{1
+let g:sneak#s_next = 1
+let g:sneak#absolute_dir = 0
+
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
@@ -657,7 +896,14 @@ omap F <Plug>Sneak_F
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-" rooter improvements {{{1
+" rooter {{{1
+let g:rooter_cd_cmd = 'lcd'
+let g:rooter_silent_chdir = 1
+let g:rooter_resolve_links = 1
+let g:rooter_patterns = ['.root', 'build.sbt', 'stack.yaml', 'package.xml',
+      \ 'build.sh', '.ccls', 'compile_commands.json', '.git', '.git/',
+      \ '_darcs/', '.hg/', '.bzr/', '.svn/']
+
 let g:rooter_disable_first_iter = 0
 
 function! NoRooterOneIter()
@@ -725,6 +971,7 @@ for key_mapping in g:window_key_mappings
 endfor
 
 "undotree {{{1
+let g:undotree_ShortIndicators = 1
 function! UndoTreeToggleSet(value)
   let g:undotree_RelativeTimestamp = a:value
   UndotreeToggle
@@ -735,11 +982,81 @@ command! -nargs=0 RelUndotreeToggle call UndoTreeToggleSet(1)
 nnoremap <a-u> <Cmd>RelUndotreeToggle<cr>
 nnoremap <a-t> <Cmd>TimestampUndotreeToggle<cr>
 
+"autoformat {{{1
+augroup AutoformatAutocmds
+  autocmd!
+  autocmd FileType,BufWrite cmake,go,zig,ocaml,sh
+        \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
+        \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
+augroup end
+
+let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
+let g:formatters_cmake = ['cmake_format']
+let g:formatdef_zig_fmt = '"zig fmt --stdin"'
+let g:formatters_zig = ['zig_fmt']
+
+"polyglot and associated plugins: {{{1
+"if I ever start working with csvs some, look into plugin
+let g:no_csv_maps = 1
+
+"rust {{{1
+let g:rust_conceal = 0
+let g:rust_conceal_mod_path = 1
+let g:rust_conceal_pub = 1
+let g:rust_fold = 2
+let g:rust_recommended_style = 0
+
+" tree-sitter {{{1
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = { enable = true },
+  -- indent = { enable = true },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    -- sideways.vim is better right now
+    -- swap = {
+    --   enable = true,
+    --   swap_next = {
+    --     [";o"] = "@parameter.inner",
+    --   },
+    --   swap_previous = {
+    --     [";y"] = "@parameter.inner",
+    --   },
+    -- },
+  },
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+
 "other {{{1
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
+let g:windowswap_map_keys = 0
 nnoremap <silent> <space>v <Cmd>call WindowSwap#EasyWindowSwap()<CR>
 nmap <space>g <Plug>(git-messenger)
 let g:targets_nl = 'nN'
+let g:wordmotion_prefix = ';'
+let g:lion_squeeze_spaces = 1
+let g:mwAutoLoadMarks = 1
+let g:gutentags_cache_dir = '~/.tags'
+let g:highlightedyank_highlight_duration = 200
+let g:localvimrc_name = ['.config/local_init.vim']
+let g:localvimrc_whitelist = [$HOME . '/dotfiles', $HOME . '/documents']
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]
+let g:zig_fmt_autosave = 0
 "}}}1
 
 " vim: set fdm=marker:
