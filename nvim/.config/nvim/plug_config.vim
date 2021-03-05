@@ -318,7 +318,6 @@ let g:startify_session_sort = 1
 
 let g:startify_commands = [
                   \ {'t': 'terminal'}, 
-                  \ {'c': 'Calendar -position=here'},
                   \ {'r': 'terminal ranger'},
                   \ {'f': 'Files'}
                   \]
@@ -339,17 +338,6 @@ let g:startify_skiplist = [
       \ ]
 
 call MapWinCmd("s", "Startify", 0)
-
-"calender {{{1
-let g:calendar_google_task = 1
-let g:calendar_google_calendar = 1
-let g:calendar_view = 'week'
-let g:calendar_cyclic_view = 1
-
-augroup calendar-mappings
-  autocmd!
-  autocmd FileType calendar nunmap <buffer> <space>
-augroup end
 
 "vimtex {{{1
 let g:tex_conceal="abdgm"

@@ -119,7 +119,6 @@ endif
 
 "integrations {{{2
 if !g:no_integration_plugins
-  call s:PA(['itchyny/calendar.vim'])
   call s:PA(['makerj/vim-pdf'])
   call s:PA(['tpope/vim-fugitive'])
   call s:PA(['tpope/vim-rhubarb'])
