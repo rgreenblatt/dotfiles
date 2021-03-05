@@ -195,7 +195,6 @@ augroup end
 
 let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
-" let g:formatdef_zig_format = '"zig fmt --tab-size " . &shiftwidth . " -"'
 let g:formatdef_zig_fmt = '"zig fmt --stdin"'
 let g:formatters_zig = ['zig_fmt']
 "
