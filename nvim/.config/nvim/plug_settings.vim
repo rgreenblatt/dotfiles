@@ -157,19 +157,6 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = "latex"
 
-"c/cpp folding {{{1
-let g:fold_options = {
-      \ 'fallback_method' : { 'line_threshold' : 2000,
-      \ 'method' : 'syntax' },
-      \ 'fold_blank': 0,
-      \ 'fold_includes': 1,
-      \ 'max_foldline_length': 'win',
-      \ 'merge_comments' : 1,
-      \ 'show_if_and_else': 1,
-      \ 'strip_namespaces': 1,
-      \ 'strip_template_arguments': 1
-      \ }
-
 " sneak: fFtT {{{1
 let g:sneak#s_next = 1
 let g:sneak#absolute_dir = 0
