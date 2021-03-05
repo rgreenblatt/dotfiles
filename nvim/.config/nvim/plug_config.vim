@@ -372,11 +372,6 @@ nmap  <space>xe   <plug>(vimtex-errors)
 " nmap  <space>xX   <plug>(vimtex-reload-state)
 " nmap  <space>xs   <plug>(vimtex-toggle-main)
 
-""insertchar options {{{1
-"let g:insert_char_no_default_mapping = 1
-"nmap <space>s <Plug>InsertChar
-"nmap <space>S <Plug>InsertCharAfter
-"
 "yankring {{{1
 if IsInstalled('bfredl/nvim-miniyank')
   function! FZFYankList() abort
