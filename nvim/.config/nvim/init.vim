@@ -44,7 +44,6 @@ execute 'source ' . config_path . '/abbr.vim'
 execute 'source ' . config_path . '/plug.vim'
 execute 'source ' . config_path . '/plug_settings.vim'
 execute 'source ' . config_path . '/plug_remap.vim'
-execute 'source ' . config_path . '/coc_fzf.vim'
 execute 'source ' . config_path . '/statusline.vim'
 "}}}1
 
