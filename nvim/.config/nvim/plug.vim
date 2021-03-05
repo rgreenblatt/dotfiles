@@ -53,9 +53,6 @@ if !g:no_language_plugins
   call s:PA(['Chiel92/vim-autoformat'])
   call s:PA(['tpope/vim-apathy'])
   call s:PA(['kana/vim-textobj-function'])
-  " call s:PA(['jeetsukumaran/vim-pythonsense'])
-  " call s:PA(['ehamberg/vim-cute-python'])
-  " call s:PA(['tmhedberg/SimpylFold'])
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tpope/vim-markdown'])
 endif
@@ -73,8 +70,6 @@ endif
 "general editing {{{2
 if !g:no_editing_plugins
   call s:PA(['wellle/targets.vim'])
-  " vim-sneak can do the same thing but better?
-  " call s:PA(['rhysd/clever-f.vim'])
   call s:PA(['unblevable/quick-scope'])
   call s:PA(['justinmk/vim-sneak'])
   call s:PA(['inkarkat/vim-ingo-library'])
@@ -94,10 +89,7 @@ if !g:no_editing_plugins
   call s:PA(['buztard/vim-rel-jump'])
   call s:PA(['chaoren/vim-wordmotion'])
   call s:PA(['bfredl/nvim-miniyank'])
-  " call s:PA(['luochen1990/rainbow'])
   call s:PA(['kshenoy/vim-signature'])
-  " call s:PA(['simnalamburt/vim-mundo'])
-  " TODO: try this one
   call s:PA(['mbbill/undotree'])
   call s:PA(['romainl/vim-cool'])
   call s:PA(['wsdjeg/vim-fetch'])
@@ -135,8 +127,6 @@ if !g:no_integration_plugins
   call s:PA(['rhysd/git-messenger.vim'])
   call s:PA(['tpope/vim-eunuch'])
   call s:PA(['lambdalisue/suda.vim'])
-  " call s:PA(['vhdirk/vim-cmake'])
-  " call s:PA(['taketwo/vim-ros'])
   call s:PA(['sakhnik/nvim-gdb', 
         \ "{ 'branch': 'lua', 'do': ':!./install.sh' }"])
 endif

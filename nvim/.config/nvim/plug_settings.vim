@@ -157,28 +157,6 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = "latex"
 
-""semshi {{{1
-"let g:semshi#error_sign = v:false
-"let g:semshi#simplify_markup = v:false
-
-""chromatica {{{1
-"let g:chromatica#libclang_path = '/usr/lib/llvm-7/lib/libclang.so'
-"" augroup ChromaticaStartup
-""     autocmd!
-""     autocmd FileType c,cpp,cuda ChromaticaStart
-"" augroup end
-"let g:chromatica#global_args = [
-"      \ '-isystem /usr/lib/llvm-7/lib/clang/7.0.0/include'
-"      \ ]
-"let g:chromatica#responsive_mode = 1
-
-"codi {{{1
-let g:codi#interpreters = {
-      \ 'python': {
-      \ 'bin': 'python3',
-      \ },
-      \ }
-
 "c/cpp folding {{{1
 let g:fold_options = {
       \ 'fallback_method' : { 'line_threshold' : 2000,

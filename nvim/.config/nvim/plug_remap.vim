@@ -736,7 +736,6 @@ nnoremap <a-u> <Cmd>RelUndotreeToggle<cr>
 nnoremap <a-t> <Cmd>TimestampUndotreeToggle<cr>
 
 "other {{{1
-nnoremap <a-i> <Cmd>Codi<cr>
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
 nnoremap <silent> <space>v <Cmd>call WindowSwap#EasyWindowSwap()<CR>
 nmap <space>g <Plug>(git-messenger)
