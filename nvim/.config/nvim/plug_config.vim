@@ -305,13 +305,6 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   nmap <space>G <plug>(coc-git-chunkinfo)
   nmap ;gu <Cmd>CocCommand git.chunkUndo<cr>
 
-  "diagnostics
-  nmap [g <plug>(coc-diagnostic-prev)
-  nmap ]g <plug>(coc-diagnostic-next)
-  nmap [G <plug>(coc-diagnostic-first)
-  nmap ]G <plug>(coc-diagnostic-last)
-
-
   "vista {{{2
   let g:vista_fzf_preview = ['right:50%']
   nnoremap <silent> <space>V <Cmd>Vista!!<cr>
@@ -841,13 +834,15 @@ else
 endif
 
 "ale {{{1
-let g:ale_virtualtext_cursor = 1
 let g:ale_sign_error = "❌"
 let g:ale_sign_warning = "‼"
-let g:ale_virtualtext_prefix = "◀ "
-
+let g:ale_cursor_detail = 1
+let g:ale_hover_to_floating_preview = 1
+let g:ale_detail_to_floating_preview = 1
+let g:ale_floating_preview = 1
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 let g:ale_disable_lsp = 1
-" let g:ale_linters = {'cpp': ['cpplint', 'clangtidy']}
+
 let g:ale_linters = {
       \ 'cpp': [],
       \ 'cuda': [],
@@ -871,10 +866,10 @@ highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
 highlight link ALEVirtualTextStyleError ALEVirtualTextError
 highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
 
-nmap [a <Plug>(ale_previous_wrap)
-nmap ]a <Plug>(ale_next_wrap)
-nmap [A <Plug>(ale_first)
-nmap ]A <Plug>(ale_last)
+nmap [g <Plug>(ale_previous_wrap)
+nmap ]g <Plug>(ale_next_wrap)
+nmap [G <Plug>(ale_first)
+nmap ]G <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
 " sneak: fFtT {{{1
