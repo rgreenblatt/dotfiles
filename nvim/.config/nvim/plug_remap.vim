@@ -724,6 +724,17 @@ for key_mapping in g:window_key_mappings
     endfor
 endfor
 
+"undotree {{{1
+function! UndoTreeToggleSet(value)
+  let g:undotree_RelativeTimestamp = a:value
+  UndotreeToggle
+endfunction
+
+command! -nargs=0 TimestampUndotreeToggle call UndoTreeToggleSet(0)
+command! -nargs=0 RelUndotreeToggle call UndoTreeToggleSet(1)
+nnoremap <a-u> <Cmd>RelUndotreeToggle<cr>
+nnoremap <a-t> <Cmd>TimestampUndotreeToggle<cr>
+
 "other {{{1
 nnoremap <a-i> <Cmd>Codi<cr>
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>

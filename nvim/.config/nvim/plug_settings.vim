@@ -440,6 +440,7 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 " other {{{1
+let g:undotree_ShortIndicators = 1
 let g:wordmotion_prefix = ';'
 let g:lion_squeeze_spaces = 1
 let g:windowswap_map_keys = 0
