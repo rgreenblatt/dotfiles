@@ -73,8 +73,6 @@ if IsInstalled('neoclide/coc.nvim') "{{{1
         \ 'coc-prettier',
         \ 'coc-sh',
         \]
-        " \ 'coc-clangd',
-        " \]
 
   function! CocRunHighlight()
     if !exists('g:coc_disable_highlight') ||  !g:coc_disable_highlight
