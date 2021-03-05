@@ -1054,6 +1054,11 @@ let g:localvimrc_name = ['.config/local_init.vim']
 let g:localvimrc_whitelist = [$HOME . '/dotfiles', $HOME . '/documents']
 let g:markdown_fenced_languages = [
       \ 'vim',
+      \ 'zig',
+      \ 'rust',
+      \ 'cpp',
+      \ 'c',
+      \ 'python',
       \ 'help'
       \]
 let g:zig_fmt_autosave = 0
