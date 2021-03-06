@@ -305,6 +305,12 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   nmap <space>G <plug>(coc-git-chunkinfo)
   nmap ;gu <Cmd>CocCommand git.chunkUndo<cr>
 
+  "diagnostics
+  nmap [g <plug>(coc-diagnostic-prev)
+  nmap ]g <plug>(coc-diagnostic-next)
+  nmap [G <plug>(coc-diagnostic-first)
+  nmap ]G <plug>(coc-diagnostic-last)
+
   "vista {{{2
   let g:vista_fzf_preview = ['right:50%']
   nnoremap <silent> <space>V <Cmd>Vista!!<cr>
@@ -849,10 +855,10 @@ highlight ALEVirtualTextInfo cterm=italic ctermfg=245 gui=italic guifg=#928374
 highlight link ALEVirtualTextStyleError ALEVirtualTextError
 highlight link ALEVirtualTextStyleWarning ALEVirtualTextWarning
 
-nmap [g <Plug>(ale_previous_wrap)
-nmap ]g <Plug>(ale_next_wrap)
-nmap [G <Plug>(ale_first)
-nmap ]G <Plug>(ale_last)
+nmap [a <Plug>(ale_previous_wrap)
+nmap ]a <Plug>(ale_next_wrap)
+nmap [A <Plug>(ale_first)
+nmap ]A <Plug>(ale_last)
 nmap ZA <Plug>(ale_detail)
 
 " sneak: fFtT {{{1
