@@ -17,10 +17,6 @@ items = [
         'courseid=2437b26a-bec8-41c2-bc17-acb40169c3ce&type=mp4', '1260'
     ],
     [
-        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?'
-        'courseid=2437b26a-bec8-41c2-bc17-acb40169c3ce&type=mp4', '1550'
-    ],
-    [
         'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx' +
         '?courseid=7ded9040-3580-4005-bf91-acac00263b11&type=mp4', '1740'
     ],
