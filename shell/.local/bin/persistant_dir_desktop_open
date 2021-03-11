@@ -3,9 +3,8 @@
 tmpfile=$(mktemp /tmp/ranger-open-XXXXXXX.txt)
 file_picker_gen "$tmpfile" "true" "$PERSISTANT_DIR_FILE"
 
-while IFS="" read -r p || [ -n "$p" ]
-do
+while IFS="" read -r p || [ -n "$p" ]; do
   log=$(mktemp "/tmp/ranger-xdg-open-log-XXXXXX.txt")
-  nohup xdg-open "$p" &> "$log" &
-done < "$tmpfile"
+  nohup xdg-open "$p" &>"$log" &
+done <"$tmpfile"
 sleep 0.2
