@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 if [ "$#" -lt 3 ]; then
-  echo "Usage: $0 file_loc is_multi persistant_dir_file [RANGER_ARGS]"
+  echo "Usage: $0 file_loc is_multi persistant_loc_file [RANGER_ARGS]"
   exit 1
 fi
 
 file_loc=$1
 is_multi=$2
-persistant_dir_file=$3
+persistant_loc_file=$3
 
 if [[ "$is_multi" == "true" ]]; then
   choose_cmd="--choosefiles"
@@ -15,15 +15,15 @@ else
   choose_cmd="--choosefile"
 fi
 
-ranger_dir="$HOME"
-if [[ -n "$persistant_dir_file" && -f "$persistant_dir_file" ]]; then
-  ranger_dir=$(<"$persistant_dir_file")
+ranger_loc="$HOME"
+if [[ -n "$persistant_loc_file" && -f "$persistant_loc_file" ]]; then
+  ranger_loc=$(<"$persistant_loc_file")
 fi
 
-ranger "$ranger_dir" "$choose_cmd=$file_loc" "${@:4}"
+ranger "$ranger_loc" "$choose_cmd=$file_loc" "${@:4}"
 
 picked_file=$(tail -n 1 "$file_loc")
 
-if [[ -n "$picked_file" && -n "$persistant_dir_file" ]]; then
-  dirname "$picked_file" >$persistant_dir_file
+if [[ -n "$picked_file" && -n "$persistant_loc_file" ]]; then
+  echo "$picked_file" >$persistant_loc_file
 fi

@@ -89,7 +89,7 @@ c.editor.command = [
 #   - external: Use an external command.
 c.fileselect.handler = 'external'
 
-persistant_dir = os.environ['HOME'] + '/.cache/persistant_dir_browser.txt'
+persistant_loc = os.environ['HOME'] + '/.cache/persistant_loc_browser.txt'
 
 # Command (and arguments) to use for selecting multiple files in forms.
 # The command should write the selected file paths to the specified
@@ -97,7 +97,7 @@ persistant_dir = os.environ['HOME'] + '/.cache/persistant_dir_browser.txt'
 # `{}`: Filename of the file to be written to.
 # Type: ShellCommand
 c.fileselect.single_file.command = [
-    'floating_term', 'file_picker_gen', '{}', 'false', persistant_dir
+    'floating_term', 'file_picker_gen', '{}', 'false', persistant_loc
 ]
 
 # Command (and arguments) to use for selecting a single file in forms.
@@ -106,7 +106,7 @@ c.fileselect.single_file.command = [
 # to be written to.
 # Type: ShellCommand
 c.fileselect.multiple_files.command = [
-    'floating_term', 'file_picker_gen', '{}', 'true', persistant_dir
+    'floating_term', 'file_picker_gen', '{}', 'true', persistant_loc
 ]
 
 # Characters used for hint strings.

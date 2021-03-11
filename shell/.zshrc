@@ -229,7 +229,7 @@ function precmd() {
     (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
   if [ -n "${SAVE_DIR_TO_PERSISTANT+x}" ]; then
-    echo $PWD >! $PERSISTANT_DIR_FILE
+    echo $PWD >! $PERSISTANT_LOC_FILE
   fi
 
   if [[ -n $__udm_last_command_started ]]; then
