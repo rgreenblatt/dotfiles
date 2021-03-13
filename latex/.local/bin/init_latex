@@ -4,9 +4,11 @@ import os
 import argparse
 
 
-def main(init, course, f_name):
+def main(init, shell_escape, course, f_name):
     # simple but gross
     os.system('cp ~/.local/etc/latex_files/* .')
+    if shell_escape:
+        os.system('cp ~/.local/etc/shell_escape/.latexmkrc .')
     os.system('touch .root') # may not be needed in general
     if init:
         s = (r'''\newcommand{\psetname}{Ryan Greenblatt}
@@ -31,7 +33,8 @@ if __name__ == "__main__":
                         help='tex file name',
                         default='main_file.tex')
     parser.add_argument('--init', action='store_true', help='initialize')
+    parser.add_argument('--shell-escape', action='store_true', help='allow shell esape')
 
     args = parser.parse_args()
 
-    main(args.init, args.course, args.f_name)
+    main(args.shell_escape, args.init, args.course, args.f_name)
