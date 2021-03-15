@@ -20,6 +20,13 @@ if [[ -n "$persistant_loc_file" && -f "$persistant_loc_file" ]]; then
   ranger_loc=$(<"$persistant_loc_file")
 fi
 
+if [[ ! -e $ranger_loc ]]; then
+  ranger_loc=$(dirname "$ranger_loc")
+  if [[ ! -e $ranger_loc ]]; then
+    ranger_loc="$HOME"
+  fi
+fi
+
 ranger "$ranger_loc" "$choose_cmd=$file_loc" "${@:4}"
 
 picked_file=$(tail -n 1 "$file_loc")

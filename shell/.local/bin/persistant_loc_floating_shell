@@ -3,7 +3,7 @@
 DIR="~"
 if [[ -f $PERSISTANT_LOC_FILE ]]; then
   DIR=$(<"$PERSISTANT_LOC_FILE")
-  if [[ -f $DIR ]]; then
+  if [[ ! -d $DIR ]]; then
     DIR=$(dirname "$DIR")
   fi
 fi
