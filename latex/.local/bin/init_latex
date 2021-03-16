@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.shell_escape, args.init, args.course, args.f_name)
+    main(args.init, args.shell_escape, args.course, args.f_name)
