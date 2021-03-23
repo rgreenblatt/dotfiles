@@ -65,3 +65,5 @@ set recolor                     "true"
 set recolor-keephue             "true"
 set recolor-reverse-video false
 set statusbar-home-tilde true
+
+set selection-clipboard clipboard
