@@ -3,8 +3,9 @@
 
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,amscd}
 \RequirePackage{mathtools}
+\RequirePackage{nath}
+\RequirePackage{dsfont}
 \RequirePackage{amsthm,etoolbox}
-\RequirePackage[dvipsnames]{xcolor}
 
 \makeatletter
 \newcommand{\ScaleDeclarePairedDelimiter}[3]{%
@@ -21,6 +22,8 @@
 % Probability
 \renewcommand{\Pr}{\operatorname*{\mathbb{P}}}
 \newcommand{\Var}{\operatorname*{\mathrm{Var}}}
+\newcommand{\Bias}{\operatorname*{\mathrm{Bias}}}
+\newcommand{\MSE}{\operatorname*{\mathrm{MSE}}}
 \newcommand{\Cov}{\operatorname*{\mathrm{Cov}}}
 \newcommand{\Exp}{\operatorname*{\mathbb{E}}}
 \newcommand{\from}{\leftarrow}
@@ -32,8 +35,8 @@
 
 % Distributions
 \newcommand{\Normal}{\mathcal{N}}
-\newcommand{\Bin}{\mathrm{Bin}}
-\newcommand{\Poi}{\mathrm{Poi}}
+\newcommand{\Bin}{\mathrm{Binomial}}
+\newcommand{\Poi}{\mathrm{Poisson}}
 \newcommand{\Unif}{\mathrm{Unif}}
 \newcommand{\Bernoulli}{\mathrm{Bernoulli}}
 \newcommand{\Geom}{\mathrm{Geom}}
@@ -73,7 +76,7 @@
 % Analysis
 \newcommand{\boundary}[1]{\text{bd } #1}
 \newcommand{\closure}[1]{\text{cl } #1}
-\newcommand{\interior}[1]{\text{int } #1} 
+\newcommand{\interior}[1]{\text{int } #1}
 
 % Algebra
 \newcommand{\Cyc}{\mathcal{C}}
@@ -86,11 +89,9 @@
 \newcommand{\eps}{\epsilon}
 \DeclareMathOperator{\sgn}{sgn}
 \newcommand{\divs}{\;|\;}
+\newcommand{\ind}{\mathds{1}}
 \ScaleDeclarePairedDelimiter\abs{\lvert}{\rvert}
 \ScaleDeclarePairedDelimiter\size{\lvert}{\rvert}
-\ScaleDeclarePairedDelimiter\br{[}{]}
-\ScaleDeclarePairedDelimiter\p{(}{)}
-\ScaleDeclarePairedDelimiter\set{\{}{\}}
 \ScaleDeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \ScaleDeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -104,7 +105,6 @@
 \newtheorem{protocol}[nTheorems]{Protocol}
 \newtheorem{claim}[nTheorems]{Claim}
 \newtheorem{fact}[nTheorems]{Fact}
-
 
 \newenvironment{asciicdot}
  {\mathcode`*=\cdot\ignorespaces}
