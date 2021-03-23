@@ -833,6 +833,7 @@ let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 let g:ale_disable_lsp = 1
 
 let g:ale_linters = {
+      \ 'tex': ['chktex'],
       \ 'cpp': [],
       \ 'cuda': [],
       \ 'objcpp': [],
