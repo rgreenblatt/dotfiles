@@ -5,7 +5,7 @@
 \RequirePackage{mathtools}
 \RequirePackage{dsfont}
 \RequirePackage{amsthm,etoolbox}
-\RequirePackage{nath}
+\RequirePackage[dvipsnames]{xcolor}
 
 \makeatletter
 \newcommand{\ScaleDeclarePairedDelimiter}[3]{%
@@ -92,6 +92,9 @@
 \newcommand{\ind}{\mathds{1}}
 \ScaleDeclarePairedDelimiter\abs{\lvert}{\rvert}
 \ScaleDeclarePairedDelimiter\size{\lvert}{\rvert}
+\ScaleDeclarePairedDelimiter\br{[}{]}
+\ScaleDeclarePairedDelimiter\p{(}{)}
+\ScaleDeclarePairedDelimiter\set{\{}{\}}
 \ScaleDeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \ScaleDeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
