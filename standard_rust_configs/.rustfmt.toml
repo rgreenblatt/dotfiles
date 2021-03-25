@@ -1,1 +1,1 @@
-reorder_imports = true
+../rust/.config/rustfmt/rustfmt.toml
