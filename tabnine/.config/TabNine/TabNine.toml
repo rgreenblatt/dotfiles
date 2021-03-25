@@ -1,3 +1,0 @@
-[language.cpp]
-command = "ccls"
-args = ["--init={\"cacheDirectory\":\"/tmp/tabnine-ccls/\"}"]
