@@ -17,6 +17,7 @@ function! s:Set(var, default)
 endfunction
 
 "default plug installs {{{1
+call s:Set("g:no_treesitter", 1)
 call s:Set("g:disable_all_plugins", 0)
 call s:Set("g:headless", 0)
 call s:Set("g:no_language_plugins", 0)

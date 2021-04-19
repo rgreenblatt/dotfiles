@@ -997,6 +997,7 @@ let g:rust_fold = 2
 let g:rust_recommended_style = 0
 
 " tree-sitter {{{1
+if !g:no_treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
@@ -1025,8 +1026,9 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
+endif
 
 
 "other {{{1

@@ -12,3 +12,4 @@ let g:startify_bookmarks = [
 
 let g:startify_custom_header = ""
 let g:startify_custom_footer = ""
+let g:no_treesitter = 0

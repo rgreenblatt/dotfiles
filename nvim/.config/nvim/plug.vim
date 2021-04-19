@@ -54,7 +54,9 @@ endif
 if !g:no_appearance_plugins
   call s:PA(['gruvbox-community/gruvbox'])
   " We recommend updating the parsers on update
-  call s:PA(['nvim-treesitter/nvim-treesitter', "{'do': ':TSUpdate'}"])
+  if !g:no_treesitter
+    call s:PA(['nvim-treesitter/nvim-treesitter', "{'do': ':TSUpdate'}"])
+  endif
   call s:PA(['itchyny/lightline.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
   call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
@@ -91,7 +93,9 @@ if !g:no_editing_plugins
   call s:PA(['AndrewRadev/sideways.vim'])
   call s:PA(['vim-scripts/ReplaceWithRegister'])
   call s:PA(['stefandtw/quickfix-reflector.vim'])
-  call s:PA(['nvim-treesitter/nvim-treesitter-textobjects'])
+  if !g:no_treesitter
+    call s:PA(['nvim-treesitter/nvim-treesitter-textobjects'])
+  endif
 endif
 
 "navigation/setup {{{2
