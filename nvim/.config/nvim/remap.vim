@@ -247,7 +247,7 @@ nnoremap <a-p> <Cmd>pwd<cr>
 nnoremap <a-s> <Cmd>source %<cr>
 
 nnoremap <space>z :<c-u>s/\C<left><left><left><left>
-xnoremap <space>z :s/\C<left><left><left><left>
+xnoremap <space>z :s/\C
 
 "better cmd line {{{1
 cnoremap <esc> <c-f>z1<cr>
@@ -279,6 +279,10 @@ noremap <right> 3<C-W><
 
 "select last selectinserted/yank/etc text {{{1
 nnoremap gV `[v`]
+
+"remove function {{{1
+nnoremap ;x %%mv%x`vvbd
+
 
 "fold {{{1
 nnoremap zJ zczjzo
