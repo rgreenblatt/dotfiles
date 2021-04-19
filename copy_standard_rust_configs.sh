@@ -7,4 +7,4 @@ else
   exit 1
 fi
 
-cp -rT standard_rust_configs "$path"
+cp -rTL standard_rust_configs "$path"
