@@ -78,6 +78,8 @@ export SUDO_EDITOR="editor"
 a="-e SC1090 -e 2001 -e SC2016 -e SC2139 -e SC2164"
 export SHELLCHECK_OPTS="$a"
 
+export RUSTFLAGS="-C link-arg=-fuse-ld=lld"
+
 export PROFILE_SOURCED=1
 export PERSISTANT_LOC_FILE=~/.cache/persistant_loc.txt
 
