@@ -216,7 +216,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown,rust
+    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,graphql,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown,rust
           \ map <buffer> <Plug>(FormatSelected) <Plug>(coc-format-selected)|
           \ map <buffer> <Plug>(FormatAll) <Plug>(coc-format)
     " Update signature help on jump placeholder
