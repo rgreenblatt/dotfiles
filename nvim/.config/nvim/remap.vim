@@ -154,6 +154,7 @@ function! FloatingFullscreen()
 endfunction
 
 let g:window_key_prefix = "<space>"
+" the first value is the key and the second is the new window command
 let g:window_key_mappings = [
             \ ["h", "aboveleft vsplit"],
             \ ["j", "belowright split"],
@@ -169,8 +170,12 @@ let g:window_key_mappings = [
             \ ["L", "botright vsplit"],
             \ ]
 
-function! MapWinCmd(key, command, apply_enter)
-  if a:apply_enter
+" Create an additional set of window maps for some command.
+" If user_enter is truthy (typically 1), then the command won't be automatically
+" executed; the user will have to press enter. This is useful for commands
+" which require user input (edit for example).
+function! MapWinCmd(key, command, user_enter)
+  if a:user_enter
     let suffix = ""
   else
     let suffix = "<cr>"
