@@ -5,16 +5,9 @@ endif
 
 if g:athame_running
   let g:plugin_blacklist.athame = [
-        \ 'rgreenblatt/i3-vim-focus',
         \ 'unblevable/quick-scope',
-        \ 'rgreenblatt/sneak-quick-scope',
         \ 'markonm/traces.vim',
-        \ 'simnalamburt/vim-mundo',
         \ ]
-endif
-
-if !has('python')
-  let g:plugin_blacklist.ros = ['taketwo/vim-ros']
 endif
 
 let g:combined_blacklist = []
