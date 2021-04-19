@@ -975,7 +975,7 @@ nnoremap <a-t> <Cmd>TimestampUndotreeToggle<cr>
 "autoformat {{{1
 augroup AutoformatAutocmds
   autocmd!
-  autocmd FileType,BufWrite cmake,go,zig,ocaml,sh
+  autocmd FileType,BufWrite cmake,go,zig,ocaml,sh,toml
         \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
         \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
 augroup end
@@ -984,6 +984,8 @@ let g:formatdef_cmake_format = '"cmake-format --tab-size " . &shiftwidth . " -"'
 let g:formatters_cmake = ['cmake_format']
 let g:formatdef_zig_fmt = '"zig fmt --stdin"'
 let g:formatters_zig = ['zig_fmt']
+let g:formatdef_toml_prettier = '"prettier --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+let g:formatters_toml = ['toml_prettier']
 
 "polyglot and associated plugins: {{{1
 "if I ever start working with csvs some, look into plugin

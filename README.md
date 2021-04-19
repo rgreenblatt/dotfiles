@@ -44,6 +44,10 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
 # consider ocaml installs
 opam init && opam install ocaml-lsp-server && opam install utop
 
+# consider also toml format
+yarn global add --dev prettier prettier-plugin-toml --dev --exact &&
+  yarn global upgrade
+
 pip3 install recordclass
 
 # slow install packages to install later
