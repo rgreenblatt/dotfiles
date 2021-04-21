@@ -262,7 +262,7 @@ alias ${gprefix}SI='git submodule update --init --recursive'
 alias ${gprefix}Sl='git submodule status'
 alias ${gprefix}Sm='git-submodule-move'
 alias ${gprefix}Ss='git submodule sync'
-alias ${gprefix}Su='git submodule foreach git pull origin master'
+alias ${gprefix}Su='git submodule foreach git pull'
 alias ${gprefix}Sx='git-submodule-remove'
 
 # Tag (t)
