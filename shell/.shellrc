@@ -696,56 +696,10 @@ fzf_ros_clean() {
   fi
 }
 
-# apt {{{2
-# install multiple packages at once
-a="fzf ${FZF_DEFAULT_OPTS} -m "
-b="--preview 'apt show \$(parse_packages {}) 2> /dev/null'"
-base_apt_fzf_cmd="$a$b"
-
-apt_install_package_fzf() {
-  if [ "$1" == "-u" ]; then
-    sudo apt update
-  fi
-
-  fzf_cmd="$base_apt_fzf_cmd --header='[apt:install]'"
-  inst="$(parse_packages "$(apt list 2>/dev/null | tail -n +2 |
-    eval "$fzf_cmd")")"
-
-  if [[ -n $inst ]]; then
-    sudo apt install "$inst"
-  fi
-}
-
-alias aip=apt_install_package_fzf
-
-apt_upgrade_package_fzf() {
-  # upgrade multiple packages at once
-  if [ "$1" == "-u" ]; then
-    sudo apt update
-  fi
-
-  fzf_cmd="$base_apt_fzf_cmd --header='[apt:upgrade]'"
-  upgr="$(parse_packages "$(apt list --upgradable 2>/dev/null | tail -n +2 |
-    eval "$fzf_cmd")")"
-
-  if [[ -n $upgr ]]; then
-    sudo apt install --only-upgrade "$upgr"
-  fi
-}
-
-alias aup=apt_upgrade_package_fzf
-
-apt_remove_package_fzf() {
-  fzf_cmd="$base_apt_fzf_cmd --header='[apt:remove]'"
-  rem="$(parse_packages "$(apt list --installed 2>/dev/null | tail -n +2 |
-    eval "$fzf_cmd")")"
-
-  if [[ -n $rem ]]; then
-    sudo apt remove "$rem"
-  fi
-}
-
-alias arp=apt_remove_package_fzf
+# pacman + fzf {{{2
+base_pac_fzf="fzf --multi --preview 'pacman "
+alias pipac="pacman -Slq | $base_pac_fzf -Si {1}' | xargs -ro sudo pacman -S"
+alias prpac="pacman -Qq | $base_pac_fzf -Qi {1}' | xargs -ro sudo pacman -Rns"
 
 
 # vim: set fdm=marker:
