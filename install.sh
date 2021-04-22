@@ -97,9 +97,6 @@ stow cmakelint
 mkdir -p ~/.config/nvim/spell/
 stow nvim
 stow twmn
-mkdir -p ~/.config/TabNine/
-stow tabnine
-stow mutt
 stow git
 stow pylint
 mkdir -p ~/.ssh
@@ -120,7 +117,6 @@ stow jdt.ls
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
   stow compton
-  stow flashfocus
   stow i3
   stow i3status
   stow misc_desktop
