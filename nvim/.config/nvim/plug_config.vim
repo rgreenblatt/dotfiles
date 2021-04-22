@@ -602,8 +602,7 @@ if IsInstalled('kana/vim-operator-user')
       let to_feed .= "\<cr>"
     endif
 
-    echom @s
-    echom to_feed
+    let g:substitute_region_feed = to_feed
 
     call feedkeys(to_feed, 'n')
     let g:substitute_region_is_first = 0
