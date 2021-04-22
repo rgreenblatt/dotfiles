@@ -225,7 +225,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   augroup end
   hi! CocHighlightText cterm=bold,underline gui=bold,underline
 
-	call coc#config('java.format.settings', 
+	call coc#config('java.format.settings',
         \ { 'url' : $HOME . "/.config/jdt.ls/format.xml"})
 
   " use <tab> for trigger completion and navigate to next complete item
@@ -323,7 +323,7 @@ let g:startify_files_number = 5
 let g:startify_session_sort = 1
 
 let g:startify_commands = [
-                  \ {'t': 'terminal'}, 
+                  \ {'t': 'terminal'},
                   \ {'r': 'terminal ranger'},
                   \ {'f': 'Files'}
                   \]
@@ -954,8 +954,8 @@ for key_mapping in g:window_key_mappings
           \ ["p", "GdbStartPDB python -m pdb"]
           \]
     execute "nnoremap " . g:window_key_prefix . key_mapping[0] . "d" .
-          \ key_setup[0] " <Cmd>let" s:win_var "='" .  key_mapping[1] . "'<cr>:<c-u>" . 
-          \ key_setup[1] . "<space>"
+          \ key_setup[0] " <Cmd>let" s:win_var "='" .  key_mapping[1] . 
+          \ "'<cr>:<c-u>" . key_setup[1] . "<space>"
     endfor
 endfor
 
