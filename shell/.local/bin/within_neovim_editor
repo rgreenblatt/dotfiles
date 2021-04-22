@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nvr -cc split --remote-wait -c "set bufhidden=delete" "$@"

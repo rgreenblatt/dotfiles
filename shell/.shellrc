@@ -329,7 +329,7 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias t='nvr --remote-tab'
   alias e='nvr'
   export GIT_TERMINAL_PROMPT=1
-  export VISUAL='nvr -cc split --remote-wait -c "set bufhidden=delete"'
+  export VISUAL='within_neovim_editor'
   export EDITOR="$VISUAL"
 fi
 
