@@ -1037,7 +1037,7 @@ nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
 let g:windowswap_map_keys = 0
 nnoremap <silent> <space>v <Cmd>call WindowSwap#EasyWindowSwap()<CR>
 nmap <space>g <Plug>(git-messenger)
-let g:targets_nl = 'nN'
+let g:targets_nl = ['n', 'N']
 let g:wordmotion_prefix = ';'
 let g:lion_squeeze_spaces = 1
 let g:mwAutoLoadMarks = 1
