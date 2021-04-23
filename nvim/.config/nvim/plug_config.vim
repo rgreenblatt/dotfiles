@@ -998,7 +998,7 @@ let g:rust_fold = 2
 let g:rust_recommended_style = 0
 
 " tree-sitter {{{1
-if !g:no_treesitter
+if IsInstalled('nvim-treesitter/nvim-treesitter')
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
