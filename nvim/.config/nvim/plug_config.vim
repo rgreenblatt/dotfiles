@@ -458,6 +458,9 @@ if IsInstalled('kana/vim-operator-user')
   nmap ;z <Plug>(substitute-region-edit)
   nmap ;Z <Plug>(subvert-region-edit)
 
+  nmap ;. <Plug>(substitute-region-edit-last)
+  xmap ;. <Plug>(substitute-region-edit-last)
+
   function! SubstituteRegionMakeMap(plug_name, command, flags, pattern_alter,
         \ replace_alter, ...)
 
@@ -539,6 +542,11 @@ if IsInstalled('kana/vim-operator-user')
     endif
   endfunction
 
+  nmap <Plug>(substitute-region-edit-last) 
+        \ :<c-u><c-r>=g:substitute_region_cmd<cr><c-a>
+  xmap <Plug>(substitute-region-edit-last) 
+        \ :<c-r>=g:substitute_region_cmd<cr><c-a>
+
   xmap <silent> <Plug>(substitute-region-visual-finish)
         \ <esc>'<<Cmd>execute "normal .".
         \ GetVisCommand(line("'>") - line("'<"))<cr>
@@ -550,14 +558,7 @@ if IsInstalled('kana/vim-operator-user')
     let g:substitute_region_end_insert = getpos("']")
     let g:replace_alter = a:replace_alter
     let g:pattern_alter = a:pattern_alter
-    "do nothing change required for some reason
-    let cur_mode = mode()
-    let is_visual = cur_mode == "v" || cur_mode == "V" || cur_mode == "\<c-v>"
     let g:substitute_region_edit_flags = a:edit_flags
-
-    if !is_visual
-      silent execute "normal! ia\<bs>\<esc>"
-    endif
 
     let g:substitute_region_is_first = 1
     let g:substitute_region_command = a:command
@@ -569,40 +570,50 @@ if IsInstalled('kana/vim-operator-user')
 
   function! SubstituteRegion(_)
     let cursor = getcurpos()
-    let g:substitute_region_orig_s = @s
     let start = getpos("'[")
     let end = getpos("']")
     if g:substitute_region_is_first
-      if @. != ""
+      if g:substitute_region_start_insert == g:substitute_region_end_insert
+        " start and end are equal, so the region is empty.
+        " This must be special cased because of the gross way this is handled
+        " in general...
+        let g:substitute_region_saved_insert = ""
+      else
+        " this might be better done with getline...
         call setpos("'[", g:substitute_region_start_insert)
         call setpos("']", g:substitute_region_end_insert)
-        silent execute "normal! `[v`]h\"sy"
-        let g:saved_s_reg = function(g:replace_alter)(@s)
-        call setpos("'[", start)
-        call setpos("']", end)
-      else
-        let g:saved_s_reg = ""
-      endif
-      call feedkeys("2u", 'ni')
-    endif
-    let @s = g:saved_s_reg
-    let to_feed = "\<Cmd>call setpos(\"'[\", ". string(start) . ")\<cr>" .
-          \ "\<Cmd>call setpos(\"']\", ". string(end) . ")\<cr>" .
-          \ ":'[,']" .
-          \ g:substitute_region_command . "/" .
-          \ function(g:pattern_alter)(g:to_sub) .
-          \ "/\<c-r>\<c-r>s/" .  g:substitute_region_flags
 
-    let to_feed_suffix = " | let @s = g:substitute_region_orig_s | normal! '["
-    let to_feed .= to_feed_suffix
+        let orig_s = @s
+
+        silent execute "normal! `[v`]h\"sy"
+        let g:substitute_region_saved_insert = function(g:replace_alter)(@s)
+
+        let @s = orig_s
+      endif
+
+      call feedkeys("u", 'ni')
+    endif
+
+    " all of this must be sent with feedkeys
+    let start_feed = "\<Cmd>call setpos(\"'[\", ". string(start) . ")\<cr>" .
+          \ "\<Cmd>call setpos(\"']\", ". string(end) . ")\<cr>"
+
+    " global for possible external use (edit and rerun etc...)
+    let g:substitute_region_cmd = g:substitute_region_command . "/" .
+          \ function(g:pattern_alter)(g:to_sub) .
+          \ "/" . g:substitute_region_saved_insert . "/" .
+          \ g:substitute_region_flags
+
+    let jump_back_suffix = " | normal! '["
+
+    let to_feed = start_feed . ":'[,']" . g:substitute_region_cmd . 
+          \ jump_back_suffix
 
     if g:substitute_region_edit_flags
-      let to_feed .= repeat("\<left>", len(to_feed_suffix))
+      let to_feed .= repeat("\<left>", len(jump_back_suffix))
     else
       let to_feed .= "\<cr>"
     endif
-
-    let g:substitute_region_feed = to_feed
 
     call feedkeys(to_feed, 'n')
     let g:substitute_region_is_first = 0
