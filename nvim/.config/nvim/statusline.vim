@@ -54,7 +54,7 @@ endfunction
 "short pwd {{{1
 "requires shell script
 function! ShortPwd()
-  let out = substitute(system("cd ". getcwd() . " && short_pwd"), "\n", "", "")
+  let out = substitute(system("cd '". getcwd() . "' && short_pwd"), "\n", "", "")
   if v:shell_error
     return "error"
   else

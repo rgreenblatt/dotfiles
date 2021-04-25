@@ -225,7 +225,9 @@ function precmd() {
   print -Pn "\e]0;${path_expand}\a"
 
   if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
-    (nvr -c "silent lcd $PWD" &)
+    if [[ -d $PWD ]]; then
+      (nvr -c "silent lcd $PWD" &)
+    fi 
     (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
   if [ -n "${SAVE_DIR_TO_PERSISTANT+x}" ]; then
