@@ -101,18 +101,23 @@ mgs() {
 
 alias mgsd='mgs -e ~ 4'
 
+gprefix='g'
+
+# Git
+alias ${gprefix}='git'
+
+git_root_directory() {
+  git rev-parse --show-toplevel
+}
+
 git_commit_all_submodules() {
   git_root=$(git rev-parse --show-toplevel)
   git config --file "$git_root/.gitmodules" --get-regexp path |
     awk -v gr="$git_root" '{ print gr "/" $2 }' | xargs git add
   git commit --message="Submodule update"
 }
-alias gcas='git_commit_all_submodules'
-
-gprefix='g'
-
-# Git
-alias ${gprefix}='git'
+alias ${gprefix}cas='git_commit_all_submodules'
+alias ${gprefix}k='cd $(git_root_directory)'
 
 # Branch (b)
 alias ${gprefix}b='git branch'
