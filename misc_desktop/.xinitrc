@@ -12,7 +12,7 @@ low_battery_notify &
 notify_setup &
 unclutter -idle 1.0 -root &
 hsetroot -solid "#1d2021"
-download_lectures
+# download_lectures
 
 # invoke global X session script
 if [[ -f "/etc/X11/Xsession" ]]; then
