@@ -195,6 +195,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
         \ 'coc-go',
         \ 'coc-prettier',
         \ 'coc-sh',
+        \ 'coc-docker',
         \]
 
   function! CocRunHighlight()
