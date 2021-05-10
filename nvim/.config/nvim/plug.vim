@@ -124,8 +124,7 @@ if !g:no_integration_plugins
   call s:PA(['rhysd/git-messenger.vim'])
   call s:PA(['tpope/vim-eunuch'])
   call s:PA(['lambdalisue/suda.vim'])
-  call s:PA(['sakhnik/nvim-gdb', 
-        \ "{ 'branch': 'lua', 'do': ':!./install.sh' }"])
+  call s:PA(['sakhnik/nvim-gdb', "{ 'do': ':!./install.sh' }"])
 endif
 
 "misc {{{2
