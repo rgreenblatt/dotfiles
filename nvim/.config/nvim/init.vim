@@ -39,12 +39,12 @@ let g:no_integration_plugins = g:no_integration_plugins || g:athame_running
 let config_path=fnamemodify(expand('$MYVIMRC'), ':p:h')
 execute 'source ' . config_path . '/remap.vim'
 execute 'source ' . config_path . '/settings.vim'
-execute 'source ' . config_path . '/autocmd.vim'
 execute 'source ' . config_path . '/command.vim'
 execute 'source ' . config_path . '/abbr.vim'
 execute 'source ' . config_path . '/plug.vim'
 execute 'source ' . config_path . '/plug_config.vim'
 execute 'source ' . config_path . '/statusline.vim'
+execute 'source ' . config_path . '/autocmd.vim'
 "}}}1
 
 " vim: set fdm=marker:

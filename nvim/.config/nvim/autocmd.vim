@@ -1,5 +1,5 @@
 "general filetype autocmds {{{1
-augroup FiletypeAutocmds
+augroup FiletypeAutocmdsSettings
   autocmd!
   if has('nvim')
     autocmd TermOpen * setlocal listchars= signcolumn=no relativenumber nonumber
