@@ -3,5 +3,5 @@
 if [ -t 1 ]; then
   editor "$@"
 else 
-  i3-sensible-terminal -e "editor '$@'"
+  xfce4-terminal --disable-server -e "editor '$@'"
 fi
