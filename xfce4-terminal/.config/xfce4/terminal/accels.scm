@@ -7,7 +7,6 @@
 (gtk_accel_path "<Actions>/terminal-window/zoom-out" "<Ctrl><Shift>w")
 (gtk_accel_path "<Actions>/terminal-window/zoom-reset" "<Ctrl><Shift>e")
 
-(gtk_accel_path "<Actions>/terminal-window/copy-input" "")
 (gtk_accel_path "<Actions>/terminal-window/goto-tab-1" "")
 (gtk_accel_path "<Actions>/terminal-window/goto-tab-2" "")
 (gtk_accel_path "<Actions>/terminal-window/goto-tab-3" "")
@@ -52,10 +51,8 @@
 (gtk_accel_path "<Actions>/terminal-window/terminal-menu" "")
 (gtk_accel_path "<Actions>/terminal-window/show-menubar" "")
 (gtk_accel_path "<Actions>/terminal-window/select-all" "")
-(gtk_accel_path "<Actions>/terminal-window/paste" "")
 (gtk_accel_path "<Actions>/terminal-window/move-tab-left" "")
 (gtk_accel_path "<Actions>/terminal-window/search" "")
 (gtk_accel_path "<Actions>/terminal-window/file-menu" "")
 (gtk_accel_path "<Actions>/terminal-window/prev-tab" "")
-(gtk_accel_path "<Actions>/terminal-window/paste-selection" "")
 (gtk_accel_path "<Actions>/terminal-window/help-menu" "")
