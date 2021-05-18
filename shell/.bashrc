@@ -5,6 +5,9 @@ case $- in
 *) return ;;
 esac
 
+PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"'
+[ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\u@\h \W]\\$ "
+
 if [ -z "$CONFIG_HOME" ]; then
   if [ -n "$SSHHOME" ]; then
     CONFIG_HOME="$SSHHOME/.sshrc.d"
