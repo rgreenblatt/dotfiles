@@ -74,7 +74,9 @@ target=$1
 install_target() {
   if [[ -d "$targets_dir/$1" ]]; then
     (cd $targets_dir && stow "$1" --target ../../)
-    \. ~/.profile
+    if [[ -f ~/.profile ]]; then
+      \. ~/.profile
+    fi
     extra_install_script="$1_install.sh"
     if [[ -f "$targets_dir/$extra_install_script" ]]; then
       ./$targets_dir/$extra_install_script
