@@ -8,10 +8,7 @@ if [ -z "$PROFILE_SOURCED" ]; then
   source .profile
 fi
 
-if [ "$SHELL" != "~/.local/bin/zsh" ]; then
-  export SHELL="~/.local/bin/zsh"
+if [[ -f "/etc/bashrc" ]]; then
+  \. /etc/bashrc
 fi
 
-if hash module 2> /dev/null; then
-  exec ~/.local/bin/zsh -l
-fi
