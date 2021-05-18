@@ -39,6 +39,7 @@ fi
 
 #misc {{{1
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.conda_setup.bash ] && source ~/.conda_setup.bash
 #}}}
 
 # vim: set fdm=marker:
