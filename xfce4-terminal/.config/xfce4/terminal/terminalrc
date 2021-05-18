@@ -32,3 +32,4 @@ MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
+MiscShowUnsafePasteDialog=FALSE
