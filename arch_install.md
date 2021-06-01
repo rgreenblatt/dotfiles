@@ -69,3 +69,14 @@ sudo chown -R ryan:users ./yay-git
 cd yay-git
 makepkg -si
 ```
+
+Might also need to run (for systemd-resolve):
+```
+rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
+
+To fix gpg issues, might need (permissions might be wrong!):
+```
+mkdir /home/$USER/.gnupg/
+echo "keyserver hkp://pool.sks-keyservers.net" > /home/$USER/.gnupg/gpg.conf
+```
