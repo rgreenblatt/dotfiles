@@ -31,14 +31,13 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   ripgrep bat zathura compton xdotool picom aur/nerd-fonts-hack unclutter \
   aur/twmn-git hsetroot xsel curl sqlite xcalib cmake flameshot mpv stow \
   openvpn pandoc inotify-tools bpython youtube-dl py3status python-pip \
-  neovim-remote python-pynvim python-evdev aur/python-bidict \
-  community/python-watchdog aur/openpyn-nordvpn aur/flashfocus-git aur/nvm \
+  neovim-remote python-pynvim python-evdev \
+  community/python-watchdog aur/openpyn-nordvpn aur/nvm \
   bash-language-server community/yarn aur/ruby-neovim \
-  aur/nodejs-neovim sd exa vimiv boost watchman ccls aur/bear \
+  aur/nodejs-neovim sd exa vimiv boost watchman ccls \
   boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
-  alsa-utils pavucontrol aur/cmake-format aur/cmake-lint opam xfce4-terminal
+  alsa-utils pavucontrol opam xfce4-terminal
 
-# consider also aur/cmake-lint
 # Currently failing (and not important): aur/insect and aur/dbg-macro
 
 # consider ocaml installs
@@ -48,10 +47,10 @@ opam init && opam install ocaml-lsp-server && opam install utop
 yarn global add --dev prettier prettier-plugin-toml --dev --exact &&
   yarn global upgrade
 
-pip3 install recordclass
+pip3 install recordclass bidict
 
 # slow install packages to install later
-yay -S aur/cling clang texlive-most
+yay -S aur/cling clang texlive-most aur/cmake-lint aur/cmake-format aur/bear 
 
 # swapfile
 sudo dd if=/dev/zero of=/swapfile bs=1M count=16384 status=progress

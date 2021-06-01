@@ -66,6 +66,6 @@ su ryan
 cd /opt
 sudo git clone https://aur.archlinux.org/yay-git.git
 sudo chown -R ryan:users ./yay-git
-cd yay.git
+cd yay-git
 makepkg -si
 ```

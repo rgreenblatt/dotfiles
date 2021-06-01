@@ -109,6 +109,7 @@ mkdir -p ~/.cargo
 stow rust
 stow pacman
 stow latex
+mkdir -p ~/.gnupg
 stow gnupg
 stow lldb
 stow gdb
