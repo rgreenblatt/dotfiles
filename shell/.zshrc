@@ -127,7 +127,13 @@ alias -g NE="2> /dev/null"
 alias -g NA="&> /dev/null"
 
 #nvim terminal specific settings {{{1
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+has_nvim_and_has_nvr=false
+if [[ -n "${NVIM_LISTEN_ADDRESS+x}" ]] && 
+  hash nvr 2> /dev/null; then
+  has_nvim_and_has_nvr=true
+fi
+
+if [ "$has_nvim_and_has_nvr" = true ] ; then
   NVIM_BUF_ID=$(nvr --remote-expr "bufnr('%')")
   export NVIM_BUF_ID
 
@@ -224,7 +230,7 @@ function precmd() {
   path_expand='%~'
   print -Pn "\e]0;${path_expand}\a"
 
-  if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+  if [ "$has_nvim_and_has_nvr" = true ]; then
     if [[ -d $PWD ]]; then
       (nvr -c "silent lcd $PWD" &)
     fi 
@@ -243,7 +249,7 @@ function precmd() {
     if [[ $__udm_last_command_handled == 0 ]] &&
       [[ $time_taken -gt $LONG_RUNNING_COMMAND_TIMEOUT ]] &&
       [[ " $LONG_RUNNING_IGNORE_LIST " != *" $appname "* ]]; then
-      if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+      if [ "$has_nvim_and_has_nvr" = true ]; then
         local nvim_current_buffer=$(nvr --remote-expr "bufnr('%')" 2>/dev/null)
       fi
       if [[ $focused_window != $__udm_last_window ]] ||
