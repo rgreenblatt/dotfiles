@@ -226,7 +226,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   augroup end
   hi! CocHighlightText cterm=bold,underline gui=bold,underline
 
-	call coc#config('java.format.settings',
+  call coc#config('java.format.settings',
         \ { 'url' : $HOME . "/.config/jdt.ls/format.xml"})
 
   " use <tab> for trigger completion and navigate to next complete item
