@@ -48,29 +48,27 @@ else
 endif
 
 "better jumping (uses vim-EnhancedJumps) {{{1
-let g:EnhancedJumps_CaptureJumpMessages = 0
-let g:EnhancedJumps_UseTab = 0
+if IsInstalled('neoclide/coc.nvim')
+  let g:older_command_string = "\<c-o>"
+  let g:newer_command_string = "\<c-i>"
 
-function! MapTab()
-  if IsInstalled('neoclide/coc.nvim')
-    noremap <silent><expr> <tab>
-          \ coc#expandableOrJumpable() ?
-          \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-          \ "\<c-o>"
-    noremap <silent><expr> <s-tab>
-          \ coc#expandableOrJumpable() ?
-          \ coc#rpc#request('snippetPrev', []) :
-          \ "\<c-i>"
-  else
-    noremap <tab> <c-o>
-    noremap <s-tab> <c-i>
+  if IsInstalled('inkarkat/vim-EnhancedJumps')
+    let g:older_command_string = "\<Plug>EnhancedJumpsLocalOlder"
+    let g:newer_command_string = "\<Plug>EnhancedJumpsLocalNewer"
   endif
-endfunction
 
-call MapTab()
-
-nmap g<tab> <Plug>EnhancedJumpsLocalOlder
-nmap g<s-tab> <Plug>EnhancedJumpsLocalNewer
+  nmap <silent><expr> <tab>
+        \ coc#expandableOrJumpable() ?
+        \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
+        \ g:older_command_string
+  nmap <silent><expr> <s-tab>
+        \ coc#expandableOrJumpable() ?
+        \ coc#rpc#request('snippetPrev', []) :
+        \ g:newer_command_string
+elseif IsInstalled('inkarkat/vim-EnhancedJumps')
+  nmap <tab> <Plug>EnhancedJumpsLocalOlder
+  nmap <s-tab> <Plug>EnhancedJumpsLocalNewer
+endif
 
 nmap <space><tab> <Plug>EnhancedJumpsRemoteOlder
 nmap <space><s-tab> <Plug>EnhancedJumpsRemoteNewer
@@ -235,25 +233,25 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
     return !col || getline('.')[col - 1]  =~ '\s'
   endfunction
 
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
+  inoremap <silent><expr> <tab>
+        \ pumvisible() ? "\<c-n>" :
         \ coc#expandableOrJumpable() ?
         \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-        \ <SID>check_back_space() ? "\<TAB>" :
+        \ <SID>check_back_space() ? "\<tab>" :
         \ coc#refresh()
-  inoremap <expr> <S-Tab>
-        \ pumvisible() ? "\<C-p>" :
+  inoremap <expr> <s-tab>
+        \ pumvisible() ? "\<c-p>" :
         \ coc#expandableOrJumpable() ?
-        \ coc#rpc#request('snippetPrev', []) : "\<S-Tab>"
+        \ coc#rpc#request('snippetPrev', []) : "\<s-tab>"
 
-  snoremap <silent><expr> <TAB>
+  snoremap <silent><expr> <tab>
         \ coc#expandableOrJumpable() ?
         \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-        \ "\<TAB>"
-  snoremap <silent><expr> <S-TAB>
+        \ "\<tab>"
+  snoremap <silent><expr> <s-tab>
         \ coc#expandableOrJumpable() ?
         \ coc#rpc#request('snippetPrev', []) :
-        \ "\<S-TAB>"
+        \ "\<s-tab>"
 
   "pum close/break undo
   inoremap <c-space> <c-g>u
