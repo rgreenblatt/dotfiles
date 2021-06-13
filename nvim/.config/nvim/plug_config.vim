@@ -324,10 +324,10 @@ let g:startify_files_number = 5
 let g:startify_session_sort = 1
 
 let g:startify_commands = [
-                  \ {'t': 'terminal'},
-                  \ {'r': 'terminal ranger'},
-                  \ {'f': 'Files'}
-                  \]
+      \ {'t': 'terminal'},
+      \ {'r': 'terminal ranger'},
+      \ {'f': 'Files'}
+      \]
 
 let g:startify_lists = [
       \ {'type': 'sessions',  'header': [' Sessions']},
@@ -958,17 +958,17 @@ let g:nvimgdb_config_override = {
       \ }
 
 for key_mapping in g:window_key_mappings
-    let s:win_var = "g:nvimgdb_termwin_command"
-    for key_setup in [
-          \ ["d", "<c-r>=g:default_debug_command<cr>"],
-          \ ["g", "GdbStart gdb"],
-          \ ["l", "GdbStartLLDB lldb"],
-          \ ["p", "GdbStartPDB python -m pdb"]
-          \]
+  let s:win_var = "g:nvimgdb_termwin_command"
+  for key_setup in [
+        \ ["d", "<c-r>=g:default_debug_command<cr>"],
+        \ ["g", "GdbStart gdb"],
+        \ ["l", "GdbStartLLDB lldb"],
+        \ ["p", "GdbStartPDB python -m pdb"]
+        \]
     execute "nnoremap " . g:window_key_prefix . key_mapping[0] . "d" .
           \ key_setup[0] " <Cmd>let" s:win_var "='" .  key_mapping[1] . 
           \ "'<cr>:<c-u>" . key_setup[1] . "<space>"
-    endfor
+  endfor
 endfor
 
 "undotree {{{1
