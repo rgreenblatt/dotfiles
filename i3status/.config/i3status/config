@@ -37,7 +37,7 @@ external_script keyboard_info {
 
 weather_owm {
   api_key = 'aa476b58ec76c002285f2b08031775e4'
-  city = 'Durham, US'
+  city = 'Chicago, US'
   unit_temperature = 'C'
   format = '{temperature}, {rain} {forecast}'
   # format_forecast = '{rain} {description}'
