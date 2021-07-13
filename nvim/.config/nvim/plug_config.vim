@@ -982,10 +982,19 @@ nnoremap <a-u> <Cmd>RelUndotreeToggle<cr>
 nnoremap <a-t> <Cmd>TimestampUndotreeToggle<cr>
 
 "autoformat {{{1
+if IsInstalled('kana/vim-operator-user')
+  call operator#user#define('autoformat-selected', 'Op_autoformat_selected')
+  function! Op_autoformat_selected(motion_wiseness)
+    exec ":'[,']Autoformat"
+  endfunction
+else
+  map <plug>(operator-autoformat-selected) <Cmd>Autoformat<cr>
+endif
+
 augroup AutoformatAutocmds
   autocmd!
   autocmd FileType,BufWrite cmake,go,zig,ocaml,sh,toml
-        \ map <buffer> <Plug>(FormatSelected) <Cmd>Autoformat<cr>|
+        \ map <buffer> <Plug>(FormatSelected) <plug>(operator-autoformat-selected)
         \ map <buffer> <Plug>(FormatAll) <Cmd>Autoformat<cr>
 augroup end
 
