@@ -201,9 +201,11 @@ nnoremap <s-tab> <c-i>
 "general space/semicolon/alt maps {{{1
 nnoremap <silent> <space>p <Cmd>lcd %:p:h<cr>
 nnoremap <space>P :<c-u>lcd<space>
+nnoremap <space>; <Cmd>let @@=expand("%")<cr>
+nnoremap <space>: <Cmd>let @@=expand("%:p")<cr>
 
 nnoremap <space>y <Cmd>let @+=@@<cr>
-nnoremap <space>Y <Cmd>let @@=expand("%:p")<cr>
+nnoremap <space>Y :<c-u>let @+=@
 
 nnoremap <silent> <a-n> <Cmd>set invrelativenumber<cr>
 nnoremap <silent> <a-w> <Cmd>%s/\s\+$//<cr>:let @/=''<cr>
