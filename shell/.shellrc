@@ -11,8 +11,8 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 fi
 
 #history {{{1
-export HISTSIZE=10000
-export SAVEHIST=20000
+export HISTSIZE=100000
+export SAVEHIST=200000
 export HISTFILE=~/.shell_history
 
 #aliases and functions {{{1
