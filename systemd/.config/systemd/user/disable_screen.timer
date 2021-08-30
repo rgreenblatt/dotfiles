@@ -2,8 +2,8 @@
 Description=Loud time notification
 
 [Timer]
-OnCalendar=*-*-* 00:30:00
-OnCalendar=*-*-* 00:45:00
+OnCalendar=*-*-* 23:50:00
+OnCalendar=*-*-* 23:55:00
 
 [Install]
 WantedBy=timers.target
