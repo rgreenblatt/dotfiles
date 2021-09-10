@@ -1,6 +1,7 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
 application/epub+zip=org.pwmt.zathura.desktop
+image/vnd.djvu=org.pwmt.zathura.desktop
 
 video/webm=mpv.desktop
 audio/mpeg=mpv.desktop
@@ -58,7 +59,6 @@ image/vnd.adobe.photoshop=vimiv.desktop
 image/vnd.airzip.accelerator.azv=vimiv.desktop
 image/vnd.cns.inf2=vimiv.desktop
 image/vnd.dece.graphic=vimiv.desktop
-image/vnd.djvu=vimiv.desktop
 image/vnd.dvb.subtitle=vimiv.desktop
 image/vnd.dwg=vimiv.desktop
 image/vnd.dxf=vimiv.desktop

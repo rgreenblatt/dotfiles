@@ -28,7 +28,8 @@ yay -Syu
 yay -S python-wheel
 # note, includes many language specific installs, reduce as needed
 yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
-  ripgrep bat zathura compton xdotool picom aur/nerd-fonts-hack unclutter \
+  ripgrep bat zathura zathura-cb zathura-djvu zathura-pdf-mupdf \
+  compton xdotool picom aur/nerd-fonts-hack unclutter \
   aur/twmn-git hsetroot xsel curl sqlite xcalib cmake flameshot mpv stow \
   openvpn pandoc inotify-tools bpython youtube-dl py3status python-pip \
   neovim-remote python-pynvim python-evdev \
