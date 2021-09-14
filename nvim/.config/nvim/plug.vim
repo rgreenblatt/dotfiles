@@ -49,6 +49,7 @@ if !g:no_language_plugins
   call s:PA(['kana/vim-textobj-function'])
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tpope/vim-markdown'])
+  call s:PA(['leanprover/lean.vim'])
 endif
 
 "appearance {{{2

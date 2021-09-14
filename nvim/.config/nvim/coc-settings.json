@@ -67,6 +67,11 @@
       "command": "opam",
       "args": ["config", "exec", "--", "ocamllsp"],
       "filetypes": ["ocaml", "reason"]
+    },
+    "lean": {
+      "command": "lean-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["lean"]
     }
   }
 }
