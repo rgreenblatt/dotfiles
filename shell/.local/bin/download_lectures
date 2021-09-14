@@ -6,19 +6,11 @@ import shlex
 items = [
     [
         'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
-        'courseid=61ae6d23-06c4-43c7-8990-acae000c1de6&type=mp4', '1860'
+        'courseid=3eb112cc-5718-4786-81e2-ad99012e7169&type=mp4', '1760'
     ],
     [
-        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
-        'courseid=5f555a0e-fe67-4fbd-a15f-acb500f68d4a&type=mp4', '1670'
-    ],
-    [
-        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
-        'courseid=2437b26a-bec8-41c2-bc17-acb40169c3ce&type=mp4', '1260'
-    ],
-    [
-        'http://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx' +
-        '?courseid=7ded9040-3580-4005-bf91-acac00263b11&type=mp4', '1740'
+        'https://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?'+
+        'courseid=e12055b6-d870-4201-89d6-ad9c00ecfd72&type=mp4', '1951X'
     ],
 ]
 
