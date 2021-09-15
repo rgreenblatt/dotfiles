@@ -9,8 +9,12 @@ items = [
         'courseid=3eb112cc-5718-4786-81e2-ad99012e7169&type=mp4', '1760'
     ],
     [
-        'https://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?'+
+        'https://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
         'courseid=e12055b6-d870-4201-89d6-ad9c00ecfd72&type=mp4', '1951X'
+    ],
+    [
+        'https://brown.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?' +
+        'courseid=a67c921b-eb8e-4579-b90e-ad9400e4257f&type=mp4', '1010'
     ],
 ]
 
