@@ -39,7 +39,7 @@ Help Options:
   -?|--help                         Show help options
 
 Application Options:
-  -u, --urgency=LEVEL               Specifies the urgency level (low, normal, critical).
+  -u, --urgency=LEVEL               Specifies the urgency level (low, normal, critical, bothersome).
   -t, --expire-time=TIME            Specifies the timeout in milliseconds at which to expire the notification.
   -a, --app-name=APP_NAME           Specifies the app name for the icon
   -i, --icon=ICON[,ICON...]         Specifies an icon filename or stock icon to display.
@@ -116,8 +116,9 @@ notify() {
   0) nohup screen_flash green 5.0 &>/dev/null &;;
   1) nohup screen_flash blue 30.0 &>/dev/null &;;
   2) nohup screen_flash red 30.0 &>/dev/null &;;
+  3) nohup bother &>/dev/null &;;
   *)
-    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical."
+    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical, bothersome (0, 1, 2, 3)."
     exit 1
     ;;
   esac

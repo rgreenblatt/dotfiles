@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+screen_flash red 30.0 2.0
+sleep 10s
+xset dpms force suspend
+sleep 10s
+screen_flash red 30.0 2.0
+

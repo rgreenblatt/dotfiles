@@ -1,6 +1,6 @@
 [Unit]
-Description=disable screen
+Description=disable screen (in a bothersome way)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/env xset dpms force suspend
+ExecStart=/usr/bin/env bother
