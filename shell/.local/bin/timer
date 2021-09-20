@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sleep $1 && notify-send 'timer expired' 'Recall TDT reasoning and regret' -u bother

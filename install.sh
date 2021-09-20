@@ -133,6 +133,8 @@ if [[ $headless == "false" ]]; then
   ln -sfn "$PWD/keyboard" ~/
 fi
 
+systemctl --user daemon-reload
+
 if [ ! -d ~/.zgen ]; then
   git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
 fi

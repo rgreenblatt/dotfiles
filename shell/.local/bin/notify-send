@@ -118,7 +118,7 @@ notify() {
   2) nohup screen_flash red 30.0 &>/dev/null &;;
   3) nohup bother &>/dev/null &;;
   *)
-    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical, bothersome (0, 1, 2, 3)."
+    echo "internal error (unknown urgency)!"
     exit 1
     ;;
   esac
@@ -148,8 +148,9 @@ process_urgency() {
   low) URGENCY=0 ;;
   normal) URGENCY=1 ;;
   critical) URGENCY=2 ;;
+  bothersome) URGENCY=3 ;;
   *)
-    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical."
+    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical, bothersome."
     exit 1
     ;;
   esac
