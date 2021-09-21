@@ -150,7 +150,7 @@ process_urgency() {
   critical) URGENCY=2 ;;
   bothersome) URGENCY=3 ;;
   *)
-    echo "Unknown urgency $URGENCY specified. Known urgency levels: low, normal, critical, bothersome."
+    echo "Unknown urgency $1 specified. Known urgency levels: low, normal, critical, bothersome."
     exit 1
     ;;
   esac

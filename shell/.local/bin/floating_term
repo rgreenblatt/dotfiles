@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # disable-server to avoid running in backgroun
-xfce4-terminal --disable-server --title="floating_term" --geometry=180x50 -x "$@"
+xfce4-terminal --disable-server --title="floating_term" --geometry=150x40 -x "$@"
