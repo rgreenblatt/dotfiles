@@ -49,7 +49,10 @@ if !g:no_language_plugins
   call s:PA(['kana/vim-textobj-function'])
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tpope/vim-markdown'])
-  call s:PA(['leanprover/lean.vim'])
+  call s:PA(['Julian/lean-unicode.vim'])
+  call s:PA(['Julian/lean.nvim'])
+  call s:PA(['neovim/nvim-lspconfig'])
+  call s:PA(['nvim-lua/plenary.nvim'])
 endif
 
 "appearance {{{2

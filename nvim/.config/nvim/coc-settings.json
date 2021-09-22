@@ -71,7 +71,7 @@
     "lean": {
       "command": "lean-language-server",
       "args": ["--stdio"],
-      "filetypes": ["lean"]
+      "filetypes": ["lean3"]
     }
   }
 }

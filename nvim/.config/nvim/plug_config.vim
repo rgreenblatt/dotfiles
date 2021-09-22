@@ -281,6 +281,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
 
   nmap <space>i <Plug>(coc-implementation)
   nmap <space>u <Plug>(coc-references-used)
+  nmap <space>U <Plug>(coc-references)
 
   nmap <space>e <Plug>(coc-rename)
 
@@ -1074,6 +1075,39 @@ let g:markdown_fenced_languages = [
       \ 'help'
       \]
 let g:zig_fmt_autosave = 0
+
+lua <<EOF
+require('lean').setup{
+  -- Enable the Lean language server(s)?
+  --
+  -- false to disable, otherwise should be a table of options to pass to
+  --  `leanls` and/or `lean3ls`.
+
+  -- Lean 4
+  -- lsp = { on_attach = on_attach },
+
+  -- Lean 3
+  -- lsp3 = { enable = false },
+
+  mappings = false,
+
+  -- Infoview support
+  infoview = {
+    -- Automatically open an infoview on entering a Lean buffer?
+    autoopen = true,
+    -- Set the infoview windows' widths
+    width = 50,
+  },
+
+  -- Progress bar support
+  progress_bars = {
+    -- Enable the progress bars?
+    enable = true,
+    -- Use a different priority for the signs
+    priority = 10,
+  },
+}
+EOF
 "}}}1
 
 " vim: set fdm=marker:
