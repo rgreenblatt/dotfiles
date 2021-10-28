@@ -19,6 +19,11 @@ if [ -d "$HOME/.yarn/bin" ]; then #{{{2
   export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
+if [ -d "$HOME/.mujoco/mujoco200/bin" ]; then #{{{2
+  export LD_LIBRARY_PATH="$HOME/.mujoco/mujoco200/bin:$LD_LIBRARY_PATH"
+fi
+
+
 if [ -d "$HOME/.config/yarn/global/node_modules/.bin" ]; then #{{{2
   export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 fi
