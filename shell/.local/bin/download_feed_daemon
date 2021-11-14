@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser.add_argument('--n-days',
                         type=int,
                         help='only download files in the last n days',
-                        default=5)
+                        default=7)
     parser.add_argument('--no-restrict-filenames',
                         action='store_true',
                         help="don't strip outspaces and emoji etc")
