@@ -8,8 +8,6 @@
   ],
   "suggest.echodocSupport": true,
   "suggest.maxCompleteItemCount": 20,
-  "python.jediEnabled": false,
-  "python.linting.pylintUseMinimalCheckers": false,
   "python.formatting.provider": "yapf",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
@@ -70,7 +68,7 @@
     },
     "lean": {
       "command": "lean-language-server",
-      "args": ["--stdio"],
+      "args": ["--stdio", "--", "-M", "12288"],
       "filetypes": ["lean3"]
     }
   }
