@@ -11,7 +11,6 @@ if exists("*IsInstalled") && IsInstalled('tpope/vim-abolish')
   Abolish duoble double
   Abolish lsit{,s} list{}
   Abolish fo of
-  Abolish ve be
   Abolish doen done
   Abolish addtion addition
   Abolish necces{ities,ary} necess{}
