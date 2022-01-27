@@ -160,7 +160,6 @@ let g:window_key_mappings = [
             \ ["j", "belowright split"],
             \ ["k", "aboveleft split"],
             \ ["l", "belowright vsplit"],
-            \ [";", "call FloatingFullscreen()"],
             \ [",", 
             \ "let buf = bufnr('%') <bar> tabnew <bar> execute 'buffer' buf"],
             \ [".", ""],
