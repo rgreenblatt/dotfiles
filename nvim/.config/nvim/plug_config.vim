@@ -194,6 +194,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
         \ 'coc-prettier',
         \ 'coc-sh',
         \ 'coc-docker',
+        \ 'coc-tsserver',
         \]
 
   function! CocRunHighlight()
@@ -215,7 +216,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   augroup CocGenericAutocmds
     autocmd!
     " Setup formatexpr specified filetype(s).
-    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,graphql,java,tex,yaml,python,haskell,javascript,typescript,jsx,css,scss,markdown,rust
+    autocmd FileType,BufWrite c,cpp,cuda,json,jsonc,graphql,java,tex,yaml,python,haskell,javascript,javascriptreact,typescript,typescriptreact,jsx,css,scss,markdown,rust
           \ map <buffer> <Plug>(FormatSelected) <Plug>(coc-format-selected)|
           \ map <buffer> <Plug>(FormatAll) <Plug>(coc-format)
     " Update signature help on jump placeholder
@@ -354,29 +355,35 @@ let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = "latex"
 
 let g:vimtex_mappings_enabled = 0
+function! LatexMap() abort
+  " nmap  <buffer> <space>xi   <plug>(vimtex-info)
+  " nmap  <buffer> <space>xI   <plug>(vimtex-info-full)
+  " nmap  <buffer> <space>xt   <plug>(vimtex-toc-open)
+  " nmap  <buffer> <space>xT   <plug>(vimtex-toc-toggle)
+  " nmap  <buffer> <space>xq   <plug>(vimtex-log)
+  " nmap  <buffer> <space>xv   <plug>(vimtex-view)
+  " nmap  <buffer> <space>xr   <plug>(vimtex-reverse-search)
+  nmap  <buffer> <space>xl   <plug>(vimtex-compile)
+  " nmap  <buffer> <space>xL   <plug>(vimtex-compile-selected)
+  " nmap  <buffer> <space>xL   <plug>(vimtex-compile-selected)
+  " nmap  <buffer> <space>xk   <plug>(vimtex-stop)
+  " nmap  <buffer> <space>xK   <plug>(vimtex-stop-all)
+  nmap  <buffer> <space>xe   <plug>(vimtex-errors)
+  " nmap  <buffer> <space>xo   <plug>(vimtex-compile-output)
+  " nmap  <buffer> <space>xg   <plug>(vimtex-status)
+  " nmap  <buffer> <space>xG   <plug>(vimtex-status-all)
+  " nmap  <buffer> <space>xc   <plug>(vimtex-clean)
+  " nmap  <buffer> <space>xC   <plug>(vimtex-clean-full)
+  " nmap  <buffer> <space>xm   <plug>(vimtex-imaps-list)
+  " nmap  <buffer> <space>xx   <plug>(vimtex-reload)
+  " nmap  <buffer> <space>xX   <plug>(vimtex-reload-state)
+  " nmap  <buffer> <space>xs   <plug>(vimtex-toggle-main)
+endfunction
 
-" nmap  <space>xi   <plug>(vimtex-info)
-" nmap  <space>xI   <plug>(vimtex-info-full)
-" nmap  <space>xt   <plug>(vimtex-toc-open)
-" nmap  <space>xT   <plug>(vimtex-toc-toggle)
-" nmap  <space>xq   <plug>(vimtex-log)
-" nmap  <space>xv   <plug>(vimtex-view)
-" nmap  <space>xr   <plug>(vimtex-reverse-search)
-nmap  <space>xl   <plug>(vimtex-compile)
-" nmap  <space>xL   <plug>(vimtex-compile-selected)
-" nmap  <space>xL   <plug>(vimtex-compile-selected)
-" nmap  <space>xk   <plug>(vimtex-stop)
-" nmap  <space>xK   <plug>(vimtex-stop-all)
-nmap  <space>xe   <plug>(vimtex-errors)
-" nmap  <space>xo   <plug>(vimtex-compile-output)
-" nmap  <space>xg   <plug>(vimtex-status)
-" nmap  <space>xG   <plug>(vimtex-status-all)
-" nmap  <space>xc   <plug>(vimtex-clean)
-" nmap  <space>xC   <plug>(vimtex-clean-full)
-" nmap  <space>xm   <plug>(vimtex-imaps-list)
-" nmap  <space>xx   <plug>(vimtex-reload)
-" nmap  <space>xX   <plug>(vimtex-reload-state)
-" nmap  <space>xs   <plug>(vimtex-toggle-main)
+augroup SetupLatexMaps
+  autocmd!
+  autocmd Filetype tex call LatexMap()
+augroup END
 
 "yankring {{{1
 if IsInstalled('bfredl/nvim-miniyank')
@@ -860,6 +867,10 @@ let g:ale_linters = {
       \ 'go': [],
       \ 'haskell': [],
       \ 'asm': [],
+      \ 'typescript': [],
+      \ 'typescriptreact': [],
+      \ 'javascript': [],
+      \ 'javascriptreact': [],
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
@@ -1051,6 +1062,24 @@ EOF
   set foldexpr=nvim_treesitter#foldexpr()
 endif
 
+" jupyter-vim {{{1
+let g:jupyter_mapkeys = 0
+
+function! JupyterMap() abort
+  nmap <buffer> <space>xc <Cmd>JupyterConnect<cr>
+  nmap <buffer> <space>xR <Cmd>JupyterRunFile<cr>
+  nmap <buffer> <space>xr <Plug>JupyterRunTextObj
+  nmap <buffer> <space>xi <Cmd>JupyterTerminateKernel SIGINT<cr>
+  nmap <buffer> <space>r <Cmd>JupyterSendCell<cr>
+
+  xmap <buffer> <space>xr <Plug>JupyterRunVisual
+endfunction
+
+
+augroup SetupJupyterMaps
+  autocmd!
+  autocmd Filetype python call JupyterMap()
+augroup END
 
 "other {{{1
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>

@@ -39,6 +39,7 @@ if !g:no_language_plugins
 
   " call s:PA(['jackguo380/vim-lsp-cxx-highlight'])
   call s:PA(['ziglang/zig.vim'])
+  call s:PA(['jupyter-vim/jupyter-vim'])
   call s:PA(['dense-analysis/ale'])
   call s:PA(['maximbaz/lightline-ale'])
   call s:PA(['lervag/vimtex'])
