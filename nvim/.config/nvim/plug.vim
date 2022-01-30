@@ -30,7 +30,7 @@ endif
 "languages {{{2
 if !g:no_language_plugins
   "coc {{{3
-  if !g:no_coc
+  if !g:no_coc && !g:no_painful_to_install_plugins
     call s:PA(['neoclide/coc.nvim', "{'branch': 'release'}"])
     call s:PA(['liuchengxu/vista.vim'])
     call s:PA(['honza/vim-snippets'])
@@ -65,7 +65,9 @@ if !g:no_appearance_plugins
   endif
   call s:PA(['itchyny/lightline.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
-  call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
+  if !g:no_painful_to_install_plugins
+    call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
+  endif
 endif
 
 "general editing {{{2
