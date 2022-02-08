@@ -195,6 +195,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
         \ 'coc-sh',
         \ 'coc-docker',
         \ 'coc-tsserver',
+        \ 'coc-solargraph',
         \]
 
   function! CocRunHighlight()
@@ -871,6 +872,7 @@ let g:ale_linters = {
       \ 'typescriptreact': [],
       \ 'javascript': [],
       \ 'javascriptreact': [],
+      \ 'ruby': [],
       \ }
 let g:ale_echo_msg_format = '[%linter%] %s [%code%]'
 
