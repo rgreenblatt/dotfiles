@@ -38,6 +38,17 @@ grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+If grub isn't detected, check /etc/fstab and also maybe instead
+run
+```
+grub-install --target=x86_64-efi --efi-directory=/efi --removable
+```
+and then rerun `grub-mkconfig`
+Might also help to reinstall `linux linux-firmware`?
+
+(from default/fallback boot path in install instructions)
+
+
 ## Systemd enable
 
 ```
@@ -51,10 +62,18 @@ systemctl enable sshd
 
 Connect to wifi with nmcli
 
+If no internet but device connects, maybe:
+```
+sudo pacman -S dhcpcd
+sudo systemctl enable dhcpcd.service
+sudo systemctl start dhcpcd.service
+```
+
 ### User
 
+Uncomment  `%wheel ALL=(ALL:ALL) ALL` in `/etc/sudoers`.
+
 ```
-sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/g' /etc/sudoers
 useradd -m -g users -G wheel -s /bin/zsh ryan
 passwd ryan
 ```

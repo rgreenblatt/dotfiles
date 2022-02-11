@@ -27,7 +27,7 @@ See arch_install.md
 yay -Syu
 yay -S python-wheel
 # note, includes many language specific installs, reduce as needed
-yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
+yay -S i3 i3status xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   ripgrep bat zathura zathura-cb zathura-djvu zathura-pdf-mupdf \
   compton xdotool picom aur/nerd-fonts-hack unclutter \
   aur/twmn-git hsetroot xsel curl sqlite xcalib cmake flameshot mpv stow \
@@ -36,7 +36,7 @@ yay -S i3 xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustup fd \
   community/python-watchdog aur/openpyn-nordvpn aur/nvm \
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls \
-  boost eigen gdb ttf-roboto zathura-pdf-poppler pulseaudio pulseaudio-alsa \
+  boost eigen gdb ttf-roboto pulseaudio pulseaudio-alsa \
   alsa-utils pavucontrol opam xfce4-terminal aur/ranger-git
 # TODO: swap ranger-git to ranger when possible
 
@@ -50,6 +50,8 @@ yarn global add --dev prettier prettier-plugin-toml --dev --exact &&
   yarn global upgrade
 
 pip3 install recordclass bidict
+
+rustup default stable
 
 # slow install packages to install later
 yay -S aur/cling clang texlive-most aur/cmake-lint aur/cmake-format aur/bear 
@@ -82,8 +84,6 @@ sudo cp "root_configs/etc/udev/rules.d/85-input.rules" \
 sudo cp "root_configs/etc/modules-load.d/uinput.conf" \
   /etc/modules-load.d/
 sudo usermod -aG input $USER
-curl -L -o ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ./install.sh main
 source ~/.profile
 nvm install --lts
@@ -93,8 +93,6 @@ cd ~/.fzf && ./install --all && cd -
 bat cache --build
 sudo cp root_configs/usr/local/bin/env_editor /usr/local/bin/env_editor &&
   sudo ln -sf /usr/local/bin/env_editor /usr/bin/editor
-cd ~/.local/share/nvim/plugged/sneak-quick-scope/src && ./build.sh &&
-  cp sneak_quick_scope ~/.local/bin && cd -
 ```
 
 Consider changing to
