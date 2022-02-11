@@ -44,7 +44,7 @@ if [ -f ~/.zgen/zgen.zsh ]; then
     zgen oh-my-zsh plugins/pip
     zgen oh-my-zsh plugins/ubuntu
     zgen oh-my-zsh plugins/docker
-    zgen oh-my-zsh plugins/rust
+    # zgen oh-my-zsh plugins/rust
     zgen oh-my-zsh plugins/ripgrep
 
     zgen loadall <<EOPLUGINS
@@ -102,6 +102,7 @@ if [ -z $NO_COMPLETE ]; then
 
   setopt rm_star_silent
   setopt +o nomatch
+  # export ZSH_CACHE_DIR=~/.cache/zsh/
 else
   export COMPLETE_DISABLED="true"
 fi
