@@ -21,7 +21,7 @@ ls_command() {
   if hash exa 2>/dev/null; then
     exa "$@"
   else
-    ls --color=auto "$@"
+    \ls --color=auto "$@"
   fi
 }
 
