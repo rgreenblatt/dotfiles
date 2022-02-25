@@ -3,7 +3,7 @@
 
 #setup {{{1
 if [ -z "$PROFILE_SOURCED" ]; then
-  \. "$CONFIG_HOME/.profile"
+  \. "${CONFIG_HOME:-$HOME}/.profile"
 fi
 
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
