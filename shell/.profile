@@ -136,3 +136,5 @@ fi
 #}}}
 
 # vim: set fdm=marker:
+
+export PYTHONPATH="$HOME/documents/unity/:$PYTHONPATH"

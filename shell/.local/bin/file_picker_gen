@@ -17,7 +17,8 @@ fi
 
 ranger_loc="$HOME"
 if [[ -n "$persistant_loc_file" && -f "$persistant_loc_file" ]]; then
-  ranger_loc=$(<"$persistant_loc_file")
+  # not sure why dirname required, but ranger crashes otherwise atm
+  ranger_loc=$(dirname $(<"$persistant_loc_file"))
 fi
 
 if [[ ! -e $ranger_loc ]]; then
@@ -27,6 +28,7 @@ if [[ ! -e $ranger_loc ]]; then
   fi
 fi
 
+echo ranger "$ranger_loc" "$choose_cmd=$file_loc" "${@:4}"
 ranger "$ranger_loc" "$choose_cmd=$file_loc" "${@:4}"
 
 picked_file=$(tail -n 1 "$file_loc")
