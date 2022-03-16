@@ -920,11 +920,17 @@ let g:rooter_patterns = ['.root', 'build.sbt', 'stack.yaml', 'package.xml',
 let g:rooter_disable_first_iter = 0
 
 function! NoRooterOneIter()
+  if g:only_manual_cd
+    return
+  endif
   let g:rooter_disable_first_iter = 1
   let g:rooter_manual_only = 1
 endfunction
 
 function! CheckRooterReenable()
+  if g:only_manual_cd
+    return
+  endif
   if g:rooter_disable_first_iter != 0
     let g:rooter_disable_first_iter = g:rooter_disable_first_iter - 1
   else
@@ -939,6 +945,24 @@ augroup END
 
 nnoremap <silent> <space>p <Cmd>call NoRooterOneIter() <bar> lcd %:p:h<cr>
 nnoremap <space>P <Cmd>call NoRooterOneIter()<cr>:<c-u>lcd<space>
+
+"shell interaction + manual cd only {{{1
+let g:only_manual_cd = 0
+
+function! s:ManualCDToggleFunc()
+  let g:only_manual_cd = !g:only_manual_cd
+  let g:rooter_manual_only = g:only_manual_cd
+endfunction
+
+command! -nargs=0 ManualCDToggle call s:ManualCDToggleFunc()
+
+function! s:CDIfAutoFunc(path)
+  if !g:only_manual_cd
+    execute "silent lcd " . a:path
+  endif
+endfunction
+
+command! -nargs=1 CDIfAuto call s:CDIfAutoFunc(<f-args>)
 
 " nvim-gdb {{{1
 let g:nvimgdb_disable_start_keymaps = v:true

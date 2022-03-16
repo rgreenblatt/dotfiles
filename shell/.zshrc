@@ -233,7 +233,7 @@ function precmd() {
 
   if [ "$has_nvim_and_has_nvr" = true ]; then
     if [[ -d $PWD ]]; then
-      (nvr -c "silent lcd $PWD" &)
+      (nvr -c "silent CDIfAuto $PWD" &)
     fi 
     (nvr -cc "ZshVIMModeEnterInsert" &)
   fi
