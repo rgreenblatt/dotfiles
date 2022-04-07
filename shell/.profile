@@ -93,6 +93,7 @@ export PROFILE_SOURCED=1
 export PERSISTANT_LOC_FILE=~/.cache/persistant_loc.txt
 
 if [ -d "$HOME/.fzf" ]; then #{{{1
+  export PATH="$HOME/.fzf/bin/:$PATH"
   gruvbox_fg_1='#ebdbb2'
   gruvbox_yellow='#fabd2f'
   gruvbox_bg_1='#3c3836'
@@ -137,4 +138,5 @@ fi
 
 # vim: set fdm=marker:
 
-export PYTHONPATH="$HOME/documents/unity/:$PYTHONPATH"
+
+export PYTHONPATH="$HOME/documents/unity/${PYTHONPATH:+":$PYTHONPATH"}"
