@@ -118,25 +118,6 @@ call MapWinCmd("b", "Buffers", 0)
 call MapWinCmd("E", "ZshExecutables", 0)
 
 nnoremap <Space>B <Cmd>Wipeouts<cr>
-nnoremap <M-C-B> <Cmd>Buffers<cr>
-nnoremap <M-C-N> <Cmd>GFiles<cr>
-nnoremap <M-C-A> <Cmd>Commits<cr>
-nnoremap <M-C-F> <Cmd>Files<cr>
-nnoremap <M-C-G> :<c-u>RgPreviewHidden<space>
-nnoremap <M-C-H> <Cmd>History/<cr>
-nnoremap <M-C-P> <Cmd>Lines<cr>
-nnoremap <space>: <Cmd>History:<cr>
-
-" TODO unify and cleanup!
-nnoremap <F1> :<c-u>RgPreviewHidden<space>
-nnoremap <F2> <Cmd>Buffers<cr>
-nnoremap <F3> <Cmd>GFiles<cr>
-nnoremap <F4> <Cmd>Files<cr>
-nnoremap <F5> <Cmd>Lines<cr>
-nnoremap <F6> <Cmd>BLines<cr>
-nnoremap <F7> <Cmd>Commits<cr>
-nnoremap <F8> :<c-u>call RgPreviewHidden('','')<left><left><left><left><left>
-nnoremap <F9> <Cmd>terminal<cr>
 
 "dirvish {{{1
 function! DirvishFoldHiddenText()
@@ -294,7 +275,7 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
   " nmap <space>a <Plug>(coc-codeaction-selected)
   " xmap <space>a <Plug>(coc-codeaction-selected)
 
-  " nmap <space>Z <Plug>(coc-float-jump)
+  nmap <space>Z <Plug>(coc-float-jump)
 
   "show documentation in preview window
   nnoremap <silent> K <Cmd>call CocAction('doHover')<CR>
