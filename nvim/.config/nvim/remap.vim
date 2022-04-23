@@ -202,6 +202,7 @@ nnoremap <silent> <space>p <Cmd>lcd %:p:h<cr>
 nnoremap <space>P :<c-u>lcd<space>
 nnoremap <space>; <Cmd>let @@=expand("%")<cr>
 nnoremap <space>: <Cmd>let @@=expand("%:p")<cr>
+nnoremap <space>m <Cmd>let @@=expand("%:t")<cr>
 
 nnoremap <space>y <Cmd>let @+=@@<cr>
 nnoremap <space>Y :<c-u>let @+=@
