@@ -6,7 +6,7 @@ if [ -z "$PROFILE_SOURCED" ]; then
   \. "${CONFIG_HOME:-$HOME}/.profile"
 fi
 
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -n "${NVIM+x}" ]; then
   export COLORTERM="truecolor"
 fi
 
@@ -330,7 +330,7 @@ alias ct='create_tar czvf'
 alias cnzt='create_tar cvf'
 
 #nvim terminal specific settings {{{1
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -n "${NVIM+x}" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'

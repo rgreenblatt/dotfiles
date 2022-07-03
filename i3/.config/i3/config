@@ -36,6 +36,7 @@ bindsym $mod+Return exec start_term
 bindsym $mod+q kill
 
 bindsym $mod+space exec floating_term fzf_launch
+bindsym $mod+BackSpace exec floating_term fzf_launch
 bindsym $mod+o exec floating_term persistant_loc_desktop_open
 bindsym $mod+Shift+o exec floating_term persistant_loc_floating_shell
 for_window [title="^floating_term$"] floating enable

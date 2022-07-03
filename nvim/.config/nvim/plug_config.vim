@@ -1075,6 +1075,10 @@ let g:jupyter_mapkeys = 0
 function! JupyterMap() abort
   nmap <buffer> <space>xc <Cmd>JupyterConnect<cr>
   nmap <buffer> <space>xR <Cmd>JupyterRunFile<cr>
+  nmap <buffer> <space>xx <Cmd>JupyterSendCode "import os; os._exit(00)"<cr>
+  nmap <buffer> <space>xd <Cmd>JupyterDisconnect<cr>
+  " TODO: generalize below...
+  nmap <buffer> <space>xC <Cmd>JupyterConnect /home/ryan/kernel-ssh.json<cr>
   nmap <buffer> <space>xr <Plug>JupyterRunTextObj
   nmap <buffer> <space>xi <Cmd>JupyterTerminateKernel SIGINT<cr>
   nmap <buffer> <space>r <Cmd>JupyterSendCell<cr>
@@ -1098,6 +1102,7 @@ let g:wordmotion_prefix = ';'
 let g:lion_squeeze_spaces = 1
 let g:mwAutoLoadMarks = 1
 let g:gutentags_cache_dir = '~/.tags'
+" let g:gutentags_enabled = 0
 let g:highlightedyank_highlight_duration = 200
 let g:localvimrc_name = ['.config/local_init.vim']
 let g:localvimrc_whitelist = [$HOME . '/dotfiles', $HOME . '/documents']

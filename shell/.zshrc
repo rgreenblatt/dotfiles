@@ -129,7 +129,7 @@ alias -g NA="&> /dev/null"
 
 #nvim terminal specific settings {{{1
 has_nvim_and_has_nvr=false
-if [[ -n "${NVIM_LISTEN_ADDRESS+x}" ]] && 
+if [[ -n "${NVIM+x}" ]] && 
   hash nvr 2> /dev/null; then
   has_nvim_and_has_nvr=true
 fi
