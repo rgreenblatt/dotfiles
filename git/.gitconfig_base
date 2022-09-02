@@ -53,7 +53,7 @@
   default = simple
 
 [pull]
-  rebase = True
+  rebase = False
 
 [fetch]
   prune = True
