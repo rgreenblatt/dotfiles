@@ -6,7 +6,8 @@
     ".hg",
     ".projections.json"
   ],
-  "rust-analyzer.checkOnSave.command": "clippy",
+  // "rust-analyzer.checkOnSave.command": "clippy",
+  "suggest.noselect": false,
   "suggest.maxCompleteItemCount": 20,
   "python.formatting.provider": "black",
   "python.linting.enabled": true,

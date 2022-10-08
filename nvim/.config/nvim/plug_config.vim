@@ -211,40 +211,33 @@ if IsInstalled('neoclide/coc.nvim') " {{{1
         \ { 'url' : $HOME . "/.config/jdt.ls/format.xml"})
 
   " use <tab> for trigger completion and navigate to next complete item
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction
-
-  inoremap <silent><expr> <tab>
-        \ pumvisible() ? "\<c-n>" :
-        \ coc#expandableOrJumpable() ?
-        \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-        \ <SID>check_back_space() ? "\<tab>" :
+  inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1) :
+        \ CheckBackspace() ? "\<Tab>" :
         \ coc#refresh()
-  inoremap <expr> <s-tab>
-        \ pumvisible() ? "\<c-p>" :
-        \ coc#expandableOrJumpable() ?
-        \ coc#rpc#request('snippetPrev', []) : "\<s-tab>"
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-  snoremap <silent><expr> <tab>
-        \ coc#expandableOrJumpable() ?
-        \ coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-        \ "\<tab>"
-  snoremap <silent><expr> <s-tab>
-        \ coc#expandableOrJumpable() ?
-        \ coc#rpc#request('snippetPrev', []) :
-        \ "\<s-tab>"
+  " Make <CR> to accept selected completion item or notify coc.nvim to format
+  " <C-g>u breaks current undo, please make your own choice.
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  let g:coc_snippet_next = '<c-j>'
+  let g:coc_snippet_prev = '<c-k>'
+  imap <C-j> <Plug>(coc-snippets-expand-jump)
+  smap <C-j> <Plug>(coc-snippets-expand-jump)
+  vmap <C-j> <Plug>(coc-snippets-select)
+
+  function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
   "pum close/break undo
   inoremap <c-space> <c-g>u
 
   "snippet trigger
   imap <C-s> <Plug>(coc-snippets-expand)
-
-  inoremap <silent><expr> <cr> pumvisible() && !empty(v:completed_item) ?
-        \ coc#_select_confirm()
-        \: "\<CR>"
 
   nnoremap <space>I <Cmd>CocCommand python.sortImports<cr>
   nnoremap <space>R <Cmd>CocCommand python.execInTerminal<cr>
