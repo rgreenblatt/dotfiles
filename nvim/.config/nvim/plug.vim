@@ -54,6 +54,8 @@ if !g:no_language_plugins
   call s:PA(['Julian/lean.nvim'])
   call s:PA(['neovim/nvim-lspconfig'])
   call s:PA(['nvim-lua/plenary.nvim'])
+  call s:PA(['vim-pandoc/vim-pandoc'])
+  call s:PA(['vim-pandoc/vim-pandoc-syntax'])
 endif
 
 "appearance {{{2

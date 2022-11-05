@@ -139,4 +139,4 @@ fi
 # vim: set fdm=marker:
 
 
-export PYTHONPATH="$HOME/documents/unity/${PYTHONPATH:+":$PYTHONPATH"}"
+# export PYTHONPATH="$HOME/documents/unity/${PYTHONPATH:+":$PYTHONPATH"}"

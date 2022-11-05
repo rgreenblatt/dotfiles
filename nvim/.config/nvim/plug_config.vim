@@ -1084,6 +1084,9 @@ augroup SetupJupyterMaps
   autocmd!
   autocmd Filetype python call JupyterMap()
 augroup END
+" pandoc-vim {{{1
+
+let g:pandoc#keyboard#use_default_mappings = 0
 
 "other {{{1
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
