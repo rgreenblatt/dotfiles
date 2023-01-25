@@ -44,11 +44,11 @@ function! HowLong( command, numberOfTimes )
   " an echo as that would slow things down while waiting for user input.
   let more = &more
   set nomore
-  let startTime = localtime()
+  let startTime = reltime()
   for i in range( a:numberOfTimes )
     execute a:command
   endfor
-  let result = localtime() - startTime
+  let result = reltimefloat(reltime(startTime))
   let &more = more
   echo result
   return result
