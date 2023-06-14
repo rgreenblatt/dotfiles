@@ -40,14 +40,17 @@ if !g:no_language_plugins
   " call s:PA(['jackguo380/vim-lsp-cxx-highlight'])
   call s:PA(['ziglang/zig.vim'])
   call s:PA(['jupyter-vim/jupyter-vim'])
-  call s:PA(['dense-analysis/ale'])
-  call s:PA(['maximbaz/lightline-ale'])
+  " Ale was slowing down things a bunch, debug and reenable as needed
+  " call s:PA(['dense-analysis/ale'])
+  " call s:PA(['maximbaz/lightline-ale'])
   call s:PA(['lervag/vimtex'])
   call s:PA(['KeitaNakamura/tex-conceal.vim'])
-  call s:PA(['ludovicchabant/vim-gutentags'])
+  " very slow in some contexts, so disabled!
+  " call s:PA(['ludovicchabant/vim-gutentags'])
   call s:PA(['Chiel92/vim-autoformat'])
   call s:PA(['tpope/vim-apathy'])
   call s:PA(['kana/vim-textobj-function'])
+  " NOTE: polyglot is pretty slow in python, but seems ok for now...
   call s:PA(['sheerun/vim-polyglot'])
   call s:PA(['tpope/vim-markdown'])
   call s:PA(['Julian/lean-unicode.vim'])
@@ -65,10 +68,12 @@ if !g:no_appearance_plugins
   if !g:no_treesitter
     call s:PA(['nvim-treesitter/nvim-treesitter', "{'do': ':TSUpdate'}"])
   endif
-  call s:PA(['itchyny/lightline.vim'])
+  " call s:PA(['itchyny/lightline.vim'])
   call s:PA(['machakann/vim-highlightedyank'])
   if !g:no_painful_to_install_plugins
-    call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
+    " this is absurdly slow - plausibly could be fixed by making sure we get
+    " release build
+    " call s:PA(['RRethy/vim-hexokinase', "{'do': 'make hexokinase'}"])
   endif
 endif
 
@@ -77,9 +82,9 @@ if !g:no_editing_plugins
   call s:PA(['wellle/targets.vim'])
   call s:PA(['unblevable/quick-scope'])
   call s:PA(['justinmk/vim-sneak'])
-  call s:PA(['inkarkat/vim-ingo-library'])
-  call s:PA(['inkarkat/vim-CountJump'])
-  call s:PA(['inkarkat/vim-EnhancedJumps'])
+  " call s:PA(['inkarkat/vim-ingo-library'])
+  " call s:PA(['inkarkat/vim-CountJump'])
+  " call s:PA(['inkarkat/vim-EnhancedJumps'])
   call s:PA(['markonm/traces.vim'])
   call s:PA(['tommcdo/vim-exchange'])
   call s:PA(['tpope/vim-repeat'])
@@ -94,11 +99,11 @@ if !g:no_editing_plugins
   call s:PA(['buztard/vim-rel-jump'])
   call s:PA(['chaoren/vim-wordmotion'])
   call s:PA(['bfredl/nvim-miniyank'])
-  call s:PA(['kshenoy/vim-signature'])
+  " call s:PA(['kshenoy/vim-signature'])
   call s:PA(['mbbill/undotree'])
   call s:PA(['romainl/vim-cool'])
   call s:PA(['wsdjeg/vim-fetch'])
-  call s:PA(['thinca/vim-visualstar'])
+  call s:PA(['bronson/vim-visual-star-search'])
   call s:PA(['AndrewRadev/splitjoin.vim'])
   call s:PA(['AndrewRadev/sideways.vim'])
   call s:PA(['vim-scripts/ReplaceWithRegister'])

@@ -40,6 +40,10 @@ if [ -d "$HOME/.nvm" ]; then #{{{2
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
+# if [ -d "$HOME/global_env" ]; then #{{{2
+#   export VIRTUAL_ENV_DISABLE_PROMPT=1
+#   source "$HOME/global_env/bin/activate"
+# fi
 
 [ -s "/usr/share/nvm/nvm.sh" ] && \. "/usr/share/nvm/nvm.sh"
 
