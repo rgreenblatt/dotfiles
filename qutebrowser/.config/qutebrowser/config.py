@@ -56,7 +56,7 @@ c.content.blocking.method = 'adblock'
 # Type: List of File, or File
 c.content.user_stylesheets = []
 
-c.content.javascript.can_access_clipboard = True
+c.content.javascript.clipboard = "access"
 
 # Where to show the downloaded files.
 # Type: VerticalPosition
