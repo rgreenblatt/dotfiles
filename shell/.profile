@@ -140,6 +140,8 @@ if hash nvidia-settings 2>/dev/null; then #{{{1
 fi
 #}}}
 
+ulimit -u 50000
+
 # vim: set fdm=marker:
 
 
