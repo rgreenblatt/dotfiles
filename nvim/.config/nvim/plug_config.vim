@@ -1089,6 +1089,14 @@ augroup END
 let g:pandoc#keyboard#use_default_mappings = 0
 let g:pandoc#keyboard#display_motions = 0
 
+" copilot {{{1
+
+imap <silent><script><expr> <C-L> copilot#Accept("\<CR>")
+imap <C-H> <Plug>(copilot-dismiss)
+imap <C-d> <Plug>(copilot-previous)
+imap <C-g> <Plug>(copilot-next)
+let g:copilot_no_tab_map = v:true
+
 "other {{{1
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
 let g:windowswap_map_keys = 0

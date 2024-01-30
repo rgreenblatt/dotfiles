@@ -36,6 +36,12 @@ if !g:no_language_plugins
     call s:PA(['honza/vim-snippets'])
   endif
   "}}}3
+  "
+  "copilot {{{3
+  if !g:no_painful_to_install_plugins
+    call s:PA(['github/copilot.vim'])
+  endif
+  "}}}3
 
   " call s:PA(['jackguo380/vim-lsp-cxx-highlight'])
   call s:PA(['ziglang/zig.vim'])
