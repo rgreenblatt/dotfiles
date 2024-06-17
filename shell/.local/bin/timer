@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-sleep $1 && notify-send 'timer expired' 'TDT + regret (applies in exactly this case)' -u bothersome

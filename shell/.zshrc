@@ -8,18 +8,13 @@ if [ -z "$CONFIG_HOME" ]; then
   export CONFIG_HOME
 fi
 
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-
-# Start zim
-[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
-
 export INTERATIVE_SHELL="zsh"
 source $CONFIG_HOME/.shellrc
 
 #prompt {{{1
-autoload -Uz promptinit
-promptinit
-prompt ryan black blue green yellow
+# autoload -Uz promptinit
+# promptinit
+# prompt ryan black blue green yellow
 
 #bindings {{{1
 bindkey -v
@@ -30,43 +25,13 @@ bindkey "^E" edit-command-line
 
 export KEYTIMEOUT=1
 
-#zgen {{{1
-if [ -f ~/.zgen/zgen.zsh ]; then
-  source ~/.zgen/zgen.zsh
-
-  zgen_make_save() {
-    echo "creating zgen save"
-
-    zgen oh-my-zsh plugins/dircycle
-    zgen oh-my-zsh plugins/dirpersist
-    zgen oh-my-zsh plugins/colored-man-pages
-    zgen oh-my-zsh plugins/fancy-ctrl-z
-    zgen oh-my-zsh plugins/pip
-    zgen oh-my-zsh plugins/ubuntu
-    zgen oh-my-zsh plugins/docker
-    # zgen oh-my-zsh plugins/rust
-    zgen oh-my-zsh plugins/ripgrep
-
-    zgen loadall <<EOPLUGINS
-    zsh-users/zsh-autosuggestions
-    webyneter/docker-aliases
-    urbainvaes/fzf-marks
-    MichaelAquilina/zsh-you-should-use
-    mollifier/cd-gitroot
-    hschne/fzf-git
-    zpm-zsh/ssh
-    ziglang/shell-completions
-EOPLUGINS
-    zgen save
-  }
-
-  if ! zgen saved; then
-    zgen_make_save
-  fi
-  bindkey '' insert-cycledleft
-  bindkey '' insert-cycledright
-  alias cdg='cd-gitroot'
-fi
+# zgen oh-my-zsh plugins/dircycle
+# zgen oh-my-zsh plugins/dirpersist
+# zgen oh-my-zsh plugins/colored-man-pages
+# zgen oh-my-zsh plugins/fancy-ctrl-z
+# zgen oh-my-zsh plugins/pip
+# # zgen oh-my-zsh plugins/rust
+# zgen oh-my-zsh plugins/ripgrep
 
 #history {{{1
 setopt histignorealldups
@@ -108,14 +73,6 @@ else
 fi
 
 # language specific {{{2
-if [ -t 0 ]; then
-  test -r /home/ryan/.opam/opam-init/complete.zsh &&
-    . /home/ryan/.opam/opam-init/complete.zsh >/dev/null 2>/dev/null || true
-
-  test -r /home/ryan/.opam/opam-init/env_hook.zsh &&
-    . /home/ryan/.opam/opam-init/env_hook.zsh >/dev/null 2>/dev/null || true
-fi
-
 #zsh specific aliases {{{1
 alias pip3='noglob pip3'
 alias pip='noglob pip3'
@@ -287,23 +244,3 @@ function preexec() {
 #}}}
 
 # vim: set fdm=marker:
-
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
-#         . "/opt/anaconda/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/anaconda/binh$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

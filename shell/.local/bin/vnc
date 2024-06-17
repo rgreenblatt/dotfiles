@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-x0vncserver --SecurityTypes=None --comparefb=1 --maxprocessorusage=100 --HostsFile=/home/ryan/.vnc/hosts
