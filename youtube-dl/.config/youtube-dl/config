@@ -1,1 +1,0 @@
--f ytdl-format=bestvideo[height<=?1080][fps<=?30]+bestaudio/best

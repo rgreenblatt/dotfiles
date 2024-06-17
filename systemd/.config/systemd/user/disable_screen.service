@@ -1,7 +1,0 @@
-[Unit]
-Description=disable screen (in a bothersome way)
-
-[Service]
-Type=oneshot
-# not sure why extra bother is needed
-ExecStart=/bin/bash -c 'notify-send sleep "Recall TDT reasoning and regret" -u bothersome && bother'
