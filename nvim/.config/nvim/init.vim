@@ -25,7 +25,7 @@ call s:Set("g:no_coc", 0)
 call s:Set("g:no_painful_to_install_plugins", 0)
 call s:Set("g:no_appearance_plugins", 0)
 call s:Set("g:no_editing_plugins", 0)
-call s:Set("g:no_setup_plugins", 0)
+call s:Set("g:no_setup_plugins", 1)
 call s:Set("g:no_integration_plugins", 0)
 call s:Set("g:no_misc_plugins", 0)
 
