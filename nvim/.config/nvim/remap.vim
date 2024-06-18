@@ -215,7 +215,7 @@ nnoremap <A-k> <c-w>k
 nnoremap <A-j> <c-w>j
 nnoremap <A-h> <c-w>h
 
-nnoremap <silent> <space>q <Cmd>q<cr>
+" nnoremap <silent> <space>q <Cmd>q<cr>
 nnoremap <silent> <space>A <Cmd>qa<cr>
 nnoremap <silent> <space>b <Cmd>w<cr>
 nnoremap <silent> <a-d> <Cmd>bd!<cr>
