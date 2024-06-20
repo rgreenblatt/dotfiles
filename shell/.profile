@@ -141,6 +141,7 @@ fi
 #}}}
 
 ulimit -u 50000
+ulimit -n 100000
 
 # vim: set fdm=marker:
 
