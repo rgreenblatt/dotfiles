@@ -671,10 +671,6 @@ nnoremap <silent> ;l <Cmd>SidewaysJumpRight<cr>
 nnoremap <silent> ;y <Cmd>SidewaysLeft<cr>
 nnoremap <silent> ;o <Cmd>SidewaysRight<cr>
 
-"visual star search and replace {{{1
-xmap <space>s <Plug>(visualstar-*)``cgn
-xmap <space>S <Plug>(visualstar-#)``cgN
-
 " dispatch {{{1
 let g:dispatch_no_maps = 1
 
