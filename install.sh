@@ -138,3 +138,7 @@ systemctl --user daemon-reload
 if [ ! -d ~/.zgen ]; then
   git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
 fi
+
+if command -v bat >/dev/null 2>&1; then
+  bat cache --build 
+fi

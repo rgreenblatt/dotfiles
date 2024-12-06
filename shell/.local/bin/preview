@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-if [ -t 1 ] && [ -n "${NVIM+x}" ]; then
-  nvr -c "call FloatingOverWindow('$PWD/$1')"
+# if identify "$1" &>/dev/null; then
+#   timg "$@"
+# elif [[ -d $1 ]]; then
+if [[ -d $1 ]]; then
+  exa --color=always -Ta "$@"
+elif [[ -f $1 ]]; then
+  bat --style=numbers,changes --color always "$@"
 else
-  if identify "$1" &>/dev/null; then
-    timg "$@"
-  elif [[ -d $1 ]]; then
-    exa --color=always -Ta "$@"
-  elif [[ -f $1 ]]; then
-    bat --style=numbers,changes --color always "$@"
-  else
-    echo "No preview"
-    exit 1
-  fi
+  echo "No preview"
+  exit 1
 fi

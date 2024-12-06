@@ -150,12 +150,17 @@ if [ "$has_nvim_and_has_nvr" = true ] ; then
 fi
 
 #fzf setup {{{1
+
+# cursed work around because FZF (or something?) unsets these vars when it shells out???
+FZF_DEFAULT_COMMAND_BAK="$FZF_DEFAULT_COMMAND"
+FZF_DIR_COMMAND_BAK="$FZF_DIR_COMMAND"
+
 _fzf_compgen_path() {
-  eval "$FZF_DEFAULT_COMMAND '' $1"
+  eval "$FZF_DEFAULT_COMMAND_BAK '' $1"
 }
 
 _fzf_compgen_dir() {
-  eval "$FZF_DIR_COMMAND '' $1"
+  eval "$FZF_DIR_COMMAND_BAK '' $1"
 }
 
 # Paste the selected alias into the command line

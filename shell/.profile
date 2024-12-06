@@ -129,6 +129,10 @@ if [ -d "$HOME/.fzf" ]; then #{{{1
   FZF_DEFAULT_OPTS+="--color=prompt:$gruvbox_fg_4,pointer:$gruvbox_blue "
   FZF_DEFAULT_OPTS+="--color=marker:$gruvbox_orange,spinner:$gruvbox_yellow "
   FZF_DEFAULT_OPTS+="--color=header:$gruvbox_bg_3 "
+
+  # cursed work around because FZF (or something?) unsets these vars when it shells out for zsh comp
+  FZF_DEFAULT_COMMAND_BAK="$FZF_DEFAULT_COMMAND"
+  FZF_DIR_COMMAND_BAK="$FZF_DIR_COMMAND"
 fi
 
 if [ -f "$HOME/.profile_machine_specific" ]; then #{{{1
