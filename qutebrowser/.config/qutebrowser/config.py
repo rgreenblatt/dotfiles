@@ -50,7 +50,7 @@ c.bindings.key_mappings = {
 #   - adblock: Use Brave's ABP-style adblocker
 #   - hosts: Use hosts blocking
 #   - both: Use both hosts blocking and Brave's ABP-style adblocker
-c.content.blocking.method = 'adblock'
+c.content.blocking.method = 'both'
 
 # List of user stylesheet filenames to use.
 # Type: List of File, or File
