@@ -32,7 +32,7 @@ def run_and_check(l, r, expected, sym, parse=int, delay_time=5):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Math practice program")
+    parser = argparse.ArgumentParser(description="Mental math")
     parser.add_argument(
         "--division", "-d", action="store_true", help="Enable division problems"
     )
@@ -50,6 +50,7 @@ def main():
                 [l // r, l % r],
                 "/",
                 parse=lambda s: [int(v) for v in s.split(",")],
+                delay_time=5,
             )
         else:
             get = lambda: random.randint(0, 999)
