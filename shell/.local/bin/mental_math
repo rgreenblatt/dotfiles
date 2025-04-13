@@ -1,0 +1,64 @@
+#!/usr/bin/python3
+
+import random
+import time
+import argparse
+
+
+def run_and_check(l, r, expected, sym, parse=int, delay_time=5):
+    start = time.time()
+    to_print = "{} {} {}".format(l, sym, r)
+    print(to_print, end="", flush=True)
+    time.sleep(delay_time)
+    print("\033[1K", end="")
+    val = input(" = ")
+
+    try:
+        x = parse(val)
+    except ValueError:
+        print("failed to parse")
+        return
+
+    if x == expected:
+        prefix = "correct"
+    else:
+        prefix = "incorrect"
+
+    print(
+        "{} in {}s (correct {} = {})".format(
+            prefix, time.time() - start, to_print, expected
+        )
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Math practice program")
+    parser.add_argument(
+        "--division", "-d", action="store_true", help="Enable division problems"
+    )
+    args = parser.parse_args()
+
+    allow_division = args.division
+
+    while True:
+        division = random.choice([True, False]) and allow_division
+        if division:
+            l, r = random.randint(0, 999999), random.randint(1, 99)
+            run_and_check(
+                l,
+                r,
+                [l // r, l % r],
+                "/",
+                parse=lambda s: [int(v) for v in s.split(",")],
+            )
+        else:
+            get = lambda: random.randint(0, 999)
+            l, r = get(), get()
+            run_and_check(l, r, l * r, "*", delay_time=2)
+        # else:
+
+        time.sleep(3)
+
+
+if __name__ == "__main__":
+    main()
