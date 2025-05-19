@@ -129,6 +129,8 @@ if [[ $headless == "false" ]]; then
   mkdir -p ~/.config/qutebrowser
   stow qutebrowser
   stow zathura
+  # avoid tracking other files
+  mkdir -p ~/.config/xfce4/terminal/
   stow xfce4-terminal
   ln -sfn "$PWD/keyboard" ~/
 fi
