@@ -15,6 +15,22 @@ export HISTSIZE=100000
 export SAVEHIST=200000
 export HISTFILE=~/.shell_history
 
+histfile_backup="$HISTFILE.latest.bak"
+
+# Check if backup exists first
+if [ ! -f "$histfile_backup" ]; then
+  # Backup doesn't exist, create it
+  cp "$HISTFILE" "$histfile_backup"
+else
+  # Backup exists, check how old it is
+  current_time=$(date +%s)
+  file_time=$(stat -c %Y "$histfile_backup")
+  time_diff=$((current_time - file_time))
+  if [ $time_diff -gt 3000 ]; then
+    cp "$HISTFILE" "$histfile_backup"
+  fi
+fi
+
 #aliases and functions {{{1
 #ls {{{2
 ls_command() {
