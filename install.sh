@@ -119,7 +119,7 @@ stow jdt.ls
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
-  stow compton
+  stow picom
   stow i3
   stow i3status
   stow misc_desktop

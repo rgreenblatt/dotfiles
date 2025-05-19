@@ -5,7 +5,7 @@
 # global xinitrc file, used by all X sessions started by xinit (startx)
 
 twmnd &
-compton -b --config ~/.config/compton/compton.conf
+picom -b --config ~/.config/picom/picom.conf
 # (mkdir -p /tmp/keyboard_info/ && touch /tmp/keyboard_info/kill &&
 #   sleep 1.0 && keyboard_setup) &
 low_battery_notify &
