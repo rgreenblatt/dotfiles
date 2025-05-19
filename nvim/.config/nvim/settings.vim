@@ -58,7 +58,7 @@ call s:TrySetting('signcolumn', 'yes:1')
 
 " misc {{{1
 try
-  packadd termdebug
+  packadd! termdebug
 catch /E919/
 endtry
 
