@@ -1093,6 +1093,20 @@ imap <C-d> <Plug>(copilot-previous)
 imap <C-g> <Plug>(copilot-next)
 let g:copilot_no_tab_map = v:true
 
+" disable group {{{1
+
+function! s:DisableCompletionFancy() abort
+  Copilot disable
+  CocDisable
+endfunction
+
+function! s:DisableForWriting() abort
+  call s:DisableCompletionFancy()
+  QuickScopeToggle " clowny way to do this as we really want to disable, but whatever
+endfunction
+
+command! DisableForWriting call s:DisableForWriting()
+
 "other {{{1
 nnoremap <silent> ;vh <Cmd>HexokinaseToggle<cr>
 let g:windowswap_map_keys = 0
