@@ -1132,6 +1132,11 @@ let g:markdown_fenced_languages = [
       \]
 let g:zig_fmt_autosave = 0
 
+unmap gri
+unmap grr
+unmap gra
+unmap grn
+
 " lua <<EOF
 " require('lean').setup{
 "   -- Enable the Lean language server(s)?
