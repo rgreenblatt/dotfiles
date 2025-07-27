@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 
 if [ "$#" -lt 3 ]; then
-  echo "Usage: $0 file_loc is_multi persistant_loc_file [RANGER_ARGS]"
+  echo "Usage: $0 file_loc selection_type persistant_loc_file [RANGER_ARGS]"
   exit 1
 fi
 
 file_loc=$1
-is_multi=$2
+selection_type=$2
 persistant_loc_file=$3
 
-if [[ "$is_multi" == "true" ]]; then
+if [[ "$selection_type" == "multi" ]]; then
   choose_cmd="--choosefiles"
-else
+elif [[ "$selection_type" == "single" ]]; then
   choose_cmd="--choosefile"
+elif [[ "$selection_type" == "dir" ]]; then
+  choose_cmd="--choosedir"
+else
+  echo "Invalid selection type: $selection_type"
+  exit 1
 fi
 
 ranger_loc="$HOME"

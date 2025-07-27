@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 tmpfile=$(mktemp /tmp/ranger-open-XXXXXXX.txt)
-file_picker_gen "$tmpfile" "true" "$PERSISTANT_LOC_FILE"
+file_picker_gen "$tmpfile" "multi" "$PERSISTANT_LOC_FILE"
 
 while IFS="" read -r p || [ -n "$p" ]; do
   log=$(mktemp "/tmp/ranger-xdg-open-log-XXXXXX.txt")
