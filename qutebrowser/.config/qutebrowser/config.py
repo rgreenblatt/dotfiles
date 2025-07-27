@@ -99,7 +99,7 @@ persistant_loc = os.environ['HOME'] + '/.cache/persistant_loc_browser.txt'
 # `{}`: Filename of the file to be written to.
 # Type: ShellCommand
 c.fileselect.single_file.command = [
-    'floating_term', 'file_picker_gen', '{}', 'false', persistant_loc
+    'floating_file_picker', "{}", 'single', persistant_loc
 ]
 
 # Command (and arguments) to use for selecting a single file in forms.
@@ -108,7 +108,11 @@ c.fileselect.single_file.command = [
 # to be written to.
 # Type: ShellCommand
 c.fileselect.multiple_files.command = [
-    'floating_term', 'file_picker_gen', '{}', 'true', persistant_loc
+    'floating_file_picker', "{}", 'multi', persistant_loc
+]
+
+c.fileselect.folder.command = [
+    'floating_file_picker', "{}", 'dir', persistant_loc
 ]
 
 # Characters used for hint strings.
@@ -324,3 +328,5 @@ c.colors.tabs.selected.odd.fg = base00
 c.colors.tabs.selected.odd.bg = base05
 c.colors.tabs.selected.even.fg = base00
 c.colors.tabs.selected.even.bg = base05
+
+# c.qt.force_software_rendering = "chromium"
