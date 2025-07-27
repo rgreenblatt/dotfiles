@@ -55,4 +55,15 @@ function! HowLong( command, numberOfTimes )
 endfunction
 "}}}1
 
+"replace chars {{{1
+function! s:SwapQuotes()
+  silent! %substitute/”/"
+  silent! %substitute/“/"
+  silent! %substitute/’/'
+endfunction
+
+command! -nargs=0 SwapQuotes call s:SwapQuotes()
+"}}}1
+
+
 " vim: set fdm=marker:
