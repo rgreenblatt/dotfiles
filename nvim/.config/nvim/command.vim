@@ -60,6 +60,7 @@ function! s:SwapQuotes()
   silent! %substitute/”/"
   silent! %substitute/“/"
   silent! %substitute/’/'
+  silent! %substitute/‘/'
 endfunction
 
 command! -nargs=0 SwapQuotes call s:SwapQuotes()
