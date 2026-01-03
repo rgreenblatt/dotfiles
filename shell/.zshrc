@@ -69,7 +69,18 @@ EOPLUGINS
 fi
 
 #history {{{1
-setopt histignorealldups
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=200000
+
+# Safety options to prevent truncation/corruption
+setopt APPEND_HISTORY         # Append rather than overwrite
+setopt INC_APPEND_HISTORY     # Write immediately, not on shell exit
+setopt HIST_EXPIRE_DUPS_FIRST # Expire duplicates first when trimming
+setopt HIST_IGNORE_DUPS       # Ignore consecutive duplicates only (safer with multiple shells)
+setopt HIST_IGNORE_SPACE      # Don't record commands starting with space
+setopt HIST_VERIFY            # Show command before executing from history
+setopt EXTENDED_HISTORY       # Save timestamp and duration
 
 #completion {{{1
 if [ -z $NO_COMPLETE ]; then

@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""
+Backup shell history files to timestamped files with intelligent cleanup.
+Keeps at least one backup per week when cleaning old files.
+Supports backing up multiple history files (zsh, bash, etc.)
+"""
+
+import argparse
+import shutil
+from collections import defaultdict
+from datetime import datetime
+from pathlib import Path
+
+
+def get_week_key(timestamp: float) -> str:
+    """Return ISO year-week string for grouping backups by week."""
+    dt = datetime.fromtimestamp(timestamp)
+    return f"{dt.isocalendar()[0]}-W{dt.isocalendar()[1]:02d}"
+
+
+def backup_history(
+    histfile: Path,
+    backup_dir: Path,
+    prefix: str,
+    min_interval_seconds: int,
+    max_backups: int,
+    verbose: bool,
+    dry_run: bool,
+) -> None:
+    if not histfile.exists():
+        if verbose:
+            print(f"[{prefix}] History file does not exist: {histfile}")
+        return
+
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    marker = backup_dir / f".last_backup_time_{prefix}"
+
+    # Check if we should backup
+    should_backup = True
+    if marker.exists():
+        time_since_last = datetime.now().timestamp() - marker.stat().st_mtime
+        if time_since_last <= min_interval_seconds:
+            should_backup = False
+            if verbose:
+                print(
+                    f"[{prefix}] Skipping backup: last backup was {time_since_last:.0f}s ago "
+                    f"(threshold: {min_interval_seconds}s)"
+                )
+
+    if should_backup:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        backup_path = backup_dir / f"{prefix}_{timestamp}"
+
+        if dry_run:
+            print(f"[DRY RUN] Would copy {histfile} -> {backup_path}")
+            print(f"[DRY RUN] Would touch {marker}")
+        else:
+            shutil.copy2(histfile, backup_path)
+            marker.touch()
+            if verbose:
+                print(f"[{prefix}] Created backup: {backup_path}")
+
+    # Cleanup old backups for this prefix
+    cleanup_backups(backup_dir, prefix, max_backups, verbose, dry_run)
+
+
+def cleanup_backups(
+    backup_dir: Path, prefix: str, max_backups: int, verbose: bool, dry_run: bool
+) -> None:
+    """Remove old backups, keeping at least one per week and max_backups total."""
+    import re
+    timestamp_pattern = re.compile(rf"^{re.escape(prefix)}_\d{{8}}_\d{{6}}$")
+    backup_files = sorted(
+        (f for f in backup_dir.iterdir() if timestamp_pattern.match(f.name)),
+        key=lambda p: p.stat().st_mtime,
+    )
+
+    if len(backup_files) <= max_backups:
+        if verbose:
+            print(
+                f"[{prefix}] No cleanup needed: {len(backup_files)} backups <= {max_backups} max"
+            )
+        return
+
+    # Group backups by week
+    by_week: dict[str, list[Path]] = defaultdict(list)
+    for f in backup_files:
+        week = get_week_key(f.stat().st_mtime)
+        by_week[week].append(f)
+
+    # Determine which files to keep:
+    # 1. At least one (the newest) from each week
+    # 2. The most recent files up to max_backups
+    must_keep: set[Path] = set()
+
+    # Keep newest from each week
+    for week_files in by_week.values():
+        newest = max(week_files, key=lambda p: p.stat().st_mtime)
+        must_keep.add(newest)
+
+    # Keep the most recent max_backups files
+    recent_to_keep = set(backup_files[-max_backups:])
+
+    # Final keep set is union of both
+    keep = must_keep | recent_to_keep
+
+    # Delete files not in keep set
+    to_delete = [f for f in backup_files if f not in keep]
+
+    if verbose or dry_run:
+        print(f"[{prefix}] Total backups: {len(backup_files)}")
+        print(f"[{prefix}] Keeping {len(keep)} (max_backups={max_backups}, weeks={len(by_week)})")
+        print(f"[{prefix}] Deleting {len(to_delete)} old backups")
+
+    for f in to_delete:
+        if dry_run:
+            print(f"[DRY RUN] Would delete: {f}")
+        else:
+            f.unlink()
+            if verbose:
+                print(f"[{prefix}] Deleted: {f}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Backup shell history with intelligent cleanup"
+    )
+    parser.add_argument(
+        "--backup-dir",
+        type=Path,
+        default=Path.home() / ".backup_shell_history",
+        help="Backup directory (default: ~/.backup_shell_history)",
+    )
+    parser.add_argument(
+        "--interval",
+        type=int,
+        default=3600,
+        help="Minimum seconds between backups (default: 3600)",
+    )
+    parser.add_argument(
+        "--max-backups",
+        type=int,
+        default=100,
+        help="Maximum backups to keep per history file (default: 100)",
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Enable verbose output"
+    )
+    parser.add_argument(
+        "-n", "--dry-run", action="store_true", help="Show what would be done"
+    )
+
+    args = parser.parse_args()
+
+    # Define history files to backup
+    history_files = [
+        (Path.home() / ".zsh_history", "zsh_history"),
+        (Path.home() / ".bash_history", "bash_history"),
+    ]
+
+    for histfile, prefix in history_files:
+        backup_history(
+            histfile=histfile,
+            backup_dir=args.backup_dir,
+            prefix=prefix,
+            min_interval_seconds=args.interval,
+            max_backups=args.max_backups,
+            verbose=args.verbose,
+            dry_run=args.dry_run,
+        )
+
+
+if __name__ == "__main__":
+    main()

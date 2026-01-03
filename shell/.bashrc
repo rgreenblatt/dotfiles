@@ -21,8 +21,14 @@ export INTERATIVE_SHELL="bash"
 
 source "$CONFIG_HOME/.shellrc"
 
+#history {{{1
+HISTFILE=~/.bash_history
+HISTSIZE=100000
+HISTFILESIZE=200000
+HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend  # Append rather than overwrite
+
 #defaults from debian/ubuntu {{{1
-HISTCONTROL=ignoreboth
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if hash dircolors 2>/dev/null; then

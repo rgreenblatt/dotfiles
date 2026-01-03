@@ -10,25 +10,11 @@ if [ -n "${NVIM+x}" ]; then
   export COLORTERM="truecolor"
 fi
 
-#history {{{1
-export HISTSIZE=100000
-export SAVEHIST=200000
-export HISTFILE=~/.shell_history
-
-histfile_backup="$HISTFILE.latest.bak"
-
-# Check if backup exists first
-if [ ! -f "$histfile_backup" ]; then
-  # Backup doesn't exist, create it
-  cp "$HISTFILE" "$histfile_backup"
-else
-  # Backup exists, check how old it is
-  current_time=$(date +%s)
-  file_time=$(stat -c %Y "$histfile_backup")
-  time_diff=$((current_time - file_time))
-  if [ $time_diff -gt 3000 ]; then
-    cp "$HISTFILE" "$histfile_backup"
-  fi
+#history backup {{{1
+# Backup history on terminal open (if python3 available)
+# History settings are in shell-specific configs (.zshrc, .bashrc)
+if command -v python3 >/dev/null 2>&1 && command -v shell_history_backup_and_clean >/dev/null 2>&1; then
+  (shell_history_backup_and_clean &) &>/dev/null
 fi
 
 #aliases and functions {{{1
