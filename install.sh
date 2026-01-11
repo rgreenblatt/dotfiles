@@ -114,8 +114,6 @@ stow gnupg
 stow lldb
 stow gdb
 stow ranger
-mkdir -p ~/.claude
-stow claude
 stow systemd
 stow jdt.ls
 
