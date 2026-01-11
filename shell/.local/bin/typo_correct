@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/home/ryan/documents/typos/.venv/bin/python3 /home/ryan/documents/typos/typo_corrector.py $@
