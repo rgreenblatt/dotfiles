@@ -1,0 +1,9 @@
+# Large scrollback buffer (can't be truly infinite, but 1M lines is plenty)
+defscrollback 1000000
+
+# Allow terminal scrollback with Page Up/Down (bypasses screen's alternate screen)
+termcapinfo xterm* ti@:te@
+
+# Also works in copy mode with vim-style keys
+# Enter copy mode: Ctrl+a [
+# Exit copy mode: Escape or q
