@@ -37,7 +37,7 @@ yay -S i3 i3status xorg xorg-xinit nvidia nvidia-utils qutebrowser python3 rustu
   bash-language-server community/yarn aur/ruby-neovim \
   aur/nodejs-neovim sd exa vimiv boost watchman ccls \
   boost eigen gdb ttf-roboto pulseaudio pulseaudio-alsa \
-  alsa-utils pavucontrol opam xfce4-terminal aur/ranger-git
+  alsa-utils pavucontrol opam alacritty aur/ranger-git
 # TODO: swap ranger-git to ranger when possible
 
 # Currently failing (and not important): aur/insect and aur/dbg-macro

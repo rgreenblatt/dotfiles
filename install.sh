@@ -132,6 +132,7 @@ if [[ $headless == "false" ]]; then
   # avoid tracking other files
   mkdir -p ~/.config/xfce4/terminal/
   stow xfce4-terminal
+  stow alacritty
   ln -sfn "$PWD/keyboard" ~/
 fi
 
