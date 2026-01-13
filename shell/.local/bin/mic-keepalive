@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""Keep microphone device awake to avoid Bluetooth wake-up latency.
+
+Usage:
+    mic-keepalive start   # Start keepalive in background
+    mic-keepalive stop    # Stop keepalive
+    mic-keepalive status  # Check if running
+"""
+
+import subprocess
+import os
+import sys
+import signal
+
+PID_FILE = "/tmp/mic-keepalive.pid"
+
+
+def is_running():
+    if not os.path.exists(PID_FILE):
+        return False
+    try:
+        with open(PID_FILE) as f:
+            pid = int(f.read().strip())
+        os.kill(pid, 0)
+        return True
+    except (ProcessLookupError, ValueError, FileNotFoundError):
+        return False
+
+
+def start():
+    if is_running():
+        print("Already running")
+        return
+
+    # Start silent recording to /dev/null to keep mic awake
+    proc = subprocess.Popen(
+        ["rec", "-q", "-r", "16000", "-c", "1", "-t", "raw", "/dev/null"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+    )
+
+    with open(PID_FILE, "w") as f:
+        f.write(str(proc.pid))
+
+    print(f"Started (PID {proc.pid})")
+
+
+def stop():
+    if not os.path.exists(PID_FILE):
+        print("Not running")
+        return
+
+    try:
+        with open(PID_FILE) as f:
+            pid = int(f.read().strip())
+        os.kill(pid, signal.SIGTERM)
+        print("Stopped")
+    except (ProcessLookupError, ValueError):
+        print("Not running")
+
+    if os.path.exists(PID_FILE):
+        os.unlink(PID_FILE)
+
+
+def status():
+    if is_running():
+        with open(PID_FILE) as f:
+            pid = f.read().strip()
+        print(f"Running (PID {pid})")
+    else:
+        print("Not running")
+
+
+def main():
+    if len(sys.argv) < 2:
+        print(__doc__)
+        return
+
+    cmd = sys.argv[1]
+    if cmd == "start":
+        start()
+    elif cmd == "stop":
+        stop()
+    elif cmd == "status":
+        status()
+    else:
+        print(f"Unknown command: {cmd}")
+        print(__doc__)
+
+
+if __name__ == "__main__":
+    main()
