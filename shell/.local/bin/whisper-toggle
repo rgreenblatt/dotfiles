@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Toggle whisper recording on/off."""
+
+import subprocess
+import os
+import signal
+
+PID_FILE = "/tmp/whisper-recording.pid"
+
+def is_recording():
+    if not os.path.exists(PID_FILE):
+        return False
+    try:
+        with open(PID_FILE) as f:
+            pid = int(f.read().strip())
+        os.kill(pid, 0)
+        return True
+    except (ProcessLookupError, ValueError):
+        return False
+
+if is_recording():
+    subprocess.run(["whisper-record-stop"])
+else:
+    subprocess.run(["whisper-record-start"])
+    subprocess.run(["notify-send", "-u", "low", "-t", "1000", "Whisper", "Recording..."])

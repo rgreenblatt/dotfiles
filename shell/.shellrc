@@ -508,4 +508,9 @@ alias pipac="pacman -Slq | $base_pac_fzf -Si {1}' | xargs -ro sudo pacman -S"
 alias prpac="pacman -Qq | $base_pac_fzf -Qi {1}' | xargs -ro sudo pacman -Rns"
 
 
+#machine specific {{{1
+if [ -f ~/.machine_specific_shellrc ]; then
+  \. ~/.machine_specific_shellrc
+fi
+
 # vim: set fdm=marker:

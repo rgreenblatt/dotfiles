@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""Stop recording, transcribe with whisper, and type the result."""
+
+import subprocess
+import os
+import signal
+import time
+
+RECORDING_FILE = "/tmp/whisper-recording.wav"
+PID_FILE = "/tmp/whisper-recording.pid"
+MODEL = os.environ.get("WHISPER_MODEL", os.path.expanduser("~/.local/share/whisper.cpp/ggml-large-v3-turbo.bin"))
+PROMPT_FILE = os.path.expanduser("~/.config/whisper/prompt.txt")
+
+# Stop recording
+if not os.path.exists(PID_FILE):
+    exit(1)
+
+with open(PID_FILE) as f:
+    pid = int(f.read().strip())
+
+os.unlink(PID_FILE)
+
+try:
+    os.kill(pid, signal.SIGINT)
+    # Wait for process to finish
+    for _ in range(20):
+        os.kill(pid, 0)  # Check if still running
+        time.sleep(0.05)
+except ProcessLookupError:
+    pass  # Process already dead
+
+# Check recording exists and has content
+if not os.path.exists(RECORDING_FILE):
+    exit(1)
+
+if os.path.getsize(RECORDING_FILE) < 1000:
+    os.unlink(RECORDING_FILE)
+    exit(1)
+
+# Build command
+cmd = ["whisper-cli", "-m", MODEL, "-f", RECORDING_FILE, "--no-timestamps", "-np"]
+
+# Add prompt if exists
+if os.path.exists(PROMPT_FILE):
+    with open(PROMPT_FILE) as f:
+        prompt = f.read().strip()
+    if prompt:
+        cmd.extend(["--prompt", prompt])
+
+# Transcribe
+result = subprocess.run(cmd, capture_output=True, text=True)
+
+os.unlink(RECORDING_FILE)
+
+text = result.stdout.strip()
+if text:
+    subprocess.run(["xdotool", "type", "--clearmodifiers", "--", text])

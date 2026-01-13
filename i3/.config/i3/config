@@ -49,7 +49,12 @@ bindsym $mod+Escape exec "touch /tmp/keyboard_info/kill"
 bindsym --release $mod+slash exec "keyboard_setup"
 # bindsym $mod+u exec ranger_new_window
 
-bindsym $mod+grave exec "toggle-touchpad"
+# bindsym $mod+grave exec "toggle-touchpad"
+
+bindsym $mod+d exec whisper-toggle
+# bindsym $mod+d exec whisper-stream-toggle
+# bindsym $mod+Shift+d exec whisper-record-stop
+# bindsym --release $mod+d exec whisper-record-stop
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
