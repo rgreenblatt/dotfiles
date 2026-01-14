@@ -1,5 +1,3 @@
-# Gruvbox dark (hard contrast) matching xfce4-terminal config
-
 [bell]
 duration = 0
 
@@ -12,7 +10,6 @@ history = 100000
 [window]
 decorations = "None"
 
-# Keybindings matching xfce4-terminal:
 # - Copy/Paste: Ctrl+Shift+C/V (alacritty defaults)
 # - Zoom: Ctrl+Shift+Q/W/E
 [[keyboard.bindings]]
