@@ -2,6 +2,6 @@
 
 if [ -t 1 ]; then
   editor "$@"
-else 
-  xfce4-terminal --disable-server -e "editor '$@'"
+else
+  alacritty -e editor "$@"
 fi

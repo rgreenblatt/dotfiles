@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-# disable-server to avoid running in backgroun
-xfce4-terminal --disable-server --title="floating_term" --geometry=150x40 -x "$@"
+alacritty -T "floating_term" -o window.dimensions.columns=150 -o window.dimensions.lines=40 -e "$@"
