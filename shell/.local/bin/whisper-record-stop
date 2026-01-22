@@ -37,6 +37,11 @@ if os.path.getsize(RECORDING_FILE) < 1000:
     os.unlink(RECORDING_FILE)
     exit(1)
 
+# Pad with 500ms of silence at the end to prevent whisper cutting off final words
+padded_file = "/tmp/whisper-recording-padded.wav"
+subprocess.run(["sox", RECORDING_FILE, padded_file, "pad", "0", "0.5"], check=True)
+os.rename(padded_file, RECORDING_FILE)
+
 # Build command
 cmd = ["whisper-cli", "-m", MODEL, "-f", RECORDING_FILE, "--no-timestamps", "-np"]
 
