@@ -58,13 +58,13 @@ if !g:no_language_plugins
   call s:PA(['kana/vim-textobj-function'])
   " NOTE: polyglot is pretty slow in python, but seems ok for now...
   call s:PA(['sheerun/vim-polyglot'])
-  call s:PA(['tpope/vim-markdown'])
+  " call s:PA(['tpope/vim-markdown'])
   call s:PA(['Julian/lean-unicode.vim'])
   call s:PA(['Julian/lean.nvim'])
   call s:PA(['neovim/nvim-lspconfig'])
   call s:PA(['nvim-lua/plenary.nvim'])
-  call s:PA(['vim-pandoc/vim-pandoc'])
-  call s:PA(['vim-pandoc/vim-pandoc-syntax'])
+  " call s:PA(['vim-pandoc/vim-pandoc'])
+  " call s:PA(['rgreenblatt/vim-pandoc-syntax'])
 endif
 
 "appearance {{{2
