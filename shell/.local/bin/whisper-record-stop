@@ -18,6 +18,9 @@ if not os.path.exists(PID_FILE):
 with open(PID_FILE) as f:
     pid = int(f.read().strip())
 
+# Keep recording a bit longer to capture trailing audio
+time.sleep(0.5)
+
 os.unlink(PID_FILE)
 
 try:
@@ -55,7 +58,7 @@ if os.path.exists(PROMPT_FILE):
 # Transcribe
 result = subprocess.run(cmd, capture_output=True, text=True)
 
-os.unlink(RECORDING_FILE)
+# Keep file for debugging (was: os.unlink(RECORDING_FILE))
 
 text = result.stdout.strip()
 if text:
