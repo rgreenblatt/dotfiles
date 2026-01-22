@@ -1,0 +1,6 @@
+# cclv configuration
+
+# Theme for syntax highlighting
+# Available: gruvbox-dark, gruvbox-light, nord, dracula, solarized-dark,
+#            solarized-light, monokai, base16-ocean-dark, and more
+theme = "gruvbox-dark"

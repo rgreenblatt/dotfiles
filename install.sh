@@ -117,6 +117,7 @@ stow ranger
 stow systemd
 stow jdt.ls
 stow whisper
+stow cclv
 
 if [[ $headless == "false" ]]; then
   echo "Installing headed"
