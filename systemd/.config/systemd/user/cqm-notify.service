@@ -1,0 +1,19 @@
+[Unit]
+Description=Claude Query Me - Local Notification Daemon
+Documentation=https://github.com/rgreenblatt/claude-query-me
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/cqm notify run
+Restart=always
+RestartSec=10
+Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+# Allow graceful shutdown
+TimeoutStopSec=5
+KillSignal=SIGINT
+
+[Install]
+WantedBy=default.target
