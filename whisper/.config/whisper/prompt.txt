@@ -1,3 +1,5 @@
-Prelude with example word usage: I work on AI security (and AI safety) research at Redwood Research. I'm Ryan Greenblatt. I use Claude Code. I'm often coding in Python with libraries like asyncio, pandas, numpy, attrs, cattrs, and more.
+Prelude with example word usage: I work on AI security (and AI safety) research at Redwood Research. I'm Ryan Greenblatt. I use Claude Code. I'm often coding in Python with libraries like asyncio, pandas, numpy, attrs, cattrs, and more. I often ask AIs to message me with claude-query-me.
+
+I often talk about claudes, gpts, AIs. I sometimes say IDK or TBH. Here is an example. How many claudes are there? IDK.
 
 Actual message:
