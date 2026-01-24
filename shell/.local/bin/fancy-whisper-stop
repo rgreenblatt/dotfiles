@@ -64,7 +64,7 @@ def is_silent_webrtcvad(filepath: str) -> bool:
     import wave
     import webrtcvad
 
-    vad = webrtcvad.Vad(2)  # aggressiveness 0-3, 2 is moderate
+    vad = webrtcvad.Vad(3)  # aggressiveness 0-3, 3 is most aggressive at filtering non-speech
 
     # Read the wav file
     with wave.open(filepath, 'rb') as wf:
