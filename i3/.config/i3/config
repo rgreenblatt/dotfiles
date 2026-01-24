@@ -52,8 +52,8 @@ bindsym --release $mod+slash exec "keyboard_setup"
 # bindsym $mod+grave exec "toggle-touchpad"
 
 bindsym $mod+d exec whisper-toggle
+bindsym $mod+Shift+d exec whisper-toggle-fancy --clipboard
 # bindsym $mod+d exec whisper-stream-toggle
-# bindsym $mod+Shift+d exec whisper-record-stop
 # bindsym --release $mod+d exec whisper-record-stop
 
 bindsym $mod+h focus left

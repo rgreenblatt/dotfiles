@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Recover transcription from a long whisper recording by splitting into segments."""
+
+import argparse
+import subprocess
+import os
+import sys
+import tempfile
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+RECORDING_FILE = "/tmp/whisper-recording.wav"
+MODEL = os.environ.get("WHISPER_MODEL", os.path.expanduser("~/.local/share/whisper.cpp/ggml-large-v3-turbo.bin"))
+PROMPT_FILE = os.path.expanduser("~/.config/whisper/prompt.txt")
+
+# Segment settings
+NUM_SEGMENTS = 3
+OVERLAP_SECONDS = 5  # Overlap between segments to avoid cutting words
+
+# Sonnet 4.5 model for merging
+SONNET_MODEL = "claude-sonnet-4-5-20250929"
+
+
+def get_duration(filepath: str) -> float:
+    """Get audio duration in seconds."""
+    result = subprocess.run(
+        ["ffprobe", "-i", filepath, "-show_entries", "format=duration", "-v", "quiet", "-of", "csv=p=0"],
+        capture_output=True, text=True, check=True
+    )
+    return float(result.stdout.strip())
+
+
+def split_audio(filepath: str, start: float, duration: float, output: str):
+    """Extract a segment from audio file."""
+    subprocess.run(
+        ["ffmpeg", "-y", "-i", filepath, "-ss", str(start), "-t", str(duration), "-c", "copy", output],
+        capture_output=True, check=True
+    )
+
+
+def transcribe(filepath: str) -> str:
+    """Transcribe audio file with whisper."""
+    cmd = ["whisper-cli", "-m", MODEL, "-f", filepath, "--no-timestamps", "-np"]
+
+    if os.path.exists(PROMPT_FILE):
+        with open(PROMPT_FILE) as f:
+            prompt = f.read().strip()
+        if prompt:
+            cmd.extend(["--prompt", prompt])
+
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    return result.stdout.strip()
+
+
+CHUNK_BOUNDARY_MARKER = " [chunk boundary, may overlap] "
+
+
+def merge_fallback(transcripts: list[str]) -> str:
+    """Fallback merge: join transcripts with boundary markers."""
+    return CHUNK_BOUNDARY_MARKER.join(transcripts)
+
+
+def merge_with_llm(segments: list[tuple[float, float]], transcripts: list[str]) -> str:
+    """Use Sonnet 4.5 to merge overlapping transcript segments. Falls back to simple join on failure."""
+    try:
+        from anthropic import Anthropic
+    except ImportError:
+        print("Warning: anthropic package not installed, using fallback merge", file=sys.stderr)
+        return merge_fallback(transcripts)
+
+    api_key_path = Path("~/.anthropic_api_key_high_prio").expanduser()
+    if api_key_path.exists():
+        api_key = api_key_path.read_text().strip()
+    else:
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+
+    if not api_key:
+        print("Warning: No Anthropic API key found, using fallback merge", file=sys.stderr)
+        return merge_fallback(transcripts)
+
+    client = Anthropic(api_key=api_key)
+
+    # Build the prompt
+    segment_info = []
+    for i, ((start, end), text) in enumerate(zip(segments, transcripts)):
+        segment_info.append(f"Segment {i+1} ({start:.1f}s - {end:.1f}s):\n{text}")
+
+    prompt = f"""You are merging overlapping transcript segments from a speech-to-text system.
+
+The audio was split into overlapping segments to handle long recordings. Each segment overlaps with its neighbors by about {OVERLAP_SECONDS} seconds, which means the same words appear at the end of one segment and the beginning of the next.
+
+Your task: Merge these segments into a single coherent transcript, removing the duplicate content at segment boundaries. Output ONLY the merged transcript text, nothing else.
+
+IMPORTANT: Do NOT fix typos, grammar, or transcription errors. Output the text as-is from the transcripts. Only fix something if you are extremely confident it is a transcription error AND you are extremely confident what the correct word should be.
+
+{"\n\n".join(segment_info)}"""
+
+    try:
+        response = client.messages.create(
+            model=SONNET_MODEL,
+            max_tokens=4096,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return response.content[0].text
+    except Exception as e:
+        print(f"Warning: Anthropic API call failed ({e}), using fallback merge", file=sys.stderr)
+        return merge_fallback(transcripts)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Recover transcription from a long whisper recording")
+    parser.add_argument("input_file", nargs="?", default=RECORDING_FILE, help="Audio file to transcribe")
+    parser.add_argument("--merge", action="store_true", help="Use Sonnet 4.5 to merge overlapping segments")
+    parser.add_argument("-n", "--num-segments", type=int, default=NUM_SEGMENTS, help="Number of segments to split into")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.input_file):
+        print(f"File not found: {args.input_file}", file=sys.stderr)
+        sys.exit(1)
+
+    duration = get_duration(args.input_file)
+    print(f"Total duration: {duration:.1f}s", file=sys.stderr)
+
+    num_segments = args.num_segments
+
+    # Calculate segment boundaries with overlap
+    segment_length = duration / num_segments
+    segments = []
+    for i in range(num_segments):
+        start = max(0, i * segment_length - OVERLAP_SECONDS if i > 0 else 0)
+        end = min(duration, (i + 1) * segment_length + OVERLAP_SECONDS if i < num_segments - 1 else duration)
+        segments.append((start, end))
+
+    print(f"Splitting into {num_segments} segments with {OVERLAP_SECONDS}s overlap", file=sys.stderr)
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Split audio
+        segment_files = []
+        for i, (start, end) in enumerate(segments):
+            seg_duration = end - start
+            output = os.path.join(tmpdir, f"segment_{i}.wav")
+            print(f"  Segment {i+1}: {start:.1f}s - {end:.1f}s", file=sys.stderr)
+            split_audio(args.input_file, start, seg_duration, output)
+            segment_files.append(output)
+
+        # Transcribe in parallel
+        print("Transcribing segments...", file=sys.stderr)
+        with ThreadPoolExecutor(max_workers=num_segments) as executor:
+            transcripts = list(executor.map(transcribe, segment_files))
+
+    if args.merge:
+        print("Merging with Sonnet 4.5...", file=sys.stderr)
+        merged = merge_with_llm(segments, transcripts)
+        print(merged)
+    else:
+        # Print results in original format
+        print("\n" + "="*60, file=sys.stderr)
+        print("TRANSCRIPTION RESULTS", file=sys.stderr)
+        print("="*60 + "\n", file=sys.stderr)
+
+        for i, text in enumerate(transcripts):
+            print(f"--- Segment {i+1} ---", file=sys.stderr)
+            print(text)
+            print()
+
+
+if __name__ == "__main__":
+    main()
