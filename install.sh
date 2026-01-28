@@ -102,8 +102,6 @@ stow twmn
 stow git
 stow pylint
 mkdir -p ~/.ssh
-stow ssh
-stow sshrc
 # avoid tracking other files
 mkdir -p ~/.cargo
 stow rust
