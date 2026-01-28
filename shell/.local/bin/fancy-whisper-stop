@@ -313,13 +313,36 @@ def transcribe_chunked(filepath: str, duration: float) -> str:
     _debug(f"Splitting {duration:.1f}s audio into {len(segments)} chunks")
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        # Split audio
+        # Split audio and check each chunk for silence
         segment_files = []
+        valid_segments = []  # segments that aren't silent
+        silent_chunk_count = 0
         for i, (start, end) in enumerate(segments):
             seg_duration = end - start
             output = os.path.join(tmpdir, f"segment_{i}.wav")
             split_audio(filepath, start, seg_duration, output)
+
+            # Check if this chunk is silent
+            if is_silent(output):
+                _debug(f"Chunk {i+1} ({start:.1f}s-{end:.1f}s) is silent, skipping")
+                silent_chunk_count += 1
+                continue
+
             segment_files.append(output)
+            valid_segments.append((start, end))
+
+        # Update segments to only include non-silent ones
+        segments = valid_segments
+
+        # Notify if any chunks were silent
+        if silent_chunk_count > 0:
+            chunk_word = "chunk" if silent_chunk_count == 1 else "chunks"
+            notify(f"Skipped {silent_chunk_count} silent {chunk_word}")
+
+        if not segment_files:
+            _debug("All chunks are silent!")
+            notify("No audio detected (all chunks silent)")
+            return ""
 
         # Transcribe sequentially (parallel causes GPU/memory conflicts)
         transcripts = []
